@@ -1,0 +1,26 @@
+{
+  "name": "expertcont",
+  "private": true,
+  "version": "0.0.0",
+  "packageManager": "pnpm@10.5.2",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=10.0.0"
+  },
+  "scripts": {
+    "dev": "turbo run dev --parallel",
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "extract": "turbo run extract",
+    "compile": "turbo run compile",
+    "format": "prettier --write \"**/*.{ts,tsx,astro,css,md,json}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,astro,css,md,json}\""
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3",
+    "turbo": "^2.1.3",
+    "typescript": "^5.5.4"
+  }
+}

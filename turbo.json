@@ -1,0 +1,33 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["**/.env*", "tsconfig.base.json"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build", "compile"],
+      "outputs": ["dist/**", ".astro/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "typecheck": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "lint": {
+      "outputs": []
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": ["coverage/**"]
+    },
+    "extract": {
+      "cache": false,
+      "outputs": ["src/locales/**"]
+    },
+    "compile": {
+      "dependsOn": ["extract"],
+      "outputs": ["src/locales/**/*.{js,d.ts}"]
+    }
+  }
+}
