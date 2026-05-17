@@ -8,7 +8,7 @@
 
 **Architecture:** pnpm workspaces + Turborepo. `apps/web` is the Astro+React+TypeScript app. `packages/tokens` exports CSS custom properties used as design tokens. `packages/i18n` owns Lingui configuration plus the `I18nProvider` and locale-activation utilities. `packages/ui` exports a minimum viable set of React primitives (Button, Container, Heading) with CSS Modules, with Vitest + Testing Library coverage. Lingui macros run via `@lingui/babel-plugin-lingui-macro` in Vite (the bundler Astro uses). Turbo orchestrates `typecheck`, `lint`, `test`, `build`, `extract`, and `compile` across packages.
 
-**Tech Stack:** Node 20 LTS, pnpm 9, Turborepo 2, Astro 4, React 18, TypeScript 5.5, Vitest 2 + happy-dom + @testing-library/react, Lingui 5 (`@lingui/core`, `@lingui/react`, `@lingui/cli`, `@lingui/babel-plugin-lingui-macro`, `eslint-plugin-lingui`), ESLint 9 (flat config), Prettier 3.
+**Tech Stack:** Node 20 LTS, pnpm 10, Turborepo 2, Astro 4, React 18, TypeScript 5.5, Vitest 2 + happy-dom + @testing-library/react, Lingui 5 (`@lingui/core`, `@lingui/react`, `@lingui/cli`, `@lingui/babel-plugin-lingui-macro`, `eslint-plugin-lingui`), ESLint 9 (flat config), Prettier 3.
 
 **Out of scope for this plan** (covered by subsequent plans): localized routing, full UI primitives library, marketing page content, Supabase, forms, SEO endpoints, consent banner, deployment.
 
@@ -89,10 +89,10 @@ Each UI component is one folder with its component, CSS module, test, and an `in
 Run: `node --version`
 Expected: `v20.x.x` (any 20.x). If different, install via `nvm install 20 && nvm use 20`.
 
-- [ ] **Step 1.2: Verify pnpm 9 is available**
+- [ ] **Step 1.2: Verify pnpm 10 is available**
 
 Run: `pnpm --version`
-Expected: `9.x.x`. If missing or older, install: `npm install -g pnpm@9`.
+Expected: `10.x.x`. If missing or older, install: `npm install -g pnpm@10`.
 
 - [ ] **Step 1.3: Create `.nvmrc`**
 
@@ -155,10 +155,10 @@ Contents:
   "name": "expertcont",
   "private": true,
   "version": "0.0.0",
-  "packageManager": "pnpm@9.12.0",
+  "packageManager": "pnpm@10.5.2",
   "engines": {
     "node": ">=20.0.0",
-    "pnpm": ">=9.0.0"
+    "pnpm": ">=10.0.0"
   },
   "scripts": {
     "dev": "turbo run dev --parallel",
@@ -1572,7 +1572,7 @@ jobs:
       - name: Set up pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9
+          version: 10
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -1648,7 +1648,7 @@ Monorepo for the ExpertCont marketing website (Astro + React + Supabase). See `d
 ## Requirements
 
 - Node 20 LTS (`.nvmrc`)
-- pnpm 9
+- pnpm 10
 
 ## Install
 
