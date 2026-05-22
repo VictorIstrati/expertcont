@@ -1,0 +1,12 @@
+node_modules
+dist
+.astro
+.turbo
+.wrangler
+coverage
+.vitest
+pnpm-lock.yaml
+.claude
+design
+docs
+packages/i18n/src/locales/*/messages.ts
