@@ -1,0 +1,191 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2026-05-17 00:00+0000\n"
+"Mime-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lingui\n"
+"Language: ro\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: ../ui/src/Footer/Footer.tsx:69
+msgid "✓ Subscribed"
+msgstr "✓ Subscribed"
+
+#: ../ui/src/Nav/Nav.tsx:74
+msgid "About"
+msgstr "About"
+
+#: ../ui/src/Footer/Footer.tsx:155
+msgid "About us"
+msgstr "About us"
+
+#: ../ui/src/Footer/Footer.tsx:111
+msgid "Accounting"
+msgstr "Accounting"
+
+#: ../ui/src/Footer/Footer.tsx:82
+msgid "Accounting, legal and consulting services for businesses in the Republic of Moldova. Experience, efficiency, results."
+msgstr "Accounting, legal and consulting services for businesses in the Republic of Moldova. Experience, efficiency, results."
+
+#: ../ui/src/ContactInfo/ContactInfo.tsx:16
+msgid "Address"
+msgstr "Adresă"
+
+#: ../ui/src/Footer/Footer.tsx:241
+msgid "All rights reserved."
+msgstr "Toate drepturile rezervate."
+
+#: ../ui/src/Footer/Footer.tsx:141
+msgid "All services"
+msgstr "All services"
+
+#: ../ui/src/Footer/Footer.tsx:189
+#: ../ui/src/Nav/Nav.tsx:76
+msgid "Blog"
+msgstr "Blog"
+
+#: ../ui/src/Nav/Nav.tsx:178
+#: ../ui/src/Nav/Nav.tsx:281
+msgid "Book a consultation"
+msgstr "Book a consultation"
+
+#: ../ui/src/Footer/Footer.tsx:126
+msgid "Business consulting"
+msgstr "Business consulting"
+
+#: ../ui/src/Footer/Footer.tsx:204
+msgid "Calculators"
+msgstr "Calculators"
+
+#: ../ui/src/Footer/Footer.tsx:165
+msgid "Careers"
+msgstr "Careers"
+
+#: ../ui/src/Footer/Footer.tsx:150
+msgid "Company"
+msgstr "Company"
+
+#: ../ui/src/Footer/Footer.tsx:175
+#: ../ui/src/Nav/Nav.tsx:78
+msgid "Contact"
+msgstr "Contact"
+
+#: ../ui/src/Footer/Footer.tsx:228
+msgid "Cookies"
+msgstr "Cookies"
+
+#: ../ui/src/ContactInfo/ContactInfo.tsx:30
+msgid "Email"
+msgstr "Email"
+
+#: ../ui/src/Footer/Footer.tsx:244
+msgid "Experience · Efficiency · Results"
+msgstr "Experience · Efficiency · Results"
+
+#: ../../apps/web/src/components/HelloIsland.tsx:14
+msgid "ExpertCont — accounting, legal, and consulting in Moldova"
+msgstr "ExpertCont — contabilitate, juridic și consultanță în Moldova"
+
+#: ../ui/src/Footer/Footer.tsx:194
+msgid "FAQ"
+msgstr "Întrebări frecvente"
+
+#: ../ui/src/Footer/Footer.tsx:116
+msgid "Financial audit"
+msgstr "Financial audit"
+
+#: ../../apps/web/src/components/HelloIsland.tsx:22
+msgid "Get in touch"
+msgstr "Contactează-ne"
+
+#: ../ui/src/ContactInfo/ContactInfo.tsx:38
+msgid "Hours"
+msgstr "Program"
+
+#: ../ui/src/Footer/Footer.tsx:131
+msgid "HR services"
+msgstr "HR services"
+
+#: ../ui/src/Footer/Footer.tsx:136
+msgid "IT consulting"
+msgstr "IT consulting"
+
+#: ../ui/src/Nav/Nav.tsx:212
+msgid "Language"
+msgstr "Language"
+
+#: ../ui/src/Footer/Footer.tsx:213
+msgid "Legal"
+msgstr "Legal"
+
+#: ../ui/src/Footer/Footer.tsx:121
+msgid "Legal services"
+msgstr "Legal services"
+
+#: ../ui/src/Footer/Footer.tsx:55
+msgid "Monthly newsletter — no spam, unsubscribe any time."
+msgstr "Monthly newsletter — no spam, unsubscribe any time."
+
+#: ../ui/src/Footer/Footer.tsx:170
+msgid "Partners"
+msgstr "Partners"
+
+#: ../ui/src/ContactInfo/ContactInfo.tsx:22
+msgid "Phone"
+msgstr "Telefon"
+
+#: ../ui/src/Footer/Footer.tsx:160
+#: ../ui/src/Nav/Nav.tsx:72
+msgid "Pricing"
+msgstr "Prețuri"
+
+#: ../ui/src/Footer/Footer.tsx:218
+msgid "Privacy"
+msgstr "Privacy"
+
+#: ../ui/src/PriceCard/PriceCard.tsx:33
+msgid "Recommended"
+msgstr "Recomandat"
+
+#: ../ui/src/Footer/Footer.tsx:184
+msgid "Resources"
+msgstr "Resurse"
+
+#: ../ui/src/Footer/Footer.tsx:106
+#: ../ui/src/Nav/Nav.tsx:70
+msgid "Services"
+msgstr "Servicii"
+
+#: ../ui/src/Nav/Nav.tsx:68
+msgid "Solutions"
+msgstr "Solutions"
+
+#: ../ui/src/Footer/Footer.tsx:69
+msgid "Subscribe"
+msgstr "Subscribe"
+
+#: ../ui/src/Footer/Footer.tsx:52
+msgid "Subscribe to our newsletter"
+msgstr "Subscribe to our newsletter"
+
+#: ../ui/src/Footer/Footer.tsx:199
+msgid "Tax guides"
+msgstr "Tax guides"
+
+#: ../ui/src/Footer/Footer.tsx:223
+msgid "Terms"
+msgstr "Terms"
+
+#: ../ui/src/Nav/Nav.tsx:240
+msgid "Theme"
+msgstr "Theme"
+
+#: ../../apps/web/src/components/HelloIsland.tsx:17
+msgid "This is the foundation page. Localized routing and full content follow in the next plan."
+msgstr "Aceasta este pagina de bază. Rutarea localizată și conținutul complet urmează în următorul plan."
