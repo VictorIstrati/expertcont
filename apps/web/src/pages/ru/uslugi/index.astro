@@ -1,0 +1,146 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../../layouts/Base.astro";
+import PageShell from "../../../components/PageShell.astro";
+import { Container, PageHeader, Section, SectionHeader } from "@expertcont/ui";
+import { homeUrl, sectionUrl, detailUrl, type Locale, type ContentMeta } from "@expertcont/i18n";
+import { ServiceIndexGrid } from "../../../components/service/ServiceIndexGrid";
+import { ServiceCTAStrip } from "../../../components/service/ServiceCTAStrip";
+
+const locale: Locale = "ru";
+const siblings: Record<Locale, string> = {
+  ro: sectionUrl("services", "ro"),
+  ru: sectionUrl("services", "ru"),
+  en: sectionUrl("services", "en"),
+};
+
+const metaEntries = await getCollection("services-meta");
+const services: ContentMeta[] = metaEntries.map((e) => e.data as ContentMeta);
+
+const serviceItems = services.map((s) => ({
+  meta: s,
+  href: detailUrl("services", s, locale),
+  scheduleHref: sectionUrl("contact", locale),
+}));
+
+const contactHref = sectionUrl("contact", locale);
+---
+
+<Base
+  title="Услуги — ExpertCont"
+  description="Полный спектр бухгалтерских, аудиторских, юридических и консалтинговых услуг для бизнеса в Молдове."
+  locale={locale}
+  path={sectionUrl("services", locale)}
+  siblings={siblings}
+>
+  <PageShell locale={locale} activeSection="services" siblings={siblings}>
+    <PageHeader
+      eyebrow="Интегрированные услуги"
+      title="Одна команда для всех потребностей вашего бизнеса"
+      subtitle="От первичного бухгалтерского учёта до стратегического консалтинга — мы охватываем все ключевые направления для здорового бизнеса в Молдове."
+      breadcrumbs={[{ label: "Главная", href: homeUrl(locale) }, { label: "Услуги" }]}
+    />
+
+    <!-- Services Grid -->
+    <Section tone="default">
+      <Container>
+        <ServiceIndexGrid client:load services={serviceItems} locale={locale} />
+      </Container>
+    </Section>
+
+    <!-- Comparison Strip -->
+    <Section tone="alt">
+      <Container>
+        <SectionHeader
+          align="center"
+          eyebrow="Под одной крышей"
+          title="Один партнёр — все услуги"
+          maxWidth={640}
+          subtitle="Координация без лишних усилий между бухгалтерией, юридическим и консалтингом."
+        />
+        <div class="comp-grid grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div
+            class="card border-primary p-8 bg-bg-card"
+          >
+            <div
+              class="text-sm font-bold text-primary uppercase tracking-widest mb-5"
+            >
+              С ExpertCont
+            </div>
+            <ul class="list-none p-0 m-0 flex flex-col gap-4">
+              {
+                [
+                  "Единая точка контакта",
+                  "Синхронизированные данные между отделами",
+                  "Скидки при комплексном заказе",
+                  "Интегрированная стратегия",
+                ].map((item) => (
+                  <li class="flex items-center gap-3 text-base">
+                    <span class="w-6 h-6 rounded-full bg-primary-50 text-primary flex items-center justify-center shrink-0">
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="3"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                    </span>
+                    {item}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <div class="card p-8 bg-transparent">
+            <div
+              class="text-sm font-bold text-text-secondary uppercase tracking-widest mb-5"
+            >
+              С несколькими поставщиками
+            </div>
+            <ul class="list-none p-0 m-0 flex flex-col gap-4">
+              {
+                [
+                  "Ручная координация между фирмами",
+                  "Дублирующиеся документы, ошибки",
+                  "Совокупные затраты",
+                  "Отсутствие общего видения",
+                ].map((item) => (
+                  <li class="flex items-center gap-3 text-base text-text-secondary">
+                    <span class="w-6 h-6 rounded-full bg-bg-section-alt text-text-secondary flex items-center justify-center shrink-0">
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="3"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                      </svg>
+                    </span>
+                    {item}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+      </Container>
+    </Section>
+
+    <!-- CTA Strip -->
+    <Section tone="default">
+      <Container>
+        <ServiceCTAStrip client:load locale={locale} contactHref={contactHref} />
+      </Container>
+    </Section>
+  </PageShell>
+</Base>

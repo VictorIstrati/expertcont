@@ -1,0 +1,68 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../../layouts/Base.astro";
+import PageShell from "../../../components/PageShell.astro";
+import GuidesIndexIsland from "../../../components/guides/GuidesIndexIsland";
+import { homeUrl, sectionUrl, detailUrl, type Locale, type ContentMeta } from "@expertcont/i18n";
+
+const locale: Locale = "en";
+const siblings: Record<Locale, string> = {
+  ro: sectionUrl("guides", "ro"),
+  ru: sectionUrl("guides", "ru"),
+  en: sectionUrl("guides", "en"),
+};
+
+const metaEntries = await getCollection("guides-meta");
+const realMeta = metaEntries.map((e) => e.data as ContentMeta);
+const firstSlug = realMeta[0]
+  ? detailUrl("guides", realMeta[0], locale)
+  : "/en/guides/complete-vat-guide-moldova";
+
+const guides = [
+  {
+    slug: "complete-vat-guide-moldova",
+    href: firstSlug,
+    category: "Tax",
+    title: "Complete VAT guide for businesses in Moldova",
+    excerpt:
+      "Everything you need to know about VAT: the registration threshold, applicable rates, filing, and deductions. A practical guide with concrete examples.",
+    readTime: 15,
+    featured: true,
+  },
+];
+
+const realSlugs = new Set(realMeta.map((m) => m.slugs.en));
+const visibleGuides = guides.filter((g) => realSlugs.has(g.slug));
+
+const categories = ["All", "Tax", "Legal", "HR", "Accounting"];
+---
+
+<Base
+  title="Guides — ExpertCont"
+  description="Practical guides for entrepreneurs in the Republic of Moldova."
+  locale={locale}
+  path={sectionUrl("guides", locale)}
+  siblings={siblings}
+>
+  <PageShell locale={locale} activeSection="blog" siblings={siblings}>
+    <GuidesIndexIsland
+      client:load
+      locale={locale}
+      guides={visibleGuides}
+      categories={categories}
+      readTimeLabel="min read"
+      readLabel="Read guide"
+      featuredLabel="Featured"
+      noResultsLabel="No guides found for the selected filters."
+      ctaTitle="Need personalised help?"
+      ctaBody="Our team of experts can answer any question specific to your situation."
+      ctaBtn="Schedule consultation"
+      pageEyebrow="Guides"
+      pageTitle="All guides"
+      pageSubtitle="Practical resources for navigating the administrative, tax, and legal requirements of running a business in Moldova."
+      pageBreadcrumbHome="Home"
+      pageBreadcrumbCurrent="Guides"
+      homeHref={homeUrl(locale)}
+    />
+  </PageShell>
+</Base>

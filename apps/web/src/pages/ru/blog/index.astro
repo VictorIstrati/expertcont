@@ -1,0 +1,122 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../../layouts/Base.astro";
+import PageShell from "../../../components/PageShell.astro";
+import BlogIndexIsland from "../../../components/blog/BlogIndexIsland";
+import { homeUrl, sectionUrl, detailUrl, type Locale, type ContentMeta } from "@expertcont/i18n";
+
+const locale: Locale = "ru";
+const siblings: Record<Locale, string> = {
+  ro: sectionUrl("blog", "ro"),
+  ru: sectionUrl("blog", "ru"),
+  en: sectionUrl("blog", "en"),
+};
+
+const metaEntries = await getCollection("blog-meta");
+const realMeta = metaEntries.map((e) => e.data as ContentMeta & { publishedAt: string });
+const firstSlug = realMeta[0]
+  ? detailUrl("blog", realMeta[0], locale)
+  : "/ru/blog/nalogovye-izmeneniya-2026";
+
+const posts = [
+  {
+    slug: "nalogovye-izmeneniya-2026",
+    href: firstSlug,
+    category: "Налоги",
+    title: "Налоговые изменения 2026: что должен знать каждый предприниматель Молдовы",
+    excerpt: "Детальный анализ новых ставок НДС, изменений налога на прибыль и влияния на МСП.",
+    date: "12 мая 2026",
+    readTime: 8,
+    featured: true,
+    author: "Елена Бостан",
+  },
+  {
+    slug: "ifrs-ili-snc",
+    href: "/ru/blog/ifrs-ili-snc",
+    category: "Бухгалтерия",
+    title: "МСФО или НСБУ? Руководство для растущих компаний",
+    excerpt:
+      "Когда имеет смысл переходить с НСБУ на МСФО и что это включает — расходы, сроки, преимущества.",
+    date: "5 мая 2026",
+    readTime: 6,
+    author: "Михай Казаку",
+  },
+  {
+    slug: "fiktivnye-dogovory-riski",
+    href: "/ru/blog/fiktivnye-dogovory-riski",
+    category: "Юридические",
+    title: "Риски фиктивных договоров: штрафы и уголовная ответственность",
+    excerpt:
+      "Практика налоговых органов ужесточилась. Как защититься с помощью правильной документации.",
+    date: "28 апр 2026",
+    readTime: 5,
+    author: "Кристина Врабие",
+  },
+  {
+    slug: "optimizaciya-zarplaty",
+    href: "/ru/blog/optimizaciya-zarplaty",
+    category: "HR",
+    title: "Оптимизация фонда заработной платы: 7 законных инструментов",
+    excerpt:
+      "Немонетарные льготы, обеденные талоны, структуры оплаты труда — что работает в Молдове.",
+    date: "21 апр 2026",
+    readTime: 7,
+    author: "Раду Крэчун",
+  },
+  {
+    slug: "cash-flow-zima",
+    href: "/ru/blog/cash-flow-zima",
+    category: "Стратегия",
+    title: "Cash-flow в холодный сезон: как выживают МСП в ритейле",
+    excerpt: "Тактики управления запасами и кредитования поставщиков в периоды низкого объёма.",
+    date: "14 апр 2026",
+    readTime: 6,
+    author: "Елена Бостан",
+  },
+  {
+    slug: "avtomatizaciya-1c",
+    href: "/ru/blog/avtomatizaciya-1c",
+    category: "Бухгалтерия",
+    title: "Автоматизация с 1С: что работает в молдавской практике",
+    excerpt:
+      "Самые полезные интеграции 1С с CRM-системами и системами выставления счетов — обзор за 3 года.",
+    date: "7 апр 2026",
+    readTime: 9,
+    author: "Михай Казаку",
+  },
+];
+
+const realSlugs = new Set(realMeta.map((m) => m.slugs.ru));
+const visiblePosts = posts.filter((p) => realSlugs.has(p.slug));
+
+const categories = ["Все", "Налоги", "Юридические", "HR", "Техническое", "Руководства"];
+---
+
+<Base
+  title="Блог — ExpertCont"
+  description="Статьи о бухгалтерии, налогах и законодательстве для бизнеса в Молдове."
+  locale={locale}
+  path={sectionUrl("blog", locale)}
+  siblings={siblings}
+>
+  <PageShell locale={locale} activeSection="blog" siblings={siblings}>
+    <BlogIndexIsland
+      client:load
+      posts={visiblePosts}
+      categories={categories}
+      searchPlaceholder="Найти статью..."
+      readTimeLabel="мин чтения"
+      featuredLabel="Избранное"
+      readLabel="Читать статью"
+      noResultsLabel="Статей по выбранным фильтрам не найдено."
+      paginationPrev="Назад"
+      paginationNext="Вперёд"
+      pageEyebrow="Блог"
+      pageTitle="Все статьи"
+      pageSubtitle="Налоговые новости, практические руководства и советы для предпринимателей Молдовы."
+      pageBreadcrumbHome="Главная"
+      pageBreadcrumbCurrent="Блог"
+      homeHref={homeUrl(locale)}
+    />
+  </PageShell>
+</Base>

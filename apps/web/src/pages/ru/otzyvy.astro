@@ -1,0 +1,96 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageShell from "../../components/PageShell.astro";
+import ReviewsPageIsland from "../../components/reviews/ReviewsPageIsland";
+import { Container, PageHeader, Section } from "@expertcont/ui";
+import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+
+const locale: Locale = "ru";
+const siblings: Record<Locale, string> = {
+  ro: sectionUrl("reviews", "ro"),
+  ru: sectionUrl("reviews", "ru"),
+  en: sectionUrl("reviews", "en"),
+};
+
+const reviews = [
+  {
+    author: "Андрей Бостан",
+    authorCompany: "ООО TechMD",
+    rating: 5,
+    body: "Сотрудничаем с ExpertCont три года. Переход от предыдущей фирмы прошёл идеально — без перебоев, без ошибок. Цена справедливая, общение оперативное и ни одного пропущенного срока. Рекомендую от всего сердца любой IT-компании в Молдове.",
+  },
+  {
+    author: "Мария Попеску",
+    authorCompany: "ООО ContabilPro",
+    rating: 5,
+    body: "Обратилась в ExpertCont, когда наш бизнес быстро вырос и нам нужен был серьёзный партнёр. Команда полностью реорганизовала бухгалтерский учёт за две недели. Теперь спим спокойно, зная, что всё в порядке.",
+  },
+  {
+    author: "Дмитрий Василев",
+    authorCompany: "ООО LogisTrans",
+    rating: 4,
+    body: "Профессиональный сервис и разумные цены. Особенно ценю, что предупреждают заблаговременно перед каждым налоговым сроком. Значительно снизили риск штрафов по сравнению с предыдущей ситуацией.",
+  },
+  {
+    author: "Елена Цуркану",
+    authorCompany: "ИП Елена Цуркану",
+    rating: 5,
+    body: "Как индивидуальному предпринимателю мне нужен был кто-то, кто мог бы провести меня шаг за шагом. ExpertCont помог разобраться с налоговыми обязательствами и оптимизировать расходы. Пакет Basic — именно то, что мне было нужно.",
+  },
+  {
+    author: "Ион Ройбу",
+    authorCompany: "ООО AgroMold",
+    rating: 5,
+    body: "У нас сельскохозяйственный бизнес с большой сезонностью и сложной бухгалтерской ситуацией. ExpertCont показал, что понимает специфику сектора — субсидии, контракты с экспортёрами, сельскохозяйственный НДС. Рекомендую всем из агробизнеса.",
+  },
+  {
+    author: "Василе Мунтяну",
+    authorCompany: "ООО BuildExpert",
+    rating: 4,
+    body: "Работаем с ExpertCont два года в строительной сфере. Эффективно управляют всей сметной документацией, CAS и ежемесячными отчётами. Общение с менеджером по работе с клиентами очень оперативное.",
+  },
+  {
+    author: "Кристина Унгуряну",
+    authorCompany: "ООО MedClinic",
+    rating: 5,
+    body: "Медицинский сектор имеет специфические налоговые требования, и ExpertCont знает их все. Перешли к ним полтора года назад и ни капли не жалеем. Профессионализм и полная прозрачность.",
+  },
+  {
+    author: "Сергей Мовилэ",
+    authorCompany: "ООО EventPro",
+    rating: 5,
+    body: "Мы организуем мероприятия и наш доход непостоянный. ExpertCont помогает управлять денежными потоками и всегда быть готовыми к налоговым обязательствам. Онлайн-портал очень удобен.",
+  },
+];
+---
+
+<Base
+  title="Отзывы — ExpertCont"
+  description="Что говорят наши клиенты об услугах ExpertCont."
+  locale={locale}
+  path={sectionUrl("reviews", locale)}
+  siblings={siblings}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <PageHeader
+      eyebrow="Отзывы"
+      title="Что говорят клиенты"
+      subtitle="Подлинные отзывы клиентов, выбравших ExpertCont в качестве партнёра по бухгалтерии и консалтингу."
+      breadcrumbs={[{ label: "Главная", href: homeUrl(locale) }, { label: "Отзывы" }]}
+    />
+    <Section tone="default">
+      <Container>
+        <ReviewsPageIsland
+          client:load
+          locale={locale}
+          reviews={reviews}
+          ratingSummaryLabel="из 247 отзывов"
+          filterChips={["Все", "С фотографиями", "Только 5★", "Только с деталями"]}
+          ctaTitle="Оставить отзыв"
+          ctaBtn="Написать отзыв"
+          ctaNote="Только проверенные клиенты могут оставлять отзывы"
+        />
+      </Container>
+    </Section>
+  </PageShell>
+</Base>

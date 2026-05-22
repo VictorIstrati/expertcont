@@ -1,0 +1,129 @@
+---
+import Base from "../layouts/Base.astro";
+import PageShell from "../components/PageShell.astro";
+import FaqPageIsland from "../components/faq/FaqPageIsland";
+import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+
+const locale: Locale = "ro";
+const siblings: Record<Locale, string> = {
+  ro: sectionUrl("faq", "ro"),
+  ru: sectionUrl("faq", "ru"),
+  en: sectionUrl("faq", "en"),
+};
+
+const groups = [
+  {
+    cat: "General",
+    items: [
+      {
+        q: "Lucrați doar cu firme din Chișinău?",
+        a: "Nu, deservim clienți din toată Moldova. Cu portalul nostru online, întreaga colaborare poate fi 100% remote — de la onboarding la rapoartele lunare.",
+      },
+      {
+        q: "Care este timpul mediu de răspuns?",
+        a: "Garantăm răspuns în maxim 4 ore în zile lucrătoare. Pentru clienți cu pachetul Enterprise, SLA este de 2 ore.",
+      },
+      {
+        q: "Care este durata minimă de contract?",
+        a: "Standard 12 luni, cu posibilitate de încetare cu preaviz de 30 de zile după primele 3 luni.",
+      },
+    ],
+  },
+  {
+    cat: "Contabilitate",
+    items: [
+      {
+        q: "Ce sisteme contabile suportați?",
+        a: "1C, Universal Accounting, SmartAccount, Xero, Zoho Books. Putem migra de pe sistemul actual sau implementa o soluție nouă.",
+      },
+      {
+        q: "Cum primesc documentele și rapoartele?",
+        a: "Prin portalul nostru securizat (acces 24/7), pe email și — la cerere — în ședințe lunare cu managerul de cont.",
+      },
+      {
+        q: "Aveți contabili autorizați?",
+        a: "Toți contabilii noștri seniori sunt autorizați și membri ai Asociației Contabililor și Auditorilor din Moldova (ACAP).",
+      },
+    ],
+  },
+  {
+    cat: "Prețuri & Contract",
+    items: [
+      {
+        q: "Există costuri ascunse?",
+        a: "Nu. Tot ce e listat în pachet este inclus. Serviciile suplimentare sunt facturate doar la cerere expresă, cu cotație în avans.",
+      },
+      {
+        q: "Cum facturați?",
+        a: "Lunar anticipat, până la data de 5. Transfer bancar sau plată cu cardul.",
+      },
+      {
+        q: "Pot schimba pachetul?",
+        a: "Da, upgrade sau downgrade cu preaviz de 7 zile. Fără penalități.",
+      },
+    ],
+  },
+  {
+    cat: "Tehnic & Onboarding",
+    items: [
+      {
+        q: "Cum funcționează portalul de documente?",
+        a: "Portalul nostru securizat vă permite să încărcați documente, să vizualizați rapoarte și să comunicați cu echipa — disponibil 24/7 de pe orice dispozitiv.",
+      },
+      {
+        q: "Cât durează procesul de onboarding?",
+        a: "De obicei 5–7 zile lucrătoare: semnăm contractul, vă alocăm un manager de cont, facem o ședință de inițiere și preluăm istoricul contabil.",
+      },
+    ],
+  },
+];
+
+const categories = ["Toate", "Contabilitate", "Juridic", "Prețuri", "Tehnic"];
+---
+
+<Base
+  title="Întrebări frecvente — ExpertCont"
+  description="Răspunsuri la cele mai comune întrebări despre serviciile de contabilitate și consultanță."
+  locale={locale}
+  path={sectionUrl("faq", locale)}
+  siblings={siblings}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <FaqPageIsland
+      client:load
+      locale={locale}
+      groups={groups}
+      categories={categories}
+      pageEyebrow="Bază de cunoștințe"
+      pageTitle="Întrebări frecvente"
+      pageSubtitle="Răspunsuri la întrebările pe care ni le adresează cel mai des clienții noștri."
+      pageBreadcrumbHome="Acasă"
+      pageBreadcrumbCurrent="Întrebări frecvente"
+      homeHref={homeUrl(locale)}
+      searchPlaceholder="Caută o întrebare..."
+      ctaTitle="Nu ai găsit răspunsul tău?"
+      ctaBtn="Întreabă-ne direct"
+      notFoundLabel="Nu am găsit întrebări pentru filtrele selectate."
+      formEyebrow="Nu ai găsit răspunsul?"
+      formTitle="Pune-ne o întrebare"
+      formBody="Răspundem în mai puțin de 4 ore în zile lucrătoare. Întrebările frecvente le adăugăm și aici, ca să ajute mai departe."
+      formNameLabel="Nume"
+      formEmailLabel="Email"
+      formSubjectLabel="Subiect"
+      formQuestionLabel="Întrebarea ta"
+      formConsentLabel="Sunt de acord cu prelucrarea datelor conform"
+      formConsentLink="politicii de confidențialitate"
+      formSubmitLabel="Trimite întrebarea"
+      formSentTitle="Întrebarea ta a fost trimisă"
+      formSentBody="Vei primi răspuns pe email în maxim 4 ore în zile lucrătoare."
+      formSentReset="Trimite altă întrebare"
+      formContactPhone="+373 22 123 456"
+      formContactEmail="contact@expertcont.md"
+      finalEyebrow="Hai să începem"
+      finalTitle="Hai să discutăm despre afacerea ta"
+      finalSubtitle="Programează o consultație gratuită de 30 de minute. Fără obligații, fără surprize."
+      finalPrimary="Programează consultație gratuită (30 min)"
+      finalPhone="+373 22 123 456"
+    />
+  </PageShell>
+</Base>

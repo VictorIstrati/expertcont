@@ -1,0 +1,24 @@
+---
+import NavWithSwitcher from "./NavWithSwitcher";
+import FooterIsland from "./FooterIsland";
+import CookieBanner from "./CookieBanner";
+import ModalsHost from "./modals/ModalsHost";
+import { sectionUrl, type Locale } from "@expertcont/i18n";
+import type { NavSection } from "@expertcont/ui";
+
+interface Props {
+  locale: Locale;
+  activeSection?: NavSection;
+  /** Sibling URLs per locale for the locale switcher. */
+  siblings: Record<Locale, string>;
+}
+
+const { locale, activeSection, siblings } = Astro.props;
+const cookiePolicyHref = sectionUrl("cookies", locale);
+---
+
+<NavWithSwitcher client:load locale={locale} activeSection={activeSection} siblings={siblings} />
+<slot />
+<FooterIsland client:load locale={locale} />
+<CookieBanner client:load locale={locale} policyHref={cookiePolicyHref} />
+<ModalsHost client:load locale={locale} />

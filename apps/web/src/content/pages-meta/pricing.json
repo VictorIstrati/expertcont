@@ -1,0 +1,15 @@
+{
+  "id": "pricing",
+  "slugs": { "ro": "preturi", "ru": "tseny", "en": "pricing" },
+  "titles": {
+    "ro": "Prețuri transparente — ExpertCont",
+    "ru": "Прозрачные цены — ExpertCont",
+    "en": "Transparent pricing — ExpertCont"
+  },
+  "summaries": {
+    "ro": "Pachete de prețuri clare pentru contabilitate, juridic și consultanță — fără costuri ascunse.",
+    "ru": "Прозрачные тарифы на бухгалтерию, юридические услуги и консалтинг — без скрытых платежей.",
+    "en": "Clear pricing packages for accounting, legal and consulting — no hidden costs."
+  },
+  "updated": "2026-05-18"
+}

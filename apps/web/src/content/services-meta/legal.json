@@ -1,0 +1,11 @@
+{
+  "id": "legal",
+  "slugs": { "ro": "juridic", "ru": "yuridicheskie-uslugi", "en": "legal" },
+  "titles": { "ro": "Servicii juridice", "ru": "Юридические услуги", "en": "Legal services" },
+  "summaries": {
+    "ro": "Consultanță juridică, redactare contracte, dreptul muncii și reprezentare în litigii pentru companii din Moldova.",
+    "ru": "Юридические консультации, составление договоров, трудовое право и представление интересов в судах.",
+    "en": "Legal advisory, contract drafting, employment law and litigation representation for Moldovan businesses."
+  },
+  "updated": "2026-05-18"
+}

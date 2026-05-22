@@ -1,0 +1,215 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import PageShell from "../../components/PageShell.astro";
+import { Container, Section, ImagePlaceholder, SectionHeader } from "@expertcont/ui";
+import { sectionUrl, detailUrl, type Locale, type ContentMeta } from "@expertcont/i18n";
+
+export const getStaticPaths = (async () => {
+  const metas = await getCollection("blog-meta");
+  return metas.map((m) => ({
+    params: { slug: m.data.slugs.ro },
+    props: { meta: m.data as ContentMeta & { publishedAt: string } },
+  }));
+}) satisfies GetStaticPaths;
+
+const { meta } = Astro.props;
+const locale: Locale = "ro";
+
+const allPosts = await getCollection("blog");
+const mdxEntry = allPosts.find((e) => e.data.contentId === meta.id && e.data.locale === "ro");
+const { Content } = await render(mdxEntry!);
+
+const siblings: Record<Locale, string> = {
+  ro: detailUrl("blog", meta, "ro"),
+  ru: detailUrl("blog", meta, "ru"),
+  en: detailUrl("blog", meta, "en"),
+};
+
+const relatedPosts = [
+  {
+    slug: "ifrs-sau-snc",
+    href: "/blog/ifrs-sau-snc",
+    category: "Contabilitate",
+    title: "IFRS sau SNC? Ghid pentru companiile în creștere",
+    date: "5 mai 2026",
+    readTime: 6,
+  },
+  {
+    slug: "contract-fictiv-amenzi",
+    href: "/blog/contract-fictiv-amenzi",
+    category: "Juridic",
+    title: "Riscurile contractelor fictive: amenzi și răspundere penală",
+    date: "28 apr 2026",
+    readTime: 5,
+  },
+  {
+    slug: "optimizare-payroll",
+    href: "/blog/optimizare-payroll",
+    category: "HR",
+    title: "Optimizarea fondului de salarii: 7 pârghii legale",
+    date: "21 apr 2026",
+    readTime: 7,
+  },
+];
+---
+
+<Base
+  title={`${meta.titles[locale]} — ExpertCont`}
+  description={meta.summaries[locale]}
+  locale={locale}
+  path={detailUrl("blog", meta, locale)}
+  siblings={siblings}
+>
+  <PageShell locale={locale} activeSection="blog" siblings={siblings}>
+    <Section tone="default" spacing="tight">
+      <Container>
+        {/* Back link + header */}
+        <a
+          href={sectionUrl("blog", locale)}
+          class="mb-6 inline-flex items-center gap-2 text-sm text-text-secondary no-underline"
+        >
+          ← Toate articolele
+        </a>
+        <div class="mb-5 flex gap-2">
+          <span class="pill">Fiscalitate</span>
+        </div>
+        <h1 class="mb-6 max-w-3xl text-[clamp(30px,4vw,48px)] leading-tight">
+          {meta.titles[locale]}
+        </h1>
+        <div
+          class="mb-8 flex flex-wrap items-center gap-4 text-sm text-text-secondary"
+        >
+          {meta.publishedAt && <span>{meta.publishedAt}</span>}
+          <span>·</span>
+          <span>8 min citire</span>
+        </div>
+        <ImagePlaceholder ratio="21/9" label="Article cover" />
+      </Container>
+    </Section>
+
+    <Section tone="default">
+      <Container>
+        <div class="grid grid-cols-1 gap-16 lg:grid-cols-[2fr_1fr]">
+          {/* Main article */}
+          <article class="text-lg leading-relaxed text-text-primary">
+            <Content />
+
+            {/* Inline CTA */}
+            <div
+              class="mt-12 rounded-lg bg-primary p-8 text-white"
+            >
+              <h3 class="mb-3 text-white">
+                Ai întrebări despre cum te afectează aceste modificări?
+              </h3>
+              <p class="mb-5 text-white/80">
+                Programează o consultație gratuită de 30 de minute cu un consultant fiscal
+                ExpertCont.
+              </p>
+              <a
+                href={sectionUrl("contact", locale)}
+                class="btn btn-primary inline-flex items-center gap-2 no-underline"
+              >
+                Programează consultație
+              </a>
+            </div>
+          </article>
+
+          {/* Sidebar */}
+          <aside class="hidden flex-col gap-6 lg:flex">
+            {/* TOC stub */}
+            <div class="card sticky top-24 p-6">
+              <div
+                class="mb-4 text-xs font-bold uppercase tracking-widest text-text-secondary"
+              >
+                Cuprins
+              </div>
+              {
+                [1, 2, 3].map((n) => (
+                  <div
+                    class:list={[
+                      "flex items-center gap-3 py-2 text-sm",
+                      n < 3 && "border-b border-border",
+                      n === 1
+                        ? "text-primary"
+                        : "text-text-secondary",
+                    ]}
+                  >
+                    <span
+                      class:list={[
+                        "flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold",
+                        n === 1
+                          ? "bg-primary text-white"
+                          : "bg-border text-text-secondary",
+                      ]}
+                    >
+                      {n}
+                    </span>
+                    <span class="h-3 flex-1 rounded bg-border opacity-60" />
+                  </div>
+                ))
+              }
+            </div>
+
+            {/* Related mini-cards */}
+            <div class="card p-6">
+              <div
+                class="mb-4 text-xs font-bold uppercase tracking-widest text-text-secondary"
+              >
+                Articole similare
+              </div>
+              <div class="flex flex-col gap-3">
+                {
+                  relatedPosts.map((p) => (
+                    <a href={p.href} class="block no-underline">
+                      <div class="card-flat cursor-pointer p-4">
+                        <span class="pill pill-soft mb-2 inline-block">{p.category}</span>
+                        <div class="mt-1 mb-2 text-sm font-semibold leading-snug text-text-primary">
+                          {p.title}
+                        </div>
+                        <div class="text-xs text-text-secondary">
+                          {p.date} · {p.readTime} min
+                        </div>
+                      </div>
+                    </a>
+                  ))
+                }
+              </div>
+            </div>
+          </aside>
+        </div>
+      </Container>
+    </Section>
+
+    {/* Related posts section */}
+    <Section tone="alt">
+      <Container>
+        <SectionHeader eyebrow="Continuă lectura" title="Articole similare" />
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {
+            relatedPosts.map((p) => (
+              <article>
+                <a
+                  href={p.href}
+                  class="card card-hover block overflow-hidden p-0 no-underline"
+                >
+                  <ImagePlaceholder ratio="16/10" label={p.category} style={{ borderRadius: 0 }} />
+                  <div class="p-6">
+                    <span class="pill pill-soft mb-3 inline-block">{p.category}</span>
+                    <h3 class="mt-2 mb-3 text-lg leading-snug text-text-primary">
+                      {p.title}
+                    </h3>
+                    <div class="text-xs text-text-secondary">
+                      {p.date} · {p.readTime} min
+                    </div>
+                  </div>
+                </a>
+              </article>
+            ))
+          }
+        </div>
+      </Container>
+    </Section>
+  </PageShell>
+</Base>

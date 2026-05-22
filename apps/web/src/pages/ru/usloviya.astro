@@ -1,0 +1,32 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageShell from "../../components/PageShell.astro";
+import LegalIsland from "../../components/legal/LegalIsland";
+import { sectionUrl, type Locale } from "@expertcont/i18n";
+
+const locale: Locale = "ru";
+const kind = "terms" as const;
+const path = sectionUrl("terms", locale);
+const siblings: Record<Locale, string> = {
+  ro: sectionUrl("terms", "ro"),
+  ru: sectionUrl("terms", "ru"),
+  en: sectionUrl("terms", "en"),
+};
+---
+
+<Base
+  title="Условия использования — ExpertCont"
+  description="Условия использования сайта и услуг ExpertCont SRL."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <LegalIsland
+      client:load
+      locale={locale}
+      kind={kind}
+      contactHref={sectionUrl("contact", locale)}
+    />
+  </PageShell>
+</Base>

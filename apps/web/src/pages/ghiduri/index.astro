@@ -1,0 +1,68 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import PageShell from "../../components/PageShell.astro";
+import GuidesIndexIsland from "../../components/guides/GuidesIndexIsland";
+import { homeUrl, sectionUrl, detailUrl, type Locale, type ContentMeta } from "@expertcont/i18n";
+
+const locale: Locale = "ro";
+const siblings: Record<Locale, string> = {
+  ro: sectionUrl("guides", "ro"),
+  ru: sectionUrl("guides", "ru"),
+  en: sectionUrl("guides", "en"),
+};
+
+const metaEntries = await getCollection("guides-meta");
+const realMeta = metaEntries.map((e) => e.data as ContentMeta);
+const firstSlug = realMeta[0]
+  ? detailUrl("guides", realMeta[0], locale)
+  : "/ghiduri/ghid-tva-moldova";
+
+const guides = [
+  {
+    slug: "ghid-tva-moldova",
+    href: firstSlug,
+    category: "Fiscal",
+    title: "Ghid complet TVA pentru afacerile din Moldova",
+    excerpt:
+      "Tot ce trebuie să știți despre TVA: pragul de înregistrare, cotele aplicabile, declararea și deducerile. Ghid practic cu exemple concrete.",
+    readTime: 15,
+    featured: true,
+  },
+];
+
+const realSlugs = new Set(realMeta.map((m) => m.slugs.ro));
+const visibleGuides = guides.filter((g) => realSlugs.has(g.slug));
+
+const categories = ["Toate", "Fiscal", "Juridic", "HR", "Contabilitate"];
+---
+
+<Base
+  title="Ghiduri — ExpertCont"
+  description="Ghiduri practice pentru antreprenori din Republica Moldova."
+  locale={locale}
+  path={sectionUrl("guides", locale)}
+  siblings={siblings}
+>
+  <PageShell locale={locale} activeSection="blog" siblings={siblings}>
+    <GuidesIndexIsland
+      client:load
+      locale={locale}
+      guides={visibleGuides}
+      categories={categories}
+      readTimeLabel="min citire"
+      readLabel="Citește ghidul"
+      featuredLabel="Featured"
+      noResultsLabel="Nu am găsit ghiduri pentru filtrele selectate."
+      ctaTitle="Ai nevoie de ajutor personalizat?"
+      ctaBody="Echipa noastră de experți poate răspunde la orice întrebare specifică situației tale."
+      ctaBtn="Programează consultație"
+      pageEyebrow="Ghiduri"
+      pageTitle="Toate ghidurile"
+      pageSubtitle="Resurse practice pentru a naviga prin cerințele administrative, fiscale și juridice ale afacerilor din Moldova."
+      pageBreadcrumbHome="Acasă"
+      pageBreadcrumbCurrent="Ghiduri"
+      homeHref={homeUrl(locale)}
+    />
+  </PageShell>
+</Base>

@@ -1,0 +1,11 @@
+{
+  "id": "it",
+  "slugs": { "ro": "servicii-it", "ru": "it-uslugi", "en": "it-services" },
+  "titles": { "ro": "Servicii IT", "ru": "ИТ-услуги", "en": "IT Services" },
+  "summaries": {
+    "ro": "Digitalizare procese, ERP/CRM, automatizare contabilitate.",
+    "ru": "Цифровизация процессов, ERP/CRM, автоматизация бухгалтерии.",
+    "en": "Process digitization, ERP/CRM, accounting automation."
+  },
+  "updated": "2026-05-18"
+}

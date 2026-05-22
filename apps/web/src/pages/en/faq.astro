@@ -1,0 +1,129 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageShell from "../../components/PageShell.astro";
+import FaqPageIsland from "../../components/faq/FaqPageIsland";
+import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+
+const locale: Locale = "en";
+const siblings: Record<Locale, string> = {
+  ro: sectionUrl("faq", "ro"),
+  ru: sectionUrl("faq", "ru"),
+  en: sectionUrl("faq", "en"),
+};
+
+const groups = [
+  {
+    cat: "General",
+    items: [
+      {
+        q: "Do you work only with companies from Chișinău?",
+        a: "No, we serve clients from all over Moldova. With our online portal, the entire collaboration can be 100% remote — from onboarding to monthly reports.",
+      },
+      {
+        q: "What is the average response time?",
+        a: "We guarantee a response within 4 hours on business days. For Enterprise plan clients, the SLA is 2 hours.",
+      },
+      {
+        q: "What is the minimum contract duration?",
+        a: "Standard 12 months, with the option to terminate with 30-day notice after the first 3 months.",
+      },
+    ],
+  },
+  {
+    cat: "Accounting",
+    items: [
+      {
+        q: "Which accounting systems do you support?",
+        a: "1C, Universal Accounting, SmartAccount, Xero, Zoho Books. We can migrate from your current system or implement a new solution.",
+      },
+      {
+        q: "How do I receive documents and reports?",
+        a: "Through our secure portal (24/7 access), by email and — on request — in monthly meetings with your account manager.",
+      },
+      {
+        q: "Do you have certified accountants?",
+        a: "All our senior accountants are certified and members of the Association of Accountants and Auditors of Moldova (ACAP).",
+      },
+    ],
+  },
+  {
+    cat: "Pricing & Contract",
+    items: [
+      {
+        q: "Are there any hidden costs?",
+        a: "No. Everything listed in the package is included. Additional services are invoiced only on explicit request, with a quote provided in advance.",
+      },
+      {
+        q: "How do you invoice?",
+        a: "Monthly in advance, by the 5th. Bank transfer or card payment.",
+      },
+      {
+        q: "Can I change my plan?",
+        a: "Yes, upgrade or downgrade with 7 days notice. No penalties.",
+      },
+    ],
+  },
+  {
+    cat: "Technical & Onboarding",
+    items: [
+      {
+        q: "How does the document portal work?",
+        a: "Our secure portal lets you upload documents, view reports and communicate with the team — available 24/7 from any device.",
+      },
+      {
+        q: "How long does the onboarding process take?",
+        a: "Usually 5–7 business days: we sign the contract, assign an account manager, hold an introductory meeting, and take over the accounting history.",
+      },
+    ],
+  },
+];
+
+const categories = ["All", "Accounting", "Legal", "Pricing", "Technical"];
+---
+
+<Base
+  title="FAQ — ExpertCont"
+  description="Answers to the most common questions about our accounting and consulting services."
+  locale={locale}
+  path={sectionUrl("faq", locale)}
+  siblings={siblings}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <FaqPageIsland
+      client:load
+      locale={locale}
+      groups={groups}
+      categories={categories}
+      pageEyebrow="Knowledge base"
+      pageTitle="Frequently asked questions"
+      pageSubtitle="Answers to the questions our clients ask most often."
+      pageBreadcrumbHome="Home"
+      pageBreadcrumbCurrent="Frequently asked questions"
+      homeHref={homeUrl(locale)}
+      searchPlaceholder="Search a question..."
+      ctaTitle="Didn't find your answer?"
+      ctaBtn="Ask us directly"
+      notFoundLabel="No questions found for the selected filters."
+      formEyebrow="Didn't find your answer?"
+      formTitle="Ask us a question"
+      formBody="We respond in less than 4 hours on business days. Frequently asked questions get added here to help others."
+      formNameLabel="Name"
+      formEmailLabel="Email"
+      formSubjectLabel="Subject"
+      formQuestionLabel="Your question"
+      formConsentLabel="I agree to data processing according to the"
+      formConsentLink="privacy policy"
+      formSubmitLabel="Send question"
+      formSentTitle="Your question has been sent"
+      formSentBody="You will receive a reply by email within 4 hours on business days."
+      formSentReset="Send another question"
+      formContactPhone="+373 22 123 456"
+      formContactEmail="contact@expertcont.md"
+      finalEyebrow="Let's get started"
+      finalTitle="Let's talk about your business"
+      finalSubtitle="Book a free 30-minute consultation. No obligations, no surprises."
+      finalPrimary="Book free consultation (30 min)"
+      finalPhone="+373 22 123 456"
+    />
+  </PageShell>
+</Base>

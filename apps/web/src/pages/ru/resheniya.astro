@@ -1,0 +1,98 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageShell from "../../components/PageShell.astro";
+import SolutionsIsland from "../../components/solutions/SolutionsIsland";
+import { sectionUrl, type Locale } from "@expertcont/i18n";
+
+const locale: Locale = "ru";
+const path = sectionUrl("solutions", locale);
+const siblings: Record<Locale, string> = {
+  ro: sectionUrl("solutions", "ro"),
+  ru: sectionUrl("solutions", "ru"),
+  en: sectionUrl("solutions", "en"),
+};
+---
+
+<Base
+  title="Решения — ExpertCont"
+  description="Выберите отправную точку и мы покажем вам, что именно сделаем для вас в первые 30 дней."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+>
+  <PageShell locale={locale} activeSection="solutions" siblings={siblings}>
+    <SolutionsIsland
+      client:load
+      locale={locale}
+      bookHref={sectionUrl("contact", locale)}
+      homeLabel="Главная"
+      eyebrow="Для вас"
+      pageTitle="Какова ваша ситуация сейчас?"
+      pageSubtitle="Выберите отправную точку и мы покажем вам, что именно сделаем для вас в первые 30 дней."
+      breadcrumbSolutions="Решения"
+      personaSwitchLabel="Выберите вашу ситуацию"
+      deliverablesSectionLabel="В первые 30 дней мы выполним:"
+      timelineLabel="Сроки"
+      recommendedPackageLabel="Рекомендуемый пакет"
+      fromLabel="от"
+      otherSituationsLabel="Перейти к другим ситуациям"
+      ctaTitle="Не узнаёте себя ни в одной?"
+      ctaSubtitle="Позвоните нам на 5 минут. Вместе решим, подходим ли мы друг другу."
+      bookLabel="Записаться на бесплатную консультацию"
+      callLabel="Позвонить сейчас"
+      personas={[
+        {
+          slug: "new-srl",
+          short: "Хочу открыть ООО",
+          headline: "Предприниматель в начале пути",
+          desc: "Вы собираетесь запустить бизнес и не хотите разбираться с бюрократией. Мы проведём вас с нуля — регистрация, первый банковский счёт, первая налоговая декларация.",
+          tier: "Starter",
+          tierPrice: 1490,
+          tierLabel: "MDL / месяц",
+          time: "5–7 дней до запуска",
+          deliverables: [
+            "Регистрация ООО (с юридическим адресом и уставом)",
+            "Настройка первичной бухгалтерии",
+            "Помощь в открытии банковского счёта",
+            "Первая налоговая декларация подаётся нами",
+            "Вводная сессия — какие документы нужно хранить",
+          ],
+        },
+        {
+          slug: "growing",
+          short: "У меня 3–15 сотрудников и бухгалтер не отвечает",
+          headline: "Растущая фирма, которая хочет сменить бухгалтера",
+          desc: "У вас работающий бизнес, но бухгалтерия — источник стресса: запоздалые ответы, декларации в последний момент, нет рекомендаций. Мы берём на себя переход без потерь.",
+          tier: "Business",
+          tierPrice: 3490,
+          tierLabel: "MDL / месяц",
+          time: "5–10 дней онбординга без пропущенных сроков",
+          deliverables: [
+            "Бесплатный аудит существующего учёта",
+            "Приём документов и синхронизация систем",
+            "Персональный менеджер аккаунта (ответ < 4ч)",
+            "Налоговая оптимизация в первые 3 месяца",
+            "Юридический доступ 2ч/месяц включён",
+          ],
+        },
+        {
+          slug: "enterprise",
+          short: "Я CEO компании с 50+ сотрудниками",
+          headline: "Средняя или крупная компания со сложными требованиями",
+          desc: "У вас мульти-объектные операции, консолидированная отчётность или требования МСФО. Вам нужна команда, а не один бухгалтер. Мы работаем с вашим CFO, а не заменяем его.",
+          tier: "Enterprise",
+          tierPrice: null,
+          tierLabel: "Индивидуально",
+          time: "Онбординг 3–4 недели, индивидуальный план",
+          deliverables: [
+            "Выделенная команда (2–4 человека)",
+            "Консолидированная отчётность по нескольким юрлицам",
+            "Соответствие МСФО / внутренний аудит",
+            "SLA 2ч ответ, расширенная поддержка Пн–Пт",
+            "Ежеквартально: стратегическая встреча с вашим CFO",
+          ],
+        },
+      ]}
+    />
+  </PageShell>
+</Base>

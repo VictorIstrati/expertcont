@@ -1,0 +1,32 @@
+---
+import Base from "../layouts/Base.astro";
+import PageShell from "../components/PageShell.astro";
+import LegalIsland from "../components/legal/LegalIsland";
+import { sectionUrl, type Locale } from "@expertcont/i18n";
+
+const locale: Locale = "ro";
+const kind = "cookies" as const;
+const path = sectionUrl("cookies", locale);
+const siblings: Record<Locale, string> = {
+  ro: sectionUrl("cookies", "ro"),
+  ru: sectionUrl("cookies", "ru"),
+  en: sectionUrl("cookies", "en"),
+};
+---
+
+<Base
+  title="Politica de cookie-uri — ExpertCont"
+  description="Politica de cookie-uri ExpertCont: ce cookie-uri folosim și cum să le gestionezi."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <LegalIsland
+      client:load
+      locale={locale}
+      kind={kind}
+      contactHref={sectionUrl("contact", locale)}
+    />
+  </PageShell>
+</Base>

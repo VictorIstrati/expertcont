@@ -1,0 +1,96 @@
+---
+import Base from "../layouts/Base.astro";
+import PageShell from "../components/PageShell.astro";
+import ReviewsPageIsland from "../components/reviews/ReviewsPageIsland";
+import { Container, PageHeader, Section } from "@expertcont/ui";
+import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+
+const locale: Locale = "ro";
+const siblings: Record<Locale, string> = {
+  ro: sectionUrl("reviews", "ro"),
+  ru: sectionUrl("reviews", "ru"),
+  en: sectionUrl("reviews", "en"),
+};
+
+const reviews = [
+  {
+    author: "Andrei Bostan",
+    authorCompany: "SRL TechMD",
+    rating: 5,
+    body: "Colaborăm cu ExpertCont de trei ani. Tranziția de la firma anterioară a fost perfectă — fără întreruperi, fără erori. Prețul este corect, comunicarea rapidă și niciun termen ratat. Recomand cu toată inima oricărei companii IT din Moldova.",
+  },
+  {
+    author: "Maria Popescu",
+    authorCompany: "SRL ContabilPro",
+    rating: 5,
+    body: "Am apelat la ExpertCont când afacerea noastră a crescut rapid și aveam nevoie de un partener serios. Echipa lor a reorganizat complet evidența contabilă în două săptămâni. Acum dormim liniștiti știind că totul este în ordine.",
+  },
+  {
+    author: "Dmitri Vasiliev",
+    authorCompany: "SRL LogisTrans",
+    rating: 4,
+    body: "Serviciu profesionist și prețuri rezonabile. Apreciez în mod special că mă anunță din timp înainte de fiecare termen fiscal. Am redus semnificativ riscul de penalități față de situația anterioară.",
+  },
+  {
+    author: "Elena Țurcanu",
+    authorCompany: "Î.I. Elena Țurcanu",
+    rating: 5,
+    body: "Ca antreprenor individual, aveam nevoie de cineva care să mă ghideze pas cu pas. ExpertCont m-a ajutat să înțeleg obligațiile fiscale și să optimizez cheltuielile. Planul Basic este exact ce îmi trebuia — accesibil și complet.",
+  },
+  {
+    author: "Ion Roibu",
+    authorCompany: "SRL AgroMold",
+    rating: 5,
+    body: "Avem o afacere agricolă cu sezonalitate mare și o situație contabilă complexă. ExpertCont a dovedit că înțelege specificul sectorului — subvenții, contracte cu exportatori, TVA agricol. Recomand oricui din agribusiness.",
+  },
+  {
+    author: "Vasile Munteanu",
+    authorCompany: "SRL BuildExpert",
+    rating: 4,
+    body: "Lucrăm cu ExpertCont de doi ani în domeniul construcțiilor. Gestionează eficient toată documentația de deviz, CAS și rapoartele lunare. Comunicarea cu managerul de cont este foarte promptă.",
+  },
+  {
+    author: "Cristina Ungureanu",
+    authorCompany: "SRL MedClinic",
+    rating: 5,
+    body: "Sectorul medical are cerințe fiscale specifice și ExpertCont le cunoaște pe toate. Am trecut la ei acum un an și jumătate și nu regret deloc. Profesionalism și transparență totală.",
+  },
+  {
+    author: "Sergiu Movilă",
+    authorCompany: "SRL EventPro",
+    rating: 5,
+    body: "Organizăm evenimente și veniturile noastre sunt variabile. ExpertCont ne ajută să gestionăm cash-flow-ul și să fim întotdeauna pregătiți pentru obligațiile fiscale. Portalul online este extrem de comod.",
+  },
+];
+---
+
+<Base
+  title="Recenzii — ExpertCont"
+  description="Ce spun clienții noștri despre serviciile ExpertCont."
+  locale={locale}
+  path={sectionUrl("reviews", locale)}
+  siblings={siblings}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <PageHeader
+      eyebrow="Recenzii"
+      title="Ce spun clienții"
+      subtitle="Părerile autentice ale clienților care au ales ExpertCont ca partener de contabilitate și consultanță."
+      breadcrumbs={[{ label: "Acasă", href: homeUrl(locale) }, { label: "Recenzii" }]}
+    />
+    <Section tone="default">
+      <Container>
+        <ReviewsPageIsland
+          client:load
+          locale={locale}
+          reviews={reviews}
+          ratingSummaryLabel="din 247 recenzii"
+          filterChips={["Toate", "Cu fotografii", "Doar 5★", "Doar cu detalii"]}
+          ctaTitle="Lasă o recenzie"
+          ctaBtn="Scrie o recenzie"
+          ctaNote="Doar clienții verificați pot lăsa recenzii"
+        />
+      </Container>
+    </Section>
+  </PageShell>
+</Base>

@@ -1,0 +1,68 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../../layouts/Base.astro";
+import PageShell from "../../../components/PageShell.astro";
+import GuidesIndexIsland from "../../../components/guides/GuidesIndexIsland";
+import { homeUrl, sectionUrl, detailUrl, type Locale, type ContentMeta } from "@expertcont/i18n";
+
+const locale: Locale = "ru";
+const siblings: Record<Locale, string> = {
+  ro: sectionUrl("guides", "ro"),
+  ru: sectionUrl("guides", "ru"),
+  en: sectionUrl("guides", "en"),
+};
+
+const metaEntries = await getCollection("guides-meta");
+const realMeta = metaEntries.map((e) => e.data as ContentMeta);
+const firstSlug = realMeta[0]
+  ? detailUrl("guides", realMeta[0], locale)
+  : "/ru/rukovodstva/polnoe-rukovodstvo-nds-moldova";
+
+const guides = [
+  {
+    slug: "polnoe-rukovodstvo-nds-moldova",
+    href: firstSlug,
+    category: "Налоги",
+    title: "Полное руководство по НДС для бизнеса в Молдове",
+    excerpt:
+      "Всё, что нужно знать о НДС: порог регистрации, применимые ставки, декларирование и вычеты. Практическое руководство с конкретными примерами.",
+    readTime: 15,
+    featured: true,
+  },
+];
+
+const realSlugs = new Set(realMeta.map((m) => m.slugs.ru));
+const visibleGuides = guides.filter((g) => realSlugs.has(g.slug));
+
+const categories = ["Все", "Налоги", "Юридические", "HR", "Бухгалтерия"];
+---
+
+<Base
+  title="Руководства — ExpertCont"
+  description="Практические руководства для предпринимателей в Республике Молдова."
+  locale={locale}
+  path={sectionUrl("guides", locale)}
+  siblings={siblings}
+>
+  <PageShell locale={locale} activeSection="blog" siblings={siblings}>
+    <GuidesIndexIsland
+      client:load
+      locale={locale}
+      guides={visibleGuides}
+      categories={categories}
+      readTimeLabel="мин чтения"
+      readLabel="Читать руководство"
+      featuredLabel="Избранное"
+      noResultsLabel="Руководств по выбранным фильтрам не найдено."
+      ctaTitle="Нужна персональная помощь?"
+      ctaBody="Наша команда экспертов может ответить на любой вопрос, специфичный для вашей ситуации."
+      ctaBtn="Записаться на консультацию"
+      pageEyebrow="Руководства"
+      pageTitle="Все руководства"
+      pageSubtitle="Практические ресурсы для навигации в административных, налоговых и правовых требованиях бизнеса в Молдове."
+      pageBreadcrumbHome="Главная"
+      pageBreadcrumbCurrent="Руководства"
+      homeHref={homeUrl(locale)}
+    />
+  </PageShell>
+</Base>

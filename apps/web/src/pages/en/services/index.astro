@@ -1,0 +1,146 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../../layouts/Base.astro";
+import PageShell from "../../../components/PageShell.astro";
+import { Container, PageHeader, Section, SectionHeader } from "@expertcont/ui";
+import { homeUrl, sectionUrl, detailUrl, type Locale, type ContentMeta } from "@expertcont/i18n";
+import { ServiceIndexGrid } from "../../../components/service/ServiceIndexGrid";
+import { ServiceCTAStrip } from "../../../components/service/ServiceCTAStrip";
+
+const locale: Locale = "en";
+const siblings: Record<Locale, string> = {
+  ro: sectionUrl("services", "ro"),
+  ru: sectionUrl("services", "ru"),
+  en: sectionUrl("services", "en"),
+};
+
+const metaEntries = await getCollection("services-meta");
+const services: ContentMeta[] = metaEntries.map((e) => e.data as ContentMeta);
+
+const serviceItems = services.map((s) => ({
+  meta: s,
+  href: detailUrl("services", s, locale),
+  scheduleHref: sectionUrl("contact", locale),
+}));
+
+const contactHref = sectionUrl("contact", locale);
+---
+
+<Base
+  title="Services — ExpertCont"
+  description="Complete accounting, audit, legal and business consulting services for companies in Moldova."
+  locale={locale}
+  path={sectionUrl("services", locale)}
+  siblings={siblings}
+>
+  <PageShell locale={locale} activeSection="services" siblings={siblings}>
+    <PageHeader
+      eyebrow="Integrated services"
+      title="One team for all your business needs"
+      subtitle="From primary bookkeeping to strategic consulting — we cover all key areas for a healthy business in Moldova."
+      breadcrumbs={[{ label: "Home", href: homeUrl(locale) }, { label: "Services" }]}
+    />
+
+    <!-- Services Grid -->
+    <Section tone="default">
+      <Container>
+        <ServiceIndexGrid client:load services={serviceItems} locale={locale} />
+      </Container>
+    </Section>
+
+    <!-- Comparison Strip -->
+    <Section tone="alt">
+      <Container>
+        <SectionHeader
+          align="center"
+          eyebrow="Under one roof"
+          title="One partner, all services"
+          maxWidth={640}
+          subtitle="Zero-friction coordination between accounting, legal and consulting."
+        />
+        <div class="comp-grid grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div
+            class="card border-primary p-8 bg-bg-card"
+          >
+            <div
+              class="text-sm font-bold text-primary uppercase tracking-widest mb-5"
+            >
+              With ExpertCont
+            </div>
+            <ul class="list-none p-0 m-0 flex flex-col gap-4">
+              {
+                [
+                  "Single point of contact",
+                  "Data synchronised across departments",
+                  "Discounts for bundled services",
+                  "Integrated strategy",
+                ].map((item) => (
+                  <li class="flex items-center gap-3 text-base">
+                    <span class="w-6 h-6 rounded-full bg-primary-50 text-primary flex items-center justify-center shrink-0">
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="3"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                    </span>
+                    {item}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <div class="card p-8 bg-transparent">
+            <div
+              class="text-sm font-bold text-text-secondary uppercase tracking-widest mb-5"
+            >
+              With multiple providers
+            </div>
+            <ul class="list-none p-0 m-0 flex flex-col gap-4">
+              {
+                [
+                  "Manual coordination between firms",
+                  "Duplicate documents, errors",
+                  "Cumulative costs",
+                  "No overall vision",
+                ].map((item) => (
+                  <li class="flex items-center gap-3 text-base text-text-secondary">
+                    <span class="w-6 h-6 rounded-full bg-bg-section-alt text-text-secondary flex items-center justify-center shrink-0">
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="3"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                      </svg>
+                    </span>
+                    {item}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+      </Container>
+    </Section>
+
+    <!-- CTA Strip -->
+    <Section tone="default">
+      <Container>
+        <ServiceCTAStrip client:load locale={locale} contactHref={contactHref} />
+      </Container>
+    </Section>
+  </PageShell>
+</Base>

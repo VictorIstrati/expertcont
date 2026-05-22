@@ -1,0 +1,145 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection, render } from "astro:content";
+import Base from "../../../layouts/Base.astro";
+import PageShell from "../../../components/PageShell.astro";
+import { Container, PageHeader, Section } from "@expertcont/ui";
+import { homeUrl, sectionUrl, detailUrl, type Locale, type ContentMeta } from "@expertcont/i18n";
+import { ServiceDetailBody } from "../../../components/service/ServiceDetailBody";
+import { ServiceSidebar } from "../../../components/service/ServiceSidebar";
+import { ServiceCTAStrip } from "../../../components/service/ServiceCTAStrip";
+import { getServiceData } from "../../../components/service/serviceData";
+import type { IconName } from "@expertcont/ui";
+
+export const getStaticPaths = (async () => {
+  const metas = await getCollection("services-meta");
+  return metas.map((m) => ({
+    params: { slug: m.data.slugs.ru },
+    props: { meta: m.data as ContentMeta },
+  }));
+}) satisfies GetStaticPaths;
+
+const { meta } = Astro.props;
+const locale: Locale = "ru";
+
+const allServices = await getCollection("services");
+const mdxEntry = allServices.find((e) => e.data.contentId === meta.id && e.data.locale === "ru");
+const { Content } = await render(mdxEntry!);
+
+const allMetas = await getCollection("services-meta");
+const allServicesMeta: ContentMeta[] = allMetas.map((e) => e.data as ContentMeta);
+
+const siblings: Record<Locale, string> = {
+  ro: detailUrl("services", meta, "ro"),
+  ru: detailUrl("services", meta, "ru"),
+  en: detailUrl("services", meta, "en"),
+};
+
+const serviceIconMap: Record<string, IconName> = {
+  accounting: "briefcase",
+  audit: "shield",
+  legal: "scale",
+  consulting: "lightbulb",
+  hr: "users",
+  it: "zap",
+};
+
+const relatedServices = allServicesMeta
+  .filter((s) => s.id !== meta.id)
+  .slice(0, 3)
+  .map((s) => ({
+    meta: s,
+    href: detailUrl("services", s, locale),
+    icon: serviceIconMap[s.id] ?? ("briefcase" as IconName),
+  }));
+
+const pageData = getServiceData(meta.id, locale);
+const contactHref = sectionUrl("contact", locale);
+const pricingHref = sectionUrl("pricing", locale);
+---
+
+<Base
+  title={`${meta.titles[locale]} — ExpertCont`}
+  description={meta.summaries[locale]}
+  locale={locale}
+  path={detailUrl("services", meta, locale)}
+  siblings={siblings}
+>
+  <PageShell locale={locale} activeSection="services" siblings={siblings}>
+    <PageHeader
+      eyebrow="Основная услуга"
+      title={meta.titles[locale]}
+      subtitle={meta.summaries[locale]}
+      breadcrumbs={[
+        { label: "Главная", href: homeUrl(locale) },
+        { label: "Услуги", href: sectionUrl("services", locale) },
+        { label: meta.titles[locale] },
+      ]}
+    />
+    <!-- 2-column body -->
+    <Section tone="default">
+      <Container>
+        <div
+          class="svc-detail-layout grid grid-cols-1 lg:grid-cols-[1.6fr_1fr] gap-14 items-start"
+        >
+          <!-- Main content -->
+          <div class="svc-detail-main">
+            {
+              pageData && (
+                <p class="text-lg text-text-secondary mb-10 leading-relaxed">
+                  {pageData.bodyIntro}
+                </p>
+              )
+            }
+
+            <!-- MDX content -->
+            <article class="text-lg leading-relaxed mb-10">
+              <Content />
+            </article>
+
+            {
+              pageData && (
+                <ServiceDetailBody
+                  client:load
+                  includedHeading={pageData.includedHeading}
+                  includedItems={pageData.includedItems}
+                  processHeading={pageData.processHeading}
+                  processSteps={pageData.processSteps}
+                  faqHeading={pageData.faqHeading}
+                  faqItems={pageData.faqItems}
+                />
+              )
+            }
+          </div>
+
+          <!-- Sidebar -->
+          {
+            pageData && (
+              <ServiceSidebar
+                client:load
+                locale={locale}
+                contactHref={contactHref}
+                pricing={{
+                  ...pageData.pricing,
+                  pricingHref,
+                }}
+                related={relatedServices}
+                offerEyebrow={pageData.offerEyebrow}
+                offerHeading={pageData.offerHeading}
+                offerSub={pageData.offerSub}
+                relatedHeading={pageData.relatedHeading}
+              />
+            )
+          }
+        </div>
+      </Container>
+    </Section>
+
+    <!-- Final CTA band -->
+    <Section tone="default">
+      <Container>
+        <ServiceCTAStrip client:load locale={locale} contactHref={contactHref} />
+      </Container>
+    </Section>
+  </PageShell>
+</Base>

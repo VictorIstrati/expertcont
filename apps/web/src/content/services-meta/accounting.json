@@ -1,0 +1,11 @@
+{
+  "id": "accounting",
+  "slugs": { "ro": "contabilitate", "ru": "bukhgalteriya", "en": "accounting" },
+  "titles": { "ro": "Contabilitate", "ru": "Бухгалтерия", "en": "Accounting" },
+  "summaries": {
+    "ro": "Servicii complete de contabilitate financiară și de gestiune pentru afaceri din Republica Moldova.",
+    "ru": "Полный спектр услуг финансового и управленческого учёта для бизнеса в Молдове.",
+    "en": "Complete financial and management accounting services for businesses in Moldova."
+  },
+  "updated": "2026-05-18"
+}

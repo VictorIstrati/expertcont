@@ -1,0 +1,26 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageShell from "../../components/PageShell.astro";
+import { CareersIsland } from "../../components/careers/CareersIsland";
+import { sectionUrl, homeUrl, type Locale } from "@expertcont/i18n";
+
+const locale: Locale = "ru";
+const path = sectionUrl("careers", locale);
+const siblings: Record<Locale, string> = {
+  ro: sectionUrl("careers", "ro"),
+  ru: sectionUrl("careers", "ru"),
+  en: sectionUrl("careers", "en"),
+};
+---
+
+<Base
+  title="Карьера — ExpertCont"
+  description="Присоединяйтесь к команде ExpertCont и стройте карьеру вместе с профессионалами в области бухгалтерии, права, HR и IT."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <CareersIsland client:load locale={locale} homeHref={homeUrl(locale)} />
+  </PageShell>
+</Base>

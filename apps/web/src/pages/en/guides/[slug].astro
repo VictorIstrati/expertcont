@@ -1,0 +1,178 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection, render } from "astro:content";
+import Base from "../../../layouts/Base.astro";
+import PageShell from "../../../components/PageShell.astro";
+import { Container, Section, ImagePlaceholder, SectionHeader } from "@expertcont/ui";
+import { sectionUrl, detailUrl, type Locale, type ContentMeta } from "@expertcont/i18n";
+
+export const getStaticPaths = (async () => {
+  const metas = await getCollection("guides-meta");
+  return metas.map((m) => ({
+    params: { slug: m.data.slugs.en },
+    props: { meta: m.data as ContentMeta },
+  }));
+}) satisfies GetStaticPaths;
+
+const { meta } = Astro.props;
+const locale: Locale = "en";
+
+const allGuides = await getCollection("guides");
+const mdxEntry = allGuides.find((e) => e.data.contentId === meta.id && e.data.locale === "en");
+const { Content } = await render(mdxEntry!);
+
+const siblings: Record<Locale, string> = {
+  ro: detailUrl("guides", meta, "ro"),
+  ru: detailUrl("guides", meta, "ru"),
+  en: detailUrl("guides", meta, "en"),
+};
+---
+
+<Base
+  title={`${meta.titles[locale]} — ExpertCont`}
+  description={meta.summaries[locale]}
+  locale={locale}
+  path={detailUrl("guides", meta, locale)}
+  siblings={siblings}
+>
+  <PageShell locale={locale} activeSection="blog" siblings={siblings}>
+    <Section tone="default" spacing="tight">
+      <Container>
+        <a
+          href={sectionUrl("guides", locale)}
+          class="mb-6 inline-flex items-center gap-2 text-sm text-text-secondary no-underline"
+        >
+          ← All guides
+        </a>
+        <div class="mb-5 flex gap-2">
+          <span class="pill">Tax</span>
+        </div>
+        <h1 class="mb-6 max-w-3xl text-[clamp(30px,4vw,48px)] leading-tight">
+          {meta.titles[locale]}
+        </h1>
+        <div class="mb-8 flex items-center gap-4 text-sm text-text-secondary">
+          <span>15 min read</span>
+        </div>
+        <ImagePlaceholder ratio="21/9" label="Guide cover" />
+      </Container>
+    </Section>
+
+    <Section tone="default">
+      <Container>
+        <div class="grid grid-cols-1 gap-16 lg:grid-cols-[2fr_1fr]">
+          <article class="text-lg leading-relaxed text-text-primary">
+            <Content />
+            <div
+              class="mt-12 rounded-lg bg-primary p-8 text-white"
+            >
+              <h3 class="mb-3 text-white">Need help with VAT?</h3>
+              <p class="mb-5 text-white/80">
+                Schedule a free 30-minute consultation with an ExpertCont specialist.
+              </p>
+              <a
+                href={sectionUrl("contact", locale)}
+                class="btn btn-primary inline-flex items-center gap-2 no-underline"
+              >
+                Schedule consultation
+              </a>
+            </div>
+          </article>
+
+          <aside class="hidden flex-col gap-6 lg:flex">
+            <div class="card sticky top-24 p-6">
+              <div
+                class="mb-4 text-xs font-bold uppercase tracking-widest text-text-secondary"
+              >
+                Contents
+              </div>
+              {
+                [1, 2, 3].map((n) => (
+                  <div
+                    class:list={[
+                      "flex items-center gap-3 py-2 text-sm",
+                      n < 3 && "border-b border-border",
+                    ]}
+                  >
+                    <span
+                      class:list={[
+                        "flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold",
+                        n === 1
+                          ? "bg-primary text-white"
+                          : "bg-border text-text-secondary",
+                      ]}
+                    >
+                      {n}
+                    </span>
+                    <span class="h-3 flex-1 rounded bg-border opacity-60" />
+                  </div>
+                ))
+              }
+            </div>
+
+            <div class="card p-6">
+              <div
+                class="mb-3 text-xs font-bold uppercase tracking-widest text-text-secondary"
+              >
+                Related guides
+              </div>
+              <p class="m-0 text-sm leading-relaxed text-text-secondary">
+                More practical guides coming soon.
+              </p>
+            </div>
+          </aside>
+        </div>
+      </Container>
+    </Section>
+
+    <Section tone="alt">
+      <Container>
+        <SectionHeader eyebrow="Keep reading" title="Blog articles" />
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {
+            [
+              {
+                href: "/en/blog/tax-changes-2026",
+                category: "Tax",
+                title: "Tax changes 2026: what every entrepreneur in Moldova needs to know",
+                date: "12 May 2026",
+                readTime: 8,
+              },
+              {
+                href: "/en/blog/ifrs-or-snc",
+                category: "Accounting",
+                title: "IFRS or NAS? A guide for growing companies",
+                date: "5 May 2026",
+                readTime: 6,
+              },
+              {
+                href: "/en/blog/fictitious-contracts-risks",
+                category: "Legal",
+                title: "Fictitious contracts risks: fines and criminal liability",
+                date: "28 Apr 2026",
+                readTime: 5,
+              },
+            ].map((p) => (
+              <article>
+                <a
+                  href={p.href}
+                  class="card card-hover block overflow-hidden p-0 no-underline"
+                >
+                  <ImagePlaceholder ratio="16/10" label={p.category} style={{ borderRadius: 0 }} />
+                  <div class="p-6">
+                    <span class="pill pill-soft mb-3 inline-block">{p.category}</span>
+                    <h3 class="mt-2 mb-3 text-lg leading-snug text-text-primary">
+                      {p.title}
+                    </h3>
+                    <div class="text-xs text-text-secondary">
+                      {p.date} · {p.readTime} min
+                    </div>
+                  </div>
+                </a>
+              </article>
+            ))
+          }
+        </div>
+      </Container>
+    </Section>
+  </PageShell>
+</Base>

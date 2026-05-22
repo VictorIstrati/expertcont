@@ -1,0 +1,67 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageShell from "../../components/PageShell.astro";
+import { ContactIsland } from "../../components/contact/ContactIsland";
+import { sectionUrl, type Locale } from "@expertcont/i18n";
+import type { ContactIslandProps } from "../../components/contact/ContactIsland";
+
+const locale: Locale = "ru";
+const siblings: Record<Locale, string> = {
+  ro: sectionUrl("contact", "ro"),
+  ru: sectionUrl("contact", "ru"),
+  en: sectionUrl("contact", "en"),
+};
+
+const props: Omit<ContactIslandProps, "locale"> = {
+  eyebrow: "КОНТАКТЫ",
+  title: "Давайте поговорим",
+  subtitle:
+    "Мы доступны для бесплатной консультации. Заполните форму или воспользуйтесь одним из быстрых способов связи ниже.",
+  labelName: "Имя",
+  labelEmail: "Email",
+  labelPhone: "Телефон",
+  labelCompany: "Компания",
+  labelService: "Тема / Услуга",
+  labelMessage: "Сообщение",
+  labelSend: "Отправить сообщение",
+  placeholderName: "Иван Иванов",
+  placeholderEmail: "ivan@firma.md",
+  placeholderPhone: "+373 ...",
+  placeholderCompany: "Фирма ООО",
+  placeholderMessage: "Расскажите коротко о вашем бизнесе...",
+  formTitle: "Напишите нам",
+  formSubtitle: "Ответим в течение максимум 4 часов в рабочие дни.",
+  successTitle: "Сообщение успешно отправлено!",
+  successSub: "Вернёмся к вам максимум через 4 часа. Проверьте email — мы отправили подтверждение.",
+  labelOffice: "Наш офис",
+  address: "ул. Митрополит Варлаам 65, Кишинёв, MD-2012, Республика Молдова",
+  phone: "+373 22 22 33 44",
+  email: "contact@expertcont.md",
+  labelHours: "Рабочие часы",
+  hours: "Понедельник–пятница, 9:00–18:00",
+  labelAvailable: "Доступны сейчас",
+  labelBook: "Записаться на бесплатную консультацию",
+  bookHref: sectionUrl("contact", "ru"),
+  channelsTitle: "Свяжитесь с нами быстро",
+  services: [
+    { value: "buhgalteriya", label: "Бухгалтерия и учёт" },
+    { value: "nalog", label: "Налоговое консультирование" },
+    { value: "juridic", label: "Юридические услуги" },
+    { value: "hr", label: "Управление персоналом" },
+    { value: "it", label: "IT-консалтинг" },
+    { value: "prochee", label: "Другое" },
+  ],
+};
+---
+
+<Base
+  title="Контакты — ExpertCont"
+  description="Свяжитесь с командой ExpertCont для бесплатной консультации по бухгалтерии и налогам."
+  locale={locale}
+  path={sectionUrl("contact", locale)}
+  siblings={siblings}
+>
+  <PageShell locale={locale} activeSection="contact" siblings={siblings}>
+    <ContactIsland client:only="react" locale={locale} {...props} />
+  </PageShell>
+</Base>

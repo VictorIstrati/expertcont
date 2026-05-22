@@ -1,0 +1,15 @@
+{
+  "id": "home",
+  "slugs": { "ro": "", "ru": "", "en": "" },
+  "titles": {
+    "ro": "ExpertCont — contabilitate, juridic și consultanță",
+    "ru": "ExpertCont — бухгалтерия, юридические услуги и консалтинг",
+    "en": "ExpertCont — accounting, legal and consulting"
+  },
+  "summaries": {
+    "ro": "Servicii complete de contabilitate, juridic și consultanță pentru companii din Republica Moldova.",
+    "ru": "Полный спектр бухгалтерских, юридических и консалтинговых услуг для компаний в Молдове.",
+    "en": "Complete accounting, legal and consulting services for businesses in the Republic of Moldova."
+  },
+  "updated": "2026-05-18"
+}

@@ -1,0 +1,34 @@
+{
+  "name": "@expertcont/web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "typecheck": "astro check",
+    "lint": "eslint src"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^3.1.0",
+    "@astrojs/react": "^3.6.2",
+    "@expertcont/i18n": "workspace:*",
+    "@expertcont/tokens": "workspace:*",
+    "@expertcont/ui": "workspace:*",
+    "@lingui/core": "^5.1.0",
+    "@lingui/react": "^5.1.0",
+    "@tailwindcss/vite": "^4.0.0",
+    "astro": "^4.15.9",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^4.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@lingui/babel-plugin-lingui-macro": "^5.1.0",
+    "@types/react": "^18.3.10",
+    "@types/react-dom": "^18.3.0",
+    "typescript": "^5.5.4"
+  }
+}

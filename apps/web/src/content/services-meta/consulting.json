@@ -1,0 +1,15 @@
+{
+  "id": "consulting",
+  "slugs": { "ro": "consultanta", "ru": "konsalting", "en": "consulting" },
+  "titles": {
+    "ro": "Consultanță de afaceri",
+    "ru": "Бизнес-консалтинг",
+    "en": "Business consulting"
+  },
+  "summaries": {
+    "ro": "Planificare fiscală, optimizare costuri, transformare digitală și evaluare riscuri pentru afaceri din Moldova.",
+    "ru": "Налоговое планирование, оптимизация затрат, цифровая трансформация и оценка рисков для бизнеса.",
+    "en": "Tax planning, cost optimization, digital transformation and risk assessment for Moldovan businesses."
+  },
+  "updated": "2026-05-18"
+}

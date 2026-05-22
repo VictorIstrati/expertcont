@@ -1,0 +1,98 @@
+---
+import Base from "../layouts/Base.astro";
+import PageShell from "../components/PageShell.astro";
+import SolutionsIsland from "../components/solutions/SolutionsIsland";
+import { sectionUrl, type Locale } from "@expertcont/i18n";
+
+const locale: Locale = "ro";
+const path = sectionUrl("solutions", locale);
+const siblings: Record<Locale, string> = {
+  ro: sectionUrl("solutions", "ro"),
+  ru: sectionUrl("solutions", "ru"),
+  en: sectionUrl("solutions", "en"),
+};
+---
+
+<Base
+  title="Soluții — ExpertCont"
+  description="Alege punctul de plecare și-ți arătăm exact ce facem pentru tine în primele 30 de zile."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+>
+  <PageShell locale={locale} activeSection="solutions" siblings={siblings}>
+    <SolutionsIsland
+      client:load
+      locale={locale}
+      bookHref={sectionUrl("contact", locale)}
+      homeLabel="Acasă"
+      eyebrow="Pentru tine"
+      pageTitle="Care e situația ta acum?"
+      pageSubtitle="Alege punctul de plecare și-ți arătăm exact ce facem pentru tine în primele 30 de zile."
+      breadcrumbSolutions="Soluții"
+      personaSwitchLabel="Alege situația ta"
+      deliverablesSectionLabel="În primele 30 de zile, livrăm:"
+      timelineLabel="Timeline"
+      recommendedPackageLabel="Pachet recomandat"
+      fromLabel="de la"
+      otherSituationsLabel="Treci la celelalte situații"
+      ctaTitle="Nu te regăsești în niciuna?"
+      ctaSubtitle="Sună-ne 5 minute. Decidem împreună dacă suntem o potrivire bună."
+      bookLabel="Programează consultație gratuită"
+      callLabel="Sună acum"
+      personas={[
+        {
+          slug: "new-srl",
+          short: "Vreau să-mi deschid un SRL",
+          headline: "Antreprenor la început de drum",
+          desc: "Ești pe cale să lansezi o afacere și nu vrei să te lupți cu birocrația. Te ghidăm de la zero — înregistrare, primul cont bancar, prima declarație fiscală.",
+          tier: "Starter",
+          tierPrice: 1490,
+          tierLabel: "MDL / lună",
+          time: "5–7 zile până la lansare",
+          deliverables: [
+            "Înregistrare SRL (cu sediu și statut)",
+            "Configurare contabilitate primară",
+            "Ghidare cu deschiderea contului bancar",
+            "Prima declarație fiscală depusă de noi",
+            "Sesiune de pregătire — ce documente trebuie să păstrezi",
+          ],
+        },
+        {
+          slug: "growing",
+          short: "Am 3–15 angajați și un contabil care nu răspunde",
+          headline: "Firmă în creștere care vrea să-și schimbe contabilul",
+          desc: "Ai o afacere care merge, dar contabilitatea ta e o sursă de stres — răspunsuri întârziate, declarații în ultima zi, recomandări lipsă. Preluăm cu tranziție curată.",
+          tier: "Business",
+          tierPrice: 3490,
+          tierLabel: "MDL / lună",
+          time: "5–10 zile onboarding fără pierderi de termene",
+          deliverables: [
+            "Audit gratuit al evidenței existente",
+            "Preluare documente și sincronizare sisteme",
+            "Manager de cont dedicat (răspuns < 4h)",
+            "Optimizare fiscală pe primele 3 luni",
+            "Acces juridic 2h/lună inclus",
+          ],
+        },
+        {
+          slug: "enterprise",
+          short: "Sunt CEO într-o companie de 50+ angajați",
+          headline: "Companie medie–mare cu cerințe complexe",
+          desc: "Ai operațiuni multi-entitate, raportare consolidată sau cerințe IFRS. Vrei o echipă, nu un contabil unic. Lucrăm cu CFO-ul tău, nu îl înlocuim.",
+          tier: "Enterprise",
+          tierPrice: null,
+          tierLabel: "Personalizat",
+          time: "Onboarding 3–4 săptămâni, plan custom",
+          deliverables: [
+            "Echipă dedicată (2–4 persoane)",
+            "Raportare consolidată multi-entitate",
+            "Conformitate IFRS / audit intern",
+            "SLA 2h response, suport extins L–V",
+            "Trimestrial: ședință strategică cu CFO-ul tău",
+          ],
+        },
+      ]}
+    />
+  </PageShell>
+</Base>

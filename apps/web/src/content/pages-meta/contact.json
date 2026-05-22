@@ -1,0 +1,15 @@
+{
+  "id": "contact",
+  "slugs": { "ro": "contact", "ru": "kontakty", "en": "contact" },
+  "titles": {
+    "ro": "Contact — ExpertCont",
+    "ru": "Контакты — ExpertCont",
+    "en": "Contact — ExpertCont"
+  },
+  "summaries": {
+    "ro": "Contactează echipa ExpertCont pentru o consultație gratuită sau orice întrebare despre serviciile noastre.",
+    "ru": "Свяжитесь с командой ExpertCont для бесплатной консультации или по любому вопросу об услугах.",
+    "en": "Contact the ExpertCont team for a free consultation or any questions about our services."
+  },
+  "updated": "2026-05-18"
+}

@@ -1,0 +1,26 @@
+---
+import Base from "../layouts/Base.astro";
+import PageShell from "../components/PageShell.astro";
+import { PartnersIsland } from "../components/partners/PartnersIsland";
+import { sectionUrl, homeUrl, type Locale } from "@expertcont/i18n";
+
+const locale: Locale = "ro";
+const path = sectionUrl("partners", locale);
+const siblings: Record<Locale, string> = {
+  ro: sectionUrl("partners", "ro"),
+  ru: sectionUrl("partners", "ru"),
+  en: sectionUrl("partners", "en"),
+};
+---
+
+<Base
+  title="Parteneri — ExpertCont"
+  description="Rețeaua noastră de parteneri ne permite să oferim soluții complete — de la tehnologie și finanțe, la juridic și audit."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <PartnersIsland client:load locale={locale} homeHref={homeUrl(locale)} />
+  </PageShell>
+</Base>

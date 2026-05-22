@@ -1,0 +1,149 @@
+---
+import Base from "../layouts/Base.astro";
+import PageShell from "../components/PageShell.astro";
+import { PricingIsland } from "../components/pricing/PricingIsland";
+import { sectionUrl, type Locale } from "@expertcont/i18n";
+import type { PricingIslandProps } from "../components/pricing/PricingIsland";
+
+const locale: Locale = "ro";
+const siblings: Record<Locale, string> = {
+  ro: sectionUrl("pricing", "ro"),
+  ru: sectionUrl("pricing", "ru"),
+  en: sectionUrl("pricing", "en"),
+};
+
+const props: Omit<PricingIslandProps, "locale"> = {
+  eyebrow: "PREȚURI",
+  title: "Pachete transparente",
+  subtitle:
+    "Prețuri clare, fără surprize. Alegeți pachetul potrivit pentru afacerea dvs. și scalați oricând.",
+  labelMonthly: "Lunar",
+  labelYearly: "Anual",
+  calc: {
+    calcTitle: "Calculator de prețuri",
+    calcHeading: "Spune-ne despre afacerea ta",
+    calcSubtitle: "Estimare instantanee pe baza nevoilor afacerii tale.",
+    calcLegalForm: "Forma juridică",
+    calcLegalOpts: ["Persoană fizică / II", "SRL", "SA"],
+    calcDocs: "Volum documente / lună",
+    calcEmployees: "Angajați (payroll)",
+    calcVat: "Plătitor TVA",
+    calcServices: "Servicii adiționale",
+    calcAddServices: [
+      "Consultanță juridică",
+      "Audit fiscal trimestrial",
+      "Suport HR",
+      "Raportare IFRS",
+    ],
+    calcEstimateLabel: "Estimare lunară",
+    calcDisclaimer: "Estimare orientativă. Ofertă finală după consultația gratuită.",
+    calcRequestOffer: "Solicită ofertă personalizată",
+    calcPerMonth: "MDL / lună",
+  },
+  tiers: [
+    {
+      name: "Basic",
+      price: 1500,
+      period: " / lună",
+      desc: "Pentru afaceri mici și PFA-uri",
+      features: [
+        "Până la 30 documente/lună",
+        "Declarații lunare TVA",
+        "Calcul salarii (max 3 angajați)",
+        "Raport lunar simplu",
+        "Email support",
+      ],
+      cta: "Alegeți Basic",
+    },
+    {
+      name: "Standard",
+      price: 3000,
+      period: " / lună",
+      desc: "Cel mai popular — pentru SRL în creștere",
+      features: [
+        "Până la 100 documente/lună",
+        "Toate declarațiile fiscale",
+        "Salarii (max 15 angajați)",
+        "Manager de cont dedicat",
+        "Răspuns < 4h",
+        "Consultanță lunară 1h",
+        "Bilanț anual inclus",
+        "Acces portal client",
+      ],
+      cta: "Alegeți Standard",
+      popular: true,
+    },
+    {
+      name: "Premium",
+      price: 5500,
+      period: " / lună",
+      desc: "Pentru companii cu cerințe complexe",
+      features: [
+        "Documente nelimitate",
+        "Audit intern trimestrial",
+        "Salarii nelimitate",
+        "Consultant senior dedicat",
+        "Răspuns prioritar < 2h",
+        "Consultanță săptămânală",
+        "Bilanț + raport managerial",
+        "Asistență la inspecții fiscale",
+        "Optimizare fiscală personalizată",
+        "Suport juridic inclus",
+      ],
+      cta: "Alegeți Premium",
+    },
+  ],
+  addOnsTitle: "Servicii suplimentare la cerere",
+  addOns: [
+    { name: "Declarații TVA suplimentare", price: "+200 MDL" },
+    { name: "Resurse umane (HR)", price: "+200 MDL" },
+    { name: "IT Consulting", price: "+200 MDL" },
+    { name: "Consultanță juridică ad-hoc", price: "+300 MDL/h" },
+    { name: "Audit pregătitor", price: "+500 MDL" },
+    { name: "Bilanț anual standalone", price: "+800 MDL" },
+  ],
+  faq: [
+    {
+      q: "Pot schimba pachetul lunar?",
+      a: "Da, poți face upgrade sau downgrade oricând cu preaviz de 7 zile. Modificarea intră în vigoare de la prima zi a lunii următoare.",
+    },
+    {
+      q: "Ce se întâmplă dacă depășesc volumul de documente?",
+      a: "Documentele suplimentare se facturează la tariful de 15 MDL/document. Te notificăm automat când ajungi la 80% din limită.",
+    },
+    {
+      q: "Sunt facturate retroactiv serviciile suplimentare?",
+      a: "Nu. Orice serviciu adițional este agreat în prealabil și apare separat în factură la finalul lunii.",
+    },
+    {
+      q: "Prețurile includ TVA?",
+      a: "Nu. Toate prețurile afișate sunt fără TVA. TVA-ul de 20% se aplică conform legislației în vigoare.",
+    },
+    {
+      q: "Pot anula contractul oricând?",
+      a: "Da, cu preaviz de 30 de zile. Nu există penalități sau taxe de ieșire.",
+    },
+    {
+      q: "Există perioadă de probă?",
+      a: "Prima consultație de 30 minute este gratuită. Primele 30 de zile au garanție de rambursare integrală dacă nu ești mulțumit.",
+    },
+  ],
+  ctaTitle: "Nu îți găsești pachetul potrivit?",
+  ctaSubtitle:
+    "Contactează-ne și creăm o ofertă personalizată adaptată exact nevoilor afacerii tale.",
+  ctaButton: "Solicită ofertă personalizată",
+  notesLine: "Toate prețurile sunt fără TVA. Plata lunară, trimestrială sau anuală.",
+};
+---
+
+<Base
+  title="Prețuri — ExpertCont"
+  description="Pachete transparente pentru servicii de contabilitate și consultanță în Moldova."
+  locale={locale}
+  path={sectionUrl("pricing", locale)}
+  siblings={siblings}
+>
+  <PageShell locale={locale} activeSection="pricing" siblings={siblings}>
+    <PricingIsland client:only="react" locale={locale} {...props} />
+  </PageShell>
+</Base>

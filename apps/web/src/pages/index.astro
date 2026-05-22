@@ -1,0 +1,41 @@
+---
+import { getCollection, getEntry } from "astro:content";
+import Base from "../layouts/Base.astro";
+import PageShell from "../components/PageShell.astro";
+import HomeHeroSection from "../components/home/HomeHeroSection";
+import HomeServices from "../components/home/HomeServices";
+import HomeWhyUs from "../components/home/HomeWhyUs";
+import HomeProcessSteps from "../components/home/HomeProcessSteps";
+import HomePersonaPicker from "../components/home/HomePersonaPicker";
+import HomeIndustries from "../components/home/HomeIndustries";
+import HomeTestimonialsGrid from "../components/home/HomeTestimonialsGrid";
+import HomeCTASection from "../components/home/HomeCTASection";
+import { homeUrl, type Locale, type ContentMeta } from "@expertcont/i18n";
+
+const locale: Locale = "ro";
+const siblings: Record<Locale, string> = {
+  ro: homeUrl("ro"),
+  ru: homeUrl("ru"),
+  en: homeUrl("en"),
+};
+
+const metaEntries = await getCollection("services-meta");
+const services: ContentMeta[] = metaEntries.map((e) => e.data as ContentMeta);
+
+const pageMeta = await getEntry("pages-meta", "home");
+const homeTitle = pageMeta!.data.titles[locale];
+const homeSummary = pageMeta!.data.summaries[locale];
+---
+
+<Base title={homeTitle} description={homeSummary} locale={locale} path="/" siblings={siblings}>
+  <PageShell locale={locale} activeSection="home" siblings={siblings}>
+    <HomeHeroSection client:load locale={locale} />
+    <HomePersonaPicker client:load locale={locale} />
+    <HomeServices client:load locale={locale} services={services} />
+    <HomeWhyUs client:load locale={locale} />
+    <HomeProcessSteps client:load locale={locale} />
+    <HomeIndustries client:load locale={locale} />
+    <HomeTestimonialsGrid client:load locale={locale} />
+    <HomeCTASection client:load locale={locale} />
+  </PageShell>
+</Base>

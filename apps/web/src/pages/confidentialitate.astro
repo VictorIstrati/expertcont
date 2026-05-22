@@ -1,0 +1,32 @@
+---
+import Base from "../layouts/Base.astro";
+import PageShell from "../components/PageShell.astro";
+import LegalIsland from "../components/legal/LegalIsland";
+import { sectionUrl, type Locale } from "@expertcont/i18n";
+
+const locale: Locale = "ro";
+const kind = "privacy" as const;
+const path = sectionUrl("privacy", locale);
+const siblings: Record<Locale, string> = {
+  ro: sectionUrl("privacy", "ro"),
+  ru: sectionUrl("privacy", "ru"),
+  en: sectionUrl("privacy", "en"),
+};
+---
+
+<Base
+  title="Politica de confidențialitate — ExpertCont"
+  description="Politica de confidențialitate ExpertCont: cum colectăm, folosim și protejăm datele tale personale."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <LegalIsland
+      client:load
+      locale={locale}
+      kind={kind}
+      contactHref={sectionUrl("contact", locale)}
+    />
+  </PageShell>
+</Base>

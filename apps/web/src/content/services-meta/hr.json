@@ -1,0 +1,11 @@
+{
+  "id": "hr",
+  "slugs": { "ro": "resurse-umane", "ru": "kadry", "en": "hr" },
+  "titles": { "ro": "Resurse Umane", "ru": "Кадры", "en": "Human Resources" },
+  "summaries": {
+    "ro": "Recrutare, contracte, payroll și conformitate legislativă pentru echipa ta.",
+    "ru": "Подбор, договоры, расчёт заработной платы и соответствие законодательству для вашей команды.",
+    "en": "Recruiting, contracts, payroll and labor-law compliance for your team."
+  },
+  "updated": "2026-05-18"
+}

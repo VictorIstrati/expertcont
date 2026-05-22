@@ -1,0 +1,23 @@
+.switcher {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.link,
+.active {
+  font-size: 14px;
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  color: var(--color-text-secondary);
+  transition: color 120ms ease;
+}
+
+.link:hover {
+  color: var(--color-text-primary);
+}
+
+.active {
+  color: var(--color-accent);
+  font-weight: var(--font-weight-semibold);
+}

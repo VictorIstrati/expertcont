@@ -1,0 +1,67 @@
+---
+import Base from "../layouts/Base.astro";
+import PageShell from "../components/PageShell.astro";
+import { ContactIsland } from "../components/contact/ContactIsland";
+import { sectionUrl, type Locale } from "@expertcont/i18n";
+import type { ContactIslandProps } from "../components/contact/ContactIsland";
+
+const locale: Locale = "ro";
+const siblings: Record<Locale, string> = {
+  ro: sectionUrl("contact", "ro"),
+  ru: sectionUrl("contact", "ru"),
+  en: sectionUrl("contact", "en"),
+};
+
+const props: Omit<ContactIslandProps, "locale"> = {
+  eyebrow: "CONTACT",
+  title: "Hai să discutăm",
+  subtitle:
+    "Suntem disponibili pentru o consultație gratuită. Completați formularul sau folosiți una dintre căile rapide de mai jos.",
+  labelName: "Nume",
+  labelEmail: "Email",
+  labelPhone: "Telefon",
+  labelCompany: "Companie",
+  labelService: "Subiect / Serviciu",
+  labelMessage: "Mesaj",
+  labelSend: "Trimite mesajul",
+  placeholderName: "Ion Popescu",
+  placeholderEmail: "ion@firma.md",
+  placeholderPhone: "+373 ...",
+  placeholderCompany: "Firma SRL",
+  placeholderMessage: "Spune-ne pe scurt despre afacerea ta...",
+  formTitle: "Scrie-ne un mesaj",
+  formSubtitle: "Vom reveni în maximum 4 ore în zile lucrătoare.",
+  successTitle: "Mesaj trimis cu succes!",
+  successSub: "Vom reveni în maximum 4 ore. Verifică emailul — am trimis o confirmare.",
+  labelOffice: "Biroul nostru",
+  address: "Str. Mitropolit Varlaam 65, Chișinău, MD-2012, Republica Moldova",
+  phone: "+373 22 22 33 44",
+  email: "contact@expertcont.md",
+  labelHours: "Program de lucru",
+  hours: "Luni–Vineri, 9:00–18:00",
+  labelAvailable: "Disponibil acum",
+  labelBook: "Programează consultație gratuită",
+  bookHref: sectionUrl("contact", "ro"),
+  channelsTitle: "Contactează-ne rapid",
+  services: [
+    { value: "contabilitate", label: "Contabilitate & evidență" },
+    { value: "fiscal", label: "Consultanță fiscală" },
+    { value: "juridic", label: "Servicii juridice" },
+    { value: "hr", label: "Resurse umane" },
+    { value: "it", label: "IT Consulting" },
+    { value: "altele", label: "Altele" },
+  ],
+};
+---
+
+<Base
+  title="Contact — ExpertCont"
+  description="Contactați echipa ExpertCont pentru o consultație gratuită în contabilitate și fiscalitate."
+  locale={locale}
+  path={sectionUrl("contact", locale)}
+  siblings={siblings}
+>
+  <PageShell locale={locale} activeSection="contact" siblings={siblings}>
+    <ContactIsland client:only="react" locale={locale} {...props} />
+  </PageShell>
+</Base>

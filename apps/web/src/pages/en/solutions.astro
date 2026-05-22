@@ -1,0 +1,98 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageShell from "../../components/PageShell.astro";
+import SolutionsIsland from "../../components/solutions/SolutionsIsland";
+import { sectionUrl, type Locale } from "@expertcont/i18n";
+
+const locale: Locale = "en";
+const path = sectionUrl("solutions", locale);
+const siblings: Record<Locale, string> = {
+  ro: sectionUrl("solutions", "ro"),
+  ru: sectionUrl("solutions", "ru"),
+  en: sectionUrl("solutions", "en"),
+};
+---
+
+<Base
+  title="Solutions — ExpertCont"
+  description="Choose your starting point and we'll show you exactly what we'll do for you in the first 30 days."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+>
+  <PageShell locale={locale} activeSection="solutions" siblings={siblings}>
+    <SolutionsIsland
+      client:load
+      locale={locale}
+      bookHref={sectionUrl("contact", locale)}
+      homeLabel="Home"
+      eyebrow="For you"
+      pageTitle="What's your situation right now?"
+      pageSubtitle="Choose your starting point and we'll show you exactly what we'll do for you in the first 30 days."
+      breadcrumbSolutions="Solutions"
+      personaSwitchLabel="Choose your situation"
+      deliverablesSectionLabel="In the first 30 days, we deliver:"
+      timelineLabel="Timeline"
+      recommendedPackageLabel="Recommended package"
+      fromLabel="from"
+      otherSituationsLabel="Switch to other situations"
+      ctaTitle="Don't see yourself in any of these?"
+      ctaSubtitle="Call us for 5 minutes. We'll decide together if we're a good fit."
+      bookLabel="Book a free consultation"
+      callLabel="Call now"
+      personas={[
+        {
+          slug: "new-srl",
+          short: "I want to open an LLC",
+          headline: "Entrepreneur just starting out",
+          desc: "You're about to launch a business and don't want to fight with bureaucracy. We guide you from scratch — registration, your first bank account, your first tax declaration.",
+          tier: "Starter",
+          tierPrice: 1490,
+          tierLabel: "MDL / month",
+          time: "5–7 days to launch",
+          deliverables: [
+            "LLC registration (with registered address and articles)",
+            "Primary accounting setup",
+            "Guidance opening your bank account",
+            "First tax declaration filed by us",
+            "Onboarding session — which documents you need to keep",
+          ],
+        },
+        {
+          slug: "growing",
+          short: "I have 3–15 employees and an unresponsive accountant",
+          headline: "Growing company looking to switch accountants",
+          desc: "You have a working business, but accounting is a source of stress — late replies, last-minute filings, no proactive advice. We take over with a clean transition.",
+          tier: "Business",
+          tierPrice: 3490,
+          tierLabel: "MDL / month",
+          time: "5–10 day onboarding with no missed deadlines",
+          deliverables: [
+            "Free audit of your existing records",
+            "Document transfer and system sync",
+            "Dedicated account manager (response < 4h)",
+            "Tax optimisation for the first 3 months",
+            "2h/month legal access included",
+          ],
+        },
+        {
+          slug: "enterprise",
+          short: "I'm a CEO of a 50+ employee company",
+          headline: "Mid-to-large company with complex requirements",
+          desc: "You have multi-entity operations, consolidated reporting, or IFRS requirements. You need a team, not a single accountant. We work with your CFO, not replace them.",
+          tier: "Enterprise",
+          tierPrice: null,
+          tierLabel: "Custom",
+          time: "3–4 week onboarding, custom plan",
+          deliverables: [
+            "Dedicated team (2–4 people)",
+            "Consolidated multi-entity reporting",
+            "IFRS compliance / internal audit",
+            "SLA 2h response, extended support Mon–Fri",
+            "Quarterly: strategic session with your CFO",
+          ],
+        },
+      ]}
+    />
+  </PageShell>
+</Base>

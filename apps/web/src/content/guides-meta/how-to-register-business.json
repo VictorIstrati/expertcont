@@ -1,0 +1,19 @@
+{
+  "id": "how-to-register-business",
+  "slugs": {
+    "ro": "ghid-inregistrare-firma",
+    "ru": "registratsiya-biznesa",
+    "en": "how-to-register-business"
+  },
+  "titles": {
+    "ro": "Cum să înregistrezi o firmă în Moldova",
+    "ru": "Как зарегистрировать бизнес в Молдове",
+    "en": "How to register a business in Moldova"
+  },
+  "summaries": {
+    "ro": "Ghid pas cu pas pentru înregistrarea unui SRL sau ÎI în Republica Moldova — documente, termene și costuri.",
+    "ru": "Пошаговое руководство по регистрации ООО или ИП в Республике Молдова — документы, сроки, расходы.",
+    "en": "Step-by-step guide to registering an LLC or sole trader in the Republic of Moldova — documents, timelines and costs."
+  },
+  "updated": "2026-05-18"
+}

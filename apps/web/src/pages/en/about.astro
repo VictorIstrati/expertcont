@@ -1,0 +1,27 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageShell from "../../components/PageShell.astro";
+import AboutIsland from "../../components/about/AboutIsland";
+import { sectionUrl, type Locale } from "@expertcont/i18n";
+
+const locale: Locale = "en";
+
+const path = sectionUrl("about", locale);
+const siblings: Record<Locale, string> = {
+  ro: sectionUrl("about", "ro"),
+  ru: sectionUrl("about", "ru"),
+  en: sectionUrl("about", "en"),
+};
+---
+
+<Base
+  title="About us — ExpertCont"
+  description="Since 2009, ExpertCont has provided integrated business services for entrepreneurs and companies in Moldova."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+>
+  <PageShell locale={locale} activeSection="about" siblings={siblings}>
+    <AboutIsland client:load locale={locale} bookHref={sectionUrl("contact", locale)} />
+  </PageShell>
+</Base>

@@ -1,0 +1,11 @@
+{
+  "id": "audit",
+  "slugs": { "ro": "audit", "ru": "audit", "en": "audit" },
+  "titles": { "ro": "Audit financiar", "ru": "Финансовый аудит", "en": "Financial audit" },
+  "summaries": {
+    "ro": "Audit financiar extern și intern conform Standardelor Internaționale de Audit, cu opinie independentă.",
+    "ru": "Внешний и внутренний аудит в соответствии с Международными стандартами аудита.",
+    "en": "External and internal financial audit in accordance with International Standards on Auditing."
+  },
+  "updated": "2026-05-18"
+}
