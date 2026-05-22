@@ -1,0 +1,141 @@
+:root {
+  /* Brand colors */
+  --color-primary: #4663ab;
+  --color-primary-dark: #0039c6;
+  --color-primary-50: #eef2fa;
+  --color-primary-100: #dde5f4;
+  --color-primary-deep: #1e2a4a;
+  --color-accent: #dfb741;
+  --color-accent-dark: #b89329;
+  --color-accent-50: #fbf6e6;
+
+  /* Neutrals (light theme defaults) */
+  --color-text: #1a1a2e;
+  --color-text-muted: #6b7280;
+  --color-text-soft: #9ca3af;
+  --color-surface: #f8f9fc;
+  --color-surface-2: #f1f3f9;
+  --color-white: #ffffff;
+  --color-border: #e5e7eb;
+  --color-border-strong: #d1d5db;
+
+  /* Semantic */
+  --bg-page: var(--color-white);
+  --bg-section: var(--color-white);
+  --bg-section-alt: var(--color-surface);
+  --bg-section-dark: var(--color-primary-dark);
+  --bg-card: var(--color-white);
+  --text-primary: var(--color-text);
+  --text-secondary: var(--color-text-muted);
+  --text-on-dark: #ffffff;
+  --border: var(--color-border);
+  --border-strong: var(--color-border-strong);
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(16, 24, 40, 0.05);
+  --shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.08), 0 1px 2px rgba(16, 24, 40, 0.04);
+  --shadow-md: 0 4px 12px rgba(16, 24, 40, 0.08), 0 2px 4px rgba(16, 24, 40, 0.04);
+  --shadow-lg: 0 12px 32px rgba(16, 24, 40, 0.1), 0 4px 8px rgba(16, 24, 40, 0.04);
+  --shadow-xl: 0 24px 56px rgba(16, 24, 40, 0.14), 0 8px 16px rgba(16, 24, 40, 0.06);
+
+  /* Radius */
+  --r-xs: 4px;
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
+  --r-xl: 20px;
+  --r-2xl: 28px;
+  --r-pill: 999px;
+
+  /* Type */
+  --font-sans: "Montserrat", system-ui, -apple-system, sans-serif;
+
+  /* Spacing scale */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+  --s-20: 80px;
+  --s-24: 96px;
+  --s-32: 128px;
+
+  /* Layout */
+  --container: 1240px;
+  --container-narrow: 920px;
+  --nav-h: 76px;
+
+  /* ----------------------------------------------------------------
+     Legacy alias bridge — keep existing CSS Modules working
+  ---------------------------------------------------------------- */
+  --space-1: var(--s-1);
+  --space-2: var(--s-2);
+  --space-3: var(--s-3);
+  --space-4: var(--s-4);
+  --space-5: var(--s-5);
+  --space-6: var(--s-6);
+  --space-7: 48px;
+  --space-8: var(--s-16);
+  --space-9: var(--s-24);
+  --color-text-primary: var(--color-text);
+  --color-text-secondary: var(--color-text-muted);
+  --color-text-inverse: var(--text-on-dark);
+  --color-bg: var(--bg-page);
+  --color-bg-section: var(--color-surface);
+  --color-bg-section-alt: var(--color-surface-2);
+  --color-accent-hover: var(--color-accent-dark);
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
+  --radius-pill: var(--r-pill);
+  --container-max: var(--container);
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+  --color-primary: #6c8ad1;
+  --color-primary-dark: #1b4fe0;
+  --color-primary-50: #1a2238;
+  --color-primary-100: #243151;
+  --color-primary-deep: #0e1426;
+  --color-accent: #e5c25c;
+  --color-accent-dark: #c9a639;
+  --color-accent-50: #2a2418;
+  --color-text: #eceef5;
+  --color-text-muted: #9ca3b5;
+  --color-text-soft: #6b7280;
+  --color-surface: #12141c;
+  --color-surface-2: #1a1d28;
+  /* --color-white stays #ffffff from :root — overriding it breaks bg-white/text-white on dark surfaces. */
+  --color-border: #2a2e3d;
+  --color-border-strong: #3a4055;
+
+  --bg-page: #0b0d14;
+  --bg-section: #0b0d14;
+  --bg-section-alt: #12141c;
+  --bg-section-dark: #051838;
+  --bg-card: #161924;
+  --text-primary: #eceef5;
+  --text-secondary: #9ca3b5;
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.45), 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5), 0 4px 8px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 24px 56px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(0, 0, 0, 0.4);
+
+  /* Dark legacy aliases */
+  --color-text-primary: var(--color-text);
+  --color-text-secondary: var(--color-text-muted);
+  --color-bg: var(--bg-page);
+  --color-bg-section: var(--color-surface);
+  --color-bg-section-alt: var(--color-surface-2);
+}
