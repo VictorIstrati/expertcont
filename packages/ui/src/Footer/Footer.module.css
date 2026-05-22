@@ -1,0 +1,167 @@
+.footer {
+  background: #0f1a3a;
+  color: #fff;
+  margin-top: 0;
+}
+
+.newsletterWrap {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.newsletterRow {
+  padding: 40px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.newsletterTitle {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.newsletterSub {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.65);
+  margin-top: 6px;
+}
+
+.newsletterForm {
+  display: flex;
+  gap: 8px;
+}
+
+.newsletterInput {
+  flex: 1;
+  min-width: 0;
+  padding: 14px 16px;
+  border-radius: var(--r-pill);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-size: 14px;
+}
+
+.newsletterInput::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.newsletterBtn {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.mainGrid {
+  padding: 64px 0 32px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
+  gap: 48px;
+}
+
+.brandCol p {
+  margin: 18px 0 0;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.65;
+  max-width: 320px;
+}
+
+.tagline {
+  /* already styled via .brandCol p */
+}
+
+.contactList {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contactRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.colTitle {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 18px;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.list a {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  transition: color 120ms ease;
+}
+
+.list a:hover {
+  color: #fff;
+}
+
+.bottomBar {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bottomRow {
+  padding: 24px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.copyright,
+.smallTagline {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 980px) {
+  .mainGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .brandCol {
+    grid-column: 1 / -1;
+  }
+
+  .newsletterRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 540px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .newsletterForm {
+    flex-direction: column;
+  }
+
+  .newsletterBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}

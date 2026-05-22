@@ -1,0 +1,32 @@
+.section {
+  width: 100%;
+}
+
+/* Tone variants */
+.tone-default {
+  background: var(--color-bg);
+}
+
+.tone-alt {
+  background: var(--color-bg-section);
+}
+
+.tone-accent {
+  background: var(--color-bg-section-alt);
+}
+
+/* Spacing variants */
+.space-tight {
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-6);
+}
+
+.space-default {
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-8);
+}
+
+.space-loose {
+  padding-top: var(--space-9);
+  padding-bottom: var(--space-9);
+}

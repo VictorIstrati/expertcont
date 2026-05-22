@@ -1,0 +1,36 @@
+{
+  "name": "@expertcont/ui",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src"
+  },
+  "dependencies": {
+    "@expertcont/i18n": "workspace:*",
+    "@expertcont/tokens": "workspace:*",
+    "@lingui/core": "^5.1.0",
+    "@lingui/react": "^5.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@lingui/babel-plugin-lingui-macro": "^5.1.0",
+    "@lingui/macro": "^5.1.0",
+    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/react": "^16.0.1",
+    "@types/react": "^18.3.10",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "happy-dom": "^15.7.4",
+    "typescript": "^5.5.4",
+    "vitest": "^2.1.1"
+  }
+}

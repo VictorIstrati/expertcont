@@ -1,0 +1,54 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  margin: 0;
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+}
+
+.starOn {
+  color: var(--color-accent);
+  font-size: 18px;
+}
+
+.starOff {
+  color: var(--color-border);
+  font-size: 18px;
+}
+
+.body {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-style: italic;
+}
+
+.author {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+
+.authorName {
+  font-weight: var(--font-weight-semibold);
+  font-size: 15px;
+  color: var(--color-text-primary);
+}
+
+.authorCompany {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
