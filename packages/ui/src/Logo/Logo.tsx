@@ -30,7 +30,7 @@ export function Logo({ variant = "horizontal", size = 36, mono = false }: LogoPr
         <path fill={blue} fillRule="evenodd" d={DOTS_PATH} />
       </svg>
       <div
-        className="font-extrabold tracking-tight leading-none"
+        className="font-bold tracking-tight leading-none"
         style={{ fontSize: size * 0.55 }}
       >
         <span style={{ color: blue }}>EXPERT</span>
