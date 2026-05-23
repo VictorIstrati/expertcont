@@ -218,7 +218,9 @@ export function Nav({
             {/* Language grid */}
             <div>
               <div className={styles.mobileSectionTitle}>
-                <Trans>Language</Trans>
+                <Trans comment="Mobile nav section heading for the language switcher.">
+                  Language
+                </Trans>
               </div>
               <div className={`${styles.mobileGrid} ${styles.mobileGrid3}`}>
                 {langs.map((l) => (
@@ -246,7 +248,9 @@ export function Nav({
             {theme !== undefined && (
               <div>
                 <div className={styles.mobileSectionTitle}>
-                  <Trans>Theme</Trans>
+                  <Trans comment="Mobile nav section heading for the light/dark theme switcher. 'Theme' as in visual appearance, not subject/topic.">
+                    Theme
+                  </Trans>
                 </div>
                 <div className={`${styles.mobileGrid} ${styles.mobileGrid2}`}>
                   {(

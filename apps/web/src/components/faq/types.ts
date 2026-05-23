@@ -31,7 +31,14 @@ export function useTopics(): Topic[] {
   return [
     { v: "general", l: t`General` },
     { v: "contabilitate", l: t`Contabilitate` },
-    { v: "juridic", l: t`Juridic` },
+    {
+      v: "juridic",
+      l: t({
+        message: `Juridic`,
+        comment:
+          "FAQ category. Romanian adjective used as a noun = 'Legal services'.",
+      }),
+    },
     { v: "hr", l: t`HR` },
     { v: "pricing", l: t`Prețuri & Contract` },
     { v: "securitate", l: t`Securitate & GDPR` },
@@ -46,8 +53,16 @@ export function useResponseLabels(): ResponseLabels {
     email: t`Email`,
     response: t`Răspuns`,
     responseVal: t`în maxim 4 ore (L–V)`,
-    placeholderName: t`Ion Popescu`,
-    placeholderEmail: t`ion@firma.md`,
+    placeholderName: t({
+      message: `Ion Popescu`,
+      comment:
+        "Placeholder text inside the 'Name' field on the FAQ form. Common Moldovan name — transliterate (e.g. RU 'Ион Попеску'), don't replace.",
+    }),
+    placeholderEmail: t({
+      message: `ion@firma.md`,
+      comment:
+        "Placeholder text inside the 'Email' field on the FAQ form. Sample address — use a locale-appropriate example domain.",
+    }),
     placeholderQuestion: t`Descrie întrebarea ta în câteva propoziții — cu cât mai concret, cu atât răspundem mai precis.`,
   };
 }

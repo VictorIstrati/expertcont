@@ -14,19 +14,35 @@ export function useBookingStrings(): Strings {
     step1: t`Serviciu`,
     step2: t`Data & Ora`,
     step3: t`Date contact`,
-    stepDone: t`Confirmat`,
+    stepDone: t({
+      message: `Confirmat`,
+      comment:
+        "Booking modal — stepper label for the confirmation step. Past participle, neutral state (not 'confirm' the verb).",
+    }),
     serviceLabel: t`Pentru ce serviciu?`,
     services: [
       { slug: "contabilitate", name: t`Contabilitate`, icon: "file-text" },
       { slug: "audit", name: t`Audit`, icon: "search" },
-      { slug: "juridic", name: t`Juridic`, icon: "briefcase" },
+      {
+        slug: "juridic",
+        name: t({
+          message: `Juridic`,
+          comment:
+            "Service category. Romanian adjective used as a noun = 'Legal services'.",
+        }),
+        icon: "briefcase",
+      },
       { slug: "consultanta", name: t`Consultanță`, icon: "lightbulb" },
       { slug: "hr", name: t`HR`, icon: "users" },
       { slug: "it", name: t`IT & Soft`, icon: "code" },
     ],
     dateLabel: t`Alege ziua`,
     timeLabel: t`Alege ora`,
-    modeLabel: t`Format`,
+    modeLabel: t({
+      message: `Format`,
+      comment:
+        "Booking modal — label for the consultation format selector (online vs in-office).",
+    }),
     modeOnline: t`Online`,
     modeOffice: t`La birou`,
     nameLabel: t`Nume complet`,
@@ -34,11 +50,29 @@ export function useBookingStrings(): Strings {
     phoneLabel: t`Telefon`,
     notesLabel: t`Detalii suplimentare (opțional)`,
     summaryLabel: t`Rezumat programare`,
-    prev: t`Înapoi`,
-    next: t`Continuă`,
-    confirm: t`Confirmă programarea`,
-    cancel: t`Anulează`,
-    close: t`Închide`,
+    prev: t({
+      message: `Înapoi`,
+      comment:
+        "Booking modal — button that returns to the previous step. Adverb 'back', not a noun.",
+    }),
+    next: t({
+      message: `Continuă`,
+      comment: "Booking modal — primary 'next step' button. Imperative verb.",
+    }),
+    confirm: t({
+      message: `Confirmă programarea`,
+      comment: "Booking modal — final-step primary button. Imperative verb.",
+    }),
+    cancel: t({
+      message: `Anulează`,
+      comment:
+        "Booking modal — secondary button that aborts the booking flow. Imperative verb.",
+    }),
+    close: t({
+      message: `Închide`,
+      comment:
+        "Booking modal — button that closes the modal. Imperative verb.",
+    }),
     doneTitle: t`Programare trimisă!`,
     doneMsg: t`Vă vom contacta în mai puțin de 4 ore în zile lucrătoare pentru confirmare.`,
     bookedLabel: t`Programare confirmată`,

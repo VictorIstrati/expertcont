@@ -20,7 +20,11 @@ interface Props {
 
 function FaqInner({ locale, groups, contactPhone, contactEmail }: Props) {
   const { t } = useLingui();
-  const allLabel = t`Toate`;
+  const allLabel = t({
+    message: `Toate`,
+    comment:
+      "FAQ category filter — 'All' (shows every category). Feminine plural in RO agreeing with implied 'întrebări'.",
+  });
   const categories = [allLabel, ...Array.from(new Set(groups.map((g) => g.cat)))];
 
   const [activeCat, setActiveCat] = useState(allLabel);
@@ -84,7 +88,11 @@ function FaqInner({ locale, groups, contactPhone, contactEmail }: Props) {
             formBody={t`Răspundem în mai puțin de 4 ore în zile lucrătoare. Întrebările frecvente le adăugăm și aici, ca să ajute mai departe.`}
             formNameLabel={t`Nume`}
             formEmailLabel={t`Email`}
-            formSubjectLabel={t`Subiect`}
+            formSubjectLabel={t({
+              message: `Subiect`,
+              comment:
+                "FAQ 'ask a question' form — field label for the question subject (topic of the question, not 'subject' as in academic discipline).",
+            })}
             formQuestionLabel={t`Întrebarea ta`}
             formConsentLabel={t`Sunt de acord cu prelucrarea datelor conform`}
             formConsentLink={t`politicii de confidențialitate`}

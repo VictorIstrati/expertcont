@@ -30,7 +30,9 @@ export function PriceCard({
     <article className={`${styles.card} ${featured ? styles.featured : ""}`.trim()}>
       {featured && (
         <div className={styles.badge}>
-          <Trans>Recommended</Trans>
+          <Trans comment="Badge on the recommended pricing tier card. Past participle agreeing with the implied masculine noun 'plan' in RO ('Recomandat'); use a neutral form in EN/RU.">
+            Recommended
+          </Trans>
         </div>
       )}
       <h3 className={styles.name}>{name}</h3>

@@ -29,7 +29,14 @@ function useServiceOptions(): { value: string; label: string }[] {
     { value: "contabilitate", label: t`Contabilitate & evidență` },
     { value: "fiscal", label: t`Consultanță fiscală` },
     { value: "juridic", label: t`Servicii juridice` },
-    { value: "hr", label: t`Resurse umane` },
+    {
+      value: "hr",
+      label: t({
+        message: `Resurse umane`,
+        comment:
+          "Contact form 'subject' option for HR-related inquiries (literally 'human resources').",
+      }),
+    },
     { value: "it", label: t`IT Consulting` },
     { value: "altele", label: t`Altele` },
   ];
@@ -115,7 +122,11 @@ function ContactInner({ locale, address, phone, email, hours }: ContactIslandPro
                         required
                         value={form.name}
                         onChange={(e) => setForm({ ...form, name: e.target.value })}
-                        placeholder={t`Ion Popescu`}
+                        placeholder={t({
+                          message: `Ion Popescu`,
+                          comment:
+                            "Placeholder text inside the contact form 'Name' field. Common Moldovan name — transliterate (e.g. RU 'Ион Попеску'), don't replace.",
+                        })}
                       />
                     </div>
                     <div className="field">
@@ -129,7 +140,11 @@ function ContactInner({ locale, address, phone, email, hours }: ContactIslandPro
                         required
                         value={form.email}
                         onChange={(e) => setForm({ ...form, email: e.target.value })}
-                        placeholder={t`ion@firma.md`}
+                        placeholder={t({
+                          message: `ion@firma.md`,
+                          comment:
+                            "Placeholder text inside the contact form 'Email' field. Sample address — use a locale-appropriate example domain.",
+                        })}
                       />
                     </div>
                   </div>
@@ -144,7 +159,11 @@ function ContactInner({ locale, address, phone, email, hours }: ContactIslandPro
                         type="tel"
                         value={form.phone}
                         onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                        placeholder={t`+373 ...`}
+                        placeholder={t({
+                          message: `+373 ...`,
+                          comment:
+                            "Placeholder text inside the contact form 'Phone' field (Moldova country code +373). Keep as-is in every locale.",
+                        })}
                       />
                     </div>
                     <div className="field">
@@ -156,7 +175,11 @@ function ContactInner({ locale, address, phone, email, hours }: ContactIslandPro
                         className="input"
                         value={form.company}
                         onChange={(e) => setForm({ ...form, company: e.target.value })}
-                        placeholder={t`Firma SRL`}
+                        placeholder={t({
+                          message: `Firma SRL`,
+                          comment:
+                            "Placeholder text inside the contact form 'Company' field. Use a local sample form: EN 'Acme LLC', RU 'ООО «Компания»'.",
+                        })}
                       />
                     </div>
                   </div>

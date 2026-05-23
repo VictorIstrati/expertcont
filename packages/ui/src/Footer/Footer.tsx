@@ -36,7 +36,11 @@ export function Footer({ locale, onNewsletterSubscribe }: FooterProps) {
 
   const year = new Date().getFullYear();
 
-  const newsletterPlaceholder = t`email@exemplu.md`;
+  const newsletterPlaceholder = t({
+    message: `email@exemplu.md`,
+    comment:
+      "Placeholder shown inside the footer newsletter email input. Use a locale-appropriate example domain.",
+  });
 
   return (
     <footer className={styles.footer}>
@@ -63,7 +67,11 @@ export function Footer({ locale, onNewsletterSubscribe }: FooterProps) {
                 aria-label="Email"
               />
               <button type="submit" className={`btn btn-primary ${styles.newsletterBtn}`}>
-                {subscribed ? <Trans>✓ Subscribed</Trans> : <Trans>Subscribe</Trans>}
+                {subscribed ? (
+                  <Trans>✓ Subscribed</Trans>
+                ) : (
+                  <Trans comment="Footer newsletter form submit button. Imperative verb.">Subscribe</Trans>
+                )}
               </button>
             </form>
           </div>
@@ -207,7 +215,9 @@ export function Footer({ locale, onNewsletterSubscribe }: FooterProps) {
           {/* Legal column */}
           <div>
             <div className={styles.colTitle}>
-              <Trans>Legal</Trans>
+              <Trans comment="Footer column heading grouping Privacy/Terms/Cookies links. NOT a service category — refers to legal/compliance pages.">
+                Legal
+              </Trans>
             </div>
             <ul className={styles.list}>
               <li>
