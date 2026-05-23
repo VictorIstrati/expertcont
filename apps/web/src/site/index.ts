@@ -48,6 +48,7 @@ const SiteSchema = z.object({
     subtitle: localized,
     labelMonthly: localized,
     labelYearly: localized,
+    estimateNotice: localized,
     calc: z.object({
       calcTitle: localized,
       calcHeading: localized,
@@ -71,6 +72,8 @@ const SiteSchema = z.object({
     ctaTitle: localized,
     ctaSubtitle: localized,
     ctaButton: localized,
+    /** Anchor or URL the CTA button links to. Locale-invariant. */
+    ctaHref: z.string(),
     notesLine: localized,
   }),
 });
@@ -108,6 +111,7 @@ export function buildPricingProps(locale: Locale): Omit<PricingIslandProps, "loc
     subtitle: pick(p.subtitle, locale),
     labelMonthly: pick(p.labelMonthly, locale),
     labelYearly: pick(p.labelYearly, locale),
+    estimateNotice: pick(p.estimateNotice, locale),
     calc: {
       calcTitle: pick(p.calc.calcTitle, locale),
       calcHeading: pick(p.calc.calcHeading, locale),
@@ -139,6 +143,7 @@ export function buildPricingProps(locale: Locale): Omit<PricingIslandProps, "loc
     ctaTitle: pick(p.ctaTitle, locale),
     ctaSubtitle: pick(p.ctaSubtitle, locale),
     ctaButton: pick(p.ctaButton, locale),
+    ctaHref: p.ctaHref,
     notesLine: pick(p.notesLine, locale),
   };
 }

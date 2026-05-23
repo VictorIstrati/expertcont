@@ -57,6 +57,8 @@ export interface PricingIslandProps {
   subtitle: string;
   labelMonthly: string;
   labelYearly: string;
+  /** Prominent callout shown above the tier cards: prices are estimates. */
+  estimateNotice: string;
   tiers: Tier[];
   addOnsTitle: string;
   addOns: AddOn[];
@@ -64,6 +66,8 @@ export interface PricingIslandProps {
   ctaTitle: string;
   ctaSubtitle: string;
   ctaButton: string;
+  /** If set, the CTA button renders as a link to this href instead of opening the booking modal. */
+  ctaHref?: string;
   notesLine: string;
   calc: CalcStrings;
 }

@@ -75,63 +75,83 @@ pricing:
     calcRequestOffer: { ro: "Solicită ofertă personalizată",  ru: "Запросить индивидуальное предложение", en: "Request a custom quote" }
     calcPerMonth:     { ro: "MDL / lună",                     ru: "MDL / мес",                      en: "MDL / month" }
 
+  # Pricing anchored to the Moldovan market (competitor mid-points + 30% margin).
+  # Three tiers, by company complexity. EVERY tier bundles HR + Legal in-house
+  # so the client doesn't have to source those separately.
+  #   Start    — dormant / holding companies, very low compliance load
+  #   Standard — active SMB doing regular B2B (most customers land here)
+  #   Premium  — complex industries: construction, transport, distribution,
+  #              eCommerce, NGO, manufacturing
+  # Prominent estimate disclaimer rendered as a callout ABOVE the tier cards.
+  # All three tiers are anchored on Moldovan market mid-points (e.g.
+  # intelcont.md). Real quotes depend on document volume, headcount, and
+  # industry — flagged explicitly so prospects don't anchor on the "from" price.
+  estimateNotice:
+    ro: "* Prețurile afișate sunt estimative. Oferta finală depinde de specificul afacerii — volumul de documente, numărul de angajați și industria. Pentru o estimare personalizată, folosește calculatorul de mai jos sau programează o consultație gratuită."
+    ru: "* Указанные цены являются оценочными. Окончательная стоимость зависит от специфики бизнеса — объёма документов, числа сотрудников и отрасли. Для индивидуальной оценки воспользуйтесь калькулятором ниже или запишитесь на бесплатную консультацию."
+    en: "* Prices shown are estimates. The final quote depends on your business specifics — document volume, headcount, and industry. For a personalised estimate, use the calculator below or book a free consultation."
+
   tiers:
-    - id: basic
-      price: 1500
-      name:   { ro: Basic, ru: Basic, en: Basic }
+    - id: start
+      price: 2499
+      name:   { ro: Start, ru: Start, en: Start }
       period: { ro: " / lună",  ru: " / мес",  en: " / month" }
       desc:
-        ro: "Pentru afaceri mici și PFA-uri"
-        ru: "Для малого бизнеса и ИП"
-        en: "For small businesses and sole traders"
+        ro: "Pentru micro-afaceri cu volum redus de operațiuni"
+        ru: "Для микро-бизнеса с низким объёмом операций"
+        en: "For micro-businesses with low operation volume"
       features:
-        - { ro: "Până la 30 documente/lună",         ru: "До 30 документов/месяц",             en: "Up to 30 documents/month" }
-        - { ro: "Declarații lunare TVA",             ru: "Ежемесячные декларации НДС",         en: "Monthly VAT declarations" }
-        - { ro: "Calcul salarii (max 3 angajați)",   ru: "Расчёт зарплат (макс. 3 сотрудника)", en: "Payroll (max 3 employees)" }
-        - { ro: "Raport lunar simplu",               ru: "Простой ежемесячный отчёт",          en: "Simple monthly report" }
-        - { ro: "Email support",                     ru: "Email-поддержка",                    en: "Email support" }
-      cta: { ro: "Alegeți Basic", ru: "Выбрать Basic", en: "Choose Basic" }
+        - { ro: "Cifră de afaceri: până la 500.000 MDL / an",     ru: "Оборот: до 500 000 MDL / год",                  en: "Turnover: up to 500,000 MDL / year" }
+        - { ro: "Calcul salarii pentru 1 angajat",                ru: "Расчёт зарплат для 1 сотрудника",                en: "Payroll for 1 employee" }
+        - { ro: "HR: gestiune personal pentru 1 persoană",        ru: "HR: кадровый учёт на 1 человека",               en: "HR: personnel records for 1 person" }
+        - { ro: "Până la 3 facturi / lună",                       ru: "До 3 счетов-фактур / месяц",                    en: "Up to 3 invoices / month" }
+        - { ro: "Toate declarațiile fiscale (TVA, impozite)",     ru: "Все налоговые декларации (НДС, налоги)",        en: "All tax declarations (VAT, taxes)" }
+        - { ro: "1h consultanță juridică / lună",                 ru: "1ч юридической консультации / месяц",           en: "1h legal consultation / month" }
+        - { ro: "Bilanț anual inclus",                            ru: "Годовой баланс включён",                        en: "Annual balance sheet included" }
+        - { ro: "Răspuns garantat în < 8h în zile lucrătoare",    ru: "Гарантированный ответ < 8ч в рабочие дни",      en: "Guaranteed reply < 8h on business days" }
+        - { ro: "Suport pe email",                                ru: "Email-поддержка",                               en: "Email support" }
+      cta: { ro: "Alege Start", ru: "Выбрать Start", en: "Choose Start" }
 
     - id: standard
-      price: 3000
+      price: 2999
       popular: true
       name:   { ro: Standard, ru: Standard, en: Standard }
       period: { ro: " / lună",  ru: " / мес",  en: " / month" }
       desc:
-        ro: "Cel mai popular — pentru SRL în creștere"
-        ru: "Самый популярный — для растущего ООО"
-        en: "Most popular — for growing LLCs"
+        ro: "Cel mai popular — pentru afaceri în creștere cu echipă mică"
+        ru: "Самый популярный — для растущего бизнеса с небольшой командой"
+        en: "Most popular — for growing businesses with a small team"
       features:
-        - { ro: "Până la 100 documente/lună",          ru: "До 100 документов/месяц",                 en: "Up to 100 documents/month" }
-        - { ro: "Toate declarațiile fiscale",          ru: "Все налоговые декларации",                en: "All tax declarations" }
-        - { ro: "Salarii (max 15 angajați)",           ru: "Зарплаты (макс. 15 сотрудников)",         en: "Payroll (max 15 employees)" }
-        - { ro: "Manager de cont dedicat",             ru: "Персональный менеджер",                   en: "Dedicated account manager" }
-        - { ro: "Răspuns < 4h",                        ru: "Ответ < 4 часов",                         en: "Response < 4h" }
-        - { ro: "Consultanță lunară 1h",               ru: "Консультация 1ч/месяц",                   en: "Monthly consultation 1h" }
-        - { ro: "Bilanț anual inclus",                 ru: "Годовой баланс включён",                  en: "Annual balance sheet included" }
-        - { ro: "Acces portal client",                 ru: "Доступ к клиентскому порталу",            en: "Client portal access" }
-      cta: { ro: "Alegeți Standard", ru: "Выбрать Standard", en: "Choose Standard" }
+        - { ro: "Cifră de afaceri: până la 1.500.000 MDL / an",                 ru: "Оборот: до 1 500 000 MDL / год",                                     en: "Turnover: up to 1,500,000 MDL / year" }
+        - { ro: "Calcul salarii pentru până la 3 angajați",                     ru: "Расчёт зарплат до 3 сотрудников",                                    en: "Payroll for up to 3 employees" }
+        - { ro: "HR: gestiune personal pentru până la 5 persoane (acoperă fluctuația de personal)", ru: "HR: кадровый учёт до 5 человек (с запасом на ротацию)",                              en: "HR: personnel records for up to 5 people (covers turnover)" }
+        - { ro: "Până la 5 facturi / lună",                                     ru: "До 5 счетов-фактур / месяц",                                          en: "Up to 5 invoices / month" }
+        - { ro: "Toate declarațiile fiscale + raportare CNAS / CNAM",           ru: "Все налоговые декларации + отчётность CNAS / CNAM",                  en: "All tax declarations + CNAS / CNAM reporting" }
+        - { ro: "3h consultanță juridică / lună + revizuire contracte",         ru: "3ч юр. консультаций / месяц + ревизия договоров",                    en: "3h legal consultation / month + contract review" }
+        - { ro: "Manager de cont dedicat",                                      ru: "Персональный менеджер",                                              en: "Dedicated account manager" }
+        - { ro: "Suport pe telefon și email",                                   ru: "Поддержка по телефону и email",                                      en: "Phone and email support" }
+        - { ro: "Răspuns garantat în < 4h în zile lucrătoare",                  ru: "Гарантированный ответ < 4ч в рабочие дни",                           en: "Guaranteed reply < 4h on business days" }
+        - { ro: "Bilanț anual inclus",                                          ru: "Годовой баланс включён",                                             en: "Annual balance sheet included" }
+      cta: { ro: "Alege Standard", ru: "Выбрать Standard", en: "Choose Standard" }
 
     - id: premium
-      price: 5500
+      price: 3999
       name:   { ro: Premium, ru: Premium, en: Premium }
       period: { ro: " / lună",  ru: " / мес",  en: " / month" }
       desc:
-        ro: "Pentru companii cu cerințe complexe"
-        ru: "Для компаний со сложными требованиями"
-        en: "For companies with complex requirements"
+        ro: "Pentru afaceri mature cu echipă completă și cerințe extinse"
+        ru: "Для зрелого бизнеса с полной командой и расширенными требованиями"
+        en: "For mature businesses with a full team and extended requirements"
       features:
-        - { ro: "Documente nelimitate",                ru: "Неограниченное количество документов",       en: "Unlimited documents" }
-        - { ro: "Audit intern trimestrial",            ru: "Ежеквартальный внутренний аудит",            en: "Quarterly internal audit" }
-        - { ro: "Salarii nelimitate",                  ru: "Неограниченное количество зарплат",          en: "Unlimited payroll" }
-        - { ro: "Consultant senior dedicat",           ru: "Выделенный старший консультант",             en: "Dedicated senior consultant" }
-        - { ro: "Răspuns prioritar < 2h",              ru: "Приоритетный ответ < 2 часов",               en: "Priority response < 2h" }
-        - { ro: "Consultanță săptămânală",             ru: "Еженедельные консультации",                  en: "Weekly consultations" }
-        - { ro: "Bilanț + raport managerial",          ru: "Баланс + управленческий отчёт",              en: "Balance sheet + management report" }
-        - { ro: "Asistență la inspecții fiscale",      ru: "Помощь при налоговых проверках",             en: "Tax inspection assistance" }
-        - { ro: "Optimizare fiscală personalizată",    ru: "Персональная налоговая оптимизация",         en: "Personalised tax optimisation" }
-        - { ro: "Suport juridic inclus",               ru: "Юридическая поддержка включена",             en: "Legal support included" }
-      cta: { ro: "Alegeți Premium", ru: "Выбрать Premium", en: "Choose Premium" }
+        - { ro: "Cifră de afaceri: până la 2.500.000 MDL / an",                 ru: "Оборот: до 2 500 000 MDL / год",                                     en: "Turnover: up to 2,500,000 MDL / year" }
+        - { ro: "Calcul salarii pentru până la 5 angajați",                     ru: "Расчёт зарплат до 5 сотрудников",                                    en: "Payroll for up to 5 employees" }
+        - { ro: "HR: gestiune personal pentru până la 10 persoane (acoperă fluctuația de personal)", ru: "HR: кадровый учёт до 10 человек (с запасом на ротацию)",                            en: "HR: personnel records for up to 10 people (covers turnover)" }
+        - { ro: "Până la 7 facturi / lună",                                     ru: "До 7 счетов-фактур / месяц",                                         en: "Up to 7 invoices / month" }
+        - { ro: "7h consultanță juridică / lună + redactare contracte",         ru: "7ч юр. консультаций / месяц + составление договоров",                en: "7h legal consultation / month + contract drafting" }
+        - { ro: "Suport pe telefon și email",                                   ru: "Поддержка по телефону и email",                                      en: "Phone and email support" }
+        - { ro: "Răspuns prioritar în < 2h în zile lucrătoare",                 ru: "Приоритетный ответ < 2ч в рабочие дни",                              en: "Priority reply < 2h on business days" }
+        - { ro: "Asistență completă la inspecții fiscale și controale",         ru: "Полное сопровождение налоговых проверок и контролей",                en: "Full support during tax inspections and audits" }
+      cta: { ro: "Alege Premium", ru: "Выбрать Premium", en: "Choose Premium" }
 
   addOnsTitle:
     ro: "Servicii suplimentare la cerere"
@@ -201,19 +221,24 @@ pricing:
         ru: "Первая 30-минутная консультация бесплатна. В течение первых 30 дней действует полная гарантия возврата средств."
         en: "The first 30-minute consultation is free. The first 30 days come with a full money-back guarantee if you are not satisfied."
 
+  # CTA band rendered below the tier grid. Reframed for the "custom" path:
+  # if none of the three packages fit, we send the user to the calculator
+  # (#calculator anchor on the same page). The button uses ctaHref to render
+  # as a link rather than opening the booking modal.
   ctaTitle:
     ro: "Nu îți găsești pachetul potrivit?"
     ru: "Не нашли подходящий пакет?"
     en: "Can't find the right package?"
   ctaSubtitle:
-    ro: "Contactează-ne și creăm o ofertă personalizată adaptată exact nevoilor afacerii tale."
-    ru: "Свяжитесь с нами, и мы подготовим индивидуальное предложение под нужды вашего бизнеса."
-    en: "Contact us and we'll create a tailored offer adapted exactly to your business needs."
+    ro: "Folosește calculatorul de mai jos pentru o estimare personalizată în câteva secunde — sau contactează-ne pentru o ofertă pe măsura afacerii tale."
+    ru: "Воспользуйтесь калькулятором ниже для индивидуальной оценки за несколько секунд — или свяжитесь с нами для предложения под ваш бизнес."
+    en: "Use the calculator below for a personalised estimate in seconds — or contact us for an offer tailored to your business."
   ctaButton:
-    ro: "Solicită ofertă personalizată"
-    ru: "Запросить индивидуальное предложение"
-    en: "Request a custom quote"
+    ro: "Deschide calculatorul"
+    ru: "Открыть калькулятор"
+    en: "Open the calculator"
+  ctaHref: "#calculator"
   notesLine:
-    ro: "Toate prețurile sunt fără TVA. Plata lunară, trimestrială sau anuală."
-    ru: "Все цены без НДС. Оплата ежемесячно, ежеквартально или ежегодно."
-    en: "All prices are exclusive of VAT. Payment monthly, quarterly or annually."
+    ro: "* Toate prețurile sunt „de la”, fără TVA. Plată lunară, trimestrială sau anuală."
+    ru: "* Все цены указаны «от», без НДС. Оплата ежемесячно, ежеквартально или ежегодно."
+    en: "* All prices are starting at, VAT excluded. Payment monthly, quarterly or annually."

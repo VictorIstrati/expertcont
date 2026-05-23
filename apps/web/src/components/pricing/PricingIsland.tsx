@@ -21,6 +21,7 @@ function PricingInner({
   subtitle,
   labelMonthly,
   labelYearly,
+  estimateNotice,
   tiers,
   addOnsTitle,
   addOns,
@@ -28,6 +29,7 @@ function PricingInner({
   ctaTitle,
   ctaSubtitle,
   ctaButton,
+  ctaHref,
   notesLine,
   calc,
 }: PricingIslandProps) {
@@ -50,6 +52,7 @@ function PricingInner({
         tiers={tiers}
         labelMonthly={labelMonthly}
         labelYearly={labelYearly}
+        estimateNotice={estimateNotice}
         notesLine={notesLine}
       />
 
@@ -59,7 +62,7 @@ function PricingInner({
 
       <PricingFaq items={faq} />
 
-      <PricingCta title={ctaTitle} subtitle={ctaSubtitle} button={ctaButton} />
+      <PricingCta title={ctaTitle} subtitle={ctaSubtitle} button={ctaButton} href={ctaHref} />
     </main>
   );
 }

@@ -9,10 +9,18 @@ interface Props {
   tiers: Tier[];
   labelMonthly: string;
   labelYearly: string;
+  estimateNotice: string;
   notesLine: string;
 }
 
-export function TierGrid({ locale, tiers, labelMonthly, labelYearly, notesLine }: Props) {
+export function TierGrid({
+  locale,
+  tiers,
+  labelMonthly,
+  labelYearly,
+  estimateNotice,
+  notesLine,
+}: Props) {
   const [billing, setBilling] = useState<"monthly" | "yearly">("monthly");
   const isYearly = billing === "yearly";
 
@@ -74,6 +82,7 @@ export function TierGrid({ locale, tiers, labelMonthly, labelYearly, notesLine }
                   className={`text-2xl mb-2 ${tier.popular ? "text-white" : "text-inherit"}`}
                 >
                   {tier.name}
+                  <sup className="ml-0.5 text-base font-semibold opacity-75">*</sup>
                 </h3>
                 <p
                   className={`text-sm mb-6 min-h-[42px] leading-normal ${
@@ -155,7 +164,10 @@ export function TierGrid({ locale, tiers, labelMonthly, labelYearly, notesLine }
           })}
         </div>
 
-        <div className="text-center mt-8 text-sm text-text-secondary">{notesLine}</div>
+        <div className="mt-8 text-sm text-text-secondary space-y-2">
+          <p className="m-0">{notesLine}</p>
+          <p className="m-0">{estimateNotice}</p>
+        </div>
       </Container>
       <style>{`
         @media (max-width: 900px) {
