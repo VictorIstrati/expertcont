@@ -1,7 +1,7 @@
 import { Icon, ArrowLink } from "@expertcont/ui";
 import type { Locale, ContentMeta } from "@expertcont/i18n";
 import { sectionUrl, detailUrl } from "@expertcont/i18n";
-import { serviceIcon } from "../../lib/serviceIcons";
+import { serviceIcon, sortByServiceOrder } from "../../lib/serviceIcons";
 
 interface Props {
   locale: Locale;
@@ -46,8 +46,7 @@ const strings: Record<Locale, LocaleStrings> = {
 export default function HomeServices({ locale, services }: Props) {
   const t = strings[locale];
 
-  const order = ["accounting", "hr", "legal", "audit", "it", "consulting"];
-  const sorted = [...services].sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id));
+  const sorted = sortByServiceOrder(services);
 
   return (
     <section className="section">

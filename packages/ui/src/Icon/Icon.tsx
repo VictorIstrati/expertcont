@@ -35,7 +35,10 @@ export type IconName =
   | "settings"
   | "file-text"
   | "zap"
-  | "award";
+  | "award"
+  | "calculator"
+  | "audit"
+  | "monitor";
 
 export interface IconProps extends Omit<SVGProps<SVGSVGElement>, "name" | "stroke"> {
   name: IconName;
@@ -308,6 +311,43 @@ export function Icon({ name, size = 20, stroke = 1.75, ...rest }: IconProps) {
         <svg {...common}>
           <circle cx="12" cy="8" r="7" />
           <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
+        </svg>
+      );
+    case "calculator":
+      // Pocket calculator: body, display strip, keypad of 7 round dot-buttons
+      // and one tall right-column key (the "=" sum). Universal accounting symbol.
+      return (
+        <svg {...common}>
+          <rect x="4" y="2" width="16" height="20" rx="2" />
+          <line x1="8" y1="6" x2="16" y2="6" />
+          <line x1="16" y1="14" x2="16" y2="18" />
+          <path d="M8 10h.01" />
+          <path d="M12 10h.01" />
+          <path d="M16 10h.01" />
+          <path d="M8 14h.01" />
+          <path d="M12 14h.01" />
+          <path d="M8 18h.01" />
+          <path d="M12 18h.01" />
+        </svg>
+      );
+    case "audit":
+      // Document with folded corner + magnifier lens inside the lower portion.
+      // Reads as "examining records" — the canonical audit metaphor.
+      return (
+        <svg {...common}>
+          <path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 3 14 8 20 8" />
+          <circle cx="11" cy="15" r="3" />
+          <line x1="13.2" y1="17.2" x2="15.5" y2="19.5" />
+        </svg>
+      );
+    case "monitor":
+      // Desktop monitor with stand: screen, stem, foot. Universal "computer/IT".
+      return (
+        <svg {...common}>
+          <rect x="2" y="3" width="20" height="14" rx="2" />
+          <line x1="8" y1="21" x2="16" y2="21" />
+          <line x1="12" y1="17" x2="12" y2="21" />
         </svg>
       );
     default: {

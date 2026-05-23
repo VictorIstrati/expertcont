@@ -21,8 +21,8 @@ export function useBookingStrings(): Strings {
     }),
     serviceLabel: t`Pentru ce serviciu?`,
     services: [
-      { slug: "contabilitate", name: t`Contabilitate`, icon: "file-text" },
-      { slug: "audit", name: t`Audit`, icon: "search" },
+      { slug: "contabilitate", name: t`Contabilitate`, icon: "calculator" },
+      { slug: "audit", name: t`Audit`, icon: "audit" },
       {
         slug: "juridic",
         name: t({
@@ -30,11 +30,11 @@ export function useBookingStrings(): Strings {
           comment:
             "Service category. Romanian adjective used as a noun = 'Legal services'.",
         }),
-        icon: "briefcase",
+        icon: "scale",
       },
       { slug: "consultanta", name: t`Consultanță`, icon: "lightbulb" },
       { slug: "hr", name: t`HR`, icon: "users" },
-      { slug: "it", name: t`IT & Soft`, icon: "code" },
+      { slug: "it", name: t`IT & Soft`, icon: "monitor" },
     ],
     dateLabel: t`Alege ziua`,
     timeLabel: t`Alege ora`,

@@ -7,6 +7,7 @@ import { homeUrl, sectionUrl, detailUrl, type Locale, type ContentMeta } from "@
 import { ServiceIndexGrid } from "../../../components/service/ServiceIndexGrid";
 import { ServiceCTAStrip } from "../../../components/service/ServiceCTAStrip";
 import ServicesComparison from "../../../components/service/ServicesComparison.astro";
+import { sortByServiceOrder } from "../../../lib/serviceIcons";
 
 const locale: Locale = "ru";
 const siblings: Record<Locale, string> = {
@@ -16,7 +17,9 @@ const siblings: Record<Locale, string> = {
 };
 
 const metaEntries = await getCollection("services-meta");
-const services: ContentMeta[] = metaEntries.map((e) => e.data as ContentMeta);
+const services: ContentMeta[] = sortByServiceOrder(
+  metaEntries.map((e) => e.data as ContentMeta),
+);
 
 const serviceItems = services.map((s) => ({
   meta: s,

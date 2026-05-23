@@ -1,6 +1,6 @@
 import { Icon, ArrowLink } from "@expertcont/ui";
-import type { IconName } from "@expertcont/ui";
 import type { ContentMeta } from "@expertcont/i18n";
+import { serviceIcon } from "../../lib/serviceIcons";
 
 interface ServiceItem {
   meta: ContentMeta;
@@ -11,18 +11,6 @@ interface ServiceItem {
 interface ServiceIndexGridProps {
   services: ServiceItem[];
   locale: string;
-}
-
-function serviceIcon(id: string): IconName {
-  const map: Record<string, IconName> = {
-    accounting: "briefcase",
-    audit: "shield",
-    legal: "scale",
-    consulting: "lightbulb",
-    hr: "users",
-    it: "zap",
-  };
-  return map[id] ?? "briefcase";
 }
 
 function serviceFeatures(id: string, locale: string): string[] {
