@@ -1,6 +1,7 @@
 import { ImagePlaceholder, PageHeader, SectionHeader, Stat, Icon, Button } from "@expertcont/ui";
 import type { Locale } from "@expertcont/i18n";
 import { openModal } from "../../lib/modalBus";
+import { site, phoneTel } from "../../site";
 
 interface AboutIslandProps {
   locale: Locale;
@@ -34,7 +35,7 @@ interface LocaleStrings {
   ctaHeading: string;
   ctaSubtitle: string;
   ctaBook: string;
-  ctaCall: string;
+  ctaCallPrefix: string;
 }
 
 const strings: Record<Locale, LocaleStrings> = {
@@ -94,7 +95,7 @@ const strings: Record<Locale, LocaleStrings> = {
     ctaSubtitle:
       "30 de minute · ofertă în 48 ore · fără obligații. Primul pas spre o contabilitate fără griji.",
     ctaBook: "Programează consultație gratuită (30 min)",
-    ctaCall: "Sună-ne acum · +373 22 123 456",
+    ctaCallPrefix: "Sună-ne acum · ",
   },
 
   ru: {
@@ -153,7 +154,7 @@ const strings: Record<Locale, LocaleStrings> = {
     ctaSubtitle:
       "30 минут · предложение за 48 часов · без обязательств. Первый шаг к безопасной бухгалтерии.",
     ctaBook: "Записаться на консультацию (30 мин)",
-    ctaCall: "Позвонить · +373 22 123 456",
+    ctaCallPrefix: "Позвонить · ",
   },
 
   en: {
@@ -212,7 +213,7 @@ const strings: Record<Locale, LocaleStrings> = {
     ctaSubtitle:
       "30 minutes · offer in 48 hours · no obligations. The first step to worry-free accounting.",
     ctaBook: "Book a free consultation (30 min)",
-    ctaCall: "Call us · +373 22 123 456",
+    ctaCallPrefix: "Call us · ",
   },
 };
 
@@ -318,9 +319,10 @@ export default function AboutIsland({ locale, bookHref: _bookHref }: AboutIsland
             >
               {t.ctaBook}
             </Button>
-            <a href="tel:+37322123456" className="btn btn-outline btn-lg no-underline">
+            <a href={`tel:${phoneTel}`} className="btn btn-outline btn-lg no-underline">
               <Icon name="phone" size={16} />
-              {t.ctaCall}
+              {t.ctaCallPrefix}
+              {site.business.phone}
             </a>
           </div>
         </div>

@@ -1,6 +1,6 @@
 export { LOCALES, DEFAULT_LOCALE, isLocale, localeTag } from "./locales";
 export type { Locale } from "./locales";
-export { activateLocale, i18n } from "./setup";
+export { activateLocale, activateLocaleSync, i18n } from "./setup";
 export { I18nRoot } from "./I18nRoot";
 export { routeSegments, routeSegment, SECTION_KEYS } from "./routeSegments";
 export type { SectionKey } from "./routeSegments";

@@ -5,6 +5,7 @@ import CookieBanner from "./CookieBanner";
 import ModalsHost from "./modals/ModalsHost";
 import { sectionUrl, type Locale } from "@expertcont/i18n";
 import type { NavSection } from "@expertcont/ui";
+import { site, addressShort } from "../site";
 
 interface Props {
   locale: Locale;
@@ -19,6 +20,12 @@ const cookiePolicyHref = sectionUrl("cookies", locale);
 
 <NavWithSwitcher client:load locale={locale} activeSection={activeSection} siblings={siblings} />
 <slot />
-<FooterIsland client:idle locale={locale} />
+<FooterIsland
+  client:idle
+  locale={locale}
+  address={addressShort(locale)}
+  phone={site.business.phone}
+  email={site.business.email}
+/>
 <CookieBanner client:idle locale={locale} policyHref={cookiePolicyHref} />
 <ModalsHost client:idle locale={locale} />

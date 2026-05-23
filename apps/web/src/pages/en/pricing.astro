@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 import PageShell from "../../components/PageShell.astro";
 import { PricingIsland } from "../../components/pricing/PricingIsland";
 import { sectionUrl, type Locale } from "@expertcont/i18n";
-import type { PricingIslandProps } from "../../components/pricing/PricingIsland";
+import { buildPricingProps } from "../../site";
 
 const locale: Locale = "en";
 const siblings: Record<Locale, string> = {
@@ -12,123 +12,7 @@ const siblings: Record<Locale, string> = {
   en: sectionUrl("pricing", "en"),
 };
 
-const props: Omit<PricingIslandProps, "locale"> = {
-  eyebrow: "PRICING",
-  title: "Transparent packages",
-  subtitle:
-    "Clear pricing, no surprises. Choose the right plan for your business and scale at any time.",
-  labelMonthly: "Monthly",
-  labelYearly: "Annually",
-  calc: {
-    calcTitle: "Price calculator",
-    calcHeading: "Tell us about your business",
-    calcSubtitle: "Instant estimate based on your business needs.",
-    calcLegalForm: "Legal form",
-    calcLegalOpts: ["Sole trader / IE", "LLC", "JSC"],
-    calcDocs: "Document volume / month",
-    calcEmployees: "Employees (payroll)",
-    calcVat: "VAT registered",
-    calcServices: "Additional services",
-    calcAddServices: ["Legal consulting", "Quarterly tax audit", "HR support", "IFRS reporting"],
-    calcEstimateLabel: "Monthly estimate",
-    calcDisclaimer: "Indicative estimate. Final offer after the free consultation.",
-    calcRequestOffer: "Request a custom quote",
-    calcPerMonth: "MDL / month",
-  },
-  tiers: [
-    {
-      name: "Basic",
-      price: 1500,
-      period: " / month",
-      desc: "For small businesses and sole traders",
-      features: [
-        "Up to 30 documents/month",
-        "Monthly VAT declarations",
-        "Payroll (max 3 employees)",
-        "Simple monthly report",
-        "Email support",
-      ],
-      cta: "Choose Basic",
-    },
-    {
-      name: "Standard",
-      price: 3000,
-      period: " / month",
-      desc: "Most popular — for growing LLCs",
-      features: [
-        "Up to 100 documents/month",
-        "All tax declarations",
-        "Payroll (max 15 employees)",
-        "Dedicated account manager",
-        "Response < 4h",
-        "Monthly consultation 1h",
-        "Annual balance sheet included",
-        "Client portal access",
-      ],
-      cta: "Choose Standard",
-      popular: true,
-    },
-    {
-      name: "Premium",
-      price: 5500,
-      period: " / month",
-      desc: "For companies with complex requirements",
-      features: [
-        "Unlimited documents",
-        "Quarterly internal audit",
-        "Unlimited payroll",
-        "Dedicated senior consultant",
-        "Priority response < 2h",
-        "Weekly consultations",
-        "Balance sheet + management report",
-        "Tax inspection assistance",
-        "Personalised tax optimisation",
-        "Legal support included",
-      ],
-      cta: "Choose Premium",
-    },
-  ],
-  addOnsTitle: "Additional services on demand",
-  addOns: [
-    { name: "Additional VAT declarations", price: "+200 MDL" },
-    { name: "Human Resources (HR)", price: "+200 MDL" },
-    { name: "IT Consulting", price: "+200 MDL" },
-    { name: "Ad-hoc legal consultation", price: "+300 MDL/h" },
-    { name: "Pre-audit preparation", price: "+500 MDL" },
-    { name: "Annual balance sheet standalone", price: "+800 MDL" },
-  ],
-  faq: [
-    {
-      q: "Can I change plans monthly?",
-      a: "Yes, you can upgrade or downgrade with 7 days notice. The change takes effect from the first day of the following month.",
-    },
-    {
-      q: "What happens if I exceed my document volume?",
-      a: "Additional documents are billed at 15 MDL/document. We automatically notify you when you reach 80% of your limit.",
-    },
-    {
-      q: "Are additional services billed retroactively?",
-      a: "No. Any additional service is agreed in advance and appears as a separate line on your invoice at the end of the month.",
-    },
-    {
-      q: "Do prices include VAT?",
-      a: "No. All displayed prices are exclusive of VAT. 20% VAT applies in accordance with current legislation.",
-    },
-    {
-      q: "Can I cancel at any time?",
-      a: "Yes, with 30 days notice. There are no penalties or exit fees.",
-    },
-    {
-      q: "Is there a trial period?",
-      a: "The first 30-minute consultation is free. The first 30 days come with a full money-back guarantee if you are not satisfied.",
-    },
-  ],
-  ctaTitle: "Can't find the right package?",
-  ctaSubtitle:
-    "Contact us and we'll create a tailored offer adapted exactly to your business needs.",
-  ctaButton: "Request a custom quote",
-  notesLine: "All prices are exclusive of VAT. Payment monthly, quarterly or annually.",
-};
+const props = buildPricingProps(locale);
 ---
 
 <Base
@@ -139,6 +23,6 @@ const props: Omit<PricingIslandProps, "locale"> = {
   siblings={siblings}
 >
   <PageShell locale={locale} activeSection="pricing" siblings={siblings}>
-    <PricingIsland client:only="react" locale={locale} {...props} />
+    <PricingIsland client:visible locale={locale} {...props} />
   </PageShell>
 </Base>

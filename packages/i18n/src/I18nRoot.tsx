@@ -1,6 +1,6 @@
 import { I18nProvider } from "@lingui/react";
-import { type ReactNode, useEffect, useState } from "react";
-import { i18n, activateLocale } from "./setup";
+import type { ReactNode } from "react";
+import { i18n, activateLocaleSync } from "./setup";
 import type { Locale } from "./locales";
 
 interface I18nRootProps {
@@ -9,12 +9,9 @@ interface I18nRootProps {
 }
 
 export function I18nRoot({ locale, children }: I18nRootProps) {
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    void activateLocale(locale).then(() => setReady(true));
-  }, [locale]);
-
-  if (!ready) return null;
+  // Activate during render so both SSR and the client first paint already
+  // have the right catalog loaded. Safe because every catalog is statically
+  // imported in setup.ts — no async, no flash of untranslated content.
+  activateLocaleSync(locale);
   return <I18nProvider i18n={i18n}>{children}</I18nProvider>;
 }

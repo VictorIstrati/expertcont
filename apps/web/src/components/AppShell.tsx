@@ -3,6 +3,7 @@ import { I18nRoot } from "@expertcont/i18n/I18nRoot";
 import { Nav, Footer, type NavSection } from "@expertcont/ui";
 import type { Locale } from "@expertcont/i18n";
 import { sectionUrl } from "@expertcont/i18n";
+import { site, addressShort } from "../site";
 
 interface Props {
   locale: Locale;
@@ -25,7 +26,12 @@ export default function AppShell({ locale, activeSection, siblings, children }: 
         }}
       />
       {children}
-      <Footer locale={locale} />
+      <Footer
+        locale={locale}
+        address={addressShort(locale)}
+        phone={site.business.phone}
+        email={site.business.email}
+      />
     </I18nRoot>
   );
 }

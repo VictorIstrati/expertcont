@@ -1,6 +1,7 @@
 import { Icon, ImagePlaceholder, Button } from "@expertcont/ui";
 import type { Locale } from "@expertcont/i18n";
 import { openModal } from "../../lib/modalBus";
+import { phoneTel } from "../../site";
 
 interface Props {
   locale: Locale;
@@ -115,7 +116,7 @@ export default function HomeHeroSection({ locale }: Props) {
             >
               {t.ctaBook}
             </Button>
-            <a href="tel:+37322123456" className="btn btn-outline btn-lg no-underline">
+            <a href={`tel:${phoneTel}`} className="btn btn-outline btn-lg no-underline">
               <Icon name="phone" size={16} />
               {t.ctaCall}
             </a>

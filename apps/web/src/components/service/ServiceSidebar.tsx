@@ -2,6 +2,7 @@ import { Icon, Button } from "@expertcont/ui";
 import type { IconName } from "@expertcont/ui";
 import type { ContentMeta } from "@expertcont/i18n";
 import { openModal } from "../../lib/modalBus";
+import { phoneTel } from "../../site";
 
 interface SidebarPricing {
   priceLabel: string;
@@ -59,7 +60,7 @@ export function ServiceSidebar({
             {pricing.ctaLabel}
           </Button>
           <Button
-            href="tel:+37322123456"
+            href={`tel:${phoneTel}`}
             variant="ghost"
             size="sm"
             icon="phone"

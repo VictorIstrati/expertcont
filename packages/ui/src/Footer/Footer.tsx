@@ -9,6 +9,11 @@ import styles from "./Footer.module.css";
 
 export interface FooterProps {
   locale: Locale;
+  /** Short address line shown in the brand column (already locale-resolved). */
+  address: string;
+  /** Display phone number with spaces, e.g. "+373 22 22 33 44". */
+  phone: string;
+  email: string;
   /**
    * Called when the user submits the newsletter form. Resolve `true` to flip
    * the button into the success state; resolve `false` (or reject) to leave it
@@ -18,19 +23,19 @@ export interface FooterProps {
   onNewsletterSubscribe?: (email: string) => boolean | Promise<boolean>;
 }
 
-export function Footer({ locale, onNewsletterSubscribe }: FooterProps) {
+export function Footer({ locale, address, phone, email, onNewsletterSubscribe }: FooterProps) {
   const { t } = useLingui();
-  const [email, setEmail] = useState("");
+  const [newsletterEmail, setNewsletterEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!email) return;
+    if (!newsletterEmail) return;
     if (!onNewsletterSubscribe) {
       setSubscribed(true);
       return;
     }
-    const ok = await onNewsletterSubscribe(email);
+    const ok = await onNewsletterSubscribe(newsletterEmail);
     if (ok) setSubscribed(true);
   };
 
@@ -61,8 +66,8 @@ export function Footer({ locale, onNewsletterSubscribe }: FooterProps) {
                 type="email"
                 required
                 placeholder={newsletterPlaceholder}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={newsletterEmail}
+                onChange={(e) => setNewsletterEmail(e.target.value)}
                 className={styles.newsletterInput}
                 aria-label="Email"
               />
@@ -92,15 +97,15 @@ export function Footer({ locale, onNewsletterSubscribe }: FooterProps) {
             <div className={styles.contactList}>
               <div className={styles.contactRow}>
                 <Icon name="map-pin" size={16} />
-                Str. Mitropolit Varlaam 65, Chișinău
+                {address}
               </div>
               <div className={styles.contactRow}>
                 <Icon name="phone" size={16} />
-                +373 22 22 33 44
+                {phone}
               </div>
               <div className={styles.contactRow}>
                 <Icon name="mail" size={16} />
-                contact@expertcont.md
+                {email}
               </div>
             </div>
           </div>

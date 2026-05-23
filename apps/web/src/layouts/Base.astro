@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import type { Locale } from "@expertcont/i18n";
+import { site } from "../site";
 
 interface Props {
   title: string;
@@ -30,13 +31,13 @@ const organizationJsonLd = {
   logo: `${siteUrl}/logo.png`,
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Str. Mitropolit Varlaam 65",
-    addressLocality: "Chișinău",
-    addressCountry: "MD",
-    postalCode: "MD-2012",
+    streetAddress: site.business.address.street.ro,
+    addressLocality: site.business.address.city.ro,
+    addressCountry: site.business.address.countryCode,
+    postalCode: site.business.address.postalCode,
   },
-  telephone: "+373 22 22 33 44",
-  email: "contact@expertcont.md",
+  telephone: site.business.phone,
+  email: site.business.email,
 };
 ---
 
@@ -54,7 +55,6 @@ const organizationJsonLd = {
     <link rel="alternate" hreflang="ru" href={`${siteUrl}${alts.ru}`} />
     <link rel="alternate" hreflang="en" href={`${siteUrl}${alts.en}`} />
     <link rel="alternate" hreflang="x-default" href={`${siteUrl}${alts.ro}`} />
-    <link rel="alternate" type="text/markdown" href={`${siteUrl}${path}.md`} />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />

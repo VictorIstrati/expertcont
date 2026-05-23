@@ -4,6 +4,7 @@ import type { IconName } from "@expertcont/ui";
 import type { Locale } from "@expertcont/i18n";
 import { homeUrl } from "@expertcont/i18n";
 import { openModal } from "../../lib/modalBus";
+import { site, phoneTel } from "../../site";
 
 interface Persona {
   slug: string;
@@ -199,7 +200,7 @@ function SolutionsInner({
                     {bookLabel}
                   </Button>
                   <a
-                    href="tel:+37322123456"
+                    href={`tel:${phoneTel}`}
                     className="flex w-full items-center justify-center gap-2 rounded-sm border border-white/40 px-4 py-2 text-sm font-medium text-white no-underline"
                   >
                     <Icon name="phone" size={14} />
@@ -247,11 +248,11 @@ function SolutionsInner({
                 {bookLabel}
               </Button>
               <a
-                href="tel:+37322123456"
+                href={`tel:${phoneTel}`}
                 className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-2 text-sm font-medium text-text-primary no-underline"
               >
                 <Icon name="phone" size={14} />
-                {callLabel} · +373 22 123 456
+                {callLabel} · {site.business.phone}
               </a>
             </div>
           </div>

@@ -48,15 +48,6 @@ const guides = defineCollection({
   }),
 });
 
-const pages = defineCollection({
-  type: "content",
-  schema: z.object({
-    title: z.string(),
-    locale: z.enum(["ro", "ru", "en"]),
-    contentId: z.string(),
-  }),
-});
-
 /** Per-entry meta (slugs map etc.). One meta JSON per content folder. */
 const servicesMeta = defineCollection({
   type: "data",
@@ -93,7 +84,6 @@ export const collections = {
   services,
   blog,
   guides,
-  pages,
   "services-meta": servicesMeta,
   "blog-meta": blogMeta,
   "guides-meta": guidesMeta,

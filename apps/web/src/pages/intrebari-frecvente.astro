@@ -4,6 +4,7 @@ import PageShell from "../components/PageShell.astro";
 import FaqPageIsland from "../components/faq/FaqPageIsland";
 import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
 import { faqPageJsonLd, breadcrumbListJsonLd } from "../lib/jsonLd";
+import { site } from "../site";
 
 const locale: Locale = "ro";
 const siblings: Record<Locale, string> = {
@@ -101,8 +102,8 @@ const jsonLd = [
       client:visible
       locale={locale}
       groups={groups}
-      contactPhone="+373 22 123 456"
-      contactEmail="contact@expertcont.md"
+      contactPhone={site.business.phone}
+      contactEmail={site.business.email}
     />
   </PageShell>
 </Base>

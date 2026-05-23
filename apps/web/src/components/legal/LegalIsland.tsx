@@ -1,6 +1,10 @@
 import { Icon, PageHeader } from "@expertcont/ui";
 import { I18nRoot, homeUrl } from "@expertcont/i18n";
 import type { Locale } from "@expertcont/i18n";
+import { site } from "../../site";
+
+const EMAIL = site.business.email;
+const PHONE = site.business.phone;
 
 const breadcrumbLabels: Record<Locale, { home: string; legal: string }> = {
   ro: { home: "Acasă", legal: "Legal" },
@@ -43,7 +47,7 @@ const content: ContentMap = {
       sections: [
         {
           h: "1. Cine suntem",
-          t: "ExpertCont SRL, IDNO 1009600012345, cu sediul în str. Mitropolit Varlaam 65, Chișinău, MD-2012, este operatorul de date personale pentru scopurile descrise mai jos. Ne puteți contacta la privacy@expertcont.md pentru orice întrebare legată de prelucrarea datelor dumneavoastră.",
+          t: `ExpertCont SRL, IDNO 1009600012345, cu sediul în str. Mitropolit Varlaam 65, Chișinău, MD-2012, este operatorul de date personale pentru scopurile descrise mai jos. Ne puteți contacta la ${EMAIL} pentru orice întrebare legată de prelucrarea datelor dumneavoastră.`,
         },
         {
           h: "2. Ce date colectăm",
@@ -59,7 +63,7 @@ const content: ContentMap = {
         },
         {
           h: "5. Drepturile tale",
-          t: "Ai dreptul de acces, rectificare, ștergere, portabilitate și opoziție conform GDPR și Legii 133/2011 a RM. Pentru exercitarea acestor drepturi, contactează-ne la privacy@expertcont.md. Răspundem în maxim 30 de zile calendaristice.",
+          t: `Ai dreptul de acces, rectificare, ștergere, portabilitate și opoziție conform GDPR și Legii 133/2011 a RM. Pentru exercitarea acestor drepturi, contactează-ne la ${EMAIL}. Răspundem în maxim 30 de zile calendaristice.`,
         },
         {
           h: "6. Perioada de păstrare",
@@ -68,8 +72,8 @@ const content: ContentMap = {
       ],
       questionsTitle: "Ai întrebări?",
       questionsBody:
-        "Pentru orice clarificare legată de acest document, contactează-ne la privacy@expertcont.md sau la +373 22 22 33 44.",
-      questionsEmail: "privacy@expertcont.md",
+        `Pentru orice clarificare legată de acest document, contactează-ne la ${EMAIL} sau la ${PHONE}.`,
+      questionsEmail: EMAIL,
       questionsBtn: "Contactează-ne",
     },
     cookies: {
@@ -100,8 +104,8 @@ const content: ContentMap = {
       ],
       questionsTitle: "Ai întrebări despre cookie-uri?",
       questionsBody:
-        "Dacă ai întrebări despre politica noastră de cookie-uri, contactează-ne la privacy@expertcont.md.",
-      questionsEmail: "privacy@expertcont.md",
+        `Dacă ai întrebări despre politica noastră de cookie-uri, contactează-ne la ${EMAIL}.`,
+      questionsEmail: EMAIL,
       questionsBtn: "Contactează-ne",
     },
     terms: {
@@ -136,8 +140,8 @@ const content: ContentMap = {
       ],
       questionsTitle: "Ai întrebări?",
       questionsBody:
-        "Pentru orice clarificare legată de acești termeni, contactează-ne la contact@expertcont.md sau la +373 22 22 33 44.",
-      questionsEmail: "contact@expertcont.md",
+        `Pentru orice clarificare legată de acești termeni, contactează-ne la ${EMAIL} sau la ${PHONE}.`,
+      questionsEmail: EMAIL,
       questionsBtn: "Contactează-ne",
     },
   },
@@ -149,7 +153,7 @@ const content: ContentMap = {
       sections: [
         {
           h: "1. Кто мы такие",
-          t: "ExpertCont SRL, IDNO 1009600012345, зарегистрированная по адресу: ул. Митрополит Варлаам 65, Кишинёв, MD-2012, является оператором персональных данных в целях, описанных ниже. Вы можете связаться с нами по адресу privacy@expertcont.md по любым вопросам, связанным с обработкой ваших данных.",
+          t: `ExpertCont SRL, IDNO 1009600012345, зарегистрированная по адресу: ул. Митрополит Варлаам 65, Кишинёв, MD-2012, является оператором персональных данных в целях, описанных ниже. Вы можете связаться с нами по адресу ${EMAIL} по любым вопросам, связанным с обработкой ваших данных.`,
         },
         {
           h: "2. Какие данные мы собираем",
@@ -165,7 +169,7 @@ const content: ContentMap = {
         },
         {
           h: "5. Ваши права",
-          t: "Вы имеете право на доступ, исправление, удаление, переносимость и возражение в соответствии с GDPR и Законом 133/2011 Республики Молдова. Для осуществления этих прав свяжитесь с нами по адресу privacy@expertcont.md. Мы отвечаем в течение 30 календарных дней.",
+          t: `Вы имеете право на доступ, исправление, удаление, переносимость и возражение в соответствии с GDPR и Законом 133/2011 Республики Молдова. Для осуществления этих прав свяжитесь с нами по адресу ${EMAIL}. Мы отвечаем в течение 30 календарных дней.`,
         },
         {
           h: "6. Срок хранения данных",
@@ -174,8 +178,8 @@ const content: ContentMap = {
       ],
       questionsTitle: "Есть вопросы?",
       questionsBody:
-        "По любым вопросам, связанным с этим документом, свяжитесь с нами по адресу privacy@expertcont.md или по телефону +373 22 22 33 44.",
-      questionsEmail: "privacy@expertcont.md",
+        `По любым вопросам, связанным с этим документом, свяжитесь с нами по адресу ${EMAIL} или по телефону ${PHONE}.`,
+      questionsEmail: EMAIL,
       questionsBtn: "Связаться с нами",
     },
     cookies: {
@@ -206,8 +210,8 @@ const content: ContentMap = {
       ],
       questionsTitle: "Вопросы о cookie-файлах?",
       questionsBody:
-        "Если у вас есть вопросы о нашей политике использования cookie, свяжитесь с нами по адресу privacy@expertcont.md.",
-      questionsEmail: "privacy@expertcont.md",
+        `Если у вас есть вопросы о нашей политике использования cookie, свяжитесь с нами по адресу ${EMAIL}.`,
+      questionsEmail: EMAIL,
       questionsBtn: "Связаться с нами",
     },
     terms: {
@@ -242,8 +246,8 @@ const content: ContentMap = {
       ],
       questionsTitle: "Есть вопросы?",
       questionsBody:
-        "По любым вопросам, связанным с настоящими условиями, свяжитесь с нами по адресу contact@expertcont.md или по телефону +373 22 22 33 44.",
-      questionsEmail: "contact@expertcont.md",
+        `По любым вопросам, связанным с настоящими условиями, свяжитесь с нами по адресу ${EMAIL} или по телефону ${PHONE}.`,
+      questionsEmail: EMAIL,
       questionsBtn: "Связаться с нами",
     },
   },
@@ -255,7 +259,7 @@ const content: ContentMap = {
       sections: [
         {
           h: "1. Who We Are",
-          t: "ExpertCont SRL, IDNO 1009600012345, registered at str. Mitropolit Varlaam 65, Chișinău, MD-2012, is the data controller for the purposes described below. You can contact us at privacy@expertcont.md for any questions related to the processing of your data.",
+          t: `ExpertCont SRL, IDNO 1009600012345, registered at str. Mitropolit Varlaam 65, Chișinău, MD-2012, is the data controller for the purposes described below. You can contact us at ${EMAIL} for any questions related to the processing of your data.`,
         },
         {
           h: "2. What Data We Collect",
@@ -271,7 +275,7 @@ const content: ContentMap = {
         },
         {
           h: "5. Your Rights",
-          t: "You have the right of access, rectification, erasure, portability, and objection under GDPR and Law 133/2011 of the Republic of Moldova. To exercise these rights, contact us at privacy@expertcont.md. We respond within 30 calendar days.",
+          t: `You have the right of access, rectification, erasure, portability, and objection under GDPR and Law 133/2011 of the Republic of Moldova. To exercise these rights, contact us at ${EMAIL}. We respond within 30 calendar days.`,
         },
         {
           h: "6. Retention Period",
@@ -280,8 +284,8 @@ const content: ContentMap = {
       ],
       questionsTitle: "Have Questions?",
       questionsBody:
-        "For any clarification related to this document, contact us at privacy@expertcont.md or at +373 22 22 33 44.",
-      questionsEmail: "privacy@expertcont.md",
+        `For any clarification related to this document, contact us at ${EMAIL} or at ${PHONE}.`,
+      questionsEmail: EMAIL,
       questionsBtn: "Contact Us",
     },
     cookies: {
@@ -312,8 +316,8 @@ const content: ContentMap = {
       ],
       questionsTitle: "Questions About Cookies?",
       questionsBody:
-        "If you have questions about our cookie policy, contact us at privacy@expertcont.md.",
-      questionsEmail: "privacy@expertcont.md",
+        `If you have questions about our cookie policy, contact us at ${EMAIL}.`,
+      questionsEmail: EMAIL,
       questionsBtn: "Contact Us",
     },
     terms: {
@@ -348,8 +352,8 @@ const content: ContentMap = {
       ],
       questionsTitle: "Have Questions?",
       questionsBody:
-        "For any clarification related to these terms, contact us at contact@expertcont.md or at +373 22 22 33 44.",
-      questionsEmail: "contact@expertcont.md",
+        `For any clarification related to these terms, contact us at ${EMAIL} or at ${PHONE}.`,
+      questionsEmail: EMAIL,
       questionsBtn: "Contact Us",
     },
   },

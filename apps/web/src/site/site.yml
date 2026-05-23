@@ -1,0 +1,219 @@
+# ============================================================================
+# Site data — single source of truth for contact info + pricing.
+#
+# Editable by marketing without touching code. Validated by Zod at build time
+# (see apps/web/src/site/index.ts); a malformed file fails `pnpm build` with
+# a precise error pointing at the bad field.
+#
+# Localized fields use { ro, ru, en }; all three are required.
+# Invariant fields (phone, email, numeric prices) are plain values.
+# ============================================================================
+
+business:
+  # Single canonical phone number. Used in footer, contact pages, service pages,
+  # home CTA, and tel: links. Format with spaces for display.
+  phone: "+373 22 22 33 44"
+  email: contact@expertcont.md
+  # Postal address as structured parts. Helpers in site/index.ts compose them into
+  # short ("street, city") or full ("street, city, postalCode, country") strings.
+  # JSON-LD in Base.astro reads street/city/postalCode/countryCode directly.
+  address:
+    street:
+      ro: "Str. Mitropolit Varlaam 65"
+      ru: "ул. Митрополит Варлаам 65"
+      en: "65 Mitropolit Varlaam St."
+    city:
+      ro: "Chișinău"
+      ru: "Кишинёв"
+      en: "Chișinău"
+    postalCode: "MD-2012"
+    countryCode: "MD"          # ISO 3166-1 alpha-2
+    countryName:
+      ro: "Republica Moldova"
+      ru: "Республика Молдова"
+      en: "Republic of Moldova"
+  hours:
+    ro: "Luni–Vineri, 9:00–18:00"
+    ru: "Понедельник–пятница, 9:00–18:00"
+    en: "Monday–Friday, 9:00–18:00"
+
+pricing:
+  eyebrow:    { ro: "PREȚURI",              ru: "ТАРИФЫ",             en: "PRICING" }
+  title:      { ro: "Pachete transparente", ru: "Прозрачные пакеты",  en: "Transparent packages" }
+  subtitle:
+    ro: "Prețuri clare, fără surprize. Alegeți pachetul potrivit pentru afacerea dvs. și scalați oricând."
+    ru: "Понятные цены, без сюрпризов. Выберите подходящий пакет и масштабируйте его в любое время."
+    en: "Clear pricing, no surprises. Choose the right plan for your business and scale at any time."
+  labelMonthly: { ro: "Lunar",  ru: "Ежемесячно", en: "Monthly" }
+  labelYearly:  { ro: "Anual",  ru: "Ежегодно",   en: "Annually" }
+
+  calc:
+    calcTitle:        { ro: "Calculator de prețuri",          ru: "Калькулятор цен",                en: "Price calculator" }
+    calcHeading:      { ro: "Spune-ne despre afacerea ta",    ru: "Расскажите нам о вашем бизнесе", en: "Tell us about your business" }
+    calcSubtitle:
+      ro: "Estimare instantanee pe baza nevoilor afacerii tale."
+      ru: "Мгновенная оценка на основе потребностей вашего бизнеса."
+      en: "Instant estimate based on your business needs."
+    calcLegalForm:    { ro: "Forma juridică",                 ru: "Организационно-правовая форма",  en: "Legal form" }
+    calcLegalOpts:
+      ro: ["Persoană fizică / II", "SRL", "SA"]
+      ru: ["Физлицо / ИП", "ООО", "АО"]
+      en: ["Sole trader / IE", "LLC", "JSC"]
+    calcDocs:         { ro: "Volum documente / lună",         ru: "Объём документов / месяц",       en: "Document volume / month" }
+    calcEmployees:    { ro: "Angajați (payroll)",             ru: "Сотрудники (payroll)",           en: "Employees (payroll)" }
+    calcVat:          { ro: "Plătitor TVA",                   ru: "Плательщик НДС",                 en: "VAT registered" }
+    calcServices:     { ro: "Servicii adiționale",            ru: "Дополнительные услуги",          en: "Additional services" }
+    calcAddServices:
+      ro: ["Consultanță juridică", "Audit fiscal trimestrial", "Suport HR", "Raportare IFRS"]
+      ru: ["Юридическая консультация", "Квартальный налоговый аудит", "HR-поддержка", "Отчётность по МСФО"]
+      en: ["Legal consulting", "Quarterly tax audit", "HR support", "IFRS reporting"]
+    calcEstimateLabel: { ro: "Estimare lunară",               ru: "Ежемесячная оценка",             en: "Monthly estimate" }
+    calcDisclaimer:
+      ro: "Estimare orientativă. Ofertă finală după consultația gratuită."
+      ru: "Ориентировочная оценка. Окончательное предложение — после бесплатной консультации."
+      en: "Indicative estimate. Final offer after the free consultation."
+    calcRequestOffer: { ro: "Solicită ofertă personalizată",  ru: "Запросить индивидуальное предложение", en: "Request a custom quote" }
+    calcPerMonth:     { ro: "MDL / lună",                     ru: "MDL / мес",                      en: "MDL / month" }
+
+  tiers:
+    - id: basic
+      price: 1500
+      name:   { ro: Basic, ru: Basic, en: Basic }
+      period: { ro: " / lună",  ru: " / мес",  en: " / month" }
+      desc:
+        ro: "Pentru afaceri mici și PFA-uri"
+        ru: "Для малого бизнеса и ИП"
+        en: "For small businesses and sole traders"
+      features:
+        - { ro: "Până la 30 documente/lună",         ru: "До 30 документов/месяц",             en: "Up to 30 documents/month" }
+        - { ro: "Declarații lunare TVA",             ru: "Ежемесячные декларации НДС",         en: "Monthly VAT declarations" }
+        - { ro: "Calcul salarii (max 3 angajați)",   ru: "Расчёт зарплат (макс. 3 сотрудника)", en: "Payroll (max 3 employees)" }
+        - { ro: "Raport lunar simplu",               ru: "Простой ежемесячный отчёт",          en: "Simple monthly report" }
+        - { ro: "Email support",                     ru: "Email-поддержка",                    en: "Email support" }
+      cta: { ro: "Alegeți Basic", ru: "Выбрать Basic", en: "Choose Basic" }
+
+    - id: standard
+      price: 3000
+      popular: true
+      name:   { ro: Standard, ru: Standard, en: Standard }
+      period: { ro: " / lună",  ru: " / мес",  en: " / month" }
+      desc:
+        ro: "Cel mai popular — pentru SRL în creștere"
+        ru: "Самый популярный — для растущего ООО"
+        en: "Most popular — for growing LLCs"
+      features:
+        - { ro: "Până la 100 documente/lună",          ru: "До 100 документов/месяц",                 en: "Up to 100 documents/month" }
+        - { ro: "Toate declarațiile fiscale",          ru: "Все налоговые декларации",                en: "All tax declarations" }
+        - { ro: "Salarii (max 15 angajați)",           ru: "Зарплаты (макс. 15 сотрудников)",         en: "Payroll (max 15 employees)" }
+        - { ro: "Manager de cont dedicat",             ru: "Персональный менеджер",                   en: "Dedicated account manager" }
+        - { ro: "Răspuns < 4h",                        ru: "Ответ < 4 часов",                         en: "Response < 4h" }
+        - { ro: "Consultanță lunară 1h",               ru: "Консультация 1ч/месяц",                   en: "Monthly consultation 1h" }
+        - { ro: "Bilanț anual inclus",                 ru: "Годовой баланс включён",                  en: "Annual balance sheet included" }
+        - { ro: "Acces portal client",                 ru: "Доступ к клиентскому порталу",            en: "Client portal access" }
+      cta: { ro: "Alegeți Standard", ru: "Выбрать Standard", en: "Choose Standard" }
+
+    - id: premium
+      price: 5500
+      name:   { ro: Premium, ru: Premium, en: Premium }
+      period: { ro: " / lună",  ru: " / мес",  en: " / month" }
+      desc:
+        ro: "Pentru companii cu cerințe complexe"
+        ru: "Для компаний со сложными требованиями"
+        en: "For companies with complex requirements"
+      features:
+        - { ro: "Documente nelimitate",                ru: "Неограниченное количество документов",       en: "Unlimited documents" }
+        - { ro: "Audit intern trimestrial",            ru: "Ежеквартальный внутренний аудит",            en: "Quarterly internal audit" }
+        - { ro: "Salarii nelimitate",                  ru: "Неограниченное количество зарплат",          en: "Unlimited payroll" }
+        - { ro: "Consultant senior dedicat",           ru: "Выделенный старший консультант",             en: "Dedicated senior consultant" }
+        - { ro: "Răspuns prioritar < 2h",              ru: "Приоритетный ответ < 2 часов",               en: "Priority response < 2h" }
+        - { ro: "Consultanță săptămânală",             ru: "Еженедельные консультации",                  en: "Weekly consultations" }
+        - { ro: "Bilanț + raport managerial",          ru: "Баланс + управленческий отчёт",              en: "Balance sheet + management report" }
+        - { ro: "Asistență la inspecții fiscale",      ru: "Помощь при налоговых проверках",             en: "Tax inspection assistance" }
+        - { ro: "Optimizare fiscală personalizată",    ru: "Персональная налоговая оптимизация",         en: "Personalised tax optimisation" }
+        - { ro: "Suport juridic inclus",               ru: "Юридическая поддержка включена",             en: "Legal support included" }
+      cta: { ro: "Alegeți Premium", ru: "Выбрать Premium", en: "Choose Premium" }
+
+  addOnsTitle:
+    ro: "Servicii suplimentare la cerere"
+    ru: "Дополнительные услуги по запросу"
+    en: "Additional services on demand"
+  addOns:
+    - name:  { ro: "Declarații TVA suplimentare",        ru: "Дополнительные декларации НДС",      en: "Additional VAT declarations" }
+      price: "+200 MDL"
+    - name:  { ro: "Resurse umane (HR)",                 ru: "Управление персоналом (HR)",         en: "Human Resources (HR)" }
+      price: "+200 MDL"
+    - name:  { ro: "IT Consulting",                      ru: "IT-консалтинг",                      en: "IT Consulting" }
+      price: "+200 MDL"
+    - name:  { ro: "Consultanță juridică ad-hoc",        ru: "Юридическая консультация ad-hoc",    en: "Ad-hoc legal consultation" }
+      price: "+300 MDL/h"
+    - name:  { ro: "Audit pregătitor",                   ru: "Подготовка к аудиту",                en: "Pre-audit preparation" }
+      price: "+500 MDL"
+    - name:  { ro: "Bilanț anual standalone",            ru: "Годовой баланс отдельно",            en: "Annual balance sheet standalone" }
+      price: "+800 MDL"
+
+  faq:
+    - q:
+        ro: "Pot schimba pachetul lunar?"
+        ru: "Можно ли сменить пакет ежемесячно?"
+        en: "Can I change plans monthly?"
+      a:
+        ro: "Da, poți face upgrade sau downgrade oricând cu preaviz de 7 zile. Modificarea intră în vigoare de la prima zi a lunii următoare."
+        ru: "Да, можно перейти на более высокий или низкий тариф с уведомлением за 7 дней. Изменение вступает в силу с первого числа следующего месяца."
+        en: "Yes, you can upgrade or downgrade with 7 days notice. The change takes effect from the first day of the following month."
+    - q:
+        ro: "Ce se întâmplă dacă depășesc volumul de documente?"
+        ru: "Что происходит при превышении лимита документов?"
+        en: "What happens if I exceed my document volume?"
+      a:
+        ro: "Documentele suplimentare se facturează la tariful de 15 MDL/document. Te notificăm automat când ajungi la 80% din limită."
+        ru: "Дополнительные документы оплачиваются по 15 MDL/документ. Мы автоматически уведомляем вас при достижении 80% лимита."
+        en: "Additional documents are billed at 15 MDL/document. We automatically notify you when you reach 80% of your limit."
+    - q:
+        ro: "Sunt facturate retroactiv serviciile suplimentare?"
+        ru: "Выставляются ли счета за дополнительные услуги ретроактивно?"
+        en: "Are additional services billed retroactively?"
+      a:
+        ro: "Nu. Orice serviciu adițional este agreat în prealabil și apare separat în factură la finalul lunii."
+        ru: "Нет. Любая дополнительная услуга согласовывается заранее и выставляется отдельной строкой в конце месяца."
+        en: "No. Any additional service is agreed in advance and appears as a separate line on your invoice at the end of the month."
+    - q:
+        ro: "Prețurile includ TVA?"
+        ru: "Цены включают НДС?"
+        en: "Do prices include VAT?"
+      a:
+        ro: "Nu. Toate prețurile afișate sunt fără TVA. TVA-ul de 20% se aplică conform legislației în vigoare."
+        ru: "Нет. Все указанные цены без НДС. НДС 20% начисляется в соответствии с действующим законодательством."
+        en: "No. All displayed prices are exclusive of VAT. 20% VAT applies in accordance with current legislation."
+    - q:
+        ro: "Pot anula contractul oricând?"
+        ru: "Можно ли отменить договор в любое время?"
+        en: "Can I cancel at any time?"
+      a:
+        ro: "Da, cu preaviz de 30 de zile. Nu există penalități sau taxe de ieșire."
+        ru: "Да, с уведомлением за 30 дней. Штрафов и выходных комиссий нет."
+        en: "Yes, with 30 days notice. There are no penalties or exit fees."
+    - q:
+        ro: "Există perioadă de probă?"
+        ru: "Есть ли пробный период?"
+        en: "Is there a trial period?"
+      a:
+        ro: "Prima consultație de 30 minute este gratuită. Primele 30 de zile au garanție de rambursare integrală dacă nu ești mulțumit."
+        ru: "Первая 30-минутная консультация бесплатна. В течение первых 30 дней действует полная гарантия возврата средств."
+        en: "The first 30-minute consultation is free. The first 30 days come with a full money-back guarantee if you are not satisfied."
+
+  ctaTitle:
+    ro: "Nu îți găsești pachetul potrivit?"
+    ru: "Не нашли подходящий пакет?"
+    en: "Can't find the right package?"
+  ctaSubtitle:
+    ro: "Contactează-ne și creăm o ofertă personalizată adaptată exact nevoilor afacerii tale."
+    ru: "Свяжитесь с нами, и мы подготовим индивидуальное предложение под нужды вашего бизнеса."
+    en: "Contact us and we'll create a tailored offer adapted exactly to your business needs."
+  ctaButton:
+    ro: "Solicită ofertă personalizată"
+    ru: "Запросить индивидуальное предложение"
+    en: "Request a custom quote"
+  notesLine:
+    ro: "Toate prețurile sunt fără TVA. Plata lunară, trimestrială sau anuală."
+    ru: "Все цены без НДС. Оплата ежемесячно, ежеквартально или ежегодно."
+    en: "All prices are exclusive of VAT. Payment monthly, quarterly or annually."
