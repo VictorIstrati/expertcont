@@ -2,20 +2,11 @@ import yaml from "yaml";
 import { z } from "astro:content";
 import type { Locale } from "@expertcont/i18n";
 import type { PricingIslandProps } from "../components/pricing/PricingIsland";
-// Vite inlines the raw text at build time; site.yml is parsed once at module load.
-import raw from "./site.yml?raw";
+// Vite inlines the raw text at build time; both YAMLs are parsed once at module load.
+import siteRaw from "./site.yml?raw";
+import pricingRaw from "./pricing.yml?raw";
 
 const localized = z.object({ ro: z.string(), ru: z.string(), en: z.string() });
-const localizedArr3 = z.object({
-  ro: z.array(z.string()).length(3),
-  ru: z.array(z.string()).length(3),
-  en: z.array(z.string()).length(3),
-});
-const localizedArr4 = z.object({
-  ro: z.array(z.string()).length(4),
-  ru: z.array(z.string()).length(4),
-  en: z.array(z.string()).length(4),
-});
 
 const tier = z.object({
   id: z.string(),
@@ -28,6 +19,45 @@ const tier = z.object({
   cta: localized,
 });
 
+// ----- Calculator strings (UI copy only — numeric rates live in pricing.yml) -
+const calcServiceCommon = z.object({
+  label: localized,
+  description: localized,
+  rateNote: localized,
+});
+
+const calculatorStrings = z.object({
+  eyebrow: localized,
+  heading: localized,
+  subtitle: localized,
+  services: z.object({
+    accounting: z.object({
+      label: localized,
+      description: localized,
+      industryLabel: localized,
+      invoicesLabel: localized,
+      revenueLabel: localized,
+      vatLabel: localized,
+      baseFromLabel: localized,
+      surchargeNote: localized,
+      multiplierNote: localized,
+    }),
+    legal: calcServiceCommon.extend({ hoursLabel: localized }),
+    financial: calcServiceCommon.extend({ hoursLabel: localized }),
+    it: calcServiceCommon.extend({ hoursLabel: localized }),
+    hr: calcServiceCommon.extend({ employeesLabel: localized }),
+  }),
+  result: z.object({
+    heading: localized,
+    perMonth: localized,
+    annualLabel: localized,
+    breakdownTitle: localized,
+    emptyState: localized,
+    disclaimer: localized,
+    cta: localized,
+  }),
+});
+
 const SiteSchema = z.object({
   business: z.object({
     phone: z.string(),
@@ -36,7 +66,6 @@ const SiteSchema = z.object({
       street: localized,
       city: localized,
       postalCode: z.string(),
-      /** ISO 3166-1 alpha-2 (e.g. "MD"). */
       countryCode: z.string().length(2),
       countryName: localized,
     }),
@@ -49,22 +78,7 @@ const SiteSchema = z.object({
     labelMonthly: localized,
     labelYearly: localized,
     estimateNotice: localized,
-    calc: z.object({
-      calcTitle: localized,
-      calcHeading: localized,
-      calcSubtitle: localized,
-      calcLegalForm: localized,
-      calcLegalOpts: localizedArr3,
-      calcDocs: localized,
-      calcEmployees: localized,
-      calcVat: localized,
-      calcServices: localized,
-      calcAddServices: localizedArr4,
-      calcEstimateLabel: localized,
-      calcDisclaimer: localized,
-      calcRequestOffer: localized,
-      calcPerMonth: localized,
-    }),
+    calculator: calculatorStrings,
     tiers: z.array(tier),
     addOnsTitle: localized,
     addOns: z.array(z.object({ name: localized, price: z.string() })),
@@ -78,9 +92,51 @@ const SiteSchema = z.object({
   }),
 });
 
-export type Site = z.infer<typeof SiteSchema>;
+// ----- Pricing engine constants (pricing.yml) ---------------------------------
+const industryGroupId = z.enum(["noactivity", "services", "trade", "it", "specific"]);
 
-export const site: Site = SiteSchema.parse(yaml.parse(raw));
+const industry = z.object({
+  id: z.string(),
+  group: industryGroupId,
+  base: z.number().int().positive(),
+  label: localized,
+  /** Optional promotional discount, 0–100, applied to the full accounting subtotal. */
+  salePct: z.number().int().min(0).max(100).optional(),
+  /** How many months the discount lasts. Defaults to 6 (DEFAULT_SALE_MONTHS) when omitted. */
+  saleMonths: z.number().int().positive().optional(),
+});
+
+const PricingConfigSchema = z.object({
+  industries: z.array(industry),
+  industryGroups: z.record(industryGroupId, localized),
+  invoiceSurcharge: z.object({
+    freeUpTo: z.number().int().nonnegative(),
+    perExtra: z.number().int().positive(),
+  }),
+  revenueMultipliers: z
+    .array(
+      z.object({
+        upToMDL: z.number().int().positive(),
+        factor: z.number().positive(),
+      }),
+    )
+    .min(1),
+  hourlyRates: z.object({
+    legal: z.number().int().positive(),
+    financial: z.number().int().positive(),
+    it: z.number().int().positive(),
+  }),
+  hrPerEmployee: z.number().int().positive(),
+  vatSurcharge: z.number().int().nonnegative(),
+
+});
+
+export type Site = z.infer<typeof SiteSchema>;
+export type PricingConfig = z.infer<typeof PricingConfigSchema>;
+export type IndustryGroupId = z.infer<typeof industryGroupId>;
+
+export const site: Site = SiteSchema.parse(yaml.parse(siteRaw));
+export const pricingConfig: PricingConfig = PricingConfigSchema.parse(yaml.parse(pricingRaw));
 
 /** Resolve a localized field to its string (or array) for a given locale. */
 export function pick<T>(field: { ro: T; ru: T; en: T }, locale: Locale): T {
@@ -105,6 +161,7 @@ export function addressFull(locale: Locale): string {
 /** Build the prop bag for <PricingIsland /> in the given locale. */
 export function buildPricingProps(locale: Locale): Omit<PricingIslandProps, "locale"> {
   const p = site.pricing;
+  const c = p.calculator;
   return {
     eyebrow: pick(p.eyebrow, locale),
     title: pick(p.title, locale),
@@ -113,20 +170,78 @@ export function buildPricingProps(locale: Locale): Omit<PricingIslandProps, "loc
     labelYearly: pick(p.labelYearly, locale),
     estimateNotice: pick(p.estimateNotice, locale),
     calc: {
-      calcTitle: pick(p.calc.calcTitle, locale),
-      calcHeading: pick(p.calc.calcHeading, locale),
-      calcSubtitle: pick(p.calc.calcSubtitle, locale),
-      calcLegalForm: pick(p.calc.calcLegalForm, locale),
-      calcLegalOpts: pick(p.calc.calcLegalOpts, locale) as [string, string, string],
-      calcDocs: pick(p.calc.calcDocs, locale),
-      calcEmployees: pick(p.calc.calcEmployees, locale),
-      calcVat: pick(p.calc.calcVat, locale),
-      calcServices: pick(p.calc.calcServices, locale),
-      calcAddServices: pick(p.calc.calcAddServices, locale) as [string, string, string, string],
-      calcEstimateLabel: pick(p.calc.calcEstimateLabel, locale),
-      calcDisclaimer: pick(p.calc.calcDisclaimer, locale),
-      calcRequestOffer: pick(p.calc.calcRequestOffer, locale),
-      calcPerMonth: pick(p.calc.calcPerMonth, locale),
+      eyebrow: pick(c.eyebrow, locale),
+      heading: pick(c.heading, locale),
+      subtitle: pick(c.subtitle, locale),
+      services: {
+        accounting: {
+          label: pick(c.services.accounting.label, locale),
+          description: pick(c.services.accounting.description, locale),
+          industryLabel: pick(c.services.accounting.industryLabel, locale),
+          invoicesLabel: pick(c.services.accounting.invoicesLabel, locale),
+          revenueLabel: pick(c.services.accounting.revenueLabel, locale),
+          vatLabel: pick(c.services.accounting.vatLabel, locale),
+          baseFromLabel: pick(c.services.accounting.baseFromLabel, locale),
+          surchargeNote: pick(c.services.accounting.surchargeNote, locale),
+          multiplierNote: pick(c.services.accounting.multiplierNote, locale),
+        },
+        legal: {
+          label: pick(c.services.legal.label, locale),
+          description: pick(c.services.legal.description, locale),
+          hoursLabel: pick(c.services.legal.hoursLabel, locale),
+          rateNote: pick(c.services.legal.rateNote, locale),
+        },
+        financial: {
+          label: pick(c.services.financial.label, locale),
+          description: pick(c.services.financial.description, locale),
+          hoursLabel: pick(c.services.financial.hoursLabel, locale),
+          rateNote: pick(c.services.financial.rateNote, locale),
+        },
+        it: {
+          label: pick(c.services.it.label, locale),
+          description: pick(c.services.it.description, locale),
+          hoursLabel: pick(c.services.it.hoursLabel, locale),
+          rateNote: pick(c.services.it.rateNote, locale),
+        },
+        hr: {
+          label: pick(c.services.hr.label, locale),
+          description: pick(c.services.hr.description, locale),
+          employeesLabel: pick(c.services.hr.employeesLabel, locale),
+          rateNote: pick(c.services.hr.rateNote, locale),
+        },
+      },
+      result: {
+        heading: pick(c.result.heading, locale),
+        perMonth: pick(c.result.perMonth, locale),
+        annualLabel: pick(c.result.annualLabel, locale),
+        breakdownTitle: pick(c.result.breakdownTitle, locale),
+        emptyState: pick(c.result.emptyState, locale),
+        disclaimer: pick(c.result.disclaimer, locale),
+        cta: pick(c.result.cta, locale),
+      },
+      industries: pricingConfig.industries.map((i) => ({
+        id: i.id,
+        group: i.group,
+        base: i.base,
+        label: pick(i.label, locale),
+        ...(i.salePct !== undefined && { salePct: i.salePct }),
+        ...(i.saleMonths !== undefined && { saleMonths: i.saleMonths }),
+      })),
+      industryGroups: (Object.entries(pricingConfig.industryGroups) as [
+        IndustryGroupId,
+        { ro: string; ru: string; en: string },
+      ][]).reduce(
+        (acc, [key, value]) => {
+          acc[key] = pick(value, locale);
+          return acc;
+        },
+        {} as Record<IndustryGroupId, string>,
+      ),
+      hourlyRates: pricingConfig.hourlyRates,
+      hrPerEmployee: pricingConfig.hrPerEmployee,
+      invoiceSurcharge: pricingConfig.invoiceSurcharge,
+      revenueMultipliers: pricingConfig.revenueMultipliers,
+      vatSurcharge: pricingConfig.vatSurcharge,
     },
     tiers: p.tiers.map((t) => ({
       name: pick(t.name, locale),

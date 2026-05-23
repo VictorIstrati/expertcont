@@ -1,0 +1,170 @@
+# ============================================================================
+# Pricing engine constants used by the modular pricing calculator
+# (apps/web/src/components/pricing/PriceCalculator.tsx via calcMath.ts).
+#
+# This file holds OPERATIONAL pricing — change rates here, not in code or in
+# site.yml. Validated by Zod at build time (apps/web/src/site/index.ts);
+# malformed values fail `pnpm build` with a precise error.
+#
+# Final accounting price for a customer =
+#   round_to_10( (industry.base + invoiceSurcharge) * revenueMultiplier )
+# where:
+#   invoiceSurcharge   = max(0, invoices - freeUpTo) * perExtra
+#   revenueMultiplier  = factor of the first revenueMultipliers bucket
+#                        whose upToMDL >= annual revenue
+#
+# Hourly add-ons (legal / financial / IT) bill as: hours × rate.
+# HR bills as: employees × hrPerEmployee per month.
+# ============================================================================
+
+# ---- Industry-based accounting base (MDL / month) -----------------------------
+# Doubled from the competitor list. `id` is locale-invariant.
+# `group` controls the dropdown grouping order (see industryGroups below).
+industries:
+  - id: noact-srl
+    group: noactivity
+    base: 500
+    label:
+      ro: "SRL / Î.I. fără activitate"
+      ru: "ООО / ИП без деятельности"
+      en: "Dormant LLC / sole trader"
+  - id: noact-ics
+    group: noactivity
+    base: 1000
+    label:
+      ro: "I.C.S. / A.O. / IT fără activitate"
+      ru: "I.C.S. / А.О. / IT без деятельности"
+      en: "Dormant I.C.S. / NGO / IT"
+
+  # — Services (most common SMB tier)
+  - id: medical
+    group: services
+    base: 2500
+    label: { ro: "Cabinete medicale", ru: "Медицинские кабинеты", en: "Medical practices" }
+  - id: dental
+    group: services
+    base: 2500
+    label: { ro: "Stomatologi și clinici private", ru: "Стоматология и частные клиники", en: "Dental clinics & private practices" }
+  - id: beauty
+    group: services
+    base: 2500
+    label: { ro: "Saloane de înfrumusețare și SPA", ru: "Салоны красоты и SPA", en: "Beauty salons & spas" }
+  - id: realestate
+    group: services
+    base: 2500
+    label: { ro: "Agenții imobiliare", ru: "Агентства недвижимости", en: "Real estate agencies" }
+  - id: autoservice
+    group: services
+    base: 2500
+    label: { ro: "Service auto și dealeri", ru: "Автосервис и автодилеры", en: "Auto service & dealers" }
+  - id: schools
+    group: services
+    base: 2500
+    label: { ro: "Școli și grădinițe private", ru: "Частные школы и детские сады", en: "Private schools & kindergartens" }
+  - id: marketing
+    group: services
+    base: 2500
+    label: { ro: "Agenții de publicitate și marketing", ru: "Рекламные и маркетинговые агентства", en: "Advertising & marketing agencies" }
+  - id: consulting
+    group: services
+    base: 2500
+    label: { ro: "Consultanță (juridică, fiscală, HR)", ru: "Консалтинг (юр., налоговый, HR)", en: "Consulting (legal, tax, HR)" }
+  - id: cleaning
+    group: services
+    base: 2500
+    label: { ro: "Firme de curățenie", ru: "Клининговые компании", en: "Cleaning companies" }
+  - id: apc
+    group: services
+    base: 2500
+    label: { ro: "A.P.C. (Asociația Proprietarilor din Condominiu)", ru: "А.С.К. (Ассоциация собственников кондоминиума)", en: "Condominium owners' associations (APC)" }
+  - id: startups
+    group: services
+    base: 2500
+    # PROMO: 50% off for the first 6 months — startup launch discount.
+    # Applied to the full accounting subtotal (base + invoice surcharge × revenue multiplier).
+    # `saleMonths` defaults to 6 if omitted. Remove `salePct` to revert to standard pricing.
+    salePct: 50
+    saleMonths: 6
+    label: { ro: "Startup-uri", ru: "Стартапы", en: "Startups" }
+
+  # — Trade & eCommerce
+  - id: ecommerce
+    group: trade
+    base: 2750
+    label: { ro: "Magazine online (eCommerce)", ru: "Интернет-магазины (eCommerce)", en: "Online shops (eCommerce)" }
+  - id: distribution
+    group: trade
+    base: 2750
+    label: { ro: "Distribuitori și importatori", ru: "Дистрибьюторы и импортёры", en: "Distributors & importers" }
+  - id: manufacturing
+    group: trade
+    base: 2750
+    label: { ro: "Companii de producție", ru: "Производственные компании", en: "Manufacturing companies" }
+  - id: marketplace
+    group: trade
+    base: 2750
+    label: { ro: "Afaceri pe Amazon / Etsy / eBay", ru: "Бизнес на Amazon / Etsy / eBay", en: "Marketplace sellers (Amazon / Etsy / eBay)" }
+
+  # — IT & digital
+  - id: it-freelance
+    group: it
+    base: 2900
+    label: { ro: "Freelanceri / prestatori servicii IT", ru: "Фрилансеры / поставщики IT-услуг", en: "Freelancers / IT service providers" }
+  - id: software-saas
+    group: it
+    base: 2900
+    label: { ro: "Dezvoltatori software și SaaS", ru: "Разработчики ПО и SaaS", en: "Software developers & SaaS" }
+
+  # — Specific (higher complexity)
+  - id: construction
+    group: specific
+    base: 3500
+    label: { ro: "Construcții, reparații, montaj", ru: "Строительство, ремонт, монтаж", en: "Construction, repair, assembly" }
+  - id: transport
+    group: specific
+    base: 3500
+    label: { ro: "Transport marfă / persoane", ru: "Грузовые / пассажирские перевозки", en: "Cargo / passenger transport" }
+  - id: logistics
+    group: specific
+    base: 3500
+    label: { ro: "Expediții și logistică", ru: "Экспедирование и логистика", en: "Freight forwarding & logistics" }
+  - id: ngo
+    group: specific
+    base: 3500
+    label: { ro: "ONG-uri și asociații non-profit", ru: "НКО и некоммерческие ассоциации", en: "NGOs & non-profit associations" }
+
+# ---- Dropdown grouping (order = render order) ---------------------------------
+industryGroups:
+  noactivity: { ro: "Companii fără activitate", ru: "Компании без деятельности", en: "Dormant companies" }
+  services:   { ro: "Servicii",                 ru: "Услуги",                     en: "Services" }
+  trade:      { ro: "Comerț & eCommerce",       ru: "Торговля и eCommerce",       en: "Trade & eCommerce" }
+  it:         { ro: "IT & digital",             ru: "IT и digital",               en: "IT & digital" }
+  specific:   { ro: "Industrii specifice",      ru: "Специфические отрасли",      en: "Specific industries" }
+
+# ---- Invoice surcharge --------------------------------------------------------
+# First `freeUpTo` invoices included in the industry base. Each additional
+# invoice adds `perExtra` MDL.
+invoiceSurcharge:
+  freeUpTo: 5
+  perExtra: 50
+
+# ---- Annual revenue multiplier ------------------------------------------------
+# Applied to (industryBase + invoiceSurcharge). Buckets mirror the published
+# Start / Standard / Premium tier caps so the calculator and tier cards tell
+# the same story. Buckets are matched first-fit by ascending upToMDL.
+revenueMultipliers:
+  - { upToMDL:   500000, factor: 1.0 }    # Start band — micro
+  - { upToMDL:  1500000, factor: 1.2 }    # Standard band — SMB
+  - { upToMDL:  2500000, factor: 1.5 }    # Premium band — established
+  - { upToMDL: 99999999, factor: 1.8 }    # Custom — above Premium cap
+
+# ---- Hourly rates (add-on services) -------------------------------------------
+hourlyRates:
+  legal:      500     # MDL / hour
+  financial:  750
+  it:        1500
+
+# ---- HR — scales linearly per covered employee --------------------------------
+hrPerEmployee: 400
+
+vatSurcharge: 1000

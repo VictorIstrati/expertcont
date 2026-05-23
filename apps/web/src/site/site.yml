@@ -47,33 +47,67 @@ pricing:
   labelMonthly: { ro: "Lunar",  ru: "Ежемесячно", en: "Monthly" }
   labelYearly:  { ro: "Anual",  ru: "Ежегодно",   en: "Annually" }
 
-  calc:
-    calcTitle:        { ro: "Calculator de prețuri",          ru: "Калькулятор цен",                en: "Price calculator" }
-    calcHeading:      { ro: "Spune-ne despre afacerea ta",    ru: "Расскажите нам о вашем бизнесе", en: "Tell us about your business" }
-    calcSubtitle:
-      ro: "Estimare instantanee pe baza nevoilor afacerii tale."
-      ru: "Мгновенная оценка на основе потребностей вашего бизнеса."
-      en: "Instant estimate based on your business needs."
-    calcLegalForm:    { ro: "Forma juridică",                 ru: "Организационно-правовая форма",  en: "Legal form" }
-    calcLegalOpts:
-      ro: ["Persoană fizică / II", "SRL", "SA"]
-      ru: ["Физлицо / ИП", "ООО", "АО"]
-      en: ["Sole trader / IE", "LLC", "JSC"]
-    calcDocs:         { ro: "Volum documente / lună",         ru: "Объём документов / месяц",       en: "Document volume / month" }
-    calcEmployees:    { ro: "Angajați (payroll)",             ru: "Сотрудники (payroll)",           en: "Employees (payroll)" }
-    calcVat:          { ro: "Plătitor TVA",                   ru: "Плательщик НДС",                 en: "VAT registered" }
-    calcServices:     { ro: "Servicii adiționale",            ru: "Дополнительные услуги",          en: "Additional services" }
-    calcAddServices:
-      ro: ["Consultanță juridică", "Audit fiscal trimestrial", "Suport HR", "Raportare IFRS"]
-      ru: ["Юридическая консультация", "Квартальный налоговый аудит", "HR-поддержка", "Отчётность по МСФО"]
-      en: ["Legal consulting", "Quarterly tax audit", "HR support", "IFRS reporting"]
-    calcEstimateLabel: { ro: "Estimare lunară",               ru: "Ежемесячная оценка",             en: "Monthly estimate" }
-    calcDisclaimer:
-      ro: "Estimare orientativă. Ofertă finală după consultația gratuită."
-      ru: "Ориентировочная оценка. Окончательное предложение — после бесплатной консультации."
-      en: "Indicative estimate. Final offer after the free consultation."
-    calcRequestOffer: { ro: "Solicită ofertă personalizată",  ru: "Запросить индивидуальное предложение", en: "Request a custom quote" }
-    calcPerMonth:     { ro: "MDL / lună",                     ru: "MDL / мес",                      en: "MDL / month" }
+  # Modular calculator copy. Numeric pricing lives in pricing.yml; this block
+  # only contains UI strings (headings, toggle labels, breakdown labels).
+  # Each `services.<key>` matches a togglable card in <PriceCalculator/>.
+  calculator:
+    eyebrow:   { ro: "Calculator de prețuri",                        ru: "Калькулятор цен",                            en: "Price calculator" }
+    heading:   { ro: "Estimează costul lunar pentru afacerea ta",   ru: "Оцените ежемесячную стоимость для вашего бизнеса", en: "Estimate the monthly cost for your business" }
+    subtitle:
+      ro: "Activează doar serviciile de care ai nevoie. Poți calcula un singur serviciu (de ex. 10 ore juridice) sau un pachet complet — total recalculat în timp real."
+      ru: "Включите только нужные услуги. Можно посчитать одну услугу (например, 10ч юриста) или полный пакет — итог пересчитывается мгновенно."
+      en: "Toggle only the services you need. Calculate a single service (e.g. 10 legal hours) or a complete bundle — total updates instantly."
+
+    services:
+      accounting:
+        label:         { ro: "Contabilitate",            ru: "Бухгалтерия",                 en: "Accounting" }
+        description:   { ro: "Tarif pornind de la baza industriei + facturi peste prag + multiplicator după cifra de afaceri.", ru: "Базовый тариф по отрасли + надбавка за счета-фактуры свыше порога + множитель по обороту.", en: "Industry base + invoices above threshold + revenue multiplier." }
+        industryLabel: { ro: "Domeniu de activitate",   ru: "Отрасль / тип компании",      en: "Industry / business type" }
+        invoicesLabel: { ro: "Facturi emise / lună",     ru: "Счетов-фактур / месяц",       en: "Invoices issued / month" }
+        revenueLabel:  { ro: "Cifră de afaceri anuală (MDL)", ru: "Годовой оборот (MDL)",   en: "Annual revenue (MDL)" }
+        vatLabel:      { ro: "Plătitor TVA",             ru: "Плательщик НДС",              en: "VAT-registered" }
+        baseFromLabel: { ro: "Tarif de la",              ru: "Тариф от",                    en: "Starting at" }
+        surchargeNote: { ro: "{count} facturi peste pragul de {free} × {rate} MDL", ru: "{count} счетов-фактур сверх лимита {free} × {rate} MDL", en: "{count} invoices above the {free} threshold × {rate} MDL" }
+        multiplierNote: { ro: "× {factor} pentru cifra de afaceri în această bandă", ru: "× {factor} для оборота в этой группе", en: "× {factor} for revenue in this band" }
+
+      legal:
+        label:        { ro: "Servicii juridice",         ru: "Юридические услуги",          en: "Legal services" }
+        description:  { ro: "Consultanță juridică, redactare contracte, reprezentare.", ru: "Юр. консультация, договоры, представительство.", en: "Legal consultation, contract drafting, representation." }
+        hoursLabel:   { ro: "Ore juridice / lună",       ru: "Юр. часов / месяц",           en: "Legal hours / month" }
+        rateNote:     { ro: "{rate} MDL / oră",          ru: "{rate} MDL / час",            en: "{rate} MDL / hour" }
+
+      financial:
+        label:        { ro: "Audit financiar",           ru: "Финансовый аудит",            en: "Financial audit" }
+        description:  { ro: "Verificarea înregistrărilor contabile și raportare independentă.", ru: "Проверка бухгалтерских записей и независимая отчётность.", en: "Verification of accounting records and independent reporting." }
+        hoursLabel:   { ro: "Ore audit / lună",          ru: "Часов аудита / месяц",        en: "Audit hours / month" }
+        rateNote:     { ro: "{rate} MDL / oră",          ru: "{rate} MDL / час",            en: "{rate} MDL / hour" }
+
+      it:
+        label:        { ro: "Servicii IT",               ru: "IT-услуги",                   en: "IT services" }
+        description:  { ro: "Implementare ERP, automatizări, integrări, suport tehnic.", ru: "Внедрение ERP, автоматизации, интеграции, техподдержка.", en: "ERP setup, automation, integrations, tech support." }
+        hoursLabel:   { ro: "Ore IT / lună",             ru: "IT-часов / месяц",            en: "IT hours / month" }
+        rateNote:     { ro: "{rate} MDL / oră",          ru: "{rate} MDL / час",            en: "{rate} MDL / hour" }
+
+      hr:
+        label:           { ro: "Servicii HR",            ru: "HR-услуги",                   en: "HR services" }
+        description:     { ro: "Contracte de muncă, fișe de post, evidență personal — tarif lunar per angajat acoperit.", ru: "Трудовые договоры, должностные инструкции, кадровый учёт — ежемесячный тариф за каждого сотрудника.", en: "Employment contracts, job descriptions, personnel records — monthly fee per covered employee." }
+        employeesLabel:  { ro: "Angajați acoperiți",     ru: "Сотрудников под управлением", en: "Employees covered" }
+        rateNote:        { ro: "{rate} MDL / angajat / lună", ru: "{rate} MDL / сотрудник / месяц", en: "{rate} MDL / employee / month" }
+
+    result:
+      heading:        { ro: "Estimare lunară",           ru: "Ежемесячная оценка",          en: "Monthly estimate" }
+      perMonth:       { ro: "MDL / lună",                ru: "MDL / мес",                   en: "MDL / month" }
+      annualLabel:    { ro: "≈ {amount} MDL / an",       ru: "≈ {amount} MDL / год",        en: "≈ {amount} MDL / year" }
+      breakdownTitle: { ro: "Detaliere",                 ru: "Детализация",                 en: "Breakdown" }
+      emptyState:
+        ro: "Activează cel puțin un serviciu pentru a vedea estimarea."
+        ru: "Включите хотя бы одну услугу, чтобы увидеть оценку."
+        en: "Toggle at least one service to see the estimate."
+      disclaimer:
+        ro: "Estimare orientativă, fără TVA. Oferta finală după consultația gratuită."
+        ru: "Ориентировочная оценка, без НДС. Окончательное предложение — после бесплатной консультации."
+        en: "Indicative estimate, VAT excluded. Final offer after the free consultation."
+      cta:            { ro: "Vreau oferta",                  ru: "Хочу предложение",                       en: "I want the offer" }
 
   # Pricing anchored to the Moldovan market (competitor mid-points + 30% margin).
   # Three tiers, by company complexity. EVERY tier bundles HR + Legal in-house
@@ -153,22 +187,25 @@ pricing:
         - { ro: "Asistență completă la inspecții fiscale și controale",         ru: "Полное сопровождение налоговых проверок и контролей",                en: "Full support during tax inspections and audits" }
       cta: { ro: "Alege Premium", ru: "Выбрать Premium", en: "Choose Premium" }
 
+  # Rate card — mirrors what the calculator above actually charges, so prospects
+  # who just want to scan rates can do so without interacting with the calculator.
+  # Edit pricing.yml to change rates; keep these strings in sync.
   addOnsTitle:
-    ro: "Servicii suplimentare la cerere"
-    ru: "Дополнительные услуги по запросу"
-    en: "Additional services on demand"
+    ro: "Tarife pentru servicii suplimentare"
+    ru: "Тарифы на дополнительные услуги"
+    en: "Add-on service rates"
   addOns:
-    - name:  { ro: "Declarații TVA suplimentare",        ru: "Дополнительные декларации НДС",      en: "Additional VAT declarations" }
+    - name:  { ro: "Consultanță juridică",        ru: "Юридическая консультация",  en: "Legal consultation" }
+      price: "500 MDL / h"
+    - name:  { ro: "Audit financiar",             ru: "Финансовый аудит",          en: "Financial audit" }
+      price: "750 MDL / h"
+    - name:  { ro: "Servicii IT",                 ru: "IT-услуги",                 en: "IT services" }
+      price: "1500 MDL / h"
+    - name:  { ro: "Servicii HR per angajat",     ru: "HR-услуги за сотрудника",   en: "HR services per employee" }
+      price: "400 MDL / lună"
+    - name:  { ro: "Declarații TVA suplimentare", ru: "Дополнительные декларации НДС", en: "Additional VAT declarations" }
       price: "+200 MDL"
-    - name:  { ro: "Resurse umane (HR)",                 ru: "Управление персоналом (HR)",         en: "Human Resources (HR)" }
-      price: "+200 MDL"
-    - name:  { ro: "IT Consulting",                      ru: "IT-консалтинг",                      en: "IT Consulting" }
-      price: "+200 MDL"
-    - name:  { ro: "Consultanță juridică ad-hoc",        ru: "Юридическая консультация ad-hoc",    en: "Ad-hoc legal consultation" }
-      price: "+300 MDL/h"
-    - name:  { ro: "Audit pregătitor",                   ru: "Подготовка к аудиту",                en: "Pre-audit preparation" }
-      price: "+500 MDL"
-    - name:  { ro: "Bilanț anual standalone",            ru: "Годовой баланс отдельно",            en: "Annual balance sheet standalone" }
+    - name:  { ro: "Bilanț anual standalone",     ru: "Годовой баланс отдельно",   en: "Annual balance sheet standalone" }
       price: "+800 MDL"
 
   faq:

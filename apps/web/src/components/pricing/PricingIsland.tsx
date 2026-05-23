@@ -7,7 +7,7 @@ import { PricingFaq } from "./PricingFaq";
 import { PricingCta } from "./PricingCta";
 import type { PricingIslandProps } from "./types";
 
-export type { Tier, AddOn, CalcStrings, PricingIslandProps } from "./types";
+export type { Tier, AddOn, CalcConfig, PricingIslandProps } from "./types";
 
 const HOME_LABELS: Record<Locale, string> = { ro: "Acasă", ru: "Главная", en: "Home" };
 const PRICING_LABELS: Record<Locale, string> = { ro: "Prețuri", ru: "Цены", en: "Pricing" };
