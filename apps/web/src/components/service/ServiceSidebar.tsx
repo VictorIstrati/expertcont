@@ -40,9 +40,9 @@ export function ServiceSidebar({
 }: ServiceSidebarProps) {
   const priceLabel = locale === "ru" ? "Стоимость" : locale === "en" ? "Pricing" : "Preț";
   return (
-    <aside className="svc-detail-side flex flex-col gap-5 lg:sticky lg:top-24">
+    <aside className="svc-detail-side flex flex-col gap-5 lg:sticky lg:top-nav-h">
       {/* CTA box */}
-      <div className="relative overflow-hidden rounded-lg bg-primary-deep text-white p-8">
+      <div className="relative overflow-hidden rounded-lg bg-primary dark:bg-primary-deep text-white p-8">
         <div className="pointer-events-none absolute -top-8 -right-8 h-[140px] w-[140px] rounded-full border border-[rgba(223,183,65,0.3)]" />
         <div className="relative">
           <div className="mb-3 text-xs font-bold uppercase tracking-widest text-[#DFB741]">

@@ -64,7 +64,7 @@ export default function BlogIndexIsland({
   const filterBar = (
     <div
       className={`mb-10 rounded-xl bg-bg-section-alt px-5 py-3 ${
-        filtersActive ? "sticky top-20 z-20" : ""
+        filtersActive ? "sticky top-nav-h z-20" : ""
       }`}
     >
       <div className="relative">

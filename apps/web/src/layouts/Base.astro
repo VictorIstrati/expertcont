@@ -17,6 +17,25 @@ const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
 const canonical = `${siteUrl}${path}`;
 const alts: Record<Locale, string> = siblings ?? { ro: path, ru: path, en: path };
 const langAttr = locale === "ro" ? "ro" : locale === "ru" ? "ru" : "en";
+const ogLocale = locale === "ro" ? "ro_RO" : locale === "ru" ? "ru_RU" : "en_US";
+const ogImage = `${siteUrl}/og.png`;
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "ExpertCont",
+  url: siteUrl,
+  logo: `${siteUrl}/logo.png`,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Str. Mitropolit Varlaam 65",
+    addressLocality: "Chișinău",
+    addressCountry: "MD",
+    postalCode: "MD-2012",
+  },
+  telephone: "+373 22 22 33 44",
+  email: "contact@expertcont.md",
+};
 ---
 
 <!doctype html>
@@ -26,6 +45,7 @@ const langAttr = locale === "ro" ? "ro" : locale === "ru" ? "ru" : "en";
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
+    <meta name="robots" content="index, follow" />
 
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="ro" href={`${siteUrl}${alts.ro}`} />
@@ -33,6 +53,23 @@ const langAttr = locale === "ro" ? "ro" : locale === "ru" ? "ru" : "en";
     <link rel="alternate" hreflang="en" href={`${siteUrl}${alts.en}`} />
     <link rel="alternate" hreflang="x-default" href={`${siteUrl}${alts.ro}`} />
     <link rel="alternate" type="text/markdown" href={`${siteUrl}${path}.md`} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:site_name" content="ExpertCont" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    {description && <meta name="twitter:description" content={description} />}
+    <meta name="twitter:image" content={ogImage} />
+
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

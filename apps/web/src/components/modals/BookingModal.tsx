@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Icon, type IconName } from "@expertcont/ui";
-import type { Locale } from "@expertcont/i18n";
+import { localeTag, type Locale } from "@expertcont/i18n";
 import { Modal } from "./Modal";
 
 interface Props {
@@ -358,10 +358,12 @@ export function BookingModal({ open, onClose, locale }: Props) {
                   }`}
                 >
                   <span className="text-xs font-semibold uppercase opacity-70">
-                    {t.dayNames[d.getDay()]}
+                    {new Intl.DateTimeFormat(localeTag(locale), { weekday: "short" }).format(d)}
                   </span>
                   <span className="text-xl font-extrabold leading-none">{d.getDate()}</span>
-                  <span className="text-xs opacity-70">{t.monthNames[d.getMonth()]}</span>
+                  <span className="text-xs opacity-70">
+                    {new Intl.DateTimeFormat(localeTag(locale), { month: "short" }).format(d)}
+                  </span>
                 </button>
               );
             })}

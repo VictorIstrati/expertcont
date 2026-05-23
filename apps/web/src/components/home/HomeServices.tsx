@@ -73,7 +73,7 @@ export default function HomeServices({ locale, services }: Props) {
             const baseCard =
               "card card-hover relative overflow-hidden block no-underline rounded-lg cursor-pointer";
             const tone = isFeatured
-              ? "bg-primary-deep text-white border-primary-deep"
+              ? "bg-primary dark:bg-primary-deep text-white border-primary dark:border-primary-deep"
               : "bg-bg-card text-inherit border-border";
             const iconWrap = isFeatured
               ? "bg-[rgba(223,183,65,0.18)] text-[#DFB741]"

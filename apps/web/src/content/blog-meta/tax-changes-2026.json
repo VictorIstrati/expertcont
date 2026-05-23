@@ -15,6 +15,14 @@
     "ru": "Обзор главных налоговых изменений, действующих в Молдове с 2026 года.",
     "en": "A summary of the most important tax changes effective in Moldova from 2026."
   },
+  "category": {
+    "ro": "Fiscalitate",
+    "ru": "Налоги",
+    "en": "Tax"
+  },
+  "readTime": 8,
+  "featured": true,
+  "author": "Elena Bostan",
   "updated": "2026-05-18",
   "publishedAt": "2026-05-15"
 }

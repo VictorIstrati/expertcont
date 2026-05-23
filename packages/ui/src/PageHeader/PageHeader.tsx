@@ -26,7 +26,7 @@ export function PageHeader({ eyebrow, title, subtitle, breadcrumbs, filters }: P
             {breadcrumbs.map((b, i) => {
               const isLast = i === breadcrumbs.length - 1;
               return (
-                <Fragment key={i}>
+                <Fragment key={b.label}>
                   {i > 0 && <Icon name="chevron-right" size={12} />}
                   {b.href && !isLast ? (
                     <a href={b.href} className={styles.crumb}>

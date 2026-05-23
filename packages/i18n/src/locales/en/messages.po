@@ -17,7 +17,7 @@ msgstr ""
 msgid "✓ Subscribed"
 msgstr ""
 
-#: ../ui/src/Nav/Nav.tsx:74
+#: ../ui/src/Nav/Nav.tsx:75
 msgid "About"
 msgstr ""
 
@@ -46,12 +46,12 @@ msgid "All services"
 msgstr ""
 
 #: ../ui/src/Footer/Footer.tsx:189
-#: ../ui/src/Nav/Nav.tsx:76
+#: ../ui/src/Nav/Nav.tsx:77
 msgid "Blog"
 msgstr ""
 
-#: ../ui/src/Nav/Nav.tsx:178
-#: ../ui/src/Nav/Nav.tsx:281
+#: ../ui/src/Nav/Nav.tsx:179
+#: ../ui/src/Nav/Nav.tsx:282
 msgid "Book a consultation"
 msgstr ""
 
@@ -72,7 +72,7 @@ msgid "Company"
 msgstr ""
 
 #: ../ui/src/Footer/Footer.tsx:175
-#: ../ui/src/Nav/Nav.tsx:78
+#: ../ui/src/Nav/Nav.tsx:79
 msgid "Contact"
 msgstr ""
 
@@ -116,7 +116,7 @@ msgstr ""
 msgid "IT consulting"
 msgstr ""
 
-#: ../ui/src/Nav/Nav.tsx:212
+#: ../ui/src/Nav/Nav.tsx:213
 msgid "Language"
 msgstr ""
 
@@ -141,7 +141,7 @@ msgid "Phone"
 msgstr ""
 
 #: ../ui/src/Footer/Footer.tsx:160
-#: ../ui/src/Nav/Nav.tsx:72
+#: ../ui/src/Nav/Nav.tsx:73
 msgid "Pricing"
 msgstr ""
 
@@ -158,11 +158,11 @@ msgid "Resources"
 msgstr ""
 
 #: ../ui/src/Footer/Footer.tsx:106
-#: ../ui/src/Nav/Nav.tsx:70
+#: ../ui/src/Nav/Nav.tsx:71
 msgid "Services"
 msgstr ""
 
-#: ../ui/src/Nav/Nav.tsx:68
+#: ../ui/src/Nav/Nav.tsx:69
 msgid "Solutions"
 msgstr ""
 
@@ -182,7 +182,7 @@ msgstr ""
 msgid "Terms"
 msgstr ""
 
-#: ../ui/src/Nav/Nav.tsx:240
+#: ../ui/src/Nav/Nav.tsx:241
 msgid "Theme"
 msgstr ""
 

@@ -64,7 +64,13 @@ const servicesMeta = defineCollection({
 });
 const blogMeta = defineCollection({
   type: "data",
-  schema: baseMeta.extend({ publishedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/) }),
+  schema: baseMeta.extend({
+    publishedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+    category: localeMap,
+    readTime: z.number().int().positive(),
+    featured: z.boolean().optional(),
+    author: z.string().optional(),
+  }),
 });
 const guidesMeta = defineCollection({
   type: "data",
@@ -73,6 +79,9 @@ const guidesMeta = defineCollection({
       .string()
       .regex(/^\d{4}-\d{2}-\d{2}$/)
       .optional(),
+    category: localeMap,
+    readTime: z.number().int().positive(),
+    featured: z.boolean().optional(),
   }),
 });
 const pagesMeta = defineCollection({

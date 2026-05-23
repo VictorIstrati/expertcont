@@ -195,7 +195,7 @@ export default function FaqPageIsland({
   const filterBar = (
     <div
       className={`mb-10 rounded-xl bg-bg-section-alt px-5 py-3 ${
-        filtersActive ? "sticky top-20 z-20" : ""
+        filtersActive ? "sticky top-nav-h z-20" : ""
       }`}
     >
       <div className="relative">
@@ -318,7 +318,7 @@ export default function FaqPageIsland({
                       {c.href ? (
                         <a
                           href={c.href}
-                          className="font-semibold text-primary hover:text-primary-deep"
+                          className="font-semibold text-primary hover:text-primary dark:hover:text-primary-deep"
                         >
                           {c.val}
                         </a>
@@ -452,7 +452,7 @@ export default function FaqPageIsland({
         </Container>
       </Section>
 
-      <section className="relative overflow-hidden bg-primary-deep px-6 py-20 text-center">
+      <section className="relative overflow-hidden bg-primary dark:bg-primary-deep px-6 py-20 text-center">
         <div className="pointer-events-none absolute -top-24 -right-12 h-[300px] w-[300px] rounded-full border border-[rgba(223,183,65,0.2)]" />
         <div className="pointer-events-none absolute -bottom-36 -left-24 h-[400px] w-[400px] rounded-full border border-white/5" />
         <div className="relative mx-auto max-w-2xl">

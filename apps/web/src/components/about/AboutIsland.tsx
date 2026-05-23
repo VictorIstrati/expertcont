@@ -243,7 +243,7 @@ export default function AboutIsland({ locale, bookHref: _bookHref }: AboutIsland
 
             <div className="mt-10 grid grid-cols-2 gap-5">
               {t.stats.map((s, i) => (
-                <Stat key={i} value={s.v} label={s.l} accent={i % 2 === 1} />
+                <Stat key={s.l} value={s.v} label={s.l} accent={i % 2 === 1} />
               ))}
             </div>
           </div>
@@ -262,8 +262,8 @@ export default function AboutIsland({ locale, bookHref: _bookHref }: AboutIsland
             maxWidth={620}
           />
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-            {t.values.map((v, i) => (
-              <div key={i} className="card p-8 text-center">
+            {t.values.map((v) => (
+              <div key={v.t} className="card p-8 text-center">
                 <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-accent-50 text-accent-dark">
                   <Icon name={v.icon as Parameters<typeof Icon>[0]["name"]} size={28} />
                 </div>
@@ -285,9 +285,9 @@ export default function AboutIsland({ locale, bookHref: _bookHref }: AboutIsland
             maxWidth={580}
           />
           <div className="grid grid-cols-2 gap-5 lg:grid-cols-4">
-            {t.team.map((m, i) => (
-              <div key={i}>
-                <div className="mb-4 flex aspect-4/5 items-center justify-center rounded-md bg-gradient-to-br from-primary to-primary-deep text-5xl font-bold text-white">
+            {t.team.map((m) => (
+              <div key={m.name}>
+                <div className="mb-4 flex aspect-4/5 items-center justify-center rounded-md bg-gradient-to-br from-primary to-primary dark:to-primary-deep text-5xl font-bold text-white">
                   {m.name
                     .split(" ")
                     .map((n) => n[0])

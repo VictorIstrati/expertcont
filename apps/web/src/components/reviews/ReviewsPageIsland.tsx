@@ -87,9 +87,9 @@ export default function ReviewsPageIsland({
 
       {/* Reviews grid */}
       <div className="mb-16 grid grid-cols-1 gap-6 md:grid-cols-2">
-        {reviews.map((r, i) => (
+        {reviews.map((r) => (
           <TestimonialCard
-            key={i}
+            key={`${r.author}-${r.body.slice(0, 16)}`}
             author={r.author}
             authorCompany={r.authorCompany}
             rating={r.rating}
@@ -99,7 +99,7 @@ export default function ReviewsPageIsland({
       </div>
 
       {/* Leave a review CTA */}
-      <div className="rounded-lg bg-primary-deep p-10 text-center text-white">
+      <div className="rounded-lg bg-primary dark:bg-primary-deep p-10 text-center text-white">
         <h3 className="mb-3 text-2xl text-white">{ctaTitle}</h3>
         <button
           className="btn btn-primary mb-3 inline-flex items-center gap-2"

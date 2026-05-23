@@ -1,6 +1,8 @@
 @import "@expertcont/tokens/tokens.css";
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 /* ===========================================================
    Tailwind v4 theme — bridge to our CSS custom properties.
    `@theme inline` lets utilities (e.g. bg-primary, p-3) read
@@ -37,6 +39,7 @@
   --color-text-on-dark: var(--text-on-dark);
 
   /* Spacing — Tailwind reads --spacing-* tokens for p-1, gap-2, etc. */
+  --spacing-nav-h: var(--nav-h);
   --spacing-1: var(--s-1);
   --spacing-2: var(--s-2);
   --spacing-3: var(--s-3);

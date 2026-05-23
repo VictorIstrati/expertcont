@@ -166,7 +166,7 @@ export default function HomeHeroSection({ locale }: Props) {
               </div>
               <div className="text-sm font-semibold mb-3">{t.consultSub}</div>
               <button
-                className="w-full px-3 py-3 rounded-sm bg-primary-deep text-white text-sm font-semibold flex items-center justify-center gap-2 border-none cursor-pointer"
+                className="w-full px-3 py-3 rounded-sm bg-primary dark:bg-primary-deep text-white text-sm font-semibold flex items-center justify-center gap-2 border-none cursor-pointer"
                 onClick={() => openModal("booking")}
               >
                 <Icon name="phone" size={14} />

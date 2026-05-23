@@ -22,6 +22,6 @@ const siblings: Record<Locale, string> = {
   siblings={siblings}
 >
   <PageShell locale={locale} activeSection="about" siblings={siblings}>
-    <AboutIsland client:load locale={locale} bookHref={sectionUrl("contact", locale)} />
+    <AboutIsland client:visible locale={locale} bookHref={sectionUrl("contact", locale)} />
   </PageShell>
 </Base>

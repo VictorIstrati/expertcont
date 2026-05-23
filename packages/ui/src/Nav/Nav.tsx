@@ -15,6 +15,7 @@ export type NavSection =
   | "pricing"
   | "about"
   | "blog"
+  | "guides"
   | "contact";
 
 export interface NavProps {

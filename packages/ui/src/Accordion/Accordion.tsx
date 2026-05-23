@@ -14,7 +14,7 @@ export function Accordion({ items }: { items: AccordionItem[] }) {
         const isOpen = open === i;
         return (
           <div
-            key={i}
+            key={it.q}
             className={[
               "card-flat p-0 overflow-hidden",
               isOpen ? "border-primary" : "border-border",

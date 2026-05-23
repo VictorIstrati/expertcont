@@ -1,10 +1,10 @@
+import type { ReactNode } from "react";
 import styles from "./FaqAccordion.module.css";
 
 export interface FaqItem {
   id: string;
   question: string;
-  /** Answer (plain text or HTML string from MDX/markdown render). */
-  answer: string;
+  answer: ReactNode;
 }
 
 export interface FaqAccordionProps {
@@ -17,7 +17,7 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
       {items.map((item) => (
         <details key={item.id} className={styles.item}>
           <summary className={styles.question}>{item.question}</summary>
-          <div className={styles.answer} dangerouslySetInnerHTML={{ __html: item.answer }} />
+          <div className={styles.answer}>{item.answer}</div>
         </details>
       ))}
     </div>

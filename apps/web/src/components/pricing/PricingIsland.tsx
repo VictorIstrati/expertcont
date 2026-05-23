@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Accordion, Button, Container, Icon, PageHeader, SectionHeader } from "@expertcont/ui";
 import type { AccordionItem } from "@expertcont/ui";
-import { I18nRoot } from "@expertcont/i18n";
+import { I18nRoot, localeTag } from "@expertcont/i18n";
 import type { Locale } from "@expertcont/i18n";
 import { sectionUrl } from "@expertcont/i18n";
 import { openModal } from "../../lib/modalBus";
@@ -78,7 +78,15 @@ export interface PricingIslandProps {
 /* ================================================================
    PRICE CALCULATOR
    ================================================================ */
-function PriceCalculator({ calc, bookHref: _bookHref }: { calc: CalcStrings; bookHref: string }) {
+function PriceCalculator({
+  calc,
+  bookHref: _bookHref,
+  locale,
+}: {
+  calc: CalcStrings;
+  bookHref: string;
+  locale: Locale;
+}) {
   const [legal, setLegal] = useState(1);
   const [docs, setDocs] = useState(60);
   const [emp, setEmp] = useState(8);
@@ -241,7 +249,7 @@ function PriceCalculator({ calc, bookHref: _bookHref }: { calc: CalcStrings; boo
                 {calc.calcEstimateLabel}
               </div>
               <div className="calc-price text-[64px] font-extrabold tracking-tighter text-white leading-none">
-                {price.toLocaleString("ro-RO")}
+                {price.toLocaleString(localeTag(locale))}
               </div>
               <div className="text-base font-semibold text-white/70 mt-2">{calc.calcPerMonth}</div>
               <p className="text-xs text-white/55 mt-4 leading-normal">{calc.calcDisclaimer}</p>
@@ -411,7 +419,7 @@ function PricingInner({
                   key={i}
                   className={`card p-10 relative ${
                     tier.popular
-                      ? "bg-primary-deep text-white border-primary-deep border-2 scale-105 shadow-xl z-10"
+                      ? "bg-primary dark:bg-primary-deep text-white border-primary dark:border-primary-deep border-2 scale-105 shadow-xl z-10"
                       : "bg-bg-card text-inherit border-border border shadow-sm"
                   }`}
                 >
@@ -452,7 +460,7 @@ function PricingInner({
                             tier.popular ? "text-white" : "text-inherit"
                           }`}
                         >
-                          {display.toLocaleString("ro-RO")}
+                          {display.toLocaleString(localeTag(locale))}
                         </span>
                         <span
                           className={`text-sm font-semibold ${
@@ -521,7 +529,7 @@ function PricingInner({
       </section>
 
       {/* Price Calculator */}
-      <PriceCalculator calc={calc} bookHref={contactHref} />
+      <PriceCalculator calc={calc} bookHref={contactHref} locale={locale} />
 
       {/* Add-ons */}
       <section className="section section-alt">

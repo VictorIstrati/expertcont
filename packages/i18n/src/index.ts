@@ -1,4 +1,4 @@
-export { LOCALES, DEFAULT_LOCALE, isLocale } from "./locales";
+export { LOCALES, DEFAULT_LOCALE, isLocale, localeTag } from "./locales";
 export type { Locale } from "./locales";
 export { activateLocale, i18n } from "./setup";
 export { I18nRoot } from "./I18nRoot";

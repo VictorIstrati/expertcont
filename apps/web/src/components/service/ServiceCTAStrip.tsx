@@ -27,7 +27,7 @@ const copy = {
 export function ServiceCTAStrip({ locale, contactHref: _contactHref }: ServiceCTAStripProps) {
   const t = copy[locale as keyof typeof copy] ?? copy.ro;
   return (
-    <div className="bg-primary-deep rounded-lg px-10 py-12 flex items-center justify-between gap-8 flex-wrap relative overflow-hidden">
+    <div className="bg-primary dark:bg-primary-deep rounded-lg px-10 py-12 flex items-center justify-between gap-8 flex-wrap relative overflow-hidden">
       <div className="absolute -top-16 -right-16 w-[200px] h-[200px] border border-[rgba(223,183,65,0.2)] rounded-full" />
       <div className="absolute -bottom-10 -left-10 w-[140px] h-[140px] border border-white/10 rounded-full" />
       <div className="relative">

@@ -126,7 +126,7 @@ export default function GuidesIndexIsland({
             <div className="py-16 text-center text-text-secondary">{noResultsLabel}</div>
           ) : null}
 
-          <div className="mt-16 flex flex-wrap items-center justify-between gap-6 rounded-lg bg-primary-deep p-10 text-white">
+          <div className="mt-16 flex flex-wrap items-center justify-between gap-6 rounded-lg bg-primary dark:bg-primary-deep p-10 text-white">
             <div>
               <h3 className="mb-2 text-white">{ctaTitle}</h3>
               <p className="m-0 text-base text-white/85">{ctaBody}</p>

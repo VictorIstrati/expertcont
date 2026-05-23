@@ -84,7 +84,7 @@ function SolutionsInner({
                 onClick={() => setActive(i)}
                 className={`flex w-full cursor-pointer flex-col gap-3 rounded-lg border-2 px-6 py-5 text-left transition-all duration-150 ${
                   active === i
-                    ? "border-primary-deep bg-primary-deep"
+                    ? "border-primary dark:border-primary-deep bg-primary dark:bg-primary-deep"
                     : "border-border bg-bg-card"
                 }`}
               >
@@ -167,7 +167,7 @@ function SolutionsInner({
             </div>
 
             {/* Sidebar */}
-            <aside className="sticky top-24 flex flex-col gap-4">
+            <aside className="sticky top-nav-h flex flex-col gap-4">
               {/* Recommended package card */}
               <div className="relative overflow-hidden rounded-lg bg-primary p-8 text-white">
                 <div className="absolute -top-8 -right-8 h-[140px] w-[140px] rounded-full border border-[rgba(223,183,65,0.3)]" />

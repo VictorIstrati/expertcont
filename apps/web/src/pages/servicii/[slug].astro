@@ -100,7 +100,7 @@ const pricingHref = sectionUrl("pricing", locale);
             {
               pageData && (
                 <ServiceDetailBody
-                  client:load
+                  client:visible
                   includedHeading={pageData.includedHeading}
                   includedItems={pageData.includedItems}
                   processHeading={pageData.processHeading}
@@ -116,7 +116,7 @@ const pricingHref = sectionUrl("pricing", locale);
           {
             pageData && (
               <ServiceSidebar
-                client:load
+                client:visible
                 locale={locale}
                 contactHref={contactHref}
                 pricing={{
@@ -138,7 +138,7 @@ const pricingHref = sectionUrl("pricing", locale);
     <!-- Final CTA band -->
     <Section tone="default">
       <Container>
-        <ServiceCTAStrip client:load locale={locale} contactHref={contactHref} />
+        <ServiceCTAStrip client:visible locale={locale} contactHref={contactHref} />
       </Container>
     </Section>
   </PageShell>

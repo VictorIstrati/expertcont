@@ -35,13 +35,13 @@ const homeSummary = pageMeta!.data.summaries[locale];
   siblings={siblings}
 >
   <PageShell locale={locale} activeSection="home" siblings={siblings}>
-    <HomeHeroSection client:load locale={locale} />
-    <HomePersonaPicker client:load locale={locale} />
-    <HomeServices client:load locale={locale} services={services} />
-    <HomeWhyUs client:load locale={locale} />
-    <HomeProcessSteps client:load locale={locale} />
-    <HomeIndustries client:load locale={locale} />
-    <HomeTestimonialsGrid client:load locale={locale} />
-    <HomeCTASection client:load locale={locale} />
+    <HomeHeroSection client:visible locale={locale} />
+    <HomePersonaPicker client:visible locale={locale} />
+    <HomeServices client:visible locale={locale} services={services} />
+    <HomeWhyUs client:visible locale={locale} />
+    <HomeProcessSteps client:visible locale={locale} />
+    <HomeIndustries client:visible locale={locale} />
+    <HomeTestimonialsGrid client:visible locale={locale} />
+    <HomeCTASection client:visible locale={locale} />
   </PageShell>
 </Base>

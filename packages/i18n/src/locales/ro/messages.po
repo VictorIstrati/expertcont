@@ -17,7 +17,7 @@ msgstr ""
 msgid "✓ Subscribed"
 msgstr "✓ Subscribed"
 
-#: ../ui/src/Nav/Nav.tsx:74
+#: ../ui/src/Nav/Nav.tsx:75
 msgid "About"
 msgstr "About"
 
@@ -46,12 +46,12 @@ msgid "All services"
 msgstr "All services"
 
 #: ../ui/src/Footer/Footer.tsx:189
-#: ../ui/src/Nav/Nav.tsx:76
+#: ../ui/src/Nav/Nav.tsx:77
 msgid "Blog"
 msgstr "Blog"
 
-#: ../ui/src/Nav/Nav.tsx:178
-#: ../ui/src/Nav/Nav.tsx:281
+#: ../ui/src/Nav/Nav.tsx:179
+#: ../ui/src/Nav/Nav.tsx:282
 msgid "Book a consultation"
 msgstr "Book a consultation"
 
@@ -72,7 +72,7 @@ msgid "Company"
 msgstr "Company"
 
 #: ../ui/src/Footer/Footer.tsx:175
-#: ../ui/src/Nav/Nav.tsx:78
+#: ../ui/src/Nav/Nav.tsx:79
 msgid "Contact"
 msgstr "Contact"
 
@@ -116,7 +116,7 @@ msgstr "HR services"
 msgid "IT consulting"
 msgstr "IT consulting"
 
-#: ../ui/src/Nav/Nav.tsx:212
+#: ../ui/src/Nav/Nav.tsx:213
 msgid "Language"
 msgstr "Language"
 
@@ -141,7 +141,7 @@ msgid "Phone"
 msgstr "Telefon"
 
 #: ../ui/src/Footer/Footer.tsx:160
-#: ../ui/src/Nav/Nav.tsx:72
+#: ../ui/src/Nav/Nav.tsx:73
 msgid "Pricing"
 msgstr "Prețuri"
 
@@ -158,11 +158,11 @@ msgid "Resources"
 msgstr "Resurse"
 
 #: ../ui/src/Footer/Footer.tsx:106
-#: ../ui/src/Nav/Nav.tsx:70
+#: ../ui/src/Nav/Nav.tsx:71
 msgid "Services"
 msgstr "Servicii"
 
-#: ../ui/src/Nav/Nav.tsx:68
+#: ../ui/src/Nav/Nav.tsx:69
 msgid "Solutions"
 msgstr "Solutions"
 
@@ -182,7 +182,7 @@ msgstr "Tax guides"
 msgid "Terms"
 msgstr "Terms"
 
-#: ../ui/src/Nav/Nav.tsx:240
+#: ../ui/src/Nav/Nav.tsx:241
 msgid "Theme"
 msgstr "Theme"
 

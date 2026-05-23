@@ -15,5 +15,12 @@
     "ru": "Пошаговое руководство по регистрации ООО или ИП в Республике Молдова — документы, сроки, расходы.",
     "en": "Step-by-step guide to registering an LLC or sole trader in the Republic of Moldova — documents, timelines and costs."
   },
+  "category": {
+    "ro": "Fiscal",
+    "ru": "Налоги",
+    "en": "Tax"
+  },
+  "readTime": 15,
+  "featured": true,
   "updated": "2026-05-18"
 }

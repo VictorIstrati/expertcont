@@ -1,9 +1,9 @@
 ---
-import { getCollection } from "astro:content";
 import Base from "../../../layouts/Base.astro";
 import PageShell from "../../../components/PageShell.astro";
 import BlogIndexIsland from "../../../components/blog/BlogIndexIsland";
-import { homeUrl, sectionUrl, detailUrl, type Locale, type ContentMeta } from "@expertcont/i18n";
+import { sectionUrl, type Locale } from "@expertcont/i18n";
+import { blogIndexProps } from "../../../lib/blogIndexProps";
 
 const locale: Locale = "en";
 const siblings: Record<Locale, string> = {
@@ -12,82 +12,7 @@ const siblings: Record<Locale, string> = {
   en: sectionUrl("blog", "en"),
 };
 
-const metaEntries = await getCollection("blog-meta");
-const realMeta = metaEntries.map((e) => e.data as ContentMeta & { publishedAt: string });
-const firstSlug = realMeta[0]
-  ? detailUrl("blog", realMeta[0], locale)
-  : "/en/blog/tax-changes-2026";
-
-const posts = [
-  {
-    slug: "tax-changes-2026",
-    href: firstSlug,
-    category: "Tax",
-    title: "Tax changes 2026: what every entrepreneur in Moldova needs to know",
-    excerpt: "A detailed analysis of new VAT rates, income tax changes and the impact on SMEs.",
-    date: "12 May 2026",
-    readTime: 8,
-    featured: true,
-    author: "Elena Bostan",
-  },
-  {
-    slug: "ifrs-or-snc",
-    href: "/en/blog/ifrs-or-snc",
-    category: "Accounting",
-    title: "IFRS or NAS? A guide for growing companies",
-    excerpt:
-      "When does it make sense to switch from NAS to IFRS and what does the transition involve — costs, timeline, benefits.",
-    date: "5 May 2026",
-    readTime: 6,
-    author: "Mihai Cazacu",
-  },
-  {
-    slug: "fictitious-contracts-risks",
-    href: "/en/blog/fictitious-contracts-risks",
-    category: "Legal",
-    title: "Fictitious contracts risks: fines and criminal liability",
-    excerpt:
-      "Tax authority enforcement has intensified. How to protect yourself with correct documentation.",
-    date: "28 Apr 2026",
-    readTime: 5,
-    author: "Cristina Vrabie",
-  },
-  {
-    slug: "payroll-optimisation",
-    href: "/en/blog/payroll-optimisation",
-    category: "HR",
-    title: "Payroll fund optimisation: 7 legal levers",
-    excerpt: "Non-monetary benefits, meal vouchers, salary structures — what works in Moldova.",
-    date: "21 Apr 2026",
-    readTime: 7,
-    author: "Radu Crăciun",
-  },
-  {
-    slug: "cash-flow-winter",
-    href: "/en/blog/cash-flow-winter",
-    category: "Strategy",
-    title: "Cash flow in the cold season: how retail SMEs survive",
-    excerpt: "Inventory management tactics and supplier credit arrangements in low-volume periods.",
-    date: "14 Apr 2026",
-    readTime: 6,
-    author: "Elena Bostan",
-  },
-  {
-    slug: "1c-automation",
-    href: "/en/blog/1c-automation",
-    category: "Accounting",
-    title: "1C automation: what works in Moldovan practice",
-    excerpt: "The most useful 1C integrations with CRMs and invoicing systems — a 3-year review.",
-    date: "7 Apr 2026",
-    readTime: 9,
-    author: "Mihai Cazacu",
-  },
-];
-
-const realSlugs = new Set(realMeta.map((m) => m.slugs.en));
-const visiblePosts = posts.filter((p) => realSlugs.has(p.slug));
-
-const categories = ["All", "Tax", "Legal", "HR", "Technical", "Guides"];
+const props = await blogIndexProps(locale);
 ---
 
 <Base
@@ -98,23 +23,6 @@ const categories = ["All", "Tax", "Legal", "HR", "Technical", "Guides"];
   siblings={siblings}
 >
   <PageShell locale={locale} activeSection="blog" siblings={siblings}>
-    <BlogIndexIsland
-      client:load
-      posts={visiblePosts}
-      categories={categories}
-      searchPlaceholder="Search articles..."
-      readTimeLabel="min read"
-      featuredLabel="Featured"
-      readLabel="Read article"
-      noResultsLabel="No articles found for the selected filters."
-      paginationPrev="Previous"
-      paginationNext="Next"
-      pageEyebrow="Blog"
-      pageTitle="All articles"
-      pageSubtitle="Tax updates, practical guides and tips for entrepreneurs in the Republic of Moldova."
-      pageBreadcrumbHome="Home"
-      pageBreadcrumbCurrent="Blog"
-      homeHref={homeUrl(locale)}
-    />
+    <BlogIndexIsland client:visible {...props} />
   </PageShell>
 </Base>

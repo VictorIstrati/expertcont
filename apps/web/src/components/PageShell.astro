@@ -19,6 +19,6 @@ const cookiePolicyHref = sectionUrl("cookies", locale);
 
 <NavWithSwitcher client:load locale={locale} activeSection={activeSection} siblings={siblings} />
 <slot />
-<FooterIsland client:load locale={locale} />
-<CookieBanner client:load locale={locale} policyHref={cookiePolicyHref} />
-<ModalsHost client:load locale={locale} />
+<FooterIsland client:idle locale={locale} />
+<CookieBanner client:idle locale={locale} policyHref={cookiePolicyHref} />
+<ModalsHost client:idle locale={locale} />

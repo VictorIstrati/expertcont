@@ -2,9 +2,10 @@ import { defineMiddleware } from "astro:middleware";
 
 export const onRequest = defineMiddleware((context, next) => {
   const url = new URL(context.request.url);
-  if (url.pathname === "/ro" || url.pathname.startsWith("/ro/")) {
-    const target = url.pathname.replace(/^\/ro/, "") || "/";
-    return context.redirect(target + url.search, 308);
+  const stripped = url.pathname.replace(/^\/ro(?=\/|$)/, "");
+  if (stripped !== url.pathname) {
+    const dest = (stripped || "/") + url.search + url.hash;
+    return context.redirect(dest, 308);
   }
   return next();
 });

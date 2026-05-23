@@ -338,7 +338,7 @@ function ContactInner(props: ContactIslandProps) {
               </div>
 
               {/* Book consult */}
-              <div className="card p-8 bg-primary-deep text-white relative overflow-hidden">
+              <div className="card p-8 bg-primary dark:bg-primary-deep text-white relative overflow-hidden">
                 <div className="absolute -top-8 -right-8 w-32 h-32 border border-[rgba(223,183,65,0.3)] rounded-full" />
                 <div className="relative">
                   <div className="flex items-center gap-3 mb-3">
@@ -395,9 +395,9 @@ function ContactInner(props: ContactIslandProps) {
                 href: `mailto:${email}`,
                 color: "var(--color-primary)",
               },
-            ].map((ch, i) => (
+            ].map((ch) => (
               <a
-                key={i}
+                key={ch.label}
                 href={ch.href}
                 target="_blank"
                 rel="noopener noreferrer"

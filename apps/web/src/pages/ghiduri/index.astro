@@ -44,9 +44,9 @@ const categories = ["Toate", "Fiscal", "Juridic", "HR", "Contabilitate"];
   path={sectionUrl("guides", locale)}
   siblings={siblings}
 >
-  <PageShell locale={locale} activeSection="blog" siblings={siblings}>
+  <PageShell locale={locale} activeSection="guides" siblings={siblings}>
     <GuidesIndexIsland
-      client:load
+      client:visible
       locale={locale}
       guides={visibleGuides}
       categories={categories}

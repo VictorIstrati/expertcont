@@ -1,9 +1,9 @@
 ---
-import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import PageShell from "../../components/PageShell.astro";
 import BlogIndexIsland from "../../components/blog/BlogIndexIsland";
-import { homeUrl, sectionUrl, detailUrl, type Locale, type ContentMeta } from "@expertcont/i18n";
+import { sectionUrl, type Locale } from "@expertcont/i18n";
+import { blogIndexProps } from "../../lib/blogIndexProps";
 
 const locale: Locale = "ro";
 const siblings: Record<Locale, string> = {
@@ -12,87 +12,7 @@ const siblings: Record<Locale, string> = {
   en: sectionUrl("blog", "en"),
 };
 
-const metaEntries = await getCollection("blog-meta");
-const realMeta = metaEntries.map((e) => e.data as ContentMeta & { publishedAt: string });
-
-// Hardcoded design posts — real slug from content collection used for the first one if available
-const firstSlug = realMeta[0]
-  ? detailUrl("blog", realMeta[0], locale)
-  : "/blog/modificari-fiscale-2026";
-
-const posts = [
-  {
-    slug: "modificari-fiscale-2026",
-    href: firstSlug,
-    category: "Fiscalitate",
-    title: "Modificări fiscale 2026: ce trebuie să știe orice antreprenor din Moldova",
-    excerpt:
-      "O analiză detaliată a noilor cote TVA, schimbărilor la impozitul pe venit și impactul asupra IMM-urilor.",
-    date: "12 mai 2026",
-    readTime: 8,
-    featured: true,
-    author: "Elena Bostan",
-  },
-  {
-    slug: "ifrs-sau-snc",
-    href: "/blog/ifrs-sau-snc",
-    category: "Contabilitate",
-    title: "IFRS sau SNC? Ghid pentru companiile în creștere",
-    excerpt:
-      "Când are sens trecerea de la SNC la IFRS și ce implică tranziția — costuri, timeline, beneficii.",
-    date: "5 mai 2026",
-    readTime: 6,
-    author: "Mihai Cazacu",
-  },
-  {
-    slug: "contract-fictiv-amenzi",
-    href: "/blog/contract-fictiv-amenzi",
-    category: "Juridic",
-    title: "Riscurile contractelor fictive: amenzi și răspundere penală",
-    excerpt:
-      "Practica autorităților fiscale s-a înăsprit. Cum să te protejezi prin documentație corectă.",
-    date: "28 apr 2026",
-    readTime: 5,
-    author: "Cristina Vrabie",
-  },
-  {
-    slug: "optimizare-payroll",
-    href: "/blog/optimizare-payroll",
-    category: "HR",
-    title: "Optimizarea fondului de salarii: 7 pârghii legale",
-    excerpt:
-      "Beneficii non-monetare, tichete de masă, structuri salariale — ce funcționează în Moldova.",
-    date: "21 apr 2026",
-    readTime: 7,
-    author: "Radu Crăciun",
-  },
-  {
-    slug: "cash-flow-iarna",
-    href: "/blog/cash-flow-iarna",
-    category: "Strategie",
-    title: "Cash-flow în sezonul rece: cum supraviețuiesc IMM-urile din retail",
-    excerpt:
-      "Tactici de gestionare a stocurilor și creditării furnizorilor în perioadele cu volum redus.",
-    date: "14 apr 2026",
-    readTime: 6,
-    author: "Elena Bostan",
-  },
-  {
-    slug: "automatizare-1c",
-    href: "/blog/automatizare-1c",
-    category: "Contabilitate",
-    title: "Automatizare cu 1C: ce funcționează în practica moldovenească",
-    excerpt: "Cele mai utile integrări 1C cu CRM-uri și sisteme de facturare — review după 3 ani.",
-    date: "7 apr 2026",
-    readTime: 9,
-    author: "Mihai Cazacu",
-  },
-];
-
-const realSlugs = new Set(realMeta.map((m) => m.slugs.ro));
-const visiblePosts = posts.filter((p) => realSlugs.has(p.slug));
-
-const categories = ["Toate", "Fiscal", "Juridic", "HR", "Tehnic", "Ghiduri"];
+const props = await blogIndexProps(locale);
 ---
 
 <Base
@@ -103,23 +23,6 @@ const categories = ["Toate", "Fiscal", "Juridic", "HR", "Tehnic", "Ghiduri"];
   siblings={siblings}
 >
   <PageShell locale={locale} activeSection="blog" siblings={siblings}>
-    <BlogIndexIsland
-      client:load
-      posts={visiblePosts}
-      categories={categories}
-      searchPlaceholder="Caută un articol..."
-      readTimeLabel="min citire"
-      featuredLabel="Featured"
-      readLabel="Citește articolul"
-      noResultsLabel="Nu am găsit articole pentru filtrele selectate."
-      paginationPrev="Anterior"
-      paginationNext="Următor"
-      pageEyebrow="Blog"
-      pageTitle="Toate articolele"
-      pageSubtitle="Actualități fiscale, ghiduri practice și sfaturi pentru antreprenori din Republica Moldova."
-      pageBreadcrumbHome="Acasă"
-      pageBreadcrumbCurrent="Blog"
-      homeHref={homeUrl(locale)}
-    />
+    <BlogIndexIsland client:visible {...props} />
   </PageShell>
 </Base>

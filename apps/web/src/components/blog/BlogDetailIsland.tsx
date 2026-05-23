@@ -81,7 +81,7 @@ export default function BlogDetailIsland({
           {content}
 
           {/* Inline CTA */}
-          <div className="mt-12 rounded-lg bg-primary-deep p-8 text-white">
+          <div className="mt-12 rounded-lg bg-primary dark:bg-primary-deep p-8 text-white">
             <h3 className="mb-3 text-white">{ctaTitle}</h3>
             <p className="mb-5 text-white/80">{ctaBody}</p>
             <a
@@ -96,7 +96,7 @@ export default function BlogDetailIsland({
         {/* Sidebar */}
         <aside className="hidden flex-col gap-6 lg:flex">
           {/* Table of contents stub */}
-          <div className="card sticky top-24 p-6">
+          <div className="card sticky top-nav-h p-6">
             <div className="mb-4 text-xs font-bold uppercase tracking-widest text-text-secondary">
               {tocTitle}
             </div>

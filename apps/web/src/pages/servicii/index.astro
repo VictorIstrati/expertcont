@@ -44,7 +44,7 @@ const contactHref = sectionUrl("contact", locale);
     <!-- Services Grid -->
     <Section tone="default">
       <Container>
-        <ServiceIndexGrid client:load services={serviceItems} locale={locale} />
+        <ServiceIndexGrid client:visible services={serviceItems} locale={locale} />
       </Container>
     </Section>
 
@@ -139,7 +139,7 @@ const contactHref = sectionUrl("contact", locale);
     <!-- CTA Strip -->
     <Section tone="default">
       <Container>
-        <ServiceCTAStrip client:load locale={locale} contactHref={contactHref} />
+        <ServiceCTAStrip client:visible locale={locale} contactHref={contactHref} />
       </Container>
     </Section>
   </PageShell>
