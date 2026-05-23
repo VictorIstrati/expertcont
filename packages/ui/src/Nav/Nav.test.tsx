@@ -9,9 +9,8 @@ function renderWithI18n(ui: React.ReactElement) {
 }
 
 describe("Nav", () => {
-  it("renders the logo (EXPERT and CONT text)", () => {
+  it("renders the brand logo (EXPERT + CONT text)", () => {
     renderWithI18n(<Nav locale="ro" />);
-    // Logo horizontal variant renders EXPERT + CONT spans
     expect(screen.getByText("EXPERT")).toBeInTheDocument();
     expect(screen.getByText("CONT")).toBeInTheDocument();
   });

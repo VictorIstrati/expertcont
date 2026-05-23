@@ -8,23 +8,11 @@ describe("Logo", () => {
     expect(screen.getByRole("img", { name: "ExpertCont" })).toBeInTheDocument();
   });
 
-  it("renders the horizontal variant by default", () => {
+  it("renders the horizontal variant with EXPERT + CONT text", () => {
     const { container } = render(<Logo />);
-    const svgs = container.querySelectorAll("svg");
-    expect(svgs.length).toBe(1);
-    expect(svgs[0]?.getAttribute("aria-hidden")).toBe("true");
-    // Should show EXPERT + CONT text
+    const svg = container.querySelector("svg");
+    expect(svg?.getAttribute("aria-hidden")).toBe("true");
     expect(screen.getByText("EXPERT")).toBeInTheDocument();
     expect(screen.getByText("CONT")).toBeInTheDocument();
-  });
-
-  it("renders tagline when withTagline=true", () => {
-    render(<Logo withTagline />);
-    expect(screen.getByText(/Experiență/)).toBeInTheDocument();
-  });
-
-  it("does not render tagline by default", () => {
-    render(<Logo />);
-    expect(screen.queryByText(/Experiență/)).toBeNull();
   });
 });

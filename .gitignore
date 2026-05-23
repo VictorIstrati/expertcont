@@ -11,3 +11,4 @@ dist
 coverage
 .vitest
 design/
+.idea

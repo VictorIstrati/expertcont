@@ -21,9 +21,8 @@ function footer(extra: Partial<FooterProps> & { locale: Locale }) {
 }
 
 describe("Footer", () => {
-  it("renders brand logo (EXPERT / CONT text)", () => {
+  it("renders the brand logo (EXPERT + CONT text)", () => {
     renderWithI18n(footer({ locale: "ro" }));
-    // The horizontal Logo variant renders "EXPERT" and "CONT" as visible text spans
     expect(screen.getByText("EXPERT")).toBeInTheDocument();
     expect(screen.getByText("CONT")).toBeInTheDocument();
   });
