@@ -67,7 +67,7 @@ msgstr "All rights reserved."
 msgid "All services"
 msgstr "All services"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:41
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:42
 msgid "Altele"
 msgstr "Other"
 
@@ -140,7 +140,7 @@ msgstr "Confirmed"
 msgid "Consultanță"
 msgstr "Consulting"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:30
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:31
 msgid "Consultanță fiscală"
 msgstr "Tax consulting"
 
@@ -149,7 +149,7 @@ msgstr "Tax consulting"
 msgid "Contabilitate"
 msgstr "Accounting"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:29
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:30
 msgid "Contabilitate & evidență"
 msgstr "Accounting & bookkeeping"
 
@@ -326,7 +326,7 @@ msgstr "IT & Software"
 msgid "IT consulting"
 msgstr "IT consulting"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:40
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:41
 msgid "IT Consulting"
 msgstr "IT consulting"
 
@@ -487,7 +487,7 @@ msgid "Resources"
 msgstr "Resources"
 
 #. Contact form 'subject' option for HR-related inquiries (literally 'human resources').
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:34
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:35
 msgid "Resurse umane"
 msgstr "Human resources"
 
@@ -512,7 +512,7 @@ msgstr "Security & GDPR"
 msgid "Services"
 msgstr "Services"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:31
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:32
 msgid "Servicii juridice"
 msgstr "Legal services"
 

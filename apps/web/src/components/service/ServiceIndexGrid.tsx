@@ -1,6 +1,6 @@
 import { Icon, ArrowLink } from "@expertcont/ui";
-import type { ContentMeta } from "@expertcont/i18n";
-import { serviceIcon } from "../../lib/serviceIcons";
+import type { ContentMeta, Locale } from "@expertcont/i18n";
+import { serviceIcon, servicePricingHint } from "../../lib/serviceIcons";
 
 interface ServiceItem {
   meta: ContentMeta;
@@ -139,42 +139,6 @@ function serviceFeatures(id: string, locale: string): string[] {
   return data[id]?.[locale] ?? data[id]?.ro ?? [];
 }
 
-function pricingHint(id: string, locale: string): string {
-  const data: Record<string, Record<string, string>> = {
-    accounting: {
-      ro: "De la 1 500 MDL/lună",
-      ru: "От 1 500 MDL/мес.",
-      en: "From MDL 1,500/mo",
-    },
-    audit: {
-      ro: "De la 8 000 MDL/audit",
-      ru: "От 8 000 MDL/аудит",
-      en: "From MDL 8,000/audit",
-    },
-    legal: {
-      ro: "De la 800 MDL/oră",
-      ru: "От 800 MDL/час",
-      en: "From MDL 800/hour",
-    },
-    consulting: {
-      ro: "Proiect personalizat",
-      ru: "Индивидуальный проект",
-      en: "Custom project",
-    },
-    hr: {
-      ro: "De la 1 200 MDL/lună",
-      ru: "От 1 200 MDL/мес.",
-      en: "From MDL 1,200/mo",
-    },
-    it: {
-      ro: "De la 12 000 MDL/proiect",
-      ru: "От 12 000 MDL/проект",
-      en: "From MDL 12,000/project",
-    },
-  };
-  return data[id]?.[locale] ?? data[id]?.ro ?? "";
-}
-
 function learnMoreLabel(locale: string): string {
   if (locale === "ru") return "Подробнее";
   if (locale === "en") return "Learn more";
@@ -193,7 +157,7 @@ export function ServiceIndexGrid({ services, locale }: ServiceIndexGridProps) {
       <div className="svc-index-grid grid grid-cols-3 gap-5">
         {services.map(({ meta, href, scheduleHref }) => {
           const features = serviceFeatures(meta.id, locale);
-          const hint = pricingHint(meta.id, locale);
+          const hint = servicePricingHint(meta.id, locale as Locale);
           return (
             <div key={meta.id} className="card card-hover p-8 flex flex-col">
               <div className="w-14 h-14 rounded-md bg-primary-50 text-primary flex items-center justify-center mb-5 shrink-0">

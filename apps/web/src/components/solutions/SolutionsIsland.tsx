@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, Container, Icon, PageHeader } from "@expertcont/ui";
 import type { IconName } from "@expertcont/ui";
 import type { Locale } from "@expertcont/i18n";
-import { homeUrl } from "@expertcont/i18n";
+import { homeUrl, localeTag } from "@expertcont/i18n";
 import { openModal } from "../../lib/modalBus";
 import { site, phoneTel } from "../../site";
 
@@ -16,6 +16,9 @@ interface Persona {
   tierLabel: string;
   time: string;
   deliverables: string[];
+  salePct?: number;
+  saleMonths?: number;
+  saleSuffix?: string;
 }
 
 export interface SolutionsIslandProps {
@@ -39,7 +42,7 @@ export interface SolutionsIslandProps {
   personas: Persona[];
 }
 
-const personaIcons: IconName[] = ["lightbulb", "trending", "briefcase"];
+const personaIcons: IconName[] = ["lightbulb", "zap", "trending", "briefcase"];
 
 function SolutionsInner({
   locale,
@@ -78,7 +81,7 @@ function SolutionsInner({
       <section className="section">
         <Container>
           {/* Persona switcher */}
-          <div className="mb-12 grid grid-cols-1 gap-3 lg:grid-cols-3">
+          <div className="mb-12 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {personas.map((per, i) => (
               <button
                 key={per.slug}
@@ -104,7 +107,7 @@ function SolutionsInner({
                       active === i ? "text-white/70" : "text-text-secondary"
                     }`}
                   >
-                    {String(i + 1).padStart(2, "0")} / 03
+                    {String(i + 1).padStart(2, "0")} / {String(personas.length).padStart(2, "0")}
                   </span>
                 </div>
                 <div
@@ -177,19 +180,40 @@ function SolutionsInner({
                     {recommendedPackageLabel}
                   </div>
                   <div className="mb-1 text-3xl font-extrabold text-white">{p.tier}</div>
-                  <div className="mb-5 flex items-baseline gap-2">
-                    {p.tierPrice ? (
-                      <>
-                        <span className="text-sm text-white/70">{fromLabel}</span>
-                        <span className="text-4xl font-extrabold tracking-tight text-white">
-                          {p.tierPrice.toLocaleString("ro-RO")}
-                        </span>
-                        <span className="text-sm text-white/70">{p.tierLabel}</span>
-                      </>
-                    ) : (
+                  {p.tierPrice ? (
+                    (() => {
+                      const nf = new Intl.NumberFormat(localeTag(locale));
+                      const hasSale = p.salePct !== undefined && p.salePct > 0;
+                      const discounted = hasSale
+                        ? Math.round((p.tierPrice * (100 - (p.salePct as number))) / 100 / 10) * 10
+                        : p.tierPrice;
+                      return (
+                        <div className="mb-5">
+                          <div className="flex items-baseline gap-2 flex-wrap">
+                            <span className="text-sm text-white/70">{fromLabel}</span>
+                            {hasSale && (
+                              <span className="text-base text-white/55 line-through">
+                                {nf.format(p.tierPrice)}
+                              </span>
+                            )}
+                            <span className="text-4xl font-extrabold tracking-tight text-white">
+                              {nf.format(discounted)}
+                            </span>
+                            <span className="text-sm text-white/70">{p.tierLabel}</span>
+                          </div>
+                          {hasSale && (
+                            <div className="mt-2 inline-flex items-center px-2 py-0.5 rounded-pill text-[10px] font-bold tracking-wider bg-accent text-[#1A1A2E] whitespace-nowrap">
+                              −{p.salePct}% · {p.saleMonths ?? 6} {p.saleSuffix ?? "luni"}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })()
+                  ) : (
+                    <div className="mb-5">
                       <span className="text-2xl font-bold text-white">{p.tierLabel}</span>
-                    )}
-                  </div>
+                    </div>
+                  )}
                   <Button
                     variant="primary"
                     size="md"

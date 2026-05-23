@@ -3,6 +3,7 @@ import { Trans, useLingui } from "@lingui/react/macro";
 import { Button, Container, Icon, PageHeader } from "@expertcont/ui";
 import { I18nRoot, sectionUrl } from "@expertcont/i18n";
 import type { Locale } from "@expertcont/i18n";
+import { openModal } from "../../lib/modalBus";
 
 export interface ContactIslandProps {
   locale: Locale;
@@ -46,7 +47,6 @@ function ContactInner({ locale, address, phone, email, hours }: ContactIslandPro
   const { t } = useLingui();
   const homeHref = locale === "ro" ? "/" : `/${locale}`;
   const services = useServiceOptions();
-  const bookHref = sectionUrl("contact", locale);
   const privacyHref = sectionUrl("privacy", locale);
 
   const nameId = useId();
@@ -336,7 +336,7 @@ function ContactInner({ locale, address, phone, email, hours }: ContactIslandPro
                   <Button
                     variant="primary"
                     size="sm"
-                    href={bookHref}
+                    onClick={() => openModal("booking")}
                     icon="calendar"
                     className="w-full justify-center"
                   >
