@@ -10,9 +10,11 @@ interface Props {
   path: string;
   /** Sibling URLs per locale for hreflang alternates. If omitted, uses path for all. */
   siblings?: Record<Locale, string>;
+  /** Per-page structured data (object or array). Rendered after sitewide Organization. */
+  jsonLd?: object | object[];
 }
 
-const { title, description, locale, path, siblings } = Astro.props;
+const { title, description, locale, path, siblings, jsonLd } = Astro.props;
 const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
 const canonical = `${siteUrl}${path}`;
 const alts: Record<Locale, string> = siblings ?? { ro: path, ru: path, en: path };
@@ -70,6 +72,12 @@ const organizationJsonLd = {
     <meta name="twitter:image" content={ogImage} />
 
     <script is:inline type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />
+    {
+      jsonLd &&
+        (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).map((node) => (
+          <script is:inline type="application/ld+json" set:html={JSON.stringify(node)} />
+        ))
+    }
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

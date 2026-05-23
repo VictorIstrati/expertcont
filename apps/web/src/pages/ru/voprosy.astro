@@ -3,6 +3,7 @@ import Base from "../../layouts/Base.astro";
 import PageShell from "../../components/PageShell.astro";
 import FaqPageIsland from "../../components/faq/FaqPageIsland";
 import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+import { faqPageJsonLd, breadcrumbListJsonLd } from "../../lib/jsonLd";
 
 const locale: Locale = "ru";
 const siblings: Record<Locale, string> = {
@@ -78,7 +79,13 @@ const groups = [
   },
 ];
 
-const categories = ["Все", "Бухгалтерия", "Юридические", "Цены", "Техническое"];
+const jsonLd = [
+  faqPageJsonLd(groups.flatMap((g) => g.items)),
+  breadcrumbListJsonLd([
+    { name: "Главная", url: homeUrl(locale) },
+    { name: "Часто задаваемые вопросы", url: sectionUrl("faq", locale) },
+  ]),
+];
 ---
 
 <Base
@@ -87,43 +94,15 @@ const categories = ["Все", "Бухгалтерия", "Юридические"
   locale={locale}
   path={sectionUrl("faq", locale)}
   siblings={siblings}
+  jsonLd={jsonLd}
 >
   <PageShell locale={locale} siblings={siblings}>
     <FaqPageIsland
       client:visible
       locale={locale}
       groups={groups}
-      categories={categories}
-      pageEyebrow="База знаний"
-      pageTitle="Часто задаваемые вопросы"
-      pageSubtitle="Ответы на вопросы, которые нам задают чаще всего."
-      pageBreadcrumbHome="Главная"
-      pageBreadcrumbCurrent="Часто задаваемые вопросы"
-      homeHref={homeUrl(locale)}
-      searchPlaceholder="Найти вопрос..."
-      ctaTitle="Не нашли ответ?"
-      ctaBtn="Задайте нам вопрос"
-      notFoundLabel="Вопросов по выбранным фильтрам не найдено."
-      formEyebrow="Не нашли ответ?"
-      formTitle="Задайте нам вопрос"
-      formBody="Отвечаем менее чем за 4 часа в рабочие дни. Часто задаваемые вопросы добавляем сюда, чтобы помочь другим."
-      formNameLabel="Имя"
-      formEmailLabel="Email"
-      formSubjectLabel="Тема"
-      formQuestionLabel="Ваш вопрос"
-      formConsentLabel="Я согласен с обработкой данных согласно"
-      formConsentLink="политике конфиденциальности"
-      formSubmitLabel="Отправить вопрос"
-      formSentTitle="Ваш вопрос отправлен"
-      formSentBody="Вы получите ответ на email в течение 4 часов в рабочие дни."
-      formSentReset="Задать ещё вопрос"
-      formContactPhone="+373 22 123 456"
-      formContactEmail="contact@expertcont.md"
-      finalEyebrow="Начнём"
-      finalTitle="Давайте обсудим ваш бизнес"
-      finalSubtitle="Запишитесь на бесплатную консультацию 30 минут. Без обязательств, без сюрпризов."
-      finalPrimary="Записаться на консультацию (30 мин)"
-      finalPhone="+373 22 123 456"
+      contactPhone="+373 22 123 456"
+      contactEmail="contact@expertcont.md"
     />
   </PageShell>
 </Base>

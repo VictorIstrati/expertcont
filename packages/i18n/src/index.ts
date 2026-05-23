@@ -9,3 +9,5 @@ export type { ContentMeta, LocalizedString } from "./contentMeta";
 export { localePrefix, homeUrl, sectionUrl, detailUrl, pageUrl } from "./urls";
 export { localizedDetailPaths, localizedIndexPaths } from "./localizedPaths";
 export type { LocalizedDetailPath, LocalizedIndexPath } from "./localizedPaths";
+export { SERVICE_IDS, serviceSlugs, serviceDetailUrl } from "./serviceSlugs";
+export type { ServiceId } from "./serviceSlugs";

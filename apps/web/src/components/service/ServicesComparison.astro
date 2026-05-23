@@ -1,0 +1,83 @@
+---
+import { Container, Section, SectionHeader } from "@expertcont/ui";
+import type { Locale } from "@expertcont/i18n";
+import { servicesComparisonCopy } from "../../lib/servicesComparison";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = servicesComparisonCopy[locale];
+---
+
+<Section tone="alt">
+  <Container>
+    <SectionHeader
+      align="center"
+      eyebrow={copy.sectionEyebrow}
+      title={copy.sectionTitle}
+      maxWidth={640}
+      subtitle={copy.sectionSubtitle}
+    />
+    <div class="comp-grid grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="card border-primary p-8 bg-bg-card">
+        <div class="text-sm font-bold text-primary uppercase tracking-widest mb-5">
+          {copy.withUsTitle}
+        </div>
+        <ul class="list-none p-0 m-0 flex flex-col gap-4">
+          {
+            copy.withUsItems.map((item) => (
+              <li class="flex items-center gap-3 text-base">
+                <span class="w-6 h-6 rounded-full bg-primary-50 text-primary flex items-center justify-center shrink-0">
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </span>
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="card p-8 bg-transparent">
+        <div class="text-sm font-bold text-text-secondary uppercase tracking-widest mb-5">
+          {copy.withoutUsTitle}
+        </div>
+        <ul class="list-none p-0 m-0 flex flex-col gap-4">
+          {
+            copy.withoutUsItems.map((item) => (
+              <li class="flex items-center gap-3 text-base text-text-secondary">
+                <span class="w-6 h-6 rounded-full bg-bg-section-alt text-text-secondary flex items-center justify-center shrink-0">
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </span>
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </Container>
+</Section>

@@ -118,12 +118,20 @@ export function Nav({
         {/* Desktop actions */}
         <div className={styles.actions}>
           {/* Language dropdown */}
-          <div className={styles.langWrap}>
+          <div
+            className={styles.langWrap}
+            onBlur={(e) => {
+              if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+                setLangOpen(false);
+              }
+            }}
+          >
             <button
               className={styles.langButton}
               onClick={() => setLangOpen(!langOpen)}
-              onBlur={() => setTimeout(() => setLangOpen(false), 150)}
               aria-label="Language"
+              aria-expanded={langOpen}
+              aria-haspopup="menu"
             >
               <Icon name="globe" size={16} />
               <span>{currentLang?.label}</span>

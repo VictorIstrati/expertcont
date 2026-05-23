@@ -3,6 +3,7 @@ import Base from "../layouts/Base.astro";
 import PageShell from "../components/PageShell.astro";
 import FaqPageIsland from "../components/faq/FaqPageIsland";
 import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+import { faqPageJsonLd, breadcrumbListJsonLd } from "../lib/jsonLd";
 
 const locale: Locale = "ro";
 const siblings: Record<Locale, string> = {
@@ -78,7 +79,13 @@ const groups = [
   },
 ];
 
-const categories = ["Toate", "Contabilitate", "Juridic", "Prețuri", "Tehnic"];
+const jsonLd = [
+  faqPageJsonLd(groups.flatMap((g) => g.items)),
+  breadcrumbListJsonLd([
+    { name: "Acasă", url: homeUrl(locale) },
+    { name: "Întrebări frecvente", url: sectionUrl("faq", locale) },
+  ]),
+];
 ---
 
 <Base
@@ -87,43 +94,15 @@ const categories = ["Toate", "Contabilitate", "Juridic", "Prețuri", "Tehnic"];
   locale={locale}
   path={sectionUrl("faq", locale)}
   siblings={siblings}
+  jsonLd={jsonLd}
 >
   <PageShell locale={locale} siblings={siblings}>
     <FaqPageIsland
       client:visible
       locale={locale}
       groups={groups}
-      categories={categories}
-      pageEyebrow="Bază de cunoștințe"
-      pageTitle="Întrebări frecvente"
-      pageSubtitle="Răspunsuri la întrebările pe care ni le adresează cel mai des clienții noștri."
-      pageBreadcrumbHome="Acasă"
-      pageBreadcrumbCurrent="Întrebări frecvente"
-      homeHref={homeUrl(locale)}
-      searchPlaceholder="Caută o întrebare..."
-      ctaTitle="Nu ai găsit răspunsul tău?"
-      ctaBtn="Întreabă-ne direct"
-      notFoundLabel="Nu am găsit întrebări pentru filtrele selectate."
-      formEyebrow="Nu ai găsit răspunsul?"
-      formTitle="Pune-ne o întrebare"
-      formBody="Răspundem în mai puțin de 4 ore în zile lucrătoare. Întrebările frecvente le adăugăm și aici, ca să ajute mai departe."
-      formNameLabel="Nume"
-      formEmailLabel="Email"
-      formSubjectLabel="Subiect"
-      formQuestionLabel="Întrebarea ta"
-      formConsentLabel="Sunt de acord cu prelucrarea datelor conform"
-      formConsentLink="politicii de confidențialitate"
-      formSubmitLabel="Trimite întrebarea"
-      formSentTitle="Întrebarea ta a fost trimisă"
-      formSentBody="Vei primi răspuns pe email în maxim 4 ore în zile lucrătoare."
-      formSentReset="Trimite altă întrebare"
-      formContactPhone="+373 22 123 456"
-      formContactEmail="contact@expertcont.md"
-      finalEyebrow="Hai să începem"
-      finalTitle="Hai să discutăm despre afacerea ta"
-      finalSubtitle="Programează o consultație gratuită de 30 de minute. Fără obligații, fără surprize."
-      finalPrimary="Programează consultație gratuită (30 min)"
-      finalPhone="+373 22 123 456"
+      contactPhone="+373 22 123 456"
+      contactEmail="contact@expertcont.md"
     />
   </PageShell>
 </Base>

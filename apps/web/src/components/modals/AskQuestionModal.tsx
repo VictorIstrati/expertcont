@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useId, useState } from "react";
 import { Icon } from "@expertcont/ui";
 import type { Locale } from "@expertcont/i18n";
 import { Modal } from "./Modal";
@@ -120,6 +120,9 @@ export function AskQuestionModal({ open, onClose, locale }: Props) {
     consent: false,
   });
   const [sent, setSent] = useState(false);
+  const nameId = useId();
+  const emailId = useId();
+  const messageId = useId();
 
   const canSubmit =
     form.name.trim() !== "" &&
@@ -158,8 +161,9 @@ export function AskQuestionModal({ open, onClose, locale }: Props) {
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="field">
-              <label>{t.nameLabel} *</label>
+              <label htmlFor={nameId}>{t.nameLabel} *</label>
               <input
+                id={nameId}
                 className="input"
                 required
                 value={form.name}
@@ -168,8 +172,9 @@ export function AskQuestionModal({ open, onClose, locale }: Props) {
               />
             </div>
             <div className="field">
-              <label>{t.emailLabel} *</label>
+              <label htmlFor={emailId}>{t.emailLabel} *</label>
               <input
+                id={emailId}
                 className="input"
                 type="email"
                 required
@@ -204,8 +209,9 @@ export function AskQuestionModal({ open, onClose, locale }: Props) {
           </div>
 
           <div className="field">
-            <label>{t.messageLabel} *</label>
+            <label htmlFor={messageId}>{t.messageLabel} *</label>
             <textarea
+              id={messageId}
               className="textarea min-h-[100px]"
               required
               value={form.message}

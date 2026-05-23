@@ -1,46 +1,17 @@
-import { useState } from "react";
+import { useId, useState } from "react";
+import { Trans, useLingui } from "@lingui/react/macro";
 import { Button, Container, Icon, PageHeader } from "@expertcont/ui";
-import { I18nRoot } from "@expertcont/i18n";
+import { I18nRoot, sectionUrl } from "@expertcont/i18n";
 import type { Locale } from "@expertcont/i18n";
 
 export interface ContactIslandProps {
   locale: Locale;
-  homeLabel?: string;
-  contactLabel?: string;
-  eyebrow: string;
-  title: string;
-  subtitle: string;
-  /* form labels */
-  labelName: string;
-  labelEmail: string;
-  labelPhone: string;
-  labelCompany: string;
-  labelService: string;
-  labelMessage: string;
-  labelSend: string;
-  placeholderName: string;
-  placeholderEmail: string;
-  placeholderPhone: string;
-  placeholderCompany: string;
-  placeholderMessage: string;
-  formTitle: string;
-  formSubtitle: string;
-  successTitle: string;
-  successSub: string;
-  /* sidebar */
-  labelOffice: string;
+  /** Office street address line (locale-specific copy). */
   address: string;
   phone: string;
   email: string;
-  labelHours: string;
+  /** Working-hours string, e.g. "Luni–Vineri, 9:00–18:00". */
   hours: string;
-  labelAvailable: string;
-  labelBook: string;
-  bookHref: string;
-  /* channels */
-  channelsTitle: string;
-  /* services list for select */
-  services: { value: string; label: string }[];
 }
 
 interface FormState {
@@ -52,47 +23,31 @@ interface FormState {
   message: string;
 }
 
-const HOME_LABELS: Record<Locale, string> = { ro: "Acasă", ru: "Главная", en: "Home" };
-const CONTACT_LABELS: Record<Locale, string> = { ro: "Contact", ru: "Контакты", en: "Contact" };
+function useServiceOptions(): { value: string; label: string }[] {
+  const { t } = useLingui();
+  return [
+    { value: "contabilitate", label: t`Contabilitate & evidență` },
+    { value: "fiscal", label: t`Consultanță fiscală` },
+    { value: "juridic", label: t`Servicii juridice` },
+    { value: "hr", label: t`Resurse umane` },
+    { value: "it", label: t`IT Consulting` },
+    { value: "altele", label: t`Altele` },
+  ];
+}
 
-function ContactInner(props: ContactIslandProps) {
-  const {
-    locale,
-    homeLabel,
-    contactLabel,
-    eyebrow,
-    title,
-    subtitle,
-    labelName,
-    labelEmail,
-    labelPhone,
-    labelCompany,
-    labelService,
-    labelMessage,
-    labelSend,
-    placeholderName,
-    placeholderEmail,
-    placeholderPhone,
-    placeholderCompany,
-    placeholderMessage,
-    formTitle,
-    formSubtitle,
-    successTitle,
-    successSub,
-    labelOffice,
-    address,
-    phone,
-    email,
-    labelHours,
-    hours,
-    labelAvailable,
-    labelBook,
-    bookHref,
-    channelsTitle,
-    services,
-  } = props;
-
+function ContactInner({ locale, address, phone, email, hours }: ContactIslandProps) {
+  const { t } = useLingui();
   const homeHref = locale === "ro" ? "/" : `/${locale}`;
+  const services = useServiceOptions();
+  const bookHref = sectionUrl("contact", locale);
+  const privacyHref = sectionUrl("privacy", locale);
+
+  const nameId = useId();
+  const emailId = useId();
+  const phoneId = useId();
+  const companyId = useId();
+  const serviceId = useId();
+  const messageId = useId();
 
   const [form, setForm] = useState<FormState>({
     name: "",
@@ -113,87 +68,104 @@ function ContactInner(props: ContactIslandProps) {
   return (
     <main>
       <PageHeader
-        eyebrow={eyebrow}
-        title={title}
-        subtitle={subtitle}
+        eyebrow={t`CONTACT`}
+        title={t`Hai să discutăm`}
+        subtitle={t`Suntem disponibili pentru o consultație gratuită. Completați formularul sau folosiți una dintre căile rapide de mai jos.`}
         breadcrumbs={[
-          { label: homeLabel ?? HOME_LABELS[locale], href: homeHref },
-          { label: contactLabel ?? CONTACT_LABELS[locale] },
+          { label: t`Acasă`, href: homeHref },
+          { label: t`Contact` },
         ]}
       />
 
-      {/* Main 2-column */}
       <section className="section">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-14">
-            {/* Left: form */}
             <div className="card p-6 sm:p-10">
-              <h3 className="mb-2">{formTitle}</h3>
-              <p className="text-text-secondary text-sm mb-8">{formSubtitle}</p>
+              <h3 className="mb-2">
+                <Trans>Scrie-ne un mesaj</Trans>
+              </h3>
+              <p className="text-text-secondary text-sm mb-8">
+                <Trans>Vom reveni în maximum 4 ore în zile lucrătoare.</Trans>
+              </p>
 
               {sent ? (
                 <div className="p-8 bg-primary-50 rounded-md text-center">
                   <div className="w-14 h-14 rounded-full bg-primary text-white flex items-center justify-center mx-auto mb-4">
                     <Icon name="check" size={26} stroke={3} />
                   </div>
-                  <h4 className="mb-2">{successTitle}</h4>
-                  <p className="text-text-secondary text-sm">{successSub}</p>
+                  <h4 className="mb-2">
+                    <Trans>Mesaj trimis cu succes!</Trans>
+                  </h4>
+                  <p className="text-text-secondary text-sm">
+                    <Trans>
+                      Vom reveni în maximum 4 ore. Verifică emailul — am trimis o confirmare.
+                    </Trans>
+                  </p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="field">
-                      <label className="block text-sm font-semibold mb-2">
-                        {labelName} *
+                      <label htmlFor={nameId} className="block text-sm font-semibold mb-2">
+                        <Trans>Nume</Trans> *
                       </label>
                       <input
+                        id={nameId}
                         className="input"
                         required
                         value={form.name}
                         onChange={(e) => setForm({ ...form, name: e.target.value })}
-                        placeholder={placeholderName}
+                        placeholder={t`Ion Popescu`}
                       />
                     </div>
                     <div className="field">
-                      <label className="block text-sm font-semibold mb-2">
-                        {labelEmail} *
+                      <label htmlFor={emailId} className="block text-sm font-semibold mb-2">
+                        <Trans>Email</Trans> *
                       </label>
                       <input
+                        id={emailId}
                         className="input"
                         type="email"
                         required
                         value={form.email}
                         onChange={(e) => setForm({ ...form, email: e.target.value })}
-                        placeholder={placeholderEmail}
+                        placeholder={t`ion@firma.md`}
                       />
                     </div>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="field">
-                      <label className="block text-sm font-semibold mb-2">{labelPhone}</label>
+                      <label htmlFor={phoneId} className="block text-sm font-semibold mb-2">
+                        <Trans>Telefon</Trans>
+                      </label>
                       <input
+                        id={phoneId}
                         className="input"
                         type="tel"
                         value={form.phone}
                         onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                        placeholder={placeholderPhone}
+                        placeholder={t`+373 ...`}
                       />
                     </div>
                     <div className="field">
-                      <label className="block text-sm font-semibold mb-2">
-                        {labelCompany}
+                      <label htmlFor={companyId} className="block text-sm font-semibold mb-2">
+                        <Trans>Companie</Trans>
                       </label>
                       <input
+                        id={companyId}
                         className="input"
                         value={form.company}
                         onChange={(e) => setForm({ ...form, company: e.target.value })}
-                        placeholder={placeholderCompany}
+                        placeholder={t`Firma SRL`}
                       />
                     </div>
                   </div>
                   <div className="field">
-                    <label className="block text-sm font-semibold mb-2">{labelService}</label>
+                    <label htmlFor={serviceId} className="block text-sm font-semibold mb-2">
+                      <Trans>Subiect / Serviciu</Trans>
+                    </label>
                     <select
+                      id={serviceId}
                       className="select"
                       value={form.service}
                       onChange={(e) => setForm({ ...form, service: e.target.value })}
@@ -206,56 +178,45 @@ function ContactInner(props: ContactIslandProps) {
                     </select>
                   </div>
                   <div className="field">
-                    <label className="block text-sm font-semibold mb-2">
-                      {labelMessage} *
+                    <label htmlFor={messageId} className="block text-sm font-semibold mb-2">
+                      <Trans>Mesaj</Trans> *
                     </label>
                     <textarea
+                      id={messageId}
                       className="textarea"
                       required
                       rows={5}
                       value={form.message}
                       onChange={(e) => setForm({ ...form, message: e.target.value })}
-                      placeholder={placeholderMessage}
+                      placeholder={t`Spune-ne pe scurt despre afacerea ta...`}
                     />
                   </div>
                   <p className="text-xs text-text-secondary leading-relaxed">
-                    {locale === "ru"
-                      ? "Отправляя форму, вы соглашаетесь с обработкой данных согласно GDPR и нашей "
-                      : locale === "en"
-                        ? "By submitting the form you agree to data processing per GDPR and our "
-                        : "Prin trimiterea formularului ești de acord cu prelucrarea datelor conform GDPR și "}
-                    <a
-                      href={
-                        locale === "ro"
-                          ? "/confidentialitate"
-                          : `/${locale}/${locale === "ru" ? "konfidentsialnost" : "privacy"}`
-                      }
-                      className="text-primary underline"
-                    >
-                      {locale === "ru"
-                        ? "Политикой конфиденциальности"
-                        : locale === "en"
-                          ? "Privacy Policy"
-                          : "Politica de confidențialitate"}
-                    </a>
-                    .
+                    <Trans>
+                      Prin trimiterea formularului ești de acord cu prelucrarea datelor conform
+                      GDPR și{" "}
+                      <a href={privacyHref} className="text-primary underline">
+                        Politica de confidențialitate
+                      </a>
+                      .
+                    </Trans>
                   </p>
                   <Button variant="primary" size="lg" type="submit" iconRight="send">
-                    {labelSend}
+                    <Trans>Trimite mesajul</Trans>
                   </Button>
                 </form>
               )}
             </div>
 
-            {/* Right: sidebar */}
             <div className="flex flex-col gap-5">
-              {/* Office */}
               <div className="card p-8">
                 <div className="flex items-center gap-3 mb-4">
                   <span className="w-10 h-10 rounded-sm bg-primary-50 text-primary flex items-center justify-center">
                     <Icon name="map-pin" size={18} />
                   </span>
-                  <h4 className="m-0">{labelOffice}</h4>
+                  <h4 className="m-0">
+                    <Trans>Biroul nostru</Trans>
+                  </h4>
                 </div>
                 <p className="text-sm text-text-secondary leading-relaxed">{address}</p>
                 <a
@@ -264,23 +225,21 @@ function ContactInner(props: ContactIslandProps) {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 mt-3 text-sm text-primary font-semibold"
                 >
-                  Deschide în Maps <Icon name="arrow-up-right" size={14} />
+                  <Trans>Deschide în Maps</Trans> <Icon name="arrow-up-right" size={14} />
                 </a>
               </div>
 
-              {/* Phone & Email */}
               <div className="card p-8">
                 <div className="flex items-center gap-3 mb-4">
                   <span className="w-10 h-10 rounded-sm bg-accent-50 text-accent-dark flex items-center justify-center">
                     <Icon name="phone" size={18} />
                   </span>
-                  <h4 className="m-0">Telefon & Email</h4>
+                  <h4 className="m-0">
+                    <Trans>Telefon & Email</Trans>
+                  </h4>
                 </div>
                 <div className="flex flex-col gap-2 text-base font-semibold">
-                  <a
-                    href={`tel:${phone.replace(/\s+/g, "")}`}
-                    className="text-primary"
-                  >
+                  <a href={`tel:${phone.replace(/\s+/g, "")}`} className="text-primary">
                     {phone}
                   </a>
                   <a href={`mailto:${email}`} className="text-primary">
@@ -289,22 +248,22 @@ function ContactInner(props: ContactIslandProps) {
                 </div>
               </div>
 
-              {/* Hours */}
               <div className="card p-8">
                 <div className="flex items-center gap-3 mb-4">
                   <span className="w-10 h-10 rounded-sm bg-primary-50 text-primary flex items-center justify-center">
                     <Icon name="clock" size={18} />
                   </span>
-                  <h4 className="m-0">{labelHours}</h4>
+                  <h4 className="m-0">
+                    <Trans>Program de lucru</Trans>
+                  </h4>
                 </div>
                 <p className="text-sm text-text-secondary">{hours}</p>
                 <div className="mt-3 inline-flex items-center gap-2 py-2 px-3 bg-[rgba(16,185,129,0.1)] text-[#10B981] rounded-pill text-xs font-semibold">
                   <span className="w-2 h-2 rounded-full bg-[#10B981]" />
-                  {labelAvailable}
+                  <Trans>Disponibil acum</Trans>
                 </div>
               </div>
 
-              {/* Map (stylized fake map with pin) */}
               <div className="relative aspect-4/3 overflow-hidden rounded-lg border border-border bg-bg-section-alt">
                 <div className="dot-pattern-bg absolute inset-0 opacity-50" />
                 <svg
@@ -337,7 +296,6 @@ function ContactInner(props: ContactIslandProps) {
                 </div>
               </div>
 
-              {/* Book consult */}
               <div className="card p-8 bg-primary dark:bg-primary-deep text-white relative overflow-hidden">
                 <div className="absolute -top-8 -right-8 w-32 h-32 border border-[rgba(223,183,65,0.3)] rounded-full" />
                 <div className="relative">
@@ -346,11 +304,11 @@ function ContactInner(props: ContactIslandProps) {
                       <Icon name="calendar" size={18} />
                     </span>
                     <span className="text-xs font-bold text-[#DFB741] tracking-widest">
-                      PROGRAMARE
+                      <Trans>PROGRAMARE</Trans>
                     </span>
                   </div>
                   <p className="text-sm text-white/80 mb-4">
-                    Sau programează direct o consultație gratuită de 30 minute.
+                    <Trans>Sau programează direct o consultație gratuită de 30 minute.</Trans>
                   </p>
                   <Button
                     variant="primary"
@@ -359,7 +317,7 @@ function ContactInner(props: ContactIslandProps) {
                     icon="calendar"
                     className="w-full justify-center"
                   >
-                    {labelBook}
+                    <Trans>Programează consultație gratuită</Trans>
                   </Button>
                 </div>
               </div>
@@ -368,10 +326,11 @@ function ContactInner(props: ContactIslandProps) {
         </Container>
       </section>
 
-      {/* Alternative channels strip */}
       <section className="section section-alt">
         <Container>
-          <h3 className="text-center mb-8">{channelsTitle}</h3>
+          <h3 className="text-center mb-8">
+            <Trans>Contactează-ne rapid</Trans>
+          </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
               {
@@ -379,21 +338,21 @@ function ContactInner(props: ContactIslandProps) {
                 label: "WhatsApp",
                 value: phone,
                 href: `https://wa.me/${phone.replace(/[^0-9]/g, "")}`,
-                color: "#25D366",
+                tone: "channel-whatsapp",
               },
               {
                 icon: "send" as const,
                 label: "Telegram",
                 value: "@expertcont",
                 href: "https://t.me/expertcont",
-                color: "#2AABEE",
+                tone: "channel-telegram",
               },
               {
                 icon: "mail" as const,
-                label: "Email",
+                label: t`Email`,
                 value: email,
                 href: `mailto:${email}`,
-                color: "var(--color-primary)",
+                tone: "channel-email",
               },
             ].map((ch) => (
               <a
@@ -401,18 +360,13 @@ function ContactInner(props: ContactIslandProps) {
                 href={ch.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="card card-hover p-6 flex items-center gap-4 no-underline text-inherit"
+                className={`channel-card ${ch.tone} card card-hover p-6 flex items-center gap-4 no-underline text-inherit`}
               >
-                <span
-                  className="w-11 h-11 rounded-md flex items-center justify-center shrink-0"
-                  style={{ background: `${ch.color}18`, color: ch.color }}
-                >
+                <span className="channel-icon w-11 h-11 rounded-md flex items-center justify-center shrink-0">
                   <Icon name={ch.icon} size={22} />
                 </span>
                 <div>
-                  <div className="text-sm font-bold text-text-secondary mb-1">
-                    {ch.label}
-                  </div>
+                  <div className="text-sm font-bold text-text-secondary mb-1">{ch.label}</div>
                   <div className="text-sm font-semibold">{ch.value}</div>
                 </div>
               </a>

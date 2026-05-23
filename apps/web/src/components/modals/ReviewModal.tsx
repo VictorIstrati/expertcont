@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useId, useState } from "react";
 import { Icon } from "@expertcont/ui";
 import type { Locale } from "@expertcont/i18n";
 import { Modal } from "./Modal";
@@ -98,6 +98,10 @@ export function ReviewModal({ open, onClose, locale }: Props) {
   const [hover, setHover] = useState(0);
   const [form, setForm] = useState({ name: "", company: "", role: "", quote: "", consent: false });
   const [sent, setSent] = useState(false);
+  const nameId = useId();
+  const companyId = useId();
+  const roleId = useId();
+  const quoteId = useId();
 
   const canSubmit = form.name.trim() !== "" && form.quote.trim().length >= 20 && rating > 0;
 
@@ -165,8 +169,9 @@ export function ReviewModal({ open, onClose, locale }: Props) {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="field">
-              <label>{t.nameLabel} *</label>
+              <label htmlFor={nameId}>{t.nameLabel} *</label>
               <input
+                id={nameId}
                 className="input"
                 required
                 value={form.name}
@@ -175,8 +180,9 @@ export function ReviewModal({ open, onClose, locale }: Props) {
               />
             </div>
             <div className="field">
-              <label>{t.companyLabel}</label>
+              <label htmlFor={companyId}>{t.companyLabel}</label>
               <input
+                id={companyId}
                 className="input"
                 value={form.company}
                 onChange={(e) => setForm({ ...form, company: e.target.value })}
@@ -188,8 +194,9 @@ export function ReviewModal({ open, onClose, locale }: Props) {
           </div>
 
           <div className="field">
-            <label>{t.roleLabel}</label>
+            <label htmlFor={roleId}>{t.roleLabel}</label>
             <input
+              id={roleId}
               className="input"
               value={form.role}
               onChange={(e) => setForm({ ...form, role: e.target.value })}
@@ -204,8 +211,9 @@ export function ReviewModal({ open, onClose, locale }: Props) {
           </div>
 
           <div className="field">
-            <label>{t.bodyLabel} *</label>
+            <label htmlFor={quoteId}>{t.bodyLabel} *</label>
             <textarea
+              id={quoteId}
               className="textarea min-h-[110px]"
               required
               value={form.quote}

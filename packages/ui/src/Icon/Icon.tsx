@@ -310,7 +310,10 @@ export function Icon({ name, size = 20, stroke = 1.75, ...rest }: IconProps) {
           <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
         </svg>
       );
-    default:
+    default: {
+      const _exhaustive: never = name;
+      void _exhaustive;
       return null;
+    }
   }
 }

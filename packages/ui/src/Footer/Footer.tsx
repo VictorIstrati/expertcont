@@ -1,45 +1,42 @@
 import { useState, type FormEvent } from "react";
-import { Trans } from "@lingui/react/macro";
+import { Trans, useLingui } from "@lingui/react/macro";
 import type { Locale } from "@expertcont/i18n";
-import { sectionUrl } from "@expertcont/i18n";
+import { sectionUrl, serviceDetailUrl } from "@expertcont/i18n";
 import { Container } from "../Container";
 import { Logo } from "../Logo";
 import { Icon } from "../Icon";
 import styles from "./Footer.module.css";
 
-/** Per-service slug map. Kept in sync with `apps/web/src/content/services-meta/*.json`. */
-type ServiceId = "accounting" | "audit" | "legal" | "consulting" | "hr" | "it";
-const SERVICE_SLUGS: Record<ServiceId, Record<Locale, string>> = {
-  accounting: { ro: "contabilitate", ru: "bukhgalteriya", en: "accounting" },
-  audit: { ro: "audit", ru: "audit", en: "audit" },
-  legal: { ro: "juridic", ru: "yuridicheskie-uslugi", en: "legal" },
-  consulting: { ro: "consultanta", ru: "konsalting", en: "consulting" },
-  hr: { ro: "resurse-umane", ru: "kadry", en: "hr" },
-  it: { ro: "servicii-it", ru: "it-uslugi", en: "it-services" },
-};
-const serviceDetailUrl = (id: ServiceId, locale: Locale) =>
-  `${sectionUrl("services", locale)}/${SERVICE_SLUGS[id][locale]}`;
-
 export interface FooterProps {
   locale: Locale;
-  /** Called when the user submits the newsletter form with their email. */
-  onNewsletterSubscribe?: (email: string) => void;
+  /**
+   * Called when the user submits the newsletter form. Resolve `true` to flip
+   * the button into the success state; resolve `false` (or reject) to leave it
+   * available for another submission attempt. If omitted, the form optimistically
+   * flips to success on submit.
+   */
+  onNewsletterSubscribe?: (email: string) => boolean | Promise<boolean>;
 }
 
 export function Footer({ locale, onNewsletterSubscribe }: FooterProps) {
+  const { t } = useLingui();
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (email && onNewsletterSubscribe) onNewsletterSubscribe(email);
-    if (email) setSubscribed(true);
+    if (!email) return;
+    if (!onNewsletterSubscribe) {
+      setSubscribed(true);
+      return;
+    }
+    const ok = await onNewsletterSubscribe(email);
+    if (ok) setSubscribed(true);
   };
 
   const year = new Date().getFullYear();
 
-  const newsletterPlaceholder =
-    locale === "ru" ? "ваш@email.md" : locale === "en" ? "your@email.md" : "email@exemplu.md";
+  const newsletterPlaceholder = t`email@exemplu.md`;
 
   return (
     <footer className={styles.footer}>

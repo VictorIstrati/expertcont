@@ -4,13 +4,15 @@ import { getCollection, render } from "astro:content";
 import Base from "../../../layouts/Base.astro";
 import PageShell from "../../../components/PageShell.astro";
 import { Container, Section, ImagePlaceholder, SectionHeader } from "@expertcont/ui";
-import { sectionUrl, detailUrl, type Locale, type ContentMeta } from "@expertcont/i18n";
+import { detailUrl, homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+import { blogDetailProps, type BlogMeta } from "../../../lib/blogDetailProps";
+import { articleJsonLd, breadcrumbListJsonLd } from "../../../lib/jsonLd";
 
 export const getStaticPaths = (async () => {
   const metas = await getCollection("blog-meta");
   return metas.map((m) => ({
     params: { slug: m.data.slugs.ru },
-    props: { meta: m.data as ContentMeta & { publishedAt: string } },
+    props: { meta: m.data as BlogMeta },
   }));
 }) satisfies GetStaticPaths;
 
@@ -27,31 +29,25 @@ const siblings: Record<Locale, string> = {
   en: detailUrl("blog", meta, "en"),
 };
 
-const relatedPosts = [
-  {
-    slug: "ifrs-ili-snc",
-    href: "/ru/blog/ifrs-ili-snc",
-    category: "Бухгалтерия",
-    title: "МСФО или НСБУ? Руководство для растущих компаний",
-    date: "5 мая 2026",
-    readTime: 6,
-  },
-  {
-    slug: "fiktivnye-dogovory-riski",
-    href: "/ru/blog/fiktivnye-dogovory-riski",
-    category: "Юридические",
-    title: "Риски фиктивных договоров: штрафы и уголовная ответственность",
-    date: "28 апр 2026",
-    readTime: 5,
-  },
-  {
-    slug: "optimizaciya-zarplaty",
-    href: "/ru/blog/optimizaciya-zarplaty",
-    category: "HR",
-    title: "Оптимизация фонда заработной платы: 7 законных инструментов",
-    date: "21 апр 2026",
-    readTime: 7,
-  },
+const { labels, related, indexHref, contactHref } = await blogDetailProps(meta, locale);
+const category = meta.category[locale];
+const articlePath = detailUrl("blog", meta, locale);
+const jsonLd = [
+  articleJsonLd({
+    url: articlePath,
+    title: meta.titles[locale],
+    description: meta.summaries[locale],
+    datePublished: meta.publishedAt,
+    dateModified: meta.updated,
+    author: meta.author,
+    locale,
+    section: category,
+  }),
+  breadcrumbListJsonLd([
+    { name: "Главная", url: homeUrl(locale) },
+    { name: "Блог", url: sectionUrl("blog", locale) },
+    { name: meta.titles[locale], url: articlePath },
+  ]),
 ];
 ---
 
@@ -59,30 +55,29 @@ const relatedPosts = [
   title={`${meta.titles[locale]} — ExpertCont`}
   description={meta.summaries[locale]}
   locale={locale}
-  path={detailUrl("blog", meta, locale)}
+  path={articlePath}
   siblings={siblings}
+  jsonLd={jsonLd}
 >
   <PageShell locale={locale} activeSection="blog" siblings={siblings}>
     <Section tone="default" spacing="tight">
       <Container>
         <a
-          href={sectionUrl("blog", locale)}
+          href={indexHref}
           class="mb-6 inline-flex items-center gap-2 text-sm text-text-secondary no-underline"
         >
-          ← Все статьи
+          {labels.backToAll}
         </a>
         <div class="mb-5 flex gap-2">
-          <span class="pill">Налоги</span>
+          <span class="pill">{category}</span>
         </div>
         <h1 class="mb-6 max-w-3xl text-[clamp(30px,4vw,48px)] leading-tight">
           {meta.titles[locale]}
         </h1>
-        <div
-          class="mb-8 flex flex-wrap items-center gap-4 text-sm text-text-secondary"
-        >
-          {meta.publishedAt && <span>{meta.publishedAt}</span>}
+        <div class="mb-8 flex flex-wrap items-center gap-4 text-sm text-text-secondary">
+          <span>{meta.publishedAt}</span>
           <span>·</span>
-          <span>8 мин чтения</span>
+          <span>{meta.readTime} {labels.readTimeLabel}</span>
         </div>
         <ImagePlaceholder ratio="21/9" label="Article cover" />
       </Container>
@@ -93,31 +88,22 @@ const relatedPosts = [
         <div class="grid grid-cols-1 gap-16 lg:grid-cols-[2fr_1fr]">
           <article class="text-lg leading-relaxed text-text-primary">
             <Content />
-            <div
-              class="mt-12 rounded-lg bg-primary p-8 text-white"
-            >
-              <h3 class="mb-3 text-white">
-                Есть вопросы о том, как эти изменения влияют на вас?
-              </h3>
-              <p class="mb-5 text-white/80">
-                Запишитесь на бесплатную 30-минутную консультацию с налоговым консультантом
-                ExpertCont.
-              </p>
+            <div class="mt-12 rounded-lg bg-primary p-8 text-white">
+              <h3 class="mb-3 text-white">{labels.inlineCtaTitle}</h3>
+              <p class="mb-5 text-white/80">{labels.inlineCtaSubtitle}</p>
               <a
-                href={sectionUrl("contact", locale)}
+                href={contactHref}
                 class="btn btn-primary inline-flex items-center gap-2 no-underline"
               >
-                Записаться на консультацию
+                {labels.inlineCtaButton}
               </a>
             </div>
           </article>
 
           <aside class="hidden flex-col gap-6 lg:flex">
             <div class="card sticky top-nav-h p-6">
-              <div
-                class="mb-4 text-xs font-bold uppercase tracking-widest text-text-secondary"
-              >
-                Содержание
+              <div class="mb-4 text-xs font-bold uppercase tracking-widest text-text-secondary">
+                {labels.tocLabel}
               </div>
               {
                 [1, 2, 3].map((n) => (
@@ -130,9 +116,7 @@ const relatedPosts = [
                     <span
                       class:list={[
                         "flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold",
-                        n === 1
-                          ? "bg-primary text-white"
-                          : "bg-border text-text-secondary",
+                        n === 1 ? "bg-primary text-white" : "bg-border text-text-secondary",
                       ]}
                     >
                       {n}
@@ -143,62 +127,62 @@ const relatedPosts = [
               }
             </div>
 
-            <div class="card p-6">
-              <div
-                class="mb-4 text-xs font-bold uppercase tracking-widest text-text-secondary"
-              >
-                Похожие статьи
-              </div>
-              <div class="flex flex-col gap-3">
-                {
-                  relatedPosts.map((p) => (
-                    <a href={p.href} class="block no-underline">
-                      <div class="card-flat p-4">
-                        <span class="pill pill-soft mb-2 inline-block">{p.category}</span>
-                        <div class="mt-1 mb-2 text-sm font-semibold leading-snug text-text-primary">
-                          {p.title}
+            {related.length > 0 && (
+              <div class="card p-6">
+                <div class="mb-4 text-xs font-bold uppercase tracking-widest text-text-secondary">
+                  {labels.similarLabel}
+                </div>
+                <div class="flex flex-col gap-3">
+                  {
+                    related.map((p) => (
+                      <a href={p.href} class="block no-underline">
+                        <div class="card-flat p-4">
+                          <span class="pill pill-soft mb-2 inline-block">{p.category}</span>
+                          <div class="mt-1 mb-2 text-sm font-semibold leading-snug text-text-primary">
+                            {p.title}
+                          </div>
+                          <div class="text-xs text-text-secondary">
+                            {p.date} · {p.readTime} {labels.readTimeLabel}
+                          </div>
                         </div>
-                        <div class="text-xs text-text-secondary">
-                          {p.date} · {p.readTime} мин
-                        </div>
-                      </div>
-                    </a>
-                  ))
-                }
+                      </a>
+                    ))
+                  }
+                </div>
               </div>
-            </div>
+            )}
           </aside>
         </div>
       </Container>
     </Section>
 
-    <Section tone="alt">
-      <Container>
-        <SectionHeader eyebrow="Продолжить чтение" title="Похожие статьи" />
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {
-            relatedPosts.map((p) => (
-              <article>
-                <a
-                  href={p.href}
-                  class="card card-hover block overflow-hidden p-0 no-underline"
-                >
-                  <ImagePlaceholder ratio="16/10" label={p.category} style={{ borderRadius: 0 }} />
-                  <div class="p-6">
-                    <span class="pill pill-soft mb-3 inline-block">{p.category}</span>
-                    <h3 class="mt-2 mb-3 text-lg leading-snug text-text-primary">
-                      {p.title}
-                    </h3>
-                    <div class="text-xs text-text-secondary">
-                      {p.date} · {p.readTime} мин
+    {related.length > 0 && (
+      <Section tone="alt">
+        <Container>
+          <SectionHeader
+            eyebrow={labels.continueReadingEyebrow}
+            title={labels.continueReadingTitle}
+          />
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {
+              related.map((p) => (
+                <article>
+                  <a href={p.href} class="card card-hover block overflow-hidden p-0 no-underline">
+                    <ImagePlaceholder ratio="16/10" label={p.category} />
+                    <div class="p-6">
+                      <span class="pill pill-soft mb-3 inline-block">{p.category}</span>
+                      <h3 class="mt-2 mb-3 text-lg leading-snug text-text-primary">{p.title}</h3>
+                      <div class="text-xs text-text-secondary">
+                        {p.date} · {p.readTime} {labels.readTimeLabel}
+                      </div>
                     </div>
-                  </div>
-                </a>
-              </article>
-            ))
-          }
-        </div>
-      </Container>
-    </Section>
+                  </a>
+                </article>
+              ))
+            }
+          </div>
+        </Container>
+      </Section>
+    )}
   </PageShell>
 </Base>

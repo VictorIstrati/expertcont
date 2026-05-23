@@ -2,10 +2,11 @@
 import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import PageShell from "../../components/PageShell.astro";
-import { Container, PageHeader, Section, SectionHeader } from "@expertcont/ui";
+import { Container, PageHeader, Section } from "@expertcont/ui";
 import { homeUrl, sectionUrl, detailUrl, type Locale, type ContentMeta } from "@expertcont/i18n";
 import { ServiceIndexGrid } from "../../components/service/ServiceIndexGrid";
 import { ServiceCTAStrip } from "../../components/service/ServiceCTAStrip";
+import ServicesComparison from "../../components/service/ServicesComparison.astro";
 
 const locale: Locale = "ro";
 const siblings: Record<Locale, string> = {
@@ -41,102 +42,14 @@ const contactHref = sectionUrl("contact", locale);
       breadcrumbs={[{ label: "Acasă", href: homeUrl(locale) }, { label: "Servicii" }]}
     />
 
-    <!-- Services Grid -->
     <Section tone="default">
       <Container>
         <ServiceIndexGrid client:visible services={serviceItems} locale={locale} />
       </Container>
     </Section>
 
-    <!-- Comparison Strip -->
-    <Section tone="alt">
-      <Container>
-        <SectionHeader
-          align="center"
-          eyebrow="Sub un singur acoperiș"
-          title="Un singur partener, toate serviciile"
-          maxWidth={640}
-          subtitle="Coordonare zero-friction între contabilitate, juridic și consultanță."
-        />
-        <div class="comp-grid grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div
-            class="card border-primary p-8 bg-bg-card"
-          >
-            <div
-              class="text-sm font-bold text-primary uppercase tracking-widest mb-5"
-            >
-              Cu ExpertCont
-            </div>
-            <ul class="list-none p-0 m-0 flex flex-col gap-4">
-              {
-                [
-                  "Un singur punct de contact",
-                  "Date sincronizate între departamente",
-                  "Reduceri pentru servicii combinate",
-                  "Strategie integrată",
-                ].map((item) => (
-                  <li class="flex items-center gap-3 text-base">
-                    <span class="w-6 h-6 rounded-full bg-primary-50 text-primary flex items-center justify-center shrink-0">
-                      <svg
-                        width="12"
-                        height="12"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="3"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                    </span>
-                    {item}
-                  </li>
-                ))
-              }
-            </ul>
-          </div>
-          <div class="card p-8 bg-transparent">
-            <div
-              class="text-sm font-bold text-text-secondary uppercase tracking-widest mb-5"
-            >
-              Cu mai mulți furnizori
-            </div>
-            <ul class="list-none p-0 m-0 flex flex-col gap-4">
-              {
-                [
-                  "Coordonare manuală între firme",
-                  "Documente duplicate, erori",
-                  "Costuri cumulate",
-                  "Lipsă viziune de ansamblu",
-                ].map((item) => (
-                  <li class="flex items-center gap-3 text-base text-text-secondary">
-                    <span class="w-6 h-6 rounded-full bg-bg-section-alt text-text-secondary flex items-center justify-center shrink-0">
-                      <svg
-                        width="12"
-                        height="12"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="3"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <line x1="18" y1="6" x2="6" y2="18" />
-                        <line x1="6" y1="6" x2="18" y2="18" />
-                      </svg>
-                    </span>
-                    {item}
-                  </li>
-                ))
-              }
-            </ul>
-          </div>
-        </div>
-      </Container>
-    </Section>
+    <ServicesComparison locale={locale} />
 
-    <!-- CTA Strip -->
     <Section tone="default">
       <Container>
         <ServiceCTAStrip client:visible locale={locale} contactHref={contactHref} />

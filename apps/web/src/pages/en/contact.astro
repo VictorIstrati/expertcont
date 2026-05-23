@@ -3,54 +3,12 @@ import Base from "../../layouts/Base.astro";
 import PageShell from "../../components/PageShell.astro";
 import { ContactIsland } from "../../components/contact/ContactIsland";
 import { sectionUrl, type Locale } from "@expertcont/i18n";
-import type { ContactIslandProps } from "../../components/contact/ContactIsland";
 
 const locale: Locale = "en";
 const siblings: Record<Locale, string> = {
   ro: sectionUrl("contact", "ro"),
   ru: sectionUrl("contact", "ru"),
   en: sectionUrl("contact", "en"),
-};
-
-const props: Omit<ContactIslandProps, "locale"> = {
-  eyebrow: "CONTACT",
-  title: "Let's talk",
-  subtitle:
-    "We're available for a free consultation. Fill in the form or use one of the quick contact options below.",
-  labelName: "Name",
-  labelEmail: "Email",
-  labelPhone: "Phone",
-  labelCompany: "Company",
-  labelService: "Subject / Service",
-  labelMessage: "Message",
-  labelSend: "Send message",
-  placeholderName: "John Smith",
-  placeholderEmail: "john@company.com",
-  placeholderPhone: "+373 ...",
-  placeholderCompany: "Company Ltd",
-  placeholderMessage: "Tell us briefly about your business...",
-  formTitle: "Send us a message",
-  formSubtitle: "We'll get back to you within 4 hours on business days.",
-  successTitle: "Message sent successfully!",
-  successSub: "We'll get back to you within 4 hours. Check your email — we've sent a confirmation.",
-  labelOffice: "Our office",
-  address: "Mitropolit Varlaam St. 65, Chișinău, MD-2012, Republic of Moldova",
-  phone: "+373 22 22 33 44",
-  email: "contact@expertcont.md",
-  labelHours: "Working hours",
-  hours: "Monday–Friday, 9:00–18:00",
-  labelAvailable: "Available now",
-  labelBook: "Book a free consultation",
-  bookHref: sectionUrl("contact", "en"),
-  channelsTitle: "Reach us quickly",
-  services: [
-    { value: "accounting", label: "Accounting & bookkeeping" },
-    { value: "tax", label: "Tax consulting" },
-    { value: "legal", label: "Legal services" },
-    { value: "hr", label: "Human Resources" },
-    { value: "it", label: "IT Consulting" },
-    { value: "other", label: "Other" },
-  ],
 };
 ---
 
@@ -62,6 +20,13 @@ const props: Omit<ContactIslandProps, "locale"> = {
   siblings={siblings}
 >
   <PageShell locale={locale} activeSection="contact" siblings={siblings}>
-    <ContactIsland client:only="react" locale={locale} {...props} />
+    <ContactIsland
+      client:only="react"
+      locale={locale}
+      address="Mitropolit Varlaam St. 65, Chișinău, MD-2012, Republic of Moldova"
+      phone="+373 22 22 33 44"
+      email="contact@expertcont.md"
+      hours="Monday–Friday, 9:00–18:00"
+    />
   </PageShell>
 </Base>

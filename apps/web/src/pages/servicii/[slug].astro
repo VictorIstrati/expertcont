@@ -10,6 +10,7 @@ import { ServiceSidebar } from "../../components/service/ServiceSidebar";
 import { ServiceCTAStrip } from "../../components/service/ServiceCTAStrip";
 import { getServiceData } from "../../components/service/serviceData";
 import type { IconName } from "@expertcont/ui";
+import { serviceJsonLd, breadcrumbListJsonLd } from "../../lib/jsonLd";
 
 export const getStaticPaths = (async () => {
   const metas = await getCollection("services-meta");
@@ -56,14 +57,29 @@ const relatedServices = allServicesMeta
 const pageData = getServiceData(meta.id, locale);
 const contactHref = sectionUrl("contact", locale);
 const pricingHref = sectionUrl("pricing", locale);
+const servicePath = detailUrl("services", meta, locale);
+const jsonLd = [
+  serviceJsonLd({
+    url: servicePath,
+    name: meta.titles[locale],
+    description: meta.summaries[locale],
+    locale,
+  }),
+  breadcrumbListJsonLd([
+    { name: "Acasă", url: homeUrl(locale) },
+    { name: "Servicii", url: sectionUrl("services", locale) },
+    { name: meta.titles[locale], url: servicePath },
+  ]),
+];
 ---
 
 <Base
   title={`${meta.titles[locale]} — ExpertCont`}
   description={meta.summaries[locale]}
   locale={locale}
-  path={detailUrl("services", meta, locale)}
+  path={servicePath}
   siblings={siblings}
+  jsonLd={jsonLd}
 >
   <PageShell locale={locale} activeSection="services" siblings={siblings}>
     <PageHeader

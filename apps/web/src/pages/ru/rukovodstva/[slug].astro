@@ -4,13 +4,15 @@ import { getCollection, render } from "astro:content";
 import Base from "../../../layouts/Base.astro";
 import PageShell from "../../../components/PageShell.astro";
 import { Container, Section, ImagePlaceholder, SectionHeader } from "@expertcont/ui";
-import { sectionUrl, detailUrl, type Locale, type ContentMeta } from "@expertcont/i18n";
+import { detailUrl, homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+import { guidesDetailProps, type GuideMeta } from "../../../lib/guidesDetailProps";
+import { articleJsonLd, breadcrumbListJsonLd } from "../../../lib/jsonLd";
 
 export const getStaticPaths = (async () => {
   const metas = await getCollection("guides-meta");
   return metas.map((m) => ({
     params: { slug: m.data.slugs.ru },
-    props: { meta: m.data as ContentMeta },
+    props: { meta: m.data as GuideMeta },
   }));
 }) satisfies GetStaticPaths;
 
@@ -26,32 +28,56 @@ const siblings: Record<Locale, string> = {
   ru: detailUrl("guides", meta, "ru"),
   en: detailUrl("guides", meta, "en"),
 };
+
+const { labels, relatedGuides, relatedBlog, indexHref, contactHref } = await guidesDetailProps(
+  meta,
+  locale,
+);
+const category = meta.category[locale];
+const guidePath = detailUrl("guides", meta, locale);
+const jsonLd = [
+  articleJsonLd({
+    url: guidePath,
+    title: meta.titles[locale],
+    description: meta.summaries[locale],
+    datePublished: meta.publishedAt ?? meta.updated,
+    dateModified: meta.updated,
+    locale,
+    section: category,
+  }),
+  breadcrumbListJsonLd([
+    { name: "Главная", url: homeUrl(locale) },
+    { name: "Руководства", url: sectionUrl("guides", locale) },
+    { name: meta.titles[locale], url: guidePath },
+  ]),
+];
 ---
 
 <Base
   title={`${meta.titles[locale]} — ExpertCont`}
   description={meta.summaries[locale]}
   locale={locale}
-  path={detailUrl("guides", meta, locale)}
+  path={guidePath}
   siblings={siblings}
+  jsonLd={jsonLd}
 >
-  <PageShell locale={locale} activeSection="blog" siblings={siblings}>
+  <PageShell locale={locale} activeSection="guides" siblings={siblings}>
     <Section tone="default" spacing="tight">
       <Container>
         <a
-          href={sectionUrl("guides", locale)}
+          href={indexHref}
           class="mb-6 inline-flex items-center gap-2 text-sm text-text-secondary no-underline"
         >
-          ← Все руководства
+          {labels.backToAll}
         </a>
         <div class="mb-5 flex gap-2">
-          <span class="pill">Налоги</span>
+          <span class="pill">{category}</span>
         </div>
         <h1 class="mb-6 max-w-3xl text-[clamp(30px,4vw,48px)] leading-tight">
           {meta.titles[locale]}
         </h1>
         <div class="mb-8 flex items-center gap-4 text-sm text-text-secondary">
-          <span>15 мин чтения</span>
+          <span>{meta.readTime} {labels.readTimeLabel}</span>
         </div>
         <ImagePlaceholder ratio="21/9" label="Guide cover" />
       </Container>
@@ -62,28 +88,22 @@ const siblings: Record<Locale, string> = {
         <div class="grid grid-cols-1 gap-16 lg:grid-cols-[2fr_1fr]">
           <article class="text-lg leading-relaxed text-text-primary">
             <Content />
-            <div
-              class="mt-12 rounded-lg bg-primary p-8 text-white"
-            >
-              <h3 class="mb-3 text-white">Нужна помощь с НДС?</h3>
-              <p class="mb-5 text-white/80">
-                Запишитесь на бесплатную 30-минутную консультацию со специалистом ExpertCont.
-              </p>
+            <div class="mt-12 rounded-lg bg-primary p-8 text-white">
+              <h3 class="mb-3 text-white">{labels.inlineCtaTitle}</h3>
+              <p class="mb-5 text-white/80">{labels.inlineCtaSubtitle}</p>
               <a
-                href={sectionUrl("contact", locale)}
+                href={contactHref}
                 class="btn btn-primary inline-flex items-center gap-2 no-underline"
               >
-                Записаться на консультацию
+                {labels.inlineCtaButton}
               </a>
             </div>
           </article>
 
           <aside class="hidden flex-col gap-6 lg:flex">
             <div class="card sticky top-nav-h p-6">
-              <div
-                class="mb-4 text-xs font-bold uppercase tracking-widest text-text-secondary"
-              >
-                Содержание
+              <div class="mb-4 text-xs font-bold uppercase tracking-widest text-text-secondary">
+                {labels.tocLabel}
               </div>
               {
                 [1, 2, 3].map((n) => (
@@ -96,9 +116,7 @@ const siblings: Record<Locale, string> = {
                     <span
                       class:list={[
                         "flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold",
-                        n === 1
-                          ? "bg-primary text-white"
-                          : "bg-border text-text-secondary",
+                        n === 1 ? "bg-primary text-white" : "bg-border text-text-secondary",
                       ]}
                     >
                       {n}
@@ -110,69 +128,65 @@ const siblings: Record<Locale, string> = {
             </div>
 
             <div class="card p-6">
-              <div
-                class="mb-3 text-xs font-bold uppercase tracking-widest text-text-secondary"
-              >
-                Похожие руководства
+              <div class="mb-3 text-xs font-bold uppercase tracking-widest text-text-secondary">
+                {labels.similarLabel}
               </div>
-              <p class="m-0 text-sm leading-relaxed text-text-secondary">
-                Новые практические руководства появятся в ближайшее время.
-              </p>
+              {relatedGuides.length > 0 ? (
+                <div class="flex flex-col gap-3">
+                  {
+                    relatedGuides.map((p) => (
+                      <a href={p.href} class="block no-underline">
+                        <div class="card-flat p-4">
+                          <span class="pill pill-soft mb-2 inline-block">{p.category}</span>
+                          <div class="mt-1 mb-2 text-sm font-semibold leading-snug text-text-primary">
+                            {p.title}
+                          </div>
+                          <div class="text-xs text-text-secondary">
+                            {p.readTime} {labels.readTimeLabel}
+                          </div>
+                        </div>
+                      </a>
+                    ))
+                  }
+                </div>
+              ) : (
+                <p class="m-0 text-sm leading-relaxed text-text-secondary">
+                  {labels.noRelatedFallback}
+                </p>
+              )}
             </div>
           </aside>
         </div>
       </Container>
     </Section>
 
-    <Section tone="alt">
-      <Container>
-        <SectionHeader eyebrow="Продолжить чтение" title="Статьи из блога" />
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {
-            [
-              {
-                href: "/ru/blog/nalogovye-izmeneniya-2026",
-                category: "Налоги",
-                title: "Налоговые изменения 2026: что нужно знать каждому предпринимателю",
-                date: "12 мая 2026",
-                readTime: 8,
-              },
-              {
-                href: "/ru/blog/ifrs-ili-snc",
-                category: "Бухгалтерия",
-                title: "МСФО или НСБУ? Руководство для растущих компаний",
-                date: "5 мая 2026",
-                readTime: 6,
-              },
-              {
-                href: "/ru/blog/fiktivnye-dogovory-riski",
-                category: "Юридические",
-                title: "Риски фиктивных договоров: штрафы и уголовная ответственность",
-                date: "28 апр 2026",
-                readTime: 5,
-              },
-            ].map((p) => (
-              <article>
-                <a
-                  href={p.href}
-                  class="card card-hover block overflow-hidden p-0 no-underline"
-                >
-                  <ImagePlaceholder ratio="16/10" label={p.category} style={{ borderRadius: 0 }} />
-                  <div class="p-6">
-                    <span class="pill pill-soft mb-3 inline-block">{p.category}</span>
-                    <h3 class="mt-2 mb-3 text-lg leading-snug text-text-primary">
-                      {p.title}
-                    </h3>
-                    <div class="text-xs text-text-secondary">
-                      {p.date} · {p.readTime} мин
+    {relatedBlog.length > 0 && (
+      <Section tone="alt">
+        <Container>
+          <SectionHeader
+            eyebrow={labels.continueReadingEyebrow}
+            title={labels.continueReadingTitle}
+          />
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {
+              relatedBlog.map((p) => (
+                <article>
+                  <a href={p.href} class="card card-hover block overflow-hidden p-0 no-underline">
+                    <ImagePlaceholder ratio="16/10" label={p.category} />
+                    <div class="p-6">
+                      <span class="pill pill-soft mb-3 inline-block">{p.category}</span>
+                      <h3 class="mt-2 mb-3 text-lg leading-snug text-text-primary">{p.title}</h3>
+                      <div class="text-xs text-text-secondary">
+                        {p.date} · {p.readTime} {labels.readTimeLabel}
+                      </div>
                     </div>
-                  </div>
-                </a>
-              </article>
-            ))
-          }
-        </div>
-      </Container>
-    </Section>
+                  </a>
+                </article>
+              ))
+            }
+          </div>
+        </Container>
+      </Section>
+    )}
   </PageShell>
 </Base>
