@@ -1,0 +1,10 @@
+# Serve generated Markdown views with the correct Content-Type so browsers and
+# AI agents render/parse them as text rather than offering to download.
+/*.md
+  Content-Type: text/markdown; charset=utf-8
+  Cache-Control: public, max-age=300, s-maxage=3600
+
+# llms.txt — see https://llmstxt.org. Plain text with explicit UTF-8 charset.
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: public, max-age=300, s-maxage=3600
