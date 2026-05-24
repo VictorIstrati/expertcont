@@ -14,15 +14,43 @@ interface Props {
   siblings?: Record<Locale, string>;
   /** Per-page structured data (object or array). Rendered after sitewide Organization. */
   jsonLd?: object | object[];
+  /** Open Graph type. Defaults to "website"; pass "article" for blog/guide posts. */
+  ogType?: "website" | "article";
+  /** Article publish timestamp (ISO 8601) — only used when ogType === "article". */
+  publishedTime?: string;
+  /** Article last-modified timestamp (ISO 8601) — only used when ogType === "article". */
+  modifiedTime?: string;
+  /** Article author display name — only used when ogType === "article". */
+  author?: string;
 }
 
-const { title, description, locale, path, siblings, jsonLd } = Astro.props;
+const {
+  title,
+  description,
+  locale,
+  path,
+  siblings,
+  jsonLd,
+  ogType = "website",
+  publishedTime,
+  modifiedTime,
+  author,
+} = Astro.props;
 const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
 const canonical = `${siteUrl}${path}`;
 const alts: Record<Locale, string> = siblings ?? { ro: path, ru: path, en: path };
 const langAttr = locale === "ro" ? "ro" : locale === "ru" ? "ru" : "en";
-const ogLocale = locale === "ro" ? "ro_RO" : locale === "ru" ? "ru_RU" : "en_US";
+const ogLocaleByLocale: Record<Locale, string> = {
+  ro: "ro_RO",
+  ru: "ru_RU",
+  en: "en_US",
+};
+const ogLocale = ogLocaleByLocale[locale];
+const ogLocaleAlternates = (Object.keys(ogLocaleByLocale) as Locale[])
+  .filter((l) => l !== locale)
+  .map((l) => ogLocaleByLocale[l]);
 const ogImage = `${siteUrl}/og.png`;
+const ogImageAlt = title;
 
 // Build a Service catalog from the services-meta collection so the schema
 // reflects the actual offering. Locale-aware URLs are derived via detailUrl.
@@ -131,19 +159,32 @@ const organizationJsonLd = {
     <link rel="alternate" hreflang="x-default" href={`${siteUrl}${alts.ro}`} />
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1640" />
+    <meta property="og:image:height" content="856" />
+    <meta property="og:image:alt" content={ogImageAlt} />
     <meta property="og:locale" content={ogLocale} />
+    {ogLocaleAlternates.map((l) => <meta property="og:locale:alternate" content={l} />)}
     <meta property="og:site_name" content="ExpertCont" />
+    {ogType === "article" && publishedTime && (
+      <meta property="article:published_time" content={publishedTime} />
+    )}
+    {ogType === "article" && modifiedTime && (
+      <meta property="article:modified_time" content={modifiedTime} />
+    )}
+    {ogType === "article" && author && <meta property="article:author" content={author} />}
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     {description && <meta name="twitter:description" content={description} />}
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
 
     <script is:inline type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />
     {
