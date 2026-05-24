@@ -1,0 +1,3 @@
+# Strip trailing slash from any path except the root.
+# Cloudflare Pages applies these rules at the edge before serving files.
+/*/ /:splat 308

@@ -103,6 +103,8 @@ function normalizePath(url) {
 
 export default defineConfig({
   site: SITE,
+  trailingSlash: "never",
+  build: { format: "file" },
   integrations: [
     mdx(),
     react({

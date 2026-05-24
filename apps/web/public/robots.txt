@@ -69,4 +69,4 @@ Allow: /
 User-agent: Diffbot
 Allow: /
 
-Sitemap: https://expertcont.md/sitemap-index.xml
+Sitemap: https://expertcont.md/sitemap.xml
