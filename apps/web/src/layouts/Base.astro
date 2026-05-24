@@ -22,6 +22,14 @@ interface Props {
   modifiedTime?: string;
   /** Article author display name — only used when ogType === "article". */
   author?: string;
+  /**
+   * Include the AccountingService.hasOfferCatalog block (all 6 services nested) in
+   * the sitewide Organization schema. Adds ~2KB of JSON-LD per page, so we opt in
+   * only on pages where the full catalog is contextually relevant (home, services
+   * index, about). All other pages still get the Organization entity — just
+   * without the catalog. Defaults to false.
+   */
+  includeOfferCatalog?: boolean;
 }
 
 const {
@@ -35,6 +43,7 @@ const {
   publishedTime,
   modifiedTime,
   author,
+  includeOfferCatalog = false,
 } = Astro.props;
 const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
 const canonical = `${siteUrl}${path}`;
@@ -54,21 +63,26 @@ const ogImageAlt = title;
 
 // Build a Service catalog from the services-meta collection so the schema
 // reflects the actual offering. Locale-aware URLs are derived via detailUrl.
-const serviceMetaEntries = await getCollection("services-meta");
-const services: ContentMeta[] = serviceMetaEntries.map((e) => e.data as ContentMeta);
-const hasOfferCatalog = {
-  "@type": "OfferCatalog",
-  name: "Servicii ExpertCont",
-  itemListElement: services.map((s) => ({
-    "@type": "Offer",
-    itemOffered: {
-      "@type": "Service",
-      name: s.titles[locale],
-      description: s.summaries[locale],
-      url: `${siteUrl}${detailUrl("services", s, locale)}`,
-    },
-  })),
-};
+// Only built/serialized when the page opts in via includeOfferCatalog, to
+// avoid shipping ~2KB of nested JSON-LD on every page.
+const hasOfferCatalog = includeOfferCatalog
+  ? {
+      "@type": "OfferCatalog",
+      name: "Servicii ExpertCont",
+      itemListElement: (await getCollection("services-meta")).map((e) => {
+        const s = e.data as ContentMeta;
+        return {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: s.titles[locale],
+            description: s.summaries[locale],
+            url: `${siteUrl}${detailUrl("services", s, locale)}`,
+          },
+        };
+      }),
+    }
+  : null;
 
 // sameAs links non-empty social profiles to the business entity (Knowledge
 // Panel signal). Empty strings in site.yml are filtered out.
@@ -130,7 +144,7 @@ const organizationJsonLd = {
     opens: "09:00",
     closes: "18:00",
   },
-  hasOfferCatalog,
+  ...(hasOfferCatalog && { hasOfferCatalog }),
   ...(sameAs.length > 0 && { sameAs }),
 };
 ---

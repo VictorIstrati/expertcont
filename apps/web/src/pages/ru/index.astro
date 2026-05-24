@@ -33,6 +33,7 @@ const homeSummary = pageMeta!.data.summaries[locale];
   locale={locale}
   path={homeUrl(locale)}
   siblings={siblings}
+  includeOfferCatalog
 >
   <PageShell locale={locale} activeSection="home" siblings={siblings}>
     <HomeHeroSection client:visible locale={locale} />

@@ -27,7 +27,14 @@ const homeTitle = pageMeta!.data.titles[locale];
 const homeSummary = pageMeta!.data.summaries[locale];
 ---
 
-<Base title={homeTitle} description={homeSummary} locale={locale} path="/" siblings={siblings}>
+<Base
+  title={homeTitle}
+  description={homeSummary}
+  locale={locale}
+  path="/"
+  siblings={siblings}
+  includeOfferCatalog
+>
   <PageShell locale={locale} activeSection="home" siblings={siblings}>
     <HomeHeroSection client:visible locale={locale} />
     <HomePersonaPicker client:visible locale={locale} />

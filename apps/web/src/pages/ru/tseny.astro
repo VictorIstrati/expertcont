@@ -29,6 +29,13 @@ const pricingJsonLd = [
       "@type": "Offer",
       name: t.name[locale],
       description: t.desc[locale],
+      itemOffered: {
+        "@type": "Service",
+        name: t.name[locale],
+        serviceType: "Accounting",
+        provider: { "@type": "Organization", name: site.business.name },
+        areaServed: { "@type": "Country", name: "Moldova" },
+      },
       price: t.price,
       priceCurrency: "MDL",
       url: `${siteUrl}${sectionUrl("pricing", locale)}`,

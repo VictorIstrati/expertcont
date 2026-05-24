@@ -33,11 +33,16 @@ export interface ArticleInput {
 }
 
 export function articleJsonLd(a: ArticleInput) {
+  // Google's Article rich result requires `image`; fall back to the sitewide
+  // OG image so the rule is always satisfied even when the article doesn't
+  // provide a custom hero yet.
+  const image = a.imageUrl ?? `${SITE_URL}/og.png`;
   return {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: a.title,
     description: a.description,
+    image,
     datePublished: a.datePublished,
     dateModified: a.dateModified ?? a.datePublished,
     inLanguage: a.locale,
@@ -45,10 +50,9 @@ export function articleJsonLd(a: ArticleInput) {
     publisher: {
       "@type": "Organization",
       name: "ExpertCont",
-      logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.png` },
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/logos/logo-vertical.png` },
     },
     ...(a.author ? { author: { "@type": "Person", name: a.author } } : {}),
-    ...(a.imageUrl ? { image: a.imageUrl } : {}),
     ...(a.section ? { articleSection: a.section } : {}),
   };
 }

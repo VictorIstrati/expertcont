@@ -20,6 +20,7 @@ const siblings: Record<Locale, string> = {
   locale={locale}
   path={path}
   siblings={siblings}
+  includeOfferCatalog
 >
   <PageShell locale={locale} activeSection="about" siblings={siblings}>
     <AboutIsland client:visible locale={locale} bookHref={sectionUrl("contact", locale)} />
