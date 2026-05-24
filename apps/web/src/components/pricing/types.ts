@@ -137,6 +137,17 @@ export interface CalculatorState {
 
 // ---- Island-level props -----------------------------------------------------
 
+export interface PricingIntroParagraph {
+  heading: string;
+  body: string;
+}
+
+export interface PricingIntroConfig {
+  eyebrow: string;
+  title: string;
+  paragraphs: PricingIntroParagraph[];
+}
+
 export interface PricingIslandProps {
   locale: Locale;
   homeLabel?: string;
@@ -147,6 +158,7 @@ export interface PricingIslandProps {
   labelMonthly: string;
   labelYearly: string;
   estimateNotice: string;
+  intro: PricingIntroConfig;
   tiers: Tier[];
   addOnsTitle: string;
   addOns: AddOn[];

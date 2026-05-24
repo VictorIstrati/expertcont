@@ -43,7 +43,7 @@ const strings: Record<Locale, LocaleStrings> = {
     pageEyebrow: "Despre noi",
     pageTitle: "O echipă care înțelege business-ul tău",
     pageSubtitle:
-      "Din 2009, ExpertCont oferă servicii integrate de business pentru antreprenori și companii din Moldova.",
+      "ExpertCont oferă servicii integrate de contabilitate, juridic, HR și consultanță pentru antreprenori și companii din Moldova.",
     breadcrumbHome: "Acasă",
     breadcrumbAbout: "Despre noi",
 
@@ -102,7 +102,7 @@ const strings: Record<Locale, LocaleStrings> = {
     pageEyebrow: "О нас",
     pageTitle: "Команда, которая понимает ваш бизнес",
     pageSubtitle:
-      "С 2009 года ExpertCont предоставляет интегрированные бизнес-услуги для предпринимателей и компаний Молдовы.",
+      "ExpertCont предоставляет интегрированные услуги бухгалтерии, юридического сопровождения, HR и консалтинга для предпринимателей и компаний в Молдове.",
     breadcrumbHome: "Главная",
     breadcrumbAbout: "О нас",
 
@@ -161,7 +161,7 @@ const strings: Record<Locale, LocaleStrings> = {
     pageEyebrow: "About us",
     pageTitle: "A team that understands your business",
     pageSubtitle:
-      "Since 2009, ExpertCont has provided integrated business services for entrepreneurs and companies in Moldova.",
+      "ExpertCont provides integrated accounting, legal, HR and consulting services for entrepreneurs and companies in Moldova.",
     breadcrumbHome: "Home",
     breadcrumbAbout: "About",
 

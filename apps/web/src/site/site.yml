@@ -57,11 +57,52 @@ business:
 
 pricing:
   eyebrow:    { ro: "PREȚURI",              ru: "ТАРИФЫ",             en: "PRICING" }
-  title:      { ro: "Pachete transparente", ru: "Прозрачные пакеты",  en: "Transparent packages" }
+  title:
+    ro: "Prețuri contabilitate — pachete clare pentru companii din Moldova"
+    ru: "Цены на бухгалтерские услуги — понятные пакеты для компаний в Молдове"
+    en: "Accounting prices — clear packages for companies in Moldova"
   subtitle:
-    ro: "Prețuri clare, fără surprize. Alegeți pachetul potrivit pentru afacerea dvs. și scalați oricând."
-    ru: "Понятные цены, без сюрпризов. Выберите подходящий пакет и масштабируйте его в любое время."
-    en: "Clear pricing, no surprises. Choose the right plan for your business and scale at any time."
+    ro: "Tarife transparente, fără costuri ascunse. Alegeți pachetul potrivit pentru afacerea dvs. sau folosiți calculatorul pentru o estimare personalizată."
+    ru: "Прозрачные тарифы без скрытых платежей. Выберите подходящий пакет или воспользуйтесь калькулятором для индивидуальной оценки."
+    en: "Transparent rates, no hidden costs. Choose the right plan for your business or use the calculator for a personalised estimate."
+
+  # Intro section rendered above the tier grid. Three short paragraphs that
+  # capture the long-tail "how much does accounting cost" intent and help
+  # prospects self-qualify before scanning tier prices.
+  intro:
+    eyebrow:
+      ro: "GHID DE PREȚ"
+      ru: "ГИД ПО ЦЕНАМ"
+      en: "PRICING GUIDE"
+    title:
+      ro: "Cât costă contabilitatea pentru afacerea ta?"
+      ru: "Сколько стоит бухгалтерия для вашего бизнеса?"
+      en: "How much does accounting cost for your business?"
+    paragraphs:
+      - heading:
+          ro: "Ce influențează prețul"
+          ru: "Что влияет на цену"
+          en: "What drives the price"
+        body:
+          ro: "Costul lunar al unui contabil în Moldova depinde de patru factori principali: cifra de afaceri anuală, numărul de angajați, volumul lunar de facturi și industria în care activezi. O afacere de servicii cu cifră sub 500.000 lei și un angajat are nevoi diferite față de un magazin online cu 2.000.000 lei și echipă de cinci."
+          ru: "Ежемесячная стоимость бухгалтера в Молдове зависит от четырёх главных факторов: годовой оборот, число сотрудников, объём счетов-фактур в месяц и отрасль. Услуговый бизнес с оборотом до 500 000 леев и одним сотрудником имеет иные потребности, чем интернет-магазин с 2 000 000 леев и командой из пяти человек."
+          en: "The monthly cost of an accountant in Moldova depends on four main factors: annual revenue, headcount, monthly invoice volume, and your industry. A services business with under 500,000 MDL turnover and one employee has different needs than an online shop with 2,000,000 MDL and a team of five."
+      - heading:
+          ro: "Cum se mapează cele trei pachete"
+          ru: "Как сопоставлены три пакета"
+          en: "How the three packages map"
+        body:
+          ro: "Pachetul Start acoperă SRL nou-create și micro-afacerile cu volum redus. Standard este cel mai ales — pentru SRL în creștere cu o echipă mică și activitate B2B regulată. Premium e gândit pentru afaceri mature cu cerințe extinse, industrii complexe sau echipă completă. Toate trei includ HR și consultanță juridică în-house."
+          ru: "Пакет Start подходит для новых ООО и микро-бизнеса с низким объёмом. Standard — самый популярный для растущих ООО с небольшой командой и регулярной B2B-активностью. Premium создан для зрелого бизнеса с расширенными требованиями, сложными отраслями или полной командой. Все три включают HR и юридическую консультацию в-хауз."
+          en: "The Start plan covers new LLCs and micro-businesses with low volume. Standard is the most popular — for growing LLCs with a small team and regular B2B activity. Premium is built for mature businesses with extended requirements, complex industries, or a full team. All three include HR and in-house legal consulting."
+      - heading:
+          ro: "Când să folosești calculatorul"
+          ru: "Когда использовать калькулятор"
+          en: "When to use the calculator"
+        body:
+          ro: "Dacă afacerea ta nu se încadrează exact într-un pachet — de exemplu, vrei doar consultanță juridică fără contabilitate, sau ai un volum atipic de facturi — folosește calculatorul de mai jos pentru o estimare personalizată în câteva secunde."
+          ru: "Если ваш бизнес не попадает чётко в один из пакетов — например, нужна только юридическая консультация без бухгалтерии, или у вас нетипичный объём счетов — воспользуйтесь калькулятором ниже для индивидуальной оценки за несколько секунд."
+          en: "If your business doesn't fit a package exactly — for example, you only need legal consulting without bookkeeping, or you have an unusual invoice volume — use the calculator below for a personalised estimate in seconds."
   labelMonthly: { ro: "Lunar",  ru: "Ежемесячно", en: "Monthly" }
   labelYearly:  { ro: "Anual",  ru: "Ежегодно",   en: "Annually" }
 
@@ -275,6 +316,22 @@ pricing:
         ro: "Prima consultație de 30 minute este gratuită. Primele 30 de zile au garanție de rambursare integrală dacă nu ești mulțumit."
         ru: "Первая 30-минутная консультация бесплатна. В течение первых 30 дней действует полная гарантия возврата средств."
         en: "The first 30-minute consultation is free. The first 30 days come with a full money-back guarantee if you are not satisfied."
+    - q:
+        ro: "Cât plătesc în plus față de pachet?"
+        ru: "Сколько я доплачиваю сверх пакета?"
+        en: "How much do I pay on top of the package?"
+      a:
+        ro: "Doar pentru servicii care depășesc limitele pachetului ales: ore juridice peste cele incluse (500 MDL/h), ore de audit (750 MDL/h), ore IT (1500 MDL/h), HR per angajat suplimentar (400 MDL/lună) sau documente peste limita lunară (15 MDL/document). Totul este acord în prealabil — nu există surprize pe factură."
+        ru: "Только за услуги, превышающие лимиты выбранного пакета: дополнительные юридические часы (500 MDL/ч), часы аудита (750 MDL/ч), IT-часы (1500 MDL/ч), HR за каждого сверхштатного сотрудника (400 MDL/мес) или документы сверх месячного лимита (15 MDL/документ). Всё согласовывается заранее — никаких сюрпризов в счёте."
+        en: "Only for services that exceed your package limits: legal hours beyond what's included (500 MDL/h), audit hours (750 MDL/h), IT hours (1500 MDL/h), HR per additional employee (400 MDL/month), or documents above the monthly limit (15 MDL/document). Everything is agreed in advance — no invoice surprises."
+    - q:
+        ro: "Ce NU este inclus în prețul pachetului?"
+        ru: "Что НЕ входит в стоимость пакета?"
+        en: "What is NOT included in the package price?"
+      a:
+        ro: "Audit financiar extern (se cotează separat per misiune), reprezentare în instanță (tarif orar pentru avocat senior), proceduri speciale (lichidare, fuziune, divizare, restructurare), traduceri autorizate, implementări ERP/CRM majore. Pentru orice nevoie atipică oferim ofertă personalizată după consultația gratuită."
+        ru: "Внешний финансовый аудит (квотируется отдельно за проект), представительство в суде (почасовая ставка старшего адвоката), специальные процедуры (ликвидация, слияние, разделение, реструктуризация), нотариальные переводы, крупные внедрения ERP/CRM. По любым нестандартным запросам — индивидуальное предложение после бесплатной консультации."
+        en: "External financial audit (quoted separately per engagement), court representation (senior lawyer hourly rate), special procedures (liquidation, merger, demerger, restructuring), certified translations, major ERP/CRM implementations. For any atypical need we provide a custom quote after the free consultation."
 
   # CTA band rendered below the tier grid. Reframed for the "custom" path:
   # if none of the three packages fit, we send the user to the calculator

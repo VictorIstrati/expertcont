@@ -26,25 +26,70 @@ const serviceItems = services.map((s) => ({
 }));
 
 const contactHref = sectionUrl("contact", locale);
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const servicesJsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Бухгалтерские, юридические и консалтинговые услуги — ExpertCont",
+    url: `${siteUrl}${sectionUrl("services", locale)}`,
+    inLanguage: "ru",
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: services.length,
+      itemListElement: services.map((s, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "Service",
+          name: s.titles[locale],
+          description: s.summaries[locale],
+          url: `${siteUrl}${detailUrl("services", s, locale)}`,
+          serviceType: s.titles[locale],
+          areaServed: { "@type": "Country", name: "Республика Молдова" },
+          provider: { "@type": "AccountingService", name: "ExpertCont" },
+        },
+      })),
+    },
+  },
+];
 ---
 
 <Base
-  title="Услуги — ExpertCont"
-  description="Полный спектр бухгалтерских, аудиторских, юридических и консалтинговых услуг для бизнеса в Молдове."
+  title="Бухгалтерские, юридические и консалтинговые услуги — ExpertCont"
+  description="Интегрированные услуги для компаний в Молдове: бухгалтерия, аудит, юридическая консультация, HR и IT — одна команда под одной крышей."
   locale={locale}
   path={sectionUrl("services", locale)}
   siblings={siblings}
+  jsonLd={servicesJsonLd}
 >
   <PageShell locale={locale} activeSection="services" siblings={siblings}>
     <PageHeader
       eyebrow="Интегрированные услуги"
-      title="Одна команда для всех потребностей вашего бизнеса"
-      subtitle="От первичного бухгалтерского учёта до стратегического консалтинга — мы охватываем все ключевые направления для здорового бизнеса в Молдове."
+      title="Бухгалтерские услуги и консалтинг под одной крышей"
+      subtitle="Одна команда для всех потребностей вашего бизнеса — от бухгалтерского учёта и налоговой отчётности до юридической консультации, HR и аудита."
       breadcrumbs={[{ label: "Главная", href: homeUrl(locale) }, { label: "Услуги" }]}
     />
 
     <Section tone="default">
       <Container>
+        <div class="mx-auto max-w-3xl mb-12">
+          <p class="text-lg leading-relaxed text-text-secondary mb-4">
+            Для бизнеса в Молдове разделение бухгалтерии, юридической части, HR, аудита и IT между
+            разными поставщиками означает потерянное время на координацию и риск, что важная
+            налоговая деталь упадёт между. С <strong>15+ годами совокупного опыта</strong> и полной
+            командой под одной крышей, ExpertCont предлагает <strong>комплексные бухгалтерские
+            услуги</strong> вместе с юридической консультацией, HR, финансовым аудитом и
+            IT-консалтингом — всё через <strong>одного персонального менеджера</strong>, с
+            индивидуальным подходом и прозрачными отношениями.
+          </p>
+          <p class="text-base leading-relaxed text-text-secondary mb-0">
+            На практике вы получаете ежемесячный <strong>бухгалтерский учёт</strong>, своевременную
+            налоговую отчётность, проактивную <strong>бухгалтерскую консультацию</strong> и
+            юридическую поддержку по договорам и спорам — всё начиная с одной <a href="/ru/kontakty" class="text-primary underline">бесплатной консультации</a>.
+          </p>
+        </div>
         <ServiceIndexGrid client:visible services={serviceItems} locale={locale} />
       </Container>
     </Section>

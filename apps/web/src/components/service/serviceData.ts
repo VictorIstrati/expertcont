@@ -111,8 +111,12 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
           a: "Lucrăm cu ambele. Avem proceduri specifice pentru preluarea contabilității istorice și verificarea conformității documentelor existente.",
         },
         {
-          q: "Ce sisteme contabile suportați?",
-          a: "1C, Universal Accounting, SmartAccount, dar putem implementa și soluții cloud (Xero, Zoho Books) pentru firmele care preferă acces de oriunde.",
+          q: "Ce software contabil utilizați?",
+          a: "Lucrăm exclusiv pe 1C — versiunea actuală pentru Republica Moldova. Pentru firmele care vin cu alte sisteme, ne ocupăm de migrarea datelor în 1C în cadrul onboarding-ului.",
+        },
+        {
+          q: "Lucrați și cu rezidenți IT Park?",
+          a: "Da. Cunoaștem regimul fiscal specific al IT Park (impozit unic de 7% pe venit, scutiri de TVA pe export servicii IT) și raportarea separată către administrația IT Park. Configurăm 1C cu planul de conturi adaptat și gestionăm corect distincția între venituri eligibile vs neeligibile.",
         },
       ],
       pricing: {
@@ -198,8 +202,12 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
           a: "Мы работаем с обоими. У нас есть специальные процедуры для принятия исторической бухгалтерии и проверки соответствия существующих документов.",
         },
         {
-          q: "Какие бухгалтерские системы вы поддерживаете?",
-          a: "1С, Universal Accounting, SmartAccount, а также облачные решения (Xero, Zoho Books) для тех, кто предпочитает доступ из любого места.",
+          q: "Какое бухгалтерское ПО вы используете?",
+          a: "Работаем исключительно на 1С — текущей версии для Республики Молдова. Для компаний с другими системами выполняем миграцию данных в 1С в рамках онбординга.",
+        },
+        {
+          q: "Работаете ли с резидентами IT Park?",
+          a: "Да. Знаем специфический налоговый режим IT Park (единый налог 7% на доход, освобождение от НДС на экспорт IT-услуг) и отдельную отчётность перед администрацией IT Park. Настраиваем 1С с адаптированным планом счетов и корректно ведём разграничение между квалифицируемыми и неквалифицируемыми доходами.",
         },
       ],
       pricing: {
@@ -290,8 +298,12 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
           a: "Both. We have specific procedures for taking on historical bookkeeping and verifying the compliance of existing documents.",
         },
         {
-          q: "Which accounting systems do you support?",
-          a: "1C, Universal Accounting, SmartAccount, and cloud solutions (Xero, Zoho Books) for those who prefer access from anywhere.",
+          q: "Which accounting software do you use?",
+          a: "We work exclusively on 1C — the current Republic of Moldova version. For companies coming from other systems, we handle the migration to 1C as part of onboarding.",
+        },
+        {
+          q: "Do you work with IT Park residents?",
+          a: "Yes. We know the specific IT Park tax regime (7% single tax on revenue, VAT exemption on exported IT services) and the separate reporting to the IT Park administration. We configure 1C with an adapted chart of accounts and correctly separate qualifying vs non-qualifying revenue.",
         },
       ],
       pricing: {
@@ -1135,8 +1147,8 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
       includedItems: [
         {
           icon: "users",
-          title: "Recrutare & onboarding",
-          text: "Publicare anunțuri, screening CV, interviuri și onboarding documentar complet.",
+          title: "Onboarding documentar",
+          text: "Întocmirea contractelor și a fișelor de post pentru angajații nou-angajați de client.",
         },
         {
           icon: "file-text",
@@ -1198,8 +1210,8 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
           a: "Procesul de tranziție durează între 5 și 10 zile lucrătoare. Verificăm, actualizăm și structurăm dosarele fără întreruperea activității.",
         },
         {
-          q: "Ajutați și cu procesul de recrutare?",
-          a: "Da, gestionăm întreg procesul de recrutare: publicare anunțuri, screening aplicanți, interviuri și onboarding — inclusiv documentația contractuală.",
+          q: "Oferiți și servicii de recrutare?",
+          a: "Nu — nu facem recrutare (anunțuri, screening CV-uri, interviuri). Ne ocupăm exclusiv de administrarea relațiilor de muncă pentru angajații deja angajați de companie: contracte, payroll, raportare CNAS/CNAM și conformitate.",
         },
       ],
       pricing: {
@@ -1220,15 +1232,15 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
       relatedHeading: "Servicii conexe",
       bodyIntroHeading: "HR extern, fără griji",
       bodyIntro:
-        "Preluăm administrarea completă a resurselor umane — recrutare, contracte, payroll și conformitate legislativă — astfel încât tu să te concentrezi pe creșterea afacerii.",
+        "Preluăm administrarea relațiilor de muncă pentru angajații existenți — contracte, payroll, raportare CNAS/CNAM și conformitate cu Codul Muncii. Facturare per angajat acoperit, fără minim contractual. Nu oferim servicii de recrutare.",
     },
     ru: {
       includedHeading: "Что включено",
       includedItems: [
         {
           icon: "users",
-          title: "Подбор и онбординг",
-          text: "Публикация вакансий, скрининг резюме, собеседования и полный документальный онбординг.",
+          title: "Документальный онбординг",
+          text: "Оформление трудовых договоров и должностных инструкций для сотрудников, нанятых клиентом.",
         },
         {
           icon: "file-text",
@@ -1290,8 +1302,8 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
           a: "Процесс перехода занимает от 5 до 10 рабочих дней. Мы проверяем, обновляем и структурируем личные дела без прерывания деятельности.",
         },
         {
-          q: "Помогаете ли вы с подбором персонала?",
-          a: "Да, мы управляем всем процессом подбора: публикация вакансий, отбор кандидатов, собеседования и онбординг — включая оформление договорной документации.",
+          q: "Оказываете ли вы услуги подбора персонала?",
+          a: "Нет — мы не занимаемся подбором (объявления, скрининг резюме, собеседования). Занимаемся исключительно администрированием трудовых отношений уже принятых сотрудников: договоры, расчёт зарплат, отчётность CNAS/CNAM и соответствие законодательству.",
         },
       ],
       pricing: {
@@ -1312,15 +1324,15 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
       relatedHeading: "Связанные услуги",
       bodyIntroHeading: "Аутсорсинг HR без забот",
       bodyIntro:
-        "Мы берём на себя полное кадровое администрирование — подбор персонала, договоры, расчёт зарплат и соответствие законодательству — чтобы вы могли сосредоточиться на росте бизнеса.",
+        "Берём на себя администрирование трудовых отношений уже принятых сотрудников — договоры, расчёт зарплат, отчётность CNAS/CNAM и соответствие Трудовому кодексу. Оплата за каждого сотрудника под управлением, без минимального контракта. Услуги подбора персонала не оказываем.",
     },
     en: {
       includedHeading: "What's included",
       includedItems: [
         {
           icon: "users",
-          title: "Recruitment & onboarding",
-          text: "Job posting, CV screening, interviews and full documentary onboarding.",
+          title: "Documentary onboarding",
+          text: "Drafting employment contracts and job descriptions for employees you've hired.",
         },
         {
           icon: "file-text",
@@ -1382,8 +1394,8 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
           a: "The transition takes between 5 and 10 working days. We review, update and organise files without interrupting your operations.",
         },
         {
-          q: "Do you assist with the recruitment process?",
-          a: "Yes, we manage the full recruitment process: job postings, candidate screening, interviews and onboarding — including all contractual documentation.",
+          q: "Do you offer recruitment services?",
+          a: "No — we don't do recruiting (job ads, CV screening, interviews). We handle exclusively the administration of employment relationships for people you've already hired: contracts, payroll, CNAS/CNAM reporting and compliance.",
         },
       ],
       pricing: {
@@ -1404,7 +1416,7 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
       relatedHeading: "Related services",
       bodyIntroHeading: "Outsourced HR, zero hassle",
       bodyIntro:
-        "We take over complete HR administration — recruitment, contracts, payroll and labour-law compliance — so you can focus on growing your business.",
+        "We take over employment-relationship administration for your existing employees — contracts, payroll, CNAS/CNAM reporting and Labour Code compliance. Billed per covered employee, no minimum contract. We don't offer recruitment services.",
     },
   },
   it: {
@@ -1413,8 +1425,8 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
       includedItems: [
         {
           icon: "zap",
-          title: "Implementare ERP/CRM",
-          text: "Implementare și configurare sisteme ERP (1C, SAP Business One) și CRM adaptate nevoilor tale.",
+          title: "Web design și site-uri",
+          text: "Crearea și mentenanța site-urilor de prezentare și a magazinelor online — design, dezvoltare, hosting, suport.",
         },
         {
           icon: "trending",
@@ -1468,16 +1480,16 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
       faqHeading: "Întrebări frecvente",
       faqItems: [
         {
-          q: "Ce sisteme ERP implementați?",
-          a: "Lucrăm cu 1C (versiunile locale și cloud), SAP Business One și soluții cloud precum Xero și Zoho Books — alegem soluția potrivită dimensiunii și bugetului tău.",
+          q: "Ce servicii IT oferiți concret?",
+          a: "Analiză și audit IT, securitatea datelor și a infrastructurii, soluții de digitalizare și automatizare a proceselor, web design și crearea/mentenanța site-urilor, backup și recuperare, mentenanța calculatoarelor și a rețelelor.",
         },
         {
-          q: "Cât durează implementarea unui ERP?",
-          a: "Implementările standard durează 4-8 săptămâni. Proiectele mai complexe (multi-entitate, integrări personalizate) pot dura 3-6 luni. Oferim plan detaliat după auditul inițial.",
+          q: "Cum se facturează consultanța IT?",
+          a: "La tariful de 1500 lei/oră, facturate lunar pe baza orelor efectiv lucrate. Pentru proiecte previzibile (ex. crearea unui site) oferim ofertă fixă după briefing inițial.",
         },
         {
-          q: "Oferim suport și după implementare?",
-          a: "Da, oferim pachete de suport tehnic continuu — helpdesk, mentenanță preventivă, actualizări și training pentru utilizatori noi.",
+          q: "Aveți contracte de mentenanță continuă?",
+          a: "Da — pentru clienții care vor monitorizare permanentă a infrastructurii (backup automat, actualizări, intervenție rapidă la incidente), oferim contracte lunare cu SLA garantat și răspuns sub 4 ore în zile lucrătoare.",
         },
       ],
       pricing: {
@@ -1498,15 +1510,15 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
       relatedHeading: "Servicii conexe",
       bodyIntroHeading: "Tehnologie în slujba afacerii tale",
       bodyIntro:
-        "Digitalizăm procesele, implementăm sisteme ERP/CRM și automatizăm contabilitatea pentru a crește eficiența operațională și a reduce costurile manuale ale afacerii tale.",
+        "Audit IT, securitate, digitalizare și automatizare a proceselor, web design și mentenanță — facturate la oră (1500 lei/oră) sau prin contracte de mentenanță continuă cu SLA garantat.",
     },
     ru: {
       includedHeading: "Что включено",
       includedItems: [
         {
           icon: "zap",
-          title: "Внедрение ERP/CRM",
-          text: "Внедрение и настройка ERP-систем (1С, SAP Business One) и CRM под ваши нужды.",
+          title: "Веб-дизайн и сайты",
+          text: "Создание и обслуживание сайтов-визиток и интернет-магазинов — дизайн, разработка, хостинг, поддержка.",
         },
         {
           icon: "trending",
@@ -1560,16 +1572,16 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
       faqHeading: "Часто задаваемые вопросы",
       faqItems: [
         {
-          q: "Какие ERP-системы вы внедряете?",
-          a: "Мы работаем с 1С (локальные и облачные версии), SAP Business One и облачными решениями Xero и Zoho Books — выбираем решение под размер и бюджет вашего бизнеса.",
+          q: "Какие IT-услуги вы оказываете конкретно?",
+          a: "Анализ и IT-аудит, безопасность данных и инфраструктуры, цифровизация и автоматизация процессов, веб-дизайн и создание/обслуживание сайтов, резервное копирование и восстановление, обслуживание компьютеров и сетей.",
         },
         {
-          q: "Сколько времени занимает внедрение ERP?",
-          a: "Стандартные внедрения занимают 4-8 недель. Более сложные проекты (мультиюридические, с нестандартными интеграциями) могут занять 3-6 месяцев. Предоставляем детальный план после первичного аудита.",
+          q: "Как тарифицируется IT-консалтинг?",
+          a: "По тарифу 1500 леев/час, оплата ежемесячно на основе фактически отработанных часов. Для прогнозируемых проектов (например, создание сайта) предлагаем фиксированную смету после первичного брифа.",
         },
         {
-          q: "Предоставляете ли вы поддержку после внедрения?",
-          a: "Да, предлагаем пакеты постоянной технической поддержки — helpdesk, профилактическое обслуживание, обновления и обучение новых пользователей.",
+          q: "Есть ли у вас контракты на постоянное обслуживание?",
+          a: "Да — для клиентов, которым нужен постоянный мониторинг инфраструктуры (автоматический бэкап, обновления, быстрая реакция на инциденты), предлагаем ежемесячные контракты с гарантированным SLA и ответом менее 4 часов в рабочие дни.",
         },
       ],
       pricing: {
@@ -1590,15 +1602,15 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
       relatedHeading: "Связанные услуги",
       bodyIntroHeading: "Технологии на службе вашего бизнеса",
       bodyIntro:
-        "Мы цифровизируем процессы, внедряем ERP/CRM-системы и автоматизируем бухгалтерию для повышения операционной эффективности и снижения ручных затрат вашего бизнеса.",
+        "IT-аудит, безопасность, цифровизация и автоматизация процессов, веб-дизайн и обслуживание — оплата почасовая (1500 леев/час) или через контракты на постоянное обслуживание с гарантированным SLA.",
     },
     en: {
       includedHeading: "What's included",
       includedItems: [
         {
           icon: "zap",
-          title: "ERP/CRM implementation",
-          text: "Implementation and configuration of ERP systems (1C, SAP Business One) and CRM tailored to your needs.",
+          title: "Web design and websites",
+          text: "Creating and maintaining presentation sites and online shops — design, development, hosting, support.",
         },
         {
           icon: "trending",
@@ -1652,16 +1664,16 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
       faqHeading: "Frequently asked questions",
       faqItems: [
         {
-          q: "Which ERP systems do you implement?",
-          a: "We work with 1C (local and cloud versions), SAP Business One and cloud solutions such as Xero and Zoho Books — we select the right solution for your size and budget.",
+          q: "What IT services do you actually offer?",
+          a: "IT analysis and audit, data and infrastructure security, digitisation and process automation, web design and site creation/maintenance, backup and recovery, computer and network maintenance.",
         },
         {
-          q: "How long does an ERP implementation take?",
-          a: "Standard implementations take 4-8 weeks. More complex projects (multi-entity, custom integrations) may take 3-6 months. We provide a detailed plan after the initial audit.",
+          q: "How is IT consulting billed?",
+          a: "At 1500 MDL/hour, invoiced monthly based on hours actually worked. For predictable projects (e.g. building a website) we provide a fixed quote after the initial brief.",
         },
         {
-          q: "Do you provide support after implementation?",
-          a: "Yes, we offer ongoing technical support packages — helpdesk, preventive maintenance, updates and training for new users.",
+          q: "Do you offer ongoing maintenance contracts?",
+          a: "Yes — for clients who want continuous infrastructure monitoring (automatic backup, updates, fast incident response), we offer monthly contracts with a guaranteed SLA and reply under 4 hours on business days.",
         },
       ],
       pricing: {
@@ -1682,7 +1694,7 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
       relatedHeading: "Related services",
       bodyIntroHeading: "Technology at the service of your business",
       bodyIntro:
-        "We digitise processes, implement ERP/CRM systems and automate accounting to increase operational efficiency and reduce manual costs for your business.",
+        "IT audit, security, process digitisation and automation, web design and maintenance — billed hourly (1500 MDL/hour) or via ongoing maintenance contracts with guaranteed SLA.",
     },
   },
 };

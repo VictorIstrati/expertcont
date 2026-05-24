@@ -1,11 +1,15 @@
 {
   "id": "accounting",
   "slugs": { "ro": "contabilitate", "ru": "bukhgalteriya", "en": "accounting" },
-  "titles": { "ro": "Contabilitate", "ru": "Бухгалтерия", "en": "Accounting" },
-  "summaries": {
-    "ro": "Servicii complete de contabilitate financiară și de gestiune pentru afaceri din Republica Moldova.",
-    "ru": "Полный спектр услуг финансового и управленческого учёта для бизнеса в Молдове.",
-    "en": "Complete financial and management accounting services for businesses in Moldova."
+  "titles": {
+    "ro": "Servicii de contabilitate pentru companii din Moldova",
+    "ru": "Бухгалтерские услуги для компаний в Молдове",
+    "en": "Accounting services for companies in Moldova"
   },
-  "updated": "2026-05-18"
+  "summaries": {
+    "ro": "Evidență contabilă completă, raportare fiscală și consultanță contabilă pentru SRL, SA, ÎI și ONG din Moldova — manager de cont dedicat și răspuns sub 4 ore.",
+    "ru": "Полный бухгалтерский учёт, налоговая отчётность и бухгалтерская консультация для ООО, АО, ИП и НКО в Молдове — персональный менеджер и ответ менее 4 часов.",
+    "en": "Complete bookkeeping, tax reporting and accounting consulting for LLCs, JSCs, sole traders and NGOs in Moldova — dedicated account manager and reply under 4 hours."
+  },
+  "updated": "2026-05-24"
 }

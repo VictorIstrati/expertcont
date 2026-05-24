@@ -5,6 +5,7 @@ import { PriceCalculator } from "./PriceCalculator";
 import { AddOnsTable } from "./AddOnsTable";
 import { PricingFaq } from "./PricingFaq";
 import { PricingCta } from "./PricingCta";
+import { PricingIntro } from "./PricingIntro";
 import type { PricingIslandProps } from "./types";
 
 export type { Tier, AddOn, CalcConfig, PricingIslandProps } from "./types";
@@ -22,6 +23,7 @@ function PricingInner({
   labelMonthly,
   labelYearly,
   estimateNotice,
+  intro,
   tiers,
   addOnsTitle,
   addOns,
@@ -46,6 +48,8 @@ function PricingInner({
           { label: pricingLabel ?? PRICING_LABELS[locale] },
         ]}
       />
+
+      <PricingIntro intro={intro} />
 
       <TierGrid
         locale={locale}

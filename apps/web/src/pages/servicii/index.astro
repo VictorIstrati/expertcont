@@ -26,25 +26,72 @@ const serviceItems = services.map((s) => ({
 }));
 
 const contactHref = sectionUrl("contact", locale);
+
+// CollectionPage + ItemList of Services for rich-result eligibility on this
+// services hub page. Each Service item has provider, serviceType, area served.
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const servicesJsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Servicii contabile, juridice și consultanță — ExpertCont",
+    url: `${siteUrl}${sectionUrl("services", locale)}`,
+    inLanguage: "ro",
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: services.length,
+      itemListElement: services.map((s, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "Service",
+          name: s.titles[locale],
+          description: s.summaries[locale],
+          url: `${siteUrl}${detailUrl("services", s, locale)}`,
+          serviceType: s.titles[locale],
+          areaServed: { "@type": "Country", name: "Republica Moldova" },
+          provider: { "@type": "AccountingService", name: "ExpertCont" },
+        },
+      })),
+    },
+  },
+];
 ---
 
 <Base
-  title="Servicii — ExpertCont"
-  description="Servicii complete de contabilitate, audit financiar, juridice și consultanță de afaceri pentru companii din Republica Moldova."
+  title="Servicii contabile, juridice și consultanță — ExpertCont"
+  description="Servicii integrate pentru companii din Moldova: contabilitate, audit, consultanță juridică, HR și IT — o echipă completă sub un singur acoperiș."
   locale={locale}
   path={sectionUrl("services", locale)}
   siblings={siblings}
+  jsonLd={servicesJsonLd}
 >
   <PageShell locale={locale} activeSection="services" siblings={siblings}>
     <PageHeader
       eyebrow="Servicii integrate"
-      title="O singură echipă pentru toate nevoile afacerii tale"
-      subtitle="De la contabilitate primară la consultanță strategică — acoperim toate domeniile-cheie pentru o afacere sănătoasă în Moldova."
+      title="Servicii contabile și consultanță sub un singur acoperiș"
+      subtitle="O singură echipă pentru toate nevoile afacerii tale — de la evidență contabilă și raportare fiscală la consultanță juridică, HR și audit."
       breadcrumbs={[{ label: "Acasă", href: homeUrl(locale) }, { label: "Servicii" }]}
     />
 
     <Section tone="default">
       <Container>
+        <div class="mx-auto max-w-3xl mb-12">
+          <p class="text-lg leading-relaxed text-text-secondary mb-4">
+            Pentru o afacere din Moldova, separarea contabilității de partea juridică, HR, audit și
+            IT între mai mulți furnizori înseamnă timp pierdut între ei și riscul ca un detaliu
+            fiscal să cadă printre crăpături. Cu <strong>15+ ani de experiență cumulată</strong> și
+            o echipă completă sub un singur acoperiș, ExpertCont oferă <strong>servicii contabile
+            complete</strong> alături de consultanță juridică, gestiune HR, audit financiar și
+            consultanță IT — toate prin <strong>un singur manager de cont</strong>, cu abordare
+            individuală și relații transparente.
+          </p>
+          <p class="text-base leading-relaxed text-text-secondary mb-0">
+            Practic, primești <strong>evidență contabilă</strong> lunară, raportare fiscală la timp,
+            <strong>consultanță contabilă</strong> proactivă și suport juridic pentru contracte și
+            litigii — toate pornind de la o singură <a href="/contact" class="text-primary underline">consultație gratuită</a>.
+          </p>
+        </div>
         <ServiceIndexGrid client:visible services={serviceItems} locale={locale} />
       </Container>
     </Section>

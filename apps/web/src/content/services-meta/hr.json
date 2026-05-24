@@ -1,11 +1,15 @@
 {
   "id": "hr",
   "slugs": { "ro": "resurse-umane", "ru": "kadry", "en": "hr" },
-  "titles": { "ro": "Resurse Umane", "ru": "Кадры", "en": "Human Resources" },
-  "summaries": {
-    "ro": "Recrutare, contracte, payroll și conformitate legislativă pentru echipa ta.",
-    "ru": "Подбор, договоры, расчёт заработной платы и соответствие законодательству для вашей команды.",
-    "en": "Recruiting, contracts, payroll and labor-law compliance for your team."
+  "titles": {
+    "ro": "Servicii HR și resurse umane pentru companii din Moldova",
+    "ru": "HR-услуги и кадровое сопровождение для компаний в Молдове",
+    "en": "HR services and personnel management for companies in Moldova"
   },
-  "updated": "2026-05-18"
+  "summaries": {
+    "ro": "Servicii HR complete pentru companii din Moldova: contracte de muncă, payroll, fișe de post, evidență personal, raportare CNAS/CNAM și conformitate cu Codul Muncii.",
+    "ru": "Полные HR-услуги для компаний в Молдове: трудовые договоры, расчёт зарплат, должностные инструкции, кадровый учёт, отчётность CNAS/CNAM и соответствие Трудовому кодексу.",
+    "en": "Complete HR services for companies in Moldova: employment contracts, payroll, job descriptions, personnel records, CNAS/CNAM reporting and Labour Code compliance."
+  },
+  "updated": "2026-05-24"
 }

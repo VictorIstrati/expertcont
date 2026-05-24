@@ -3,7 +3,7 @@ import Base from "../layouts/Base.astro";
 import PageShell from "../components/PageShell.astro";
 import { PricingIsland } from "../components/pricing/PricingIsland";
 import { sectionUrl, type Locale } from "@expertcont/i18n";
-import { buildPricingProps } from "../site";
+import { buildPricingProps, site } from "../site";
 
 const locale: Locale = "ro";
 const siblings: Record<Locale, string> = {
@@ -13,14 +13,57 @@ const siblings: Record<Locale, string> = {
 };
 
 const props = buildPricingProps(locale);
+
+// Per-page structured data: AggregateOffer + per-tier Offer + FAQPage.
+// AggregateOffer enables price-range snippets; Offer items give Google
+// concrete prices to surface; FAQPage opens FAQ rich-result eligibility.
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const tierPrices = site.pricing.tiers.map((t) => t.price);
+const pricingJsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "AggregateOffer",
+    name: "Pachete contabilitate ExpertCont",
+    priceCurrency: "MDL",
+    lowPrice: Math.min(...tierPrices),
+    highPrice: Math.max(...tierPrices),
+    offerCount: tierPrices.length,
+    offers: site.pricing.tiers.map((t) => ({
+      "@type": "Offer",
+      name: t.name[locale],
+      description: t.desc[locale],
+      price: t.price,
+      priceCurrency: "MDL",
+      url: `${siteUrl}${sectionUrl("pricing", locale)}`,
+      availability: "https://schema.org/InStock",
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        price: t.price,
+        priceCurrency: "MDL",
+        unitCode: "MON",
+        referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "MON" },
+      },
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: site.pricing.faq.map((item) => ({
+      "@type": "Question",
+      name: item.q[locale],
+      acceptedAnswer: { "@type": "Answer", text: item.a[locale] },
+    })),
+  },
+];
 ---
 
 <Base
-  title="Prețuri — ExpertCont"
-  description="Pachete transparente pentru servicii de contabilitate și consultanță în Moldova."
+  title="Prețuri contabilitate · de la 2499 lei/lună — ExpertCont"
+  description="Pachete de contabilitate de la 2499 lei/lună pentru companii din Moldova. Start, Standard sau Premium — și un calculator pentru estimare personalizată."
   locale={locale}
   path={sectionUrl("pricing", locale)}
   siblings={siblings}
+  jsonLd={pricingJsonLd}
 >
   <PageShell locale={locale} activeSection="pricing" siblings={siblings}>
     <PricingIsland client:visible locale={locale} {...props} />

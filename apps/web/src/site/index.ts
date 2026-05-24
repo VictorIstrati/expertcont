@@ -88,6 +88,11 @@ const SiteSchema = z.object({
     labelMonthly: localized,
     labelYearly: localized,
     estimateNotice: localized,
+    intro: z.object({
+      eyebrow: localized,
+      title: localized,
+      paragraphs: z.array(z.object({ heading: localized, body: localized })),
+    }),
     calculator: calculatorStrings,
     tiers: z.array(tier),
     addOnsTitle: localized,
@@ -178,6 +183,14 @@ export function buildPricingProps(locale: Locale): Omit<PricingIslandProps, "loc
     labelMonthly: pick(p.labelMonthly, locale),
     labelYearly: pick(p.labelYearly, locale),
     estimateNotice: pick(p.estimateNotice, locale),
+    intro: {
+      eyebrow: pick(p.intro.eyebrow, locale),
+      title: pick(p.intro.title, locale),
+      paragraphs: p.intro.paragraphs.map((para) => ({
+        heading: pick(para.heading, locale),
+        body: pick(para.body, locale),
+      })),
+    },
     calc: {
       eyebrow: pick(c.eyebrow, locale),
       heading: pick(c.heading, locale),

@@ -26,25 +26,70 @@ const serviceItems = services.map((s) => ({
 }));
 
 const contactHref = sectionUrl("contact", locale);
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const servicesJsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Accounting, legal and consulting services — ExpertCont",
+    url: `${siteUrl}${sectionUrl("services", locale)}`,
+    inLanguage: "en",
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: services.length,
+      itemListElement: services.map((s, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "Service",
+          name: s.titles[locale],
+          description: s.summaries[locale],
+          url: `${siteUrl}${detailUrl("services", s, locale)}`,
+          serviceType: s.titles[locale],
+          areaServed: { "@type": "Country", name: "Republic of Moldova" },
+          provider: { "@type": "AccountingService", name: "ExpertCont" },
+        },
+      })),
+    },
+  },
+];
 ---
 
 <Base
-  title="Services — ExpertCont"
-  description="Complete accounting, audit, legal and business consulting services for companies in Moldova."
+  title="Accounting, legal and consulting services — ExpertCont"
+  description="Integrated services for companies in Moldova: accounting, audit, legal consulting, HR and IT — a complete team under one roof."
   locale={locale}
   path={sectionUrl("services", locale)}
   siblings={siblings}
+  jsonLd={servicesJsonLd}
 >
   <PageShell locale={locale} activeSection="services" siblings={siblings}>
     <PageHeader
       eyebrow="Integrated services"
-      title="One team for all your business needs"
-      subtitle="From primary bookkeeping to strategic consulting — we cover all key areas for a healthy business in Moldova."
+      title="Accounting services and consulting under one roof"
+      subtitle="One team for all your business needs — from bookkeeping and tax reporting to legal consulting, HR and audit."
       breadcrumbs={[{ label: "Home", href: homeUrl(locale) }, { label: "Services" }]}
     />
 
     <Section tone="default">
       <Container>
+        <div class="mx-auto max-w-3xl mb-12">
+          <p class="text-lg leading-relaxed text-text-secondary mb-4">
+            For a business in Moldova, splitting accounting, legal, HR, audit, and IT across
+            different vendors means lost time coordinating and the risk that an important tax detail
+            will fall through the cracks. With <strong>15+ years of combined experience</strong> and
+            a full team under one roof, ExpertCont provides <strong>complete accounting
+            services</strong> alongside legal consulting, HR management, financial audit, and IT
+            consulting — all through a <strong>single account manager</strong>, with an individual
+            approach and transparent relationships.
+          </p>
+          <p class="text-base leading-relaxed text-text-secondary mb-0">
+            In practice you get monthly <strong>bookkeeping</strong>, timely tax reporting,
+            proactive <strong>accounting consulting</strong>, and legal support for contracts and
+            disputes — all starting with a single <a href="/en/contact" class="text-primary underline">free consultation</a>.
+          </p>
+        </div>
         <ServiceIndexGrid client:visible services={serviceItems} locale={locale} />
       </Container>
     </Section>

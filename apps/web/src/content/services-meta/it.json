@@ -1,11 +1,15 @@
 {
   "id": "it",
   "slugs": { "ro": "servicii-it", "ru": "it-uslugi", "en": "it-services" },
-  "titles": { "ro": "Servicii IT", "ru": "ИТ-услуги", "en": "IT Services" },
-  "summaries": {
-    "ro": "Digitalizare procese, ERP/CRM, automatizare contabilitate.",
-    "ru": "Цифровизация процессов, ERP/CRM, автоматизация бухгалтерии.",
-    "en": "Process digitization, ERP/CRM, accounting automation."
+  "titles": {
+    "ro": "Servicii IT pentru afaceri din Moldova",
+    "ru": "IT-услуги для бизнеса в Молдове",
+    "en": "IT services for businesses in Moldova"
   },
-  "updated": "2026-05-18"
+  "summaries": {
+    "ro": "Consultanță IT, audit IT, securitatea datelor, digitalizare procese, automatizare contabilitate, mentenanță și web design pentru companii din Moldova.",
+    "ru": "IT-консалтинг, IT-аудит, безопасность данных, цифровизация процессов, автоматизация бухгалтерии, обслуживание и веб-дизайн для компаний в Молдове.",
+    "en": "IT consulting, IT audit, data security, process digitisation, accounting automation, maintenance and web design for companies in Moldova."
+  },
+  "updated": "2026-05-24"
 }
