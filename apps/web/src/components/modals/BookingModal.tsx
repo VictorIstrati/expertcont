@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Locale } from "@expertcont/i18n";
 import { Modal } from "./Modal";
 import { Stepper } from "./booking/Stepper";
@@ -13,12 +13,24 @@ interface Props {
   open: boolean;
   onClose: () => void;
   locale: Locale;
+  /** Service slug to pre-select when the modal opens (e.g. from a service
+   * card's Schedule button). Must match a slug in booking/strings.ts. */
+  initialService?: string;
 }
 
-export function BookingModal({ open, onClose, locale }: Props) {
+export function BookingModal({ open, onClose, locale, initialService }: Props) {
   const t = useBookingStrings();
   const [step, setStep] = useState(0);
   const [data, setData] = useState<BookingData>(INITIAL_DATA);
+
+  // When the modal opens with a preselected service, prefill the form and
+  // skip directly to step 1 (date/time). User can still go back via "Prev".
+  useEffect(() => {
+    if (open && initialService) {
+      setData((d) => ({ ...d, service: initialService }));
+      setStep(1);
+    }
+  }, [open, initialService]);
 
   const days = buildDays();
   const STEPS = [t.step1, t.step2, t.step3, t.stepDone];

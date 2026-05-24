@@ -23,9 +23,17 @@ const isQuotePayload = (p: unknown): p is QuotePayload =>
   Array.isArray((p as QuotePayload).items) &&
   typeof (p as QuotePayload).total === "number";
 
+interface BookingPayload {
+  service: string;
+}
+
+const isBookingPayload = (p: unknown): p is BookingPayload =>
+  !!p && typeof p === "object" && typeof (p as BookingPayload).service === "string";
+
 export default function ModalsHost({ locale }: Props) {
   const [openKey, setOpenKey] = useState<ModalKey | null>(null);
   const [quotePayload, setQuotePayload] = useState<QuotePayload>({ items: [], total: 0 });
+  const [bookingInitialService, setBookingInitialService] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     return onModalEvent((d) => {
@@ -33,6 +41,8 @@ export default function ModalsHost({ locale }: Props) {
         setOpenKey(d.key);
         if (d.key === "quote" && isQuotePayload(d.payload)) {
           setQuotePayload(d.payload);
+        } else if (d.key === "booking") {
+          setBookingInitialService(isBookingPayload(d.payload) ? d.payload.service : undefined);
         }
       } else if (d.action === "close") {
         setOpenKey(null);
@@ -44,7 +54,12 @@ export default function ModalsHost({ locale }: Props) {
 
   return (
     <I18nRoot locale={locale}>
-      <BookingModal open={openKey === "booking"} onClose={close} locale={locale} />
+      <BookingModal
+        open={openKey === "booking"}
+        onClose={close}
+        locale={locale}
+        initialService={bookingInitialService}
+      />
       <ReviewModal open={openKey === "review"} onClose={close} locale={locale} />
       <AskQuestionModal open={openKey === "ask-question"} onClose={close} locale={locale} />
       <QuoteModal open={openKey === "quote"} onClose={close} locale={locale} quote={quotePayload} />
