@@ -269,7 +269,6 @@ export function PriceCalculator({ calc, locale }: Props) {
               onToggle={() => toggleHourly("it")}
               onChange={(h) => setHourlyHours("it", h)}
             />
-
           </div>
 
           {/* ----- Right column: sticky breakdown panel ----- */}
@@ -384,9 +383,7 @@ function ServiceCard({ label, description, enabled, onToggle, children }: Servic
   return (
     <div
       className={`rounded-md border p-5 transition-colors ${
-        enabled
-          ? "bg-white/8 border-[rgba(223,183,65,0.45)]"
-          : "bg-white/5 border-white/15"
+        enabled ? "bg-white/8 border-[rgba(223,183,65,0.45)]" : "bg-white/5 border-white/15"
       }`}
     >
       <button
@@ -573,7 +570,9 @@ function formatRevenueShort(mdl: number, nf: Intl.NumberFormat): string {
 
 function RevenueSlider({ label, value, nf, onChange }: RevenueSliderProps) {
   const isAtMax = value >= REVENUE_MAX;
-  const displayValue = isAtMax ? `${formatRevenueShort(REVENUE_MAX, nf)}+` : formatRevenueShort(value, nf);
+  const displayValue = isAtMax
+    ? `${formatRevenueShort(REVENUE_MAX, nf)}+`
+    : formatRevenueShort(value, nf);
   return (
     <div>
       <div className="flex justify-between items-baseline mb-2 gap-2">

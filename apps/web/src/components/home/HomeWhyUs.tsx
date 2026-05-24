@@ -25,9 +25,9 @@ const strings: Record<Locale, LocaleStrings> = {
     eyebrow: "DE CE NOI",
     heading: "Construim pe încredere",
     subtitle:
-      "Alegem să oferim mai mult decât un serviciu — o parteneriat strategic pe termen lung.",
+      "Mai mult decât un serviciu — parteneriat strategic pe termen lung, de la consultanță contabilă la evidență contabilă continuă.",
     missionQuote:
-      "Misiunea noastră: să transformăm contabilitatea dintr-o povară administrativă într-un avantaj strategic pentru afacerea ta.",
+      "Misiunea noastră: să transformăm evidența contabilă dintr-o povară administrativă într-un avantaj strategic pentru afacerea ta.",
     teamLabel: "Echipa ExpertCont",
     items: [
       {
@@ -46,16 +46,17 @@ const strings: Record<Locale, LocaleStrings> = {
         text: "Manager de cont dedicat care preia rapid orice solicitare.",
       },
       {
-        icon: "shield",
-        title: "GDPR & confidențialitate",
-        text: "Documente protejate, servere UE, audituri trimestriale.",
+        icon: "clock",
+        title: "Onboarding în 2 săptămâni",
+        text: "Preluăm documentația și sistemele rapid, fără pauze în raportare.",
       },
     ],
   },
   ru: {
     eyebrow: "ПОЧЕМУ МЫ",
     heading: "Строим на доверии",
-    subtitle: "Мы предлагаем не просто услугу — долгосрочное стратегическое партнёрство.",
+    subtitle:
+      "Больше, чем услуга — долгосрочное стратегическое партнёрство, от бухгалтерской консультации до постоянного бухгалтерского учёта.",
     missionQuote:
       "Наша миссия: превратить бухгалтерский учёт из административного бремени в стратегическое преимущество для вашего бизнеса.",
     teamLabel: "Команда ExpertCont",
@@ -76,16 +77,17 @@ const strings: Record<Locale, LocaleStrings> = {
         text: "Персональный менеджер быстро реагирует на любой запрос.",
       },
       {
-        icon: "shield",
-        title: "GDPR и конфиденциальность",
-        text: "Защищённые документы, серверы ЕС, ежеквартальные аудиты.",
+        icon: "clock",
+        title: "Онбординг за 2 недели",
+        text: "Быстро принимаем документацию и системы — без перерывов в отчётности.",
       },
     ],
   },
   en: {
     eyebrow: "WHY US",
     heading: "Built on trust",
-    subtitle: "We offer more than a service — a long-term strategic partnership.",
+    subtitle:
+      "More than a service — a long-term strategic partnership, from accounting consulting to ongoing bookkeeping.",
     missionQuote:
       "Our mission: to transform accounting from an administrative burden into a strategic advantage for your business.",
     teamLabel: "The ExpertCont Team",
@@ -106,9 +108,9 @@ const strings: Record<Locale, LocaleStrings> = {
         text: "A dedicated account manager who quickly handles any request.",
       },
       {
-        icon: "shield",
-        title: "GDPR & confidentiality",
-        text: "Protected documents, EU servers, quarterly audits.",
+        icon: "clock",
+        title: "Onboarding in 2 weeks",
+        text: "We take over your documentation and systems quickly, with no reporting gaps.",
       },
     ],
   },

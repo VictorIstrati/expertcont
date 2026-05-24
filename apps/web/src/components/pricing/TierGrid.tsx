@@ -78,9 +78,7 @@ export function TierGrid({
                     ★ CEL MAI POPULAR
                   </div>
                 )}
-                <h3
-                  className={`text-2xl mb-2 ${tier.popular ? "text-white" : "text-inherit"}`}
-                >
+                <h3 className={`text-2xl mb-2 ${tier.popular ? "text-white" : "text-inherit"}`}>
                   {tier.name}
                   <sup className="ml-0.5 text-base font-semibold opacity-75">*</sup>
                 </h3>

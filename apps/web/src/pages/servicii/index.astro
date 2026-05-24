@@ -17,9 +17,7 @@ const siblings: Record<Locale, string> = {
 };
 
 const metaEntries = await getCollection("services-meta");
-const services: ContentMeta[] = sortByServiceOrder(
-  metaEntries.map((e) => e.data as ContentMeta),
-);
+const services: ContentMeta[] = sortByServiceOrder(metaEntries.map((e) => e.data as ContentMeta));
 
 const serviceItems = services.map((s) => ({
   meta: s,

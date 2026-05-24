@@ -104,9 +104,7 @@ export default function GuidesDetailIsland({
               >
                 <span
                   className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
-                    n === 1
-                      ? "bg-primary text-white"
-                      : "bg-border text-text-secondary"
+                    n === 1 ? "bg-primary text-white" : "bg-border text-text-secondary"
                   }`}
                 >
                   {n}
@@ -147,16 +145,11 @@ export default function GuidesDetailIsland({
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {relatedGuides.map((g) => (
               <article key={g.slug}>
-                <a
-                  href={g.href}
-                  className="card card-hover block overflow-hidden p-0 no-underline"
-                >
+                <a href={g.href} className="card card-hover block overflow-hidden p-0 no-underline">
                   <ImagePlaceholder ratio="16/10" label={g.category} style={{ borderRadius: 0 }} />
                   <div className="p-6">
                     <span className="pill pill-soft mb-3 inline-block">{g.category}</span>
-                    <h3 className="mt-2 mb-3 text-lg leading-snug text-text-primary">
-                      {g.title}
-                    </h3>
+                    <h3 className="mt-2 mb-3 text-lg leading-snug text-text-primary">{g.title}</h3>
                     <div className="text-xs text-text-secondary">{g.readTime} min</div>
                   </div>
                 </a>

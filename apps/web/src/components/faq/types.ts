@@ -35,8 +35,7 @@ export function useTopics(): Topic[] {
       v: "juridic",
       l: t({
         message: `Juridic`,
-        comment:
-          "FAQ category. Romanian adjective used as a noun = 'Legal services'.",
+        comment: "FAQ category. Romanian adjective used as a noun = 'Legal services'.",
       }),
     },
     { v: "hr", l: t`HR` },

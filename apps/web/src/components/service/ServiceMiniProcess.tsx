@@ -17,18 +17,14 @@ export function ServiceMiniProcess({ steps, heading }: ServiceMiniProcessProps) 
         {steps.map((step, i) => (
           <div
             key={i}
-            className={`flex gap-6 pb-6 ${
-              i === 0 ? "pt-0" : "pt-6 border-t border-border"
-            }`}
+            className={`flex gap-6 pb-6 ${i === 0 ? "pt-0" : "pt-6 border-t border-border"}`}
           >
             <div className="text-3xl font-extrabold text-accent tracking-tight min-w-[50px]">
               {step.n}
             </div>
             <div>
               <h4 className="mb-2">{step.t}</h4>
-              <p className="text-base text-text-secondary leading-relaxed m-0">
-                {step.d}
-              </p>
+              <p className="text-base text-text-secondary leading-relaxed m-0">{step.d}</p>
             </div>
           </div>
         ))}

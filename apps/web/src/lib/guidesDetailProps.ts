@@ -57,8 +57,7 @@ const LABELS: Record<Locale, DetailLabels> = {
     continueReadingEyebrow: "Continue reading",
     continueReadingTitle: "From the blog",
     inlineCtaTitle: "Need help?",
-    inlineCtaSubtitle:
-      "Book a free 30-minute consultation with an ExpertCont specialist.",
+    inlineCtaSubtitle: "Book a free 30-minute consultation with an ExpertCont specialist.",
     inlineCtaButton: "Book a consultation",
   },
 };

@@ -78,10 +78,7 @@ function ContactInner({ locale, address, phone, email, hours }: ContactIslandPro
         eyebrow={t`CONTACT`}
         title={t`Hai să discutăm`}
         subtitle={t`Suntem disponibili pentru o consultație gratuită. Completați formularul sau folosiți una dintre căile rapide de mai jos.`}
-        breadcrumbs={[
-          { label: t`Acasă`, href: homeHref },
-          { label: t`Contact` },
-        ]}
+        breadcrumbs={[{ label: t`Acasă`, href: homeHref }, { label: t`Contact` }]}
       />
 
       <section className="section">
@@ -216,8 +213,8 @@ function ContactInner({ locale, address, phone, email, hours }: ContactIslandPro
                   </div>
                   <p className="text-xs text-text-secondary leading-relaxed">
                     <Trans>
-                      Prin trimiterea formularului ești de acord cu prelucrarea datelor conform
-                      GDPR și{" "}
+                      Prin trimiterea formularului ești de acord cu prelucrarea datelor conform GDPR
+                      și{" "}
                       <a href={privacyHref} className="text-primary underline">
                         Politica de confidențialitate
                       </a>

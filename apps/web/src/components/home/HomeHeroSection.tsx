@@ -1,7 +1,7 @@
 import { Icon, ImagePlaceholder, Button } from "@expertcont/ui";
 import type { Locale } from "@expertcont/i18n";
 import { openModal } from "../../lib/modalBus";
-import { phoneTel } from "../../site";
+import { phoneTel, site } from "../../site";
 
 interface Props {
   locale: Locale;
@@ -13,61 +13,74 @@ interface LocaleStrings {
   titleHighlight: string;
   titleAfter: string;
   subtitle: string;
+  priceAnchor: string;
   ctaBook: string;
   ctaCall: string;
   trustLabel: string;
-  gdprTitle: string;
-  gdprSub: string;
+  messagingLabel: string;
+  badgeTitle: string;
+  badgeSub: string;
   consultBadge: string;
   consultSub: string;
   consultCta: string;
 }
 
+const waNumber = phoneTel.replace(/\D/g, "");
+const whatsappHref = `https://wa.me/${waNumber}`;
+const viberHref = `viber://chat?number=%2B${waNumber}`;
+const telegramHref = `https://t.me/${site.business.telegram}`;
+
 const strings: Record<Locale, LocaleStrings> = {
   ro: {
-    eyebrow: "PARTENERUL DE ÎNCREDERE",
+    eyebrow: "SERVICII CONTABILE · CHIȘINĂU ȘI MOLDOVA",
     titleBefore: "Contabilitate care ",
     titleHighlight: "lucrează",
     titleAfter: " pentru tine",
     subtitle:
-      "Servicii integrate de contabilitate, juridic, HR și consultanță IT — o echipă completă sub un singur acoperiș pentru afacerea ta din Moldova.",
+      "Servicii de contabilitate, consultanță juridică și HR pentru companii din Moldova — o echipă completă sub un singur acoperiș.",
+    priceAnchor: "Pachete de la 2499 lei / lună · ofertă în 48 ore",
     ctaBook: "Programează consultație",
     ctaCall: "Sună acum",
-    trustLabel: "350+ companii de încredere · 4.9/5 din recenzii",
-    gdprTitle: "Conform GDPR",
-    gdprSub: "Date securizate · servere în UE",
+    trustLabel: "Echipă multidisciplinară · răspuns sub 4 ore · 15+ ani experiență cumulată",
+    messagingLabel: "Scrie-ne pe:",
+    badgeTitle: "Manager dedicat",
+    badgeSub: "Contabil, jurist și consultant IT",
     consultBadge: "CONSULTANT DISPONIBIL",
     consultSub: "Programare în < 4 ore",
     consultCta: "Programează acum",
   },
   ru: {
-    eyebrow: "НАШ НАДЁЖНЫЙ ПАРТНЁР",
+    eyebrow: "БУХГАЛТЕРСКИЕ УСЛУГИ · КИШИНЁВ И МОЛДОВА",
     titleBefore: "Бухгалтерия, которая ",
     titleHighlight: "работает",
     titleAfter: " на вас",
     subtitle:
-      "Комплексные услуги бухгалтерии, юридического сопровождения, HR и IT-консалтинга — одна команда под одной крышей для вашего бизнеса в Молдове.",
+      "Бухгалтерские услуги, юридическая консультация и HR для компаний в Молдове — одна команда под одной крышей.",
+    priceAnchor: "Пакеты от 2499 леев / мес · предложение за 48 часов",
     ctaBook: "Записаться на консультацию",
     ctaCall: "Позвоните нам",
-    trustLabel: "350+ компаний доверяют нам · 4.9/5 в отзывах",
-    gdprTitle: "Соответствует GDPR",
-    gdprSub: "Защита данных · серверы в ЕС",
+    trustLabel: "Мультидисциплинарная команда · ответ менее 4 часов · 15+ лет совокупного опыта",
+    messagingLabel: "Напишите нам:",
+    badgeTitle: "Персональный менеджер",
+    badgeSub: "Бухгалтер, юрист и IT-консультант",
     consultBadge: "КОНСУЛЬТАНТ ДОСТУПЕН",
     consultSub: "Запись менее чем за 4 часа",
     consultCta: "Записаться сейчас",
   },
   en: {
-    eyebrow: "YOUR TRUSTED PARTNER",
+    eyebrow: "ACCOUNTING SERVICES · CHIȘINĂU AND MOLDOVA",
     titleBefore: "Accounting that ",
     titleHighlight: "works",
     titleAfter: " for you",
     subtitle:
-      "Integrated accounting, legal, HR and IT consulting services — a complete team under one roof for your business in Moldova.",
+      "Accounting services, legal consulting and HR for companies in Moldova — a complete team under one roof.",
+    priceAnchor: "Packages from 2499 MDL / month · quote within 48 hours",
     ctaBook: "Schedule a consultation",
     ctaCall: "Call now",
-    trustLabel: "350+ companies trust us · 4.9/5 in reviews",
-    gdprTitle: "GDPR Compliant",
-    gdprSub: "Secure data · EU servers",
+    trustLabel: "Multidisciplinary team · reply under 4 hours · 15+ years of combined experience",
+    messagingLabel: "Message us on:",
+    badgeTitle: "Dedicated manager",
+    badgeSub: "Accountant, lawyer and IT consultant",
     consultBadge: "CONSULTANT AVAILABLE",
     consultSub: "Appointment in < 4 hours",
     consultCta: "Book now",
@@ -104,10 +117,9 @@ export default function HomeHeroSection({ locale }: Props) {
             </span>
             {t.titleAfter}
           </h1>
-          <p className="text-xl text-text-secondary max-w-xl mb-10">
-            {t.subtitle}
-          </p>
-          <div className="flex flex-wrap gap-3 mb-10">
+          <p className="text-xl text-text-secondary max-w-xl mb-4">{t.subtitle}</p>
+          <p className="text-sm font-semibold text-primary max-w-xl mb-8">{t.priceAnchor}</p>
+          <div className="flex flex-wrap gap-3 mb-6">
             <Button
               variant="primary"
               size="lg"
@@ -122,20 +134,41 @@ export default function HomeHeroSection({ locale }: Props) {
             </a>
           </div>
 
+          <div className="flex flex-wrap items-center gap-3 mb-10">
+            <span className="text-sm text-text-secondary">{t.messagingLabel}</span>
+            <a
+              href={whatsappHref}
+              target="_blank"
+              rel="noreferrer noopener"
+              aria-label="WhatsApp"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-bg-card text-[#25D366] no-underline transition hover:border-[#25D366]"
+            >
+              <Icon name="whatsapp" size={18} />
+            </a>
+            <a
+              href={viberHref}
+              aria-label="Viber"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-bg-card text-[#7360F2] no-underline transition hover:border-[#7360F2]"
+            >
+              <Icon name="viber" size={18} />
+            </a>
+            <a
+              href={telegramHref}
+              target="_blank"
+              rel="noreferrer noopener"
+              aria-label="Telegram"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-bg-card text-[#229ED9] no-underline transition hover:border-[#229ED9]"
+            >
+              <Icon name="telegram" size={18} />
+            </a>
+          </div>
+
           {/* Trust strip */}
           <div className="flex flex-wrap items-center gap-4">
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary-50 text-primary border border-border">
-              <Icon name="shield" size={22} />
+              <Icon name="users" size={22} />
             </div>
-            <div>
-              <div className="flex items-center gap-1 text-accent">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <Icon key={i} name="star" size={14} />
-                ))}
-                <span className="text-text-primary font-bold text-sm ml-2">4.9/5</span>
-              </div>
-              <div className="text-sm text-text-secondary mt-1">{t.trustLabel}</div>
-            </div>
+            <div className="text-sm text-text-secondary">{t.trustLabel}</div>
           </div>
         </div>
 
@@ -148,14 +181,14 @@ export default function HomeHeroSection({ locale }: Props) {
               style={{ borderRadius: "var(--r-lg)" }}
             />
 
-            {/* Floating compliance badge */}
+            {/* Floating team badge */}
             <div className="hero-float-1 absolute top-14 -left-8 bg-bg-card px-5 py-4 rounded-md shadow-lg border border-border flex items-center gap-3 max-sm:hidden">
               <div className="flex h-10 w-10 items-center justify-center rounded-sm bg-primary-50 text-primary">
-                <Icon name="shield" size={20} />
+                <Icon name="users" size={20} />
               </div>
               <div>
-                <div className="text-sm font-bold">{t.gdprTitle}</div>
-                <div className="text-xs text-text-secondary">{t.gdprSub}</div>
+                <div className="text-sm font-bold">{t.badgeTitle}</div>
+                <div className="text-xs text-text-secondary">{t.badgeSub}</div>
               </div>
             </div>
 

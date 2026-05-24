@@ -109,9 +109,7 @@ export default function BlogDetailIsland({
               >
                 <span
                   className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
-                    n === 1
-                      ? "bg-primary text-white"
-                      : "bg-border text-text-secondary"
+                    n === 1 ? "bg-primary text-white" : "bg-border text-text-secondary"
                   }`}
                 >
                   {n}
@@ -153,16 +151,11 @@ export default function BlogDetailIsland({
         <div className="related-posts-grid grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {relatedPosts.map((p) => (
             <article key={p.slug}>
-              <a
-                href={p.href}
-                className="card card-hover block overflow-hidden p-0 no-underline"
-              >
+              <a href={p.href} className="card card-hover block overflow-hidden p-0 no-underline">
                 <ImagePlaceholder ratio="16/10" label={p.category} style={{ borderRadius: 0 }} />
                 <div className="p-6 max-sm:px-0">
                   <span className="pill pill-soft mb-3 inline-block">{p.category}</span>
-                  <h3 className="mt-2 mb-3 text-lg leading-snug text-text-primary">
-                    {p.title}
-                  </h3>
+                  <h3 className="mt-2 mb-3 text-lg leading-snug text-text-primary">{p.title}</h3>
                   <div className="text-xs text-text-secondary">
                     {p.date} · {p.readTime} min
                   </div>

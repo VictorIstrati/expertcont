@@ -75,7 +75,9 @@ export function Footer({ locale, address, phone, email, onNewsletterSubscribe }:
                 {subscribed ? (
                   <Trans>✓ Subscribed</Trans>
                 ) : (
-                  <Trans comment="Footer newsletter form submit button. Imperative verb.">Subscribe</Trans>
+                  <Trans comment="Footer newsletter form submit button. Imperative verb.">
+                    Subscribe
+                  </Trans>
                 )}
               </button>
             </form>
@@ -250,7 +252,7 @@ export function Footer({ locale, address, phone, email, onNewsletterSubscribe }:
         <Container>
           <div className={styles.bottomRow}>
             <div className={styles.copyright}>
-              © {year} ExpertCont SRL · IDNO 1009600012345 · <Trans>All rights reserved.</Trans>
+              © {year} ExpertCont · <Trans>All rights reserved.</Trans>
             </div>
             <div className={styles.smallTagline}>
               <Trans>Experience · Efficiency · Results</Trans>

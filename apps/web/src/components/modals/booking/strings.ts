@@ -27,8 +27,7 @@ export function useBookingStrings(): Strings {
         slug: "juridic",
         name: t({
           message: `Juridic`,
-          comment:
-            "Service category. Romanian adjective used as a noun = 'Legal services'.",
+          comment: "Service category. Romanian adjective used as a noun = 'Legal services'.",
         }),
         icon: "scale",
       },
@@ -40,8 +39,7 @@ export function useBookingStrings(): Strings {
     timeLabel: t`Alege ora`,
     modeLabel: t({
       message: `Format`,
-      comment:
-        "Booking modal — label for the consultation format selector (online vs in-office).",
+      comment: "Booking modal — label for the consultation format selector (online vs in-office).",
     }),
     modeOnline: t`Online`,
     modeOffice: t`La birou`,
@@ -65,13 +63,11 @@ export function useBookingStrings(): Strings {
     }),
     cancel: t({
       message: `Anulează`,
-      comment:
-        "Booking modal — secondary button that aborts the booking flow. Imperative verb.",
+      comment: "Booking modal — secondary button that aborts the booking flow. Imperative verb.",
     }),
     close: t({
       message: `Închide`,
-      comment:
-        "Booking modal — button that closes the modal. Imperative verb.",
+      comment: "Booking modal — button that closes the modal. Imperative verb.",
     }),
     doneTitle: t`Programare trimisă!`,
     doneMsg: t`Vă vom contacta în mai puțin de 4 ore în zile lucrătoare pentru confirmare.`,

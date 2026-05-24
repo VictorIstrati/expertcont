@@ -237,9 +237,7 @@ export default function AboutIsland({ locale, bookHref: _bookHref }: AboutIsland
           <div className="about-text">
             <div className="eyebrow mb-4">{t.missionEyebrow}</div>
             <h2 className="mb-5">{t.missionH2}</h2>
-            <p className="mb-4 text-lg leading-relaxed text-text-secondary">
-              {t.missionP1}
-            </p>
+            <p className="mb-4 text-lg leading-relaxed text-text-secondary">{t.missionP1}</p>
             <p className="text-lg leading-relaxed text-text-secondary">{t.missionP2}</p>
 
             <div className="mt-10 grid grid-cols-2 gap-5">

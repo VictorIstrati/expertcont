@@ -18,10 +18,9 @@ export function SectionHeader({
   const wrapperStyle: CSSProperties = {
     maxWidth,
   };
-  const wrapperClass = [
-    "mb-16",
-    align === "center" ? "text-center mx-auto" : "text-left",
-  ].join(" ");
+  const wrapperClass = ["mb-16", align === "center" ? "text-center mx-auto" : "text-left"].join(
+    " ",
+  );
   const eyebrowClass = [
     "eyebrow",
     "mb-4 inline-flex",
@@ -31,9 +30,7 @@ export function SectionHeader({
     <div className={wrapperClass} style={wrapperStyle}>
       {eyebrow && <div className={eyebrowClass}>{eyebrow}</div>}
       <h2 className={subtitle ? "mt-0 mb-5" : "mt-0 mb-0"}>{title}</h2>
-      {subtitle && (
-        <p className="text-lg text-text-secondary leading-relaxed">{subtitle}</p>
-      )}
+      {subtitle && <p className="text-lg text-text-secondary leading-relaxed">{subtitle}</p>}
     </div>
   );
 }

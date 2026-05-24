@@ -92,11 +92,7 @@ export function Nav({
     <header className={headerClass}>
       <Container as="div" className={styles.inner}>
         {/* Logo */}
-        <a
-          href={homeUrl(locale)}
-          className={styles.logoLink}
-          aria-label="ExpertCont"
-        >
+        <a href={homeUrl(locale)} className={styles.logoLink} aria-label="ExpertCont">
           <Logo variant="horizontal" size={38} />
         </a>
 

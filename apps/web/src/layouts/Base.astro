@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
-import type { Locale } from "@expertcont/i18n";
+import { getCollection } from "astro:content";
+import { detailUrl, type Locale, type ContentMeta } from "@expertcont/i18n";
 import { site } from "../site";
 
 interface Props {
@@ -23,12 +24,52 @@ const langAttr = locale === "ro" ? "ro" : locale === "ru" ? "ru" : "en";
 const ogLocale = locale === "ro" ? "ro_RO" : locale === "ru" ? "ru_RU" : "en_US";
 const ogImage = `${siteUrl}/og.png`;
 
+// Build a Service catalog from the services-meta collection so the schema
+// reflects the actual offering. Locale-aware URLs are derived via detailUrl.
+const serviceMetaEntries = await getCollection("services-meta");
+const services: ContentMeta[] = serviceMetaEntries.map((e) => e.data as ContentMeta);
+const hasOfferCatalog = {
+  "@type": "OfferCatalog",
+  name: "Servicii ExpertCont",
+  itemListElement: services.map((s) => ({
+    "@type": "Offer",
+    itemOffered: {
+      "@type": "Service",
+      name: s.titles[locale],
+      description: s.summaries[locale],
+      url: `${siteUrl}${detailUrl("services", s, locale)}`,
+    },
+  })),
+};
+
+// sameAs links non-empty social profiles to the business entity (Knowledge
+// Panel signal). Empty strings in site.yml are filtered out.
+const sameAs = [
+  site.business.socials.facebook,
+  site.business.socials.linkedin,
+  site.business.socials.instagram,
+].filter((u) => u.length > 0);
+
+// AccountingService is a schema.org subtype of LocalBusiness — eligible for
+// local-pack and rich results. Pricing tier "$$" maps to the Start package
+// (2499 MDL/mo). Opening hours mirror site.business.hours (Mon–Fri 9–18).
 const organizationJsonLd = {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "ExpertCont",
+  "@type": "AccountingService",
+  name: site.business.name,
+  slogan: site.business.slogan,
+  foundingDate: site.business.foundingDate,
+  numberOfEmployees: {
+    "@type": "QuantitativeValue",
+    minValue: site.business.employees.min,
+    maxValue: site.business.employees.max,
+  },
   url: siteUrl,
-  logo: `${siteUrl}/logo.png`,
+  logo: `${siteUrl}/logos/logo-vertical.png`,
+  image: `${siteUrl}/og.png`,
+  description:
+    "Servicii de contabilitate, evidență contabilă, consultanță juridică și HR pentru companii din Republica Moldova.",
+  priceRange: "$$",
   address: {
     "@type": "PostalAddress",
     streetAddress: site.business.address.street.ro,
@@ -38,6 +79,31 @@ const organizationJsonLd = {
   },
   telephone: site.business.phone,
   email: site.business.email,
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: site.business.phone,
+    email: site.business.email,
+    contactType: "customer service",
+    availableLanguage: ["Romanian", "Russian", "English"],
+    areaServed: site.business.address.countryCode,
+  },
+  areaServed: {
+    "@type": "Country",
+    name: site.business.address.countryName.ro,
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 47.02536313902645,
+    longitude: 28.83902617001159,
+  },
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    opens: "09:00",
+    closes: "18:00",
+  },
+  hasOfferCatalog,
+  ...(sameAs.length > 0 && { sameAs }),
 };
 ---
 
@@ -49,6 +115,7 @@ const organizationJsonLd = {
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#4663ab" />
 
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
@@ -88,6 +155,11 @@ const organizationJsonLd = {
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"

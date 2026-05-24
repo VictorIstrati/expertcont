@@ -19,25 +19,25 @@ interface LocaleStrings {
 const strings: Record<Locale, LocaleStrings> = {
   ro: {
     eyebrow: "SERVICII INTEGRATE",
-    heading: "O singură echipă pentru toate nevoile afacerii tale",
+    heading: "Servicii de contabilitate și consultanță sub un singur acoperiș",
     subtext:
-      "De la contabilitate primară la consultanță strategică — acoperim toate domeniile-cheie pentru o afacere sănătoasă în Moldova.",
+      "De la evidență contabilă și raportare fiscală la consultanță juridică, servicii HR și audit — toate serviciile pentru o afacere sănătoasă în Moldova.",
     viewAll: "Vezi toate serviciile",
     learnMore: "Află mai mult",
   },
   ru: {
     eyebrow: "ИНТЕГРИРОВАННЫЕ УСЛУГИ",
-    heading: "Одна команда для всех нужд вашего бизнеса",
+    heading: "Бухгалтерские услуги и консалтинг под одной крышей",
     subtext:
-      "От первичной бухгалтерии до стратегического консалтинга — мы покрываем все ключевые области для здорового бизнеса в Молдове.",
+      "От бухгалтерского учёта и налоговой отчётности до юридической консультации, HR-услуг и аудита — всё необходимое для здорового бизнеса в Молдове.",
     viewAll: "Смотреть все услуги",
     learnMore: "Узнать больше",
   },
   en: {
     eyebrow: "INTEGRATED SERVICES",
-    heading: "One team for all your business needs",
+    heading: "Accounting services and consulting under one roof",
     subtext:
-      "From primary bookkeeping to strategic consulting — we cover every key area for a healthy business in Moldova.",
+      "From bookkeeping and tax reporting to legal consulting, HR services and audit — everything a healthy business in Moldova needs.",
     viewAll: "View all services",
     learnMore: "Learn more",
   },

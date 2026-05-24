@@ -163,18 +163,13 @@ export function ServiceIndexGrid({ services, locale }: ServiceIndexGridProps) {
               <div className="w-14 h-14 rounded-md bg-primary-50 text-primary flex items-center justify-center mb-5 shrink-0">
                 <Icon name={serviceIcon(meta.id)} size={26} />
               </div>
-              <h3 className="text-2xl mb-3">
-                {meta.titles[locale as "ro" | "ru" | "en"]}
-              </h3>
+              <h3 className="text-2xl mb-3">{meta.titles[locale as "ro" | "ru" | "en"]}</h3>
               <p className="text-sm text-text-secondary mb-5 leading-relaxed grow">
                 {meta.summaries[locale as "ro" | "ru" | "en"]}
               </p>
               <ul className="list-none p-0 m-0 flex flex-col gap-2 mb-5">
                 {features.map((f, i) => (
-                  <li
-                    key={i}
-                    className="flex items-start gap-2 text-sm text-text-primary"
-                  >
+                  <li key={i} className="flex items-start gap-2 text-sm text-text-primary">
                     <span className="text-accent shrink-0 mt-1">
                       <Icon name="check" size={14} stroke={2.5} />
                     </span>
@@ -183,9 +178,7 @@ export function ServiceIndexGrid({ services, locale }: ServiceIndexGridProps) {
                 ))}
               </ul>
               {hint && (
-                <div className="text-xs font-bold text-primary tracking-wider mb-4">
-                  {hint}
-                </div>
+                <div className="text-xs font-bold text-primary tracking-wider mb-4">{hint}</div>
               )}
               <div className="flex items-center justify-between gap-3 flex-wrap mt-auto">
                 <ArrowLink href={href}>{learnMoreLabel(locale)}</ArrowLink>

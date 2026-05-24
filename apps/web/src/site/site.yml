@@ -10,18 +10,36 @@
 # ============================================================================
 
 business:
+  # Brand name — used everywhere: JSON-LD name, footer copyright, legal text.
+  name: "ExpertCont"
+  # ISO year of incorporation — surfaces as schema.org/foundingDate.
+  foundingDate: "2022"
+  # Headcount band for JSON-LD numberOfEmployees (QuantitativeValue).
+  employees:
+    min: 5
+    max: 10
+  # Tagline — used in JSON-LD slogan + free-text where helpful.
+  slogan: "Experiență · Eficiență · Rezultate"
   # Single canonical phone number. Used in footer, contact pages, service pages,
   # home CTA, and tel: links. Format with spaces for display.
-  phone: "+373 22 22 33 44"
-  email: contact@expertcont.md
+  phone: "+373 60 82 55 81"
+  email: info@expertcont.md
+  # Telegram username without the leading @. Used for t.me/<handle> links.
+  telegram: "expertcont_md"
+  # Social profile URLs. Used for schema.org sameAs (Knowledge Panel signal).
+  # Leave any field empty ("") to omit it from the structured data.
+  socials:
+    facebook: "https://www.facebook.com/expertcont.md"
+    linkedin: "https://www.linkedin.com/company/expertcont"
+    instagram: "https://www.instagram.com/expertcont.md"
   # Postal address as structured parts. Helpers in site/index.ts compose them into
   # short ("street, city") or full ("street, city, postalCode, country") strings.
   # JSON-LD in Base.astro reads street/city/postalCode/countryCode directly.
   address:
     street:
-      ro: "Str. Mitropolit Varlaam 65"
-      ru: "ул. Митрополит Варлаам 65"
-      en: "65 Mitropolit Varlaam St."
+      ro: "str. Alexandru cel Bun 51/A"
+      ru: "ул. Александру чел Бун 51/А"
+      en: "51/A Alexandru cel Bun St."
     city:
       ro: "Chișinău"
       ru: "Кишинёв"

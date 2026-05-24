@@ -131,10 +131,10 @@ const jsonLd = [
               <div class="mb-3 text-xs font-bold uppercase tracking-widest text-text-secondary">
                 {labels.similarLabel}
               </div>
-              {relatedGuides.length > 0 ? (
-                <div class="flex flex-col gap-3">
-                  {
-                    relatedGuides.map((p) => (
+              {
+                relatedGuides.length > 0 ? (
+                  <div class="flex flex-col gap-3">
+                    {relatedGuides.map((p) => (
                       <a href={p.href} class="block no-underline">
                         <div class="card-flat p-4">
                           <span class="pill pill-soft mb-2 inline-block">{p.category}</span>
@@ -146,30 +146,30 @@ const jsonLd = [
                           </div>
                         </div>
                       </a>
-                    ))
-                  }
-                </div>
-              ) : (
-                <p class="m-0 text-sm leading-relaxed text-text-secondary">
-                  {labels.noRelatedFallback}
-                </p>
-              )}
+                    ))}
+                  </div>
+                ) : (
+                  <p class="m-0 text-sm leading-relaxed text-text-secondary">
+                    {labels.noRelatedFallback}
+                  </p>
+                )
+              }
             </div>
           </aside>
         </div>
       </Container>
     </Section>
 
-    {relatedBlog.length > 0 && (
-      <Section tone="alt">
-        <Container>
-          <SectionHeader
-            eyebrow={labels.continueReadingEyebrow}
-            title={labels.continueReadingTitle}
-          />
-          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {
-              relatedBlog.map((p) => (
+    {
+      relatedBlog.length > 0 && (
+        <Section tone="alt">
+          <Container>
+            <SectionHeader
+              eyebrow={labels.continueReadingEyebrow}
+              title={labels.continueReadingTitle}
+            />
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {relatedBlog.map((p) => (
                 <article>
                   <a href={p.href} class="card card-hover block overflow-hidden p-0 no-underline">
                     <ImagePlaceholder ratio="16/10" label={p.category} />
@@ -182,11 +182,11 @@ const jsonLd = [
                     </div>
                   </a>
                 </article>
-              ))
-            }
-          </div>
-        </Container>
-      </Section>
-    )}
+              ))}
+            </div>
+          </Container>
+        </Section>
+      )
+    }
   </PageShell>
 </Base>

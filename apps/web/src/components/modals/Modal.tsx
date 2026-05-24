@@ -56,9 +56,7 @@ export function Modal({
         <div className="py-6 px-8 flex items-start justify-between gap-4 border-b border-border">
           <div>
             <h2 className="m-0 text-2xl font-bold">{title}</h2>
-            {subtitle && (
-              <p className="mt-2 mb-0 text-text-secondary text-sm">{subtitle}</p>
-            )}
+            {subtitle && <p className="mt-2 mb-0 text-text-secondary text-sm">{subtitle}</p>}
           </div>
           <button
             onClick={onClose}
@@ -69,11 +67,7 @@ export function Modal({
           </button>
         </div>
         <div className="p-8 overflow-auto flex-1">{children}</div>
-        {footer && (
-          <div className="py-4 px-8 border-t border-border bg-bg-section">
-            {footer}
-          </div>
-        )}
+        {footer && <div className="py-4 px-8 border-t border-border bg-bg-section">{footer}</div>}
       </div>
     </div>
   );

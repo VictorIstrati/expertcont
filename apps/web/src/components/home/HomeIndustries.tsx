@@ -1,5 +1,6 @@
 import { Container } from "@expertcont/ui";
 import type { Locale } from "@expertcont/i18n";
+import { sectionUrl } from "@expertcont/i18n";
 
 interface Props {
   locale: Locale;
@@ -68,9 +69,24 @@ const COPY: Record<Locale, LocaleStrings> = {
   },
 };
 
+function slugify(s: string): string {
+  return s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 export default function HomeIndustries({ locale }: Props) {
   const c = COPY[locale];
-  const row = [...c.items, ...c.items];
+  const roItems = COPY.ro.items;
+  const items = c.items.map((label, i) => ({
+    label,
+    href: `${sectionUrl("services", locale)}?industry=${slugify(roItems[i] ?? label)}`,
+  }));
+  const row = [...items, ...items];
   return (
     <section className="section-sm pt-0">
       <Container>
@@ -82,13 +98,14 @@ export default function HomeIndustries({ locale }: Props) {
       <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent_0%,black_8%,black_92%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_8%,black_92%,transparent_100%)]">
         <div className="flex gap-4 w-max [animation:marquee_40s_linear_infinite]">
           {row.map((it, i) => (
-            <div
+            <a
               key={i}
-              className="flex items-center gap-3 whitespace-nowrap rounded-full border border-border bg-bg-section-alt px-8 py-5 text-base font-semibold shadow-xs"
+              href={it.href}
+              className="flex items-center gap-3 whitespace-nowrap rounded-full border border-border bg-bg-section-alt px-8 py-5 text-base font-semibold shadow-xs text-inherit no-underline transition hover:border-accent hover:text-accent-dark"
             >
               <span className="inline-block h-2 w-2 rounded-full bg-accent" />
-              {it}
-            </div>
+              {it.label}
+            </a>
           ))}
         </div>
       </div>

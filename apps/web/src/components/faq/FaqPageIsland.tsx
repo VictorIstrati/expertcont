@@ -30,8 +30,7 @@ function FaqInner({ locale, groups, contactPhone, contactEmail }: Props) {
   const [activeCat, setActiveCat] = useState(allLabel);
   const [query, setQuery] = useState("");
 
-  const catFiltered =
-    activeCat === allLabel ? groups : groups.filter((g) => g.cat === activeCat);
+  const catFiltered = activeCat === allLabel ? groups : groups.filter((g) => g.cat === activeCat);
 
   const q = query.trim().toLowerCase();
   const visibleGroups = q

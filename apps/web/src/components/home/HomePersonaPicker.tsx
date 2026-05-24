@@ -12,6 +12,7 @@ interface Persona {
   icon: IconName;
   tier: string;
   time: string;
+  priceFrom: string;
   short: string;
   desc: string;
 }
@@ -38,6 +39,7 @@ const COPY: Record<Locale, LocaleStrings> = {
         icon: "lightbulb",
         tier: "STARTUP",
         time: "30 de zile onboarding",
+        priceFrom: "de la 2499 lei / lună",
         short: "Lansăm contabilitatea cu tine de la zero",
         desc: "Pentru fondatori și echipe noi: ne ocupăm de înregistrarea fiscală, conturile bancare, codurile CAEM, fluxurile inițiale și raportările primare.",
       },
@@ -46,6 +48,7 @@ const COPY: Record<Locale, LocaleStrings> = {
         icon: "trending",
         tier: "SCALE-UP",
         time: "14 zile onboarding",
+        priceFrom: "de la 2999 lei / lună",
         short: "Punem ordine în contabilitatea unei afaceri care crește",
         desc: "Pentru SRL în creștere care au nevoie de manager dedicat, raportare lunară clară și optimizare fiscală fără surprize.",
       },
@@ -54,6 +57,7 @@ const COPY: Record<Locale, LocaleStrings> = {
         icon: "briefcase",
         tier: "ENTERPRISE",
         time: "Personalizat",
+        priceFrom: "ofertă personalizată",
         short: "Echipă dedicată pentru grupuri și operațiuni complexe",
         desc: "Pentru companii cu mai multe entități, raportare consolidată, conformitate IFRS și nevoi de audit intern recurente.",
       },
@@ -71,6 +75,7 @@ const COPY: Record<Locale, LocaleStrings> = {
         icon: "lightbulb",
         tier: "STARTUP",
         time: "30 дней онбординга",
+        priceFrom: "от 2499 леев / мес",
         short: "Запускаем бухгалтерию вместе с вами с нуля",
         desc: "Для основателей и новых команд: берём на себя налоговую регистрацию, банковские счета, коды CAEM, начальные потоки и первичную отчётность.",
       },
@@ -79,6 +84,7 @@ const COPY: Record<Locale, LocaleStrings> = {
         icon: "trending",
         tier: "SCALE-UP",
         time: "14 дней онбординга",
+        priceFrom: "от 2999 леев / мес",
         short: "Наводим порядок в бухгалтерии растущего бизнеса",
         desc: "Для ООО в стадии роста: выделенный менеджер, чёткая ежемесячная отчётность и налоговая оптимизация без сюрпризов.",
       },
@@ -87,6 +93,7 @@ const COPY: Record<Locale, LocaleStrings> = {
         icon: "briefcase",
         tier: "ENTERPRISE",
         time: "Индивидуально",
+        priceFrom: "индивидуальное предложение",
         short: "Выделенная команда для групп и сложных операций",
         desc: "Для компаний с несколькими юридическими лицами: консолидированная отчётность, соответствие МСФО и регулярный внутренний аудит.",
       },
@@ -104,6 +111,7 @@ const COPY: Record<Locale, LocaleStrings> = {
         icon: "lightbulb",
         tier: "STARTUP",
         time: "30-day onboarding",
+        priceFrom: "from 2499 MDL / month",
         short: "We launch your accounting from scratch",
         desc: "For founders and new teams: we handle tax registration, bank accounts, activity codes, initial cash flows, and primary reporting.",
       },
@@ -112,6 +120,7 @@ const COPY: Record<Locale, LocaleStrings> = {
         icon: "trending",
         tier: "SCALE-UP",
         time: "14-day onboarding",
+        priceFrom: "from 2999 MDL / month",
         short: "We bring order to a growing business's books",
         desc: "For growing LLCs that need a dedicated manager, clear monthly reporting, and tax optimisation with no surprises.",
       },
@@ -120,6 +129,7 @@ const COPY: Record<Locale, LocaleStrings> = {
         icon: "briefcase",
         tier: "ENTERPRISE",
         time: "Custom",
+        priceFrom: "tailored quote",
         short: "Dedicated team for groups and complex operations",
         desc: "For companies with multiple entities: consolidated reporting, IFRS compliance, and recurring internal audit needs.",
       },
@@ -155,9 +165,10 @@ export default function HomePersonaPicker({ locale }: Props) {
                 <span className="text-text-secondary font-semibold">{p.time}</span>
               </div>
               <h3 className="text-xl leading-tight mb-0">&ldquo;{p.short}&rdquo;</h3>
-              <p className="text-sm leading-relaxed text-text-secondary mb-auto">
-                {p.desc}
-              </p>
+              <div className="inline-flex w-fit items-center rounded-pill bg-accent-50 px-3 py-1 text-xs font-bold text-accent-dark">
+                {p.priceFrom}
+              </div>
+              <p className="text-sm leading-relaxed text-text-secondary mb-auto">{p.desc}</p>
               <div className="inline-flex items-center gap-2 pt-4 border-t border-border text-sm font-semibold text-primary">
                 {c.cta} <Icon name="arrow-right" size={14} />
               </div>

@@ -5,6 +5,10 @@ import { site } from "../../site";
 
 const EMAIL = site.business.email;
 const PHONE = site.business.phone;
+const LEGAL_NAME = site.business.name;
+const ADDR_RO = `${site.business.address.street.ro}, ${site.business.address.city.ro}, ${site.business.address.postalCode}`;
+const ADDR_RU = `${site.business.address.street.ru}, ${site.business.address.city.ru}, ${site.business.address.postalCode}`;
+const ADDR_EN = `${site.business.address.street.en}, ${site.business.address.city.en}, ${site.business.address.postalCode}`;
 
 const breadcrumbLabels: Record<Locale, { home: string; legal: string }> = {
   ro: { home: "Acasă", legal: "Legal" },
@@ -47,7 +51,7 @@ const content: ContentMap = {
       sections: [
         {
           h: "1. Cine suntem",
-          t: `ExpertCont SRL, IDNO 1009600012345, cu sediul în str. Mitropolit Varlaam 65, Chișinău, MD-2012, este operatorul de date personale pentru scopurile descrise mai jos. Ne puteți contacta la ${EMAIL} pentru orice întrebare legată de prelucrarea datelor dumneavoastră.`,
+          t: `${LEGAL_NAME}, cu sediul în ${ADDR_RO}, este operatorul de date personale pentru scopurile descrise mai jos. Ne puteți contacta la ${EMAIL} pentru orice întrebare legată de prelucrarea datelor dumneavoastră.`,
         },
         {
           h: "2. Ce date colectăm",
@@ -71,8 +75,7 @@ const content: ContentMap = {
         },
       ],
       questionsTitle: "Ai întrebări?",
-      questionsBody:
-        `Pentru orice clarificare legată de acest document, contactează-ne la ${EMAIL} sau la ${PHONE}.`,
+      questionsBody: `Pentru orice clarificare legată de acest document, contactează-ne la ${EMAIL} sau la ${PHONE}.`,
       questionsEmail: EMAIL,
       questionsBtn: "Contactează-ne",
     },
@@ -103,8 +106,7 @@ const content: ContentMap = {
         },
       ],
       questionsTitle: "Ai întrebări despre cookie-uri?",
-      questionsBody:
-        `Dacă ai întrebări despre politica noastră de cookie-uri, contactează-ne la ${EMAIL}.`,
+      questionsBody: `Dacă ai întrebări despre politica noastră de cookie-uri, contactează-ne la ${EMAIL}.`,
       questionsEmail: EMAIL,
       questionsBtn: "Contactează-ne",
     },
@@ -139,8 +141,7 @@ const content: ContentMap = {
         },
       ],
       questionsTitle: "Ai întrebări?",
-      questionsBody:
-        `Pentru orice clarificare legată de acești termeni, contactează-ne la ${EMAIL} sau la ${PHONE}.`,
+      questionsBody: `Pentru orice clarificare legată de acești termeni, contactează-ne la ${EMAIL} sau la ${PHONE}.`,
       questionsEmail: EMAIL,
       questionsBtn: "Contactează-ne",
     },
@@ -153,7 +154,7 @@ const content: ContentMap = {
       sections: [
         {
           h: "1. Кто мы такие",
-          t: `ExpertCont SRL, IDNO 1009600012345, зарегистрированная по адресу: ул. Митрополит Варлаам 65, Кишинёв, MD-2012, является оператором персональных данных в целях, описанных ниже. Вы можете связаться с нами по адресу ${EMAIL} по любым вопросам, связанным с обработкой ваших данных.`,
+          t: `${LEGAL_NAME}, зарегистрированная по адресу: ${ADDR_RU}, является оператором персональных данных в целях, описанных ниже. Вы можете связаться с нами по адресу ${EMAIL} по любым вопросам, связанным с обработкой ваших данных.`,
         },
         {
           h: "2. Какие данные мы собираем",
@@ -177,8 +178,7 @@ const content: ContentMap = {
         },
       ],
       questionsTitle: "Есть вопросы?",
-      questionsBody:
-        `По любым вопросам, связанным с этим документом, свяжитесь с нами по адресу ${EMAIL} или по телефону ${PHONE}.`,
+      questionsBody: `По любым вопросам, связанным с этим документом, свяжитесь с нами по адресу ${EMAIL} или по телефону ${PHONE}.`,
       questionsEmail: EMAIL,
       questionsBtn: "Связаться с нами",
     },
@@ -209,8 +209,7 @@ const content: ContentMap = {
         },
       ],
       questionsTitle: "Вопросы о cookie-файлах?",
-      questionsBody:
-        `Если у вас есть вопросы о нашей политике использования cookie, свяжитесь с нами по адресу ${EMAIL}.`,
+      questionsBody: `Если у вас есть вопросы о нашей политике использования cookie, свяжитесь с нами по адресу ${EMAIL}.`,
       questionsEmail: EMAIL,
       questionsBtn: "Связаться с нами",
     },
@@ -245,8 +244,7 @@ const content: ContentMap = {
         },
       ],
       questionsTitle: "Есть вопросы?",
-      questionsBody:
-        `По любым вопросам, связанным с настоящими условиями, свяжитесь с нами по адресу ${EMAIL} или по телефону ${PHONE}.`,
+      questionsBody: `По любым вопросам, связанным с настоящими условиями, свяжитесь с нами по адресу ${EMAIL} или по телефону ${PHONE}.`,
       questionsEmail: EMAIL,
       questionsBtn: "Связаться с нами",
     },
@@ -259,7 +257,7 @@ const content: ContentMap = {
       sections: [
         {
           h: "1. Who We Are",
-          t: `ExpertCont SRL, IDNO 1009600012345, registered at str. Mitropolit Varlaam 65, Chișinău, MD-2012, is the data controller for the purposes described below. You can contact us at ${EMAIL} for any questions related to the processing of your data.`,
+          t: `${LEGAL_NAME}, registered at ${ADDR_EN}, is the data controller for the purposes described below. You can contact us at ${EMAIL} for any questions related to the processing of your data.`,
         },
         {
           h: "2. What Data We Collect",
@@ -283,8 +281,7 @@ const content: ContentMap = {
         },
       ],
       questionsTitle: "Have Questions?",
-      questionsBody:
-        `For any clarification related to this document, contact us at ${EMAIL} or at ${PHONE}.`,
+      questionsBody: `For any clarification related to this document, contact us at ${EMAIL} or at ${PHONE}.`,
       questionsEmail: EMAIL,
       questionsBtn: "Contact Us",
     },
@@ -315,8 +312,7 @@ const content: ContentMap = {
         },
       ],
       questionsTitle: "Questions About Cookies?",
-      questionsBody:
-        `If you have questions about our cookie policy, contact us at ${EMAIL}.`,
+      questionsBody: `If you have questions about our cookie policy, contact us at ${EMAIL}.`,
       questionsEmail: EMAIL,
       questionsBtn: "Contact Us",
     },
@@ -351,8 +347,7 @@ const content: ContentMap = {
         },
       ],
       questionsTitle: "Have Questions?",
-      questionsBody:
-        `For any clarification related to these terms, contact us at ${EMAIL} or at ${PHONE}.`,
+      questionsBody: `For any clarification related to these terms, contact us at ${EMAIL} or at ${PHONE}.`,
       questionsEmail: EMAIL,
       questionsBtn: "Contact Us",
     },
@@ -381,8 +376,7 @@ export default function LegalIsland({ locale, kind, contactHref }: LegalIslandPr
             <div className="mb-10 flex items-center gap-3 rounded-md border border-border bg-bg-section-alt px-5 py-4">
               <Icon name="file-text" size={18} className="text-primary" />
               <span className="text-sm text-text-secondary">
-                {data.lastUpdated}:{" "}
-                <strong className="text-text-primary">{data.updated}</strong>
+                {data.lastUpdated}: <strong className="text-text-primary">{data.updated}</strong>
               </span>
             </div>
 
@@ -402,10 +396,7 @@ export default function LegalIsland({ locale, kind, contactHref }: LegalIslandPr
                   idx < arr.length - 1 ? (
                     <span key={idx}>
                       {part}
-                      <a
-                        href={`mailto:${data.questionsEmail}`}
-                        className="text-primary"
-                      >
+                      <a href={`mailto:${data.questionsEmail}`} className="text-primary">
                         {data.questionsEmail}
                       </a>
                     </span>

@@ -28,7 +28,7 @@ const strings: Record<Locale, LocaleStrings> = {
     eyebrow: "CE SPUN CLIENȚII",
     heading: "Încrederea celor care lucrează cu noi",
     description:
-      "Recenzii anonimizate ale clienților noștri. Identitatea lor rămâne confidențială — datele de business nu se discută public.",
+      "Recenzii reale ale clienților noștri, cu nume parțial și sector — restul detaliilor rămân confidențiale.",
     leaveReview: "Lasă o recenzie",
     prevLabel: "Anterior",
     nextLabel: "Următor",
@@ -36,19 +36,19 @@ const strings: Record<Locale, LocaleStrings> = {
       {
         quote:
           "Ne-au identificat preventiv o expunere fiscală pe care propriul nostru contabil intern o ratase. De atunci, dormim liniștiți.",
-        role: "Director, companie de transport",
+        role: "Dorina S. · Director, companie de transport (5 angajați)",
         tag: "Client din 2022",
       },
       {
         quote:
           "Răspunsul rapid e ce ne-a câștigat. Întrebări pe email — primim răspuns clar în câteva ore, nu peste o săptămână.",
-        role: "Fondatoare, atelier de creație",
+        role: "Inga S. · Fondatoare, atelier de creație",
         tag: "Client din 2023",
       },
       {
         quote:
           "Au preluat și partea juridică pe lângă contabilitate. Nu mai pierd timp coordonând două firme — totul printr-un singur manager de cont.",
-        role: "Managing Partner, IT",
+        role: "Gheorghe P. · Fondator, SaaS B2B",
         tag: "Client din 2024",
       },
     ],
@@ -57,7 +57,7 @@ const strings: Record<Locale, LocaleStrings> = {
     eyebrow: "ЧТО ГОВОРЯТ КЛИЕНТЫ",
     heading: "Доверие тех, кто работает с нами",
     description:
-      "Анонимизированные отзывы наших клиентов. Их личность остаётся конфиденциальной — деловые данные не обсуждаются публично.",
+      "Реальные отзывы наших клиентов — имя частично, сектор указан, остальные детали остаются конфиденциальными.",
     leaveReview: "Оставить отзыв",
     prevLabel: "Назад",
     nextLabel: "Вперёд",
@@ -65,19 +65,19 @@ const strings: Record<Locale, LocaleStrings> = {
       {
         quote:
           "Они превентивно выявили налоговую уязвимость, которую наш собственный внутренний бухгалтер упустил. С тех пор мы спим спокойно.",
-        role: "Директор, транспортная компания",
+        role: "Дорина С. · Директор, транспортная компания (5 сотрудников)",
         tag: "Клиент с 2022 г.",
       },
       {
         quote:
           "Быстрый ответ — это то, что нас подкупило. Вопросы по email — получаем чёткий ответ за несколько часов, а не через неделю.",
-        role: "Основатель, творческая мастерская",
+        role: "Инга С. · Основательница, творческая мастерская",
         tag: "Клиент с 2023 г.",
       },
       {
         quote:
           "Взяли на себя и юридическую часть в дополнение к бухгалтерии. Больше не трачу время на координацию двух фирм — всё через одного менеджера.",
-        role: "Managing Partner, IT",
+        role: "Георгий П. · Основатель, SaaS B2B",
         tag: "Клиент с 2024 г.",
       },
     ],
@@ -86,7 +86,7 @@ const strings: Record<Locale, LocaleStrings> = {
     eyebrow: "WHAT CLIENTS SAY",
     heading: "The trust of those who work with us",
     description:
-      "Anonymised reviews from our clients. Their identity remains confidential — business data is not discussed publicly.",
+      "Real reviews from our clients — first names and sector shown, all other details kept confidential.",
     leaveReview: "Leave a review",
     prevLabel: "Previous",
     nextLabel: "Next",
@@ -94,19 +94,19 @@ const strings: Record<Locale, LocaleStrings> = {
       {
         quote:
           "They proactively identified a tax exposure that our own in-house accountant had missed. Since then, we sleep soundly.",
-        role: "Director, transport company",
+        role: "Dorina S. · Director, transport company (5 employees)",
         tag: "Client since 2022",
       },
       {
         quote:
           "Fast response is what won us over. Questions by email — we get a clear answer within a few hours, not after a week.",
-        role: "Founder, creative studio",
+        role: "Inga S. · Founder, creative studio",
         tag: "Client since 2023",
       },
       {
         quote:
           "They also took on the legal side alongside accounting. I no longer waste time coordinating two firms — everything through a single account manager.",
-        role: "Managing Partner, IT",
+        role: "Gheorghe P. · Founder, B2B SaaS",
         tag: "Client since 2024",
       },
     ],
@@ -129,9 +129,7 @@ export default function HomeTestimonialsGrid({ locale }: Props) {
           <div className="max-sm:[&_h2]:text-4xl max-sm:[&_p]:text-base">
             <div className="eyebrow mb-4">{t.eyebrow}</div>
             <h2>{t.heading}</h2>
-            <p className="text-base text-text-secondary mt-4 leading-relaxed">
-              {t.description}
-            </p>
+            <p className="text-base text-text-secondary mt-4 leading-relaxed">{t.description}</p>
 
             {/* Dot pager — desktop */}
             <div className="mt-8 flex gap-2 max-lg:hidden">
@@ -141,9 +139,7 @@ export default function HomeTestimonialsGrid({ locale }: Props) {
                   onClick={() => setActive(i)}
                   aria-label={`Recenzia ${i + 1}`}
                   className={`h-5 min-h-0 rounded-pill border-none cursor-pointer p-0 transition-all duration-300 ease ${
-                    i === active
-                      ? "w-10 bg-primary"
-                      : "w-3 bg-border-strong"
+                    i === active ? "w-10 bg-primary" : "w-3 bg-border-strong"
                   }`}
                 />
               ))}
@@ -190,10 +186,7 @@ export default function HomeTestimonialsGrid({ locale }: Props) {
             </div>
 
             {/* Quote text — keyed by active so it re-mounts for fade */}
-            <p
-              key={active}
-              className="testi-quote fade-in text-xl leading-relaxed mb-8 relative"
-            >
+            <p key={active} className="testi-quote fade-in text-xl leading-relaxed mb-8 relative">
               {item.quote}
             </p>
 
@@ -227,9 +220,7 @@ export default function HomeTestimonialsGrid({ locale }: Props) {
                     onClick={() => setActive(i)}
                     aria-label={`Recenzia ${i + 1}`}
                     className={`h-5 min-h-0 rounded-pill border-none cursor-pointer p-0 transition-all duration-300 ease ${
-                      i === active
-                        ? "w-8 bg-primary"
-                        : "w-3 bg-border-strong"
+                      i === active ? "w-8 bg-primary" : "w-3 bg-border-strong"
                     }`}
                   />
                 ))}

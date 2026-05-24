@@ -38,7 +38,8 @@ const roundTo10 = (n: number): number => Math.round(n / 10) * 10;
 /** Pick the first revenue bucket whose `upToMDL` >= the given revenue. */
 function pickRevenueBucket(revenueMDL: number, buckets: CalcRevenueBucket[]): CalcRevenueBucket {
   return (
-    buckets.find((b) => revenueMDL <= b.upToMDL) ?? (buckets[buckets.length - 1] as CalcRevenueBucket)
+    buckets.find((b) => revenueMDL <= b.upToMDL) ??
+    (buckets[buckets.length - 1] as CalcRevenueBucket)
   );
 }
 

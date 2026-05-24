@@ -15,9 +15,7 @@ export function ConfirmationStep({ data, t, locale }: Props) {
         <Icon name="check" size={36} />
       </div>
       <h3 className="mb-3">{t.doneTitle}</h3>
-      <p className="text-text-secondary max-w-[420px] mx-auto mb-8 leading-relaxed">
-        {t.doneMsg}
-      </p>
+      <p className="text-text-secondary max-w-[420px] mx-auto mb-8 leading-relaxed">{t.doneMsg}</p>
       {data.date && (
         <div className="inline-flex flex-col py-5 px-8 bg-bg-section-alt rounded-md border border-border text-left gap-2">
           <div className="text-xs font-bold text-primary tracking-widest uppercase">

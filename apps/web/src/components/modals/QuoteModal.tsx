@@ -61,7 +61,8 @@ const strings: Record<Locale, Strings> = {
     title: "Хочу предложение",
     subtitle: "Оставьте контакты — свяжемся в течение 4 часов с индивидуальным предложением.",
     summaryHeading: "Детали вашего запроса",
-    emptyQuote: "Вы не выбрали ни одной услуги в калькуляторе. Обсудим ваши потребности по телефону.",
+    emptyQuote:
+      "Вы не выбрали ни одной услуги в калькуляторе. Обсудим ваши потребности по телефону.",
     monthlyLabel: "Итого в месяц",
     annualLabel: "Годовая оценка",
     nameLabel: "Полное имя",
@@ -81,7 +82,8 @@ const strings: Record<Locale, Strings> = {
     title: "I want the offer",
     subtitle: "Leave your details — we'll call within 4 hours with a tailored offer.",
     summaryHeading: "Your request details",
-    emptyQuote: "You haven't selected any service in the calculator. We'll discuss your needs by phone.",
+    emptyQuote:
+      "You haven't selected any service in the calculator. We'll discuss your needs by phone.",
     monthlyLabel: "Monthly estimate",
     annualLabel: "Annual estimate",
     nameLabel: "Full name",
@@ -175,10 +177,7 @@ export function QuoteModal({ open, onClose, locale, quote }: Props) {
               <>
                 <ul className="list-none p-0 m-0 flex flex-col gap-3">
                   {quote.items.map((it) => (
-                    <li
-                      key={it.key}
-                      className="flex justify-between items-baseline gap-3 text-sm"
-                    >
+                    <li key={it.key} className="flex justify-between items-baseline gap-3 text-sm">
                       <div className="flex flex-col min-w-0">
                         <span className="font-semibold flex items-center gap-2">
                           {it.label}
@@ -198,9 +197,7 @@ export function QuoteModal({ open, onClose, locale, quote }: Props) {
                             {nf.format(it.originalSubtotal)} MDL
                           </div>
                         )}
-                        <span className="font-bold text-primary">
-                          {nf.format(it.subtotal)} MDL
-                        </span>
+                        <span className="font-bold text-primary">{nf.format(it.subtotal)} MDL</span>
                       </div>
                     </li>
                   ))}

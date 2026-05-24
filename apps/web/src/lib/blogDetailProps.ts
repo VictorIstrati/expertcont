@@ -54,8 +54,7 @@ const LABELS: Record<Locale, DetailLabels> = {
     continueReadingEyebrow: "Continue reading",
     continueReadingTitle: "Related articles",
     inlineCtaTitle: "Questions about how these changes affect you?",
-    inlineCtaSubtitle:
-      "Book a free 30-minute consultation with an ExpertCont tax advisor.",
+    inlineCtaSubtitle: "Book a free 30-minute consultation with an ExpertCont tax advisor.",
     inlineCtaButton: "Book a consultation",
   },
 };

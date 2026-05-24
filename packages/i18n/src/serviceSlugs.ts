@@ -8,13 +8,7 @@ import { sectionUrl } from "./urls";
  *
  * When adding/renaming a service, update both this map and the meta JSON.
  */
-export type ServiceId =
-  | "accounting"
-  | "audit"
-  | "legal"
-  | "consulting"
-  | "hr"
-  | "it";
+export type ServiceId = "accounting" | "audit" | "legal" | "consulting" | "hr" | "it";
 
 export const SERVICE_IDS: readonly ServiceId[] = [
   "accounting",

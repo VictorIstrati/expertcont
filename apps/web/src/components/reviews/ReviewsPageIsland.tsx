@@ -51,15 +51,11 @@ export default function ReviewsPageIsland({
         <div className="flex flex-col gap-2">
           {DIST.map((d) => (
             <div key={d.stars} className="flex items-center gap-3">
-              <span className="w-4 text-right text-sm text-text-secondary">
-                {d.stars}
-              </span>
+              <span className="w-4 text-right text-sm text-text-secondary">{d.stars}</span>
               <span className="text-sm text-[#F59E0B]">★</span>
               <div className="h-2 flex-1 overflow-hidden rounded bg-border">
                 <div
-                  className={`h-full rounded ${
-                    d.stars >= 4 ? "bg-primary" : "bg-text-secondary"
-                  }`}
+                  className={`h-full rounded ${d.stars >= 4 ? "bg-primary" : "bg-text-secondary"}`}
                   style={{ width: `${d.pct}%` }}
                 />
               </div>

@@ -47,12 +47,7 @@ export default function ModalsHost({ locale }: Props) {
       <BookingModal open={openKey === "booking"} onClose={close} locale={locale} />
       <ReviewModal open={openKey === "review"} onClose={close} locale={locale} />
       <AskQuestionModal open={openKey === "ask-question"} onClose={close} locale={locale} />
-      <QuoteModal
-        open={openKey === "quote"}
-        onClose={close}
-        locale={locale}
-        quote={quotePayload}
-      />
+      <QuoteModal open={openKey === "quote"} onClose={close} locale={locale} quote={quotePayload} />
     </I18nRoot>
   );
 }

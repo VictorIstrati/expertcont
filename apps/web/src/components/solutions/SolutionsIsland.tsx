@@ -95,9 +95,7 @@ function SolutionsInner({
                 <div className="flex items-center justify-between gap-2">
                   <span
                     className={`flex h-10 w-10 items-center justify-center rounded-sm ${
-                      active === i
-                        ? "bg-white/15 text-white"
-                        : "bg-accent-50 text-accent-dark"
+                      active === i ? "bg-white/15 text-white" : "bg-accent-50 text-accent-dark"
                     }`}
                   >
                     <Icon name={personaIcons[i]} size={20} />
@@ -132,9 +130,7 @@ function SolutionsInner({
                 Soluție · {p.tier}
               </div>
               <h2 className="mb-5">{p.headline}</h2>
-              <p className="mb-8 text-lg leading-relaxed text-text-secondary">
-                {p.desc}
-              </p>
+              <p className="mb-8 text-lg leading-relaxed text-text-secondary">{p.desc}</p>
 
               <h3 className="mb-4 flex items-center gap-3 text-lg">
                 <Icon name="check-circle" size={20} className="text-primary" />
@@ -156,11 +152,7 @@ function SolutionsInner({
 
               {/* Timeline pill */}
               <div className="flex items-center gap-4 rounded-md border border-[color-mix(in_srgb,var(--color-accent)_40%,transparent)] bg-accent-50 px-5 py-4">
-                <Icon
-                  name="clock"
-                  size={20}
-                  className="shrink-0 text-accent-dark"
-                />
+                <Icon name="clock" size={20} className="shrink-0 text-accent-dark" />
                 <div>
                   <div className="mb-1 text-xs font-bold uppercase tracking-widest text-accent-dark">
                     {timelineLabel}

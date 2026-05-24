@@ -18,18 +18,13 @@ export function ServiceWhatsIncluded({ items, heading }: ServiceWhatsIncludedPro
       <h2 className="text-4xl mb-6">{heading}</h2>
       <div className="svc-includes-grid grid grid-cols-2 gap-4 mb-12">
         {items.map((it, i) => (
-          <div
-            key={i}
-            className="flex gap-4 p-5 rounded-md bg-bg-section-alt border border-border"
-          >
+          <div key={i} className="flex gap-4 p-5 rounded-md bg-bg-section-alt border border-border">
             <div className="w-9 h-9 rounded-sm bg-bg-card text-primary flex items-center justify-center shrink-0 border border-border">
               <Icon name={it.icon} size={18} />
             </div>
             <div>
               <div className="font-bold text-base mb-1">{it.title}</div>
-              <div className="text-sm text-text-secondary leading-normal">
-                {it.text}
-              </div>
+              <div className="text-sm text-text-secondary leading-normal">{it.text}</div>
             </div>
           </div>
         ))}

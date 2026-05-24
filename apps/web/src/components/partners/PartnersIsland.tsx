@@ -223,9 +223,7 @@ export function PartnersIsland({ locale, homeHref }: PartnersIslandProps) {
             <div>
               <div className="eyebrow mb-4">{t.introEyebrow}</div>
               <h2 className="mb-5">{t.introTitle}</h2>
-              <p className="text-text-secondary text-lg leading-relaxed">
-                {t.introText}
-              </p>
+              <p className="text-text-secondary text-lg leading-relaxed">{t.introText}</p>
             </div>
             <div className="grid grid-cols-2 gap-5">
               {t.stats.map((s, i) => (
@@ -259,9 +257,7 @@ export function PartnersIsland({ locale, homeHref }: PartnersIslandProps) {
                   {cat.partners.map((p, j) => (
                     <span key={j}>
                       {p}
-                      {j < cat.partners.length - 1 && (
-                        <span className="ml-2 text-accent">·</span>
-                      )}
+                      {j < cat.partners.length - 1 && <span className="ml-2 text-accent">·</span>}
                     </span>
                   ))}
                 </div>
@@ -277,9 +273,7 @@ export function PartnersIsland({ locale, homeHref }: PartnersIslandProps) {
           <div className="card p-12 text-center max-w-2xl mx-auto">
             <div className="eyebrow mb-5 justify-center inline-flex">{t.ctaEyebrow}</div>
             <h2 className="mb-4">{t.ctaTitle}</h2>
-            <p className="text-text-secondary text-lg leading-relaxed mb-8">
-              {t.ctaText}
-            </p>
+            <p className="text-text-secondary text-lg leading-relaxed mb-8">{t.ctaText}</p>
             <div className="flex flex-wrap gap-3 justify-center">
               <Button
                 variant="primary"

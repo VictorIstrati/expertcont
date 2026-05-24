@@ -54,9 +54,7 @@ export default function HomeCTASection({ locale }: Props) {
       <div className="container relative mx-auto max-w-3xl text-center">
         <div className="eyebrow mb-5 inline-flex justify-center">{t.eyebrow}</div>
         <h2 className="text-white mb-5 max-sm:text-4xl">{t.heading}</h2>
-        <p className="text-white/80 text-lg mb-8 py-6 max-sm:text-base">
-          {t.subtitle}
-        </p>
+        <p className="text-white/80 text-lg mb-8 py-6 max-sm:text-base">{t.subtitle}</p>
         <div className="flex flex-wrap justify-center gap-3">
           <Button variant="primary" size="lg" icon="calendar" onClick={() => openModal("booking")}>
             {t.ctaBook}

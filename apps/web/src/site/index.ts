@@ -60,8 +60,18 @@ const calculatorStrings = z.object({
 
 const SiteSchema = z.object({
   business: z.object({
+    name: z.string(),
+    foundingDate: z.string(),
+    employees: z.object({ min: z.number().int().positive(), max: z.number().int().positive() }),
+    slogan: z.string(),
     phone: z.string(),
     email: z.string().email(),
+    telegram: z.string(),
+    socials: z.object({
+      facebook: z.string(),
+      linkedin: z.string(),
+      instagram: z.string(),
+    }),
     address: z.object({
       street: localized,
       city: localized,
@@ -128,7 +138,6 @@ const PricingConfigSchema = z.object({
   }),
   hrPerEmployee: z.number().int().positive(),
   vatSurcharge: z.number().int().nonnegative(),
-
 });
 
 export type Site = z.infer<typeof SiteSchema>;
@@ -227,10 +236,12 @@ export function buildPricingProps(locale: Locale): Omit<PricingIslandProps, "loc
         ...(i.salePct !== undefined && { salePct: i.salePct }),
         ...(i.saleMonths !== undefined && { saleMonths: i.saleMonths }),
       })),
-      industryGroups: (Object.entries(pricingConfig.industryGroups) as [
-        IndustryGroupId,
-        { ro: string; ru: string; en: string },
-      ][]).reduce(
+      industryGroups: (
+        Object.entries(pricingConfig.industryGroups) as [
+          IndustryGroupId,
+          { ro: string; ru: string; en: string },
+        ][]
+      ).reduce(
         (acc, [key, value]) => {
           acc[key] = pick(value, locale);
           return acc;
