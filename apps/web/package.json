@@ -13,6 +13,7 @@
   "dependencies": {
     "@astrojs/mdx": "^3.1.0",
     "@astrojs/react": "^3.6.2",
+    "@astrojs/sitemap": "^3.2.1",
     "@expertcont/i18n": "workspace:*",
     "@expertcont/tokens": "workspace:*",
     "@expertcont/ui": "workspace:*",

@@ -1,0 +1,36 @@
+---
+import Base from "../layouts/Base.astro";
+import PageShell from "../components/PageShell.astro";
+import SitemapContent from "../components/SitemapContent.astro";
+import { PageHeader } from "@expertcont/ui";
+import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+import { breadcrumbListJsonLd } from "../lib/jsonLd";
+import { sitemapPageMeta } from "../lib/sitemapData";
+
+const locale: Locale = "ro";
+const siblings: Record<Locale, string> = {
+  ro: sectionUrl("sitemap", "ro"),
+  ru: sectionUrl("sitemap", "ru"),
+  en: sectionUrl("sitemap", "en"),
+};
+const meta = sitemapPageMeta[locale];
+
+const jsonLd = breadcrumbListJsonLd([
+  { name: "Acasă", url: homeUrl(locale) },
+  { name: meta.heading, url: sectionUrl("sitemap", locale) },
+]);
+---
+
+<Base
+  title={meta.title}
+  description={meta.description}
+  locale={locale}
+  path={sectionUrl("sitemap", locale)}
+  siblings={siblings}
+  jsonLd={jsonLd}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <PageHeader title={meta.heading} />
+    <SitemapContent locale={locale} />
+  </PageShell>
+</Base>

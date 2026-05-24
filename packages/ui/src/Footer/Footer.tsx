@@ -242,6 +242,11 @@ export function Footer({ locale, address, phone, email, onNewsletterSubscribe }:
                   <Trans>Cookies</Trans>
                 </a>
               </li>
+              <li>
+                <a href={sectionUrl("sitemap", locale)}>
+                  <Trans>Sitemap</Trans>
+                </a>
+              </li>
             </ul>
           </div>
         </div>

@@ -58,7 +58,7 @@ export default function BlogIndexIsland({
   });
 
   const featured = filtered.find((p) => p.featured);
-  const rest = filtered.filter((p) => !p.featured);
+  const rest = filtered.filter((p) => p !== featured);
 
   const filtersActive = query.trim() !== "" || activeCat !== categories[0];
   const filterBar = (

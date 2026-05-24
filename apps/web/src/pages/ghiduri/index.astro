@@ -3,7 +3,13 @@ import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import PageShell from "../../components/PageShell.astro";
 import GuidesIndexIsland from "../../components/guides/GuidesIndexIsland";
-import { homeUrl, sectionUrl, detailUrl, type Locale, type ContentMeta } from "@expertcont/i18n";
+import {
+  sectionUrl,
+  detailUrl,
+  type Locale,
+  type ContentMeta,
+} from "@expertcont/i18n";
+import { guidesIndexProps } from "../../lib/guidesIndexProps";
 
 const locale: Locale = "ro";
 const siblings: Record<Locale, string> = {
@@ -12,31 +18,11 @@ const siblings: Record<Locale, string> = {
   en: sectionUrl("guides", "en"),
 };
 
-const metaEntries = await getCollection("guides-meta");
-const realMeta = metaEntries.map((e) => e.data as ContentMeta);
-const firstSlug = realMeta[0]
-  ? detailUrl("guides", realMeta[0], locale)
-  : "/ghiduri/ghid-tva-moldova";
-
-const guides = [
-  {
-    slug: "ghid-tva-moldova",
-    href: firstSlug,
-    category: "Fiscal",
-    title: "Ghid complet TVA pentru afacerile din Moldova",
-    excerpt:
-      "Tot ce trebuie să știți despre TVA: pragul de înregistrare, cotele aplicabile, declararea și deducerile. Ghid practic cu exemple concrete.",
-    readTime: 15,
-    featured: true,
-  },
-];
-
-const realSlugs = new Set(realMeta.map((m) => m.slugs.ro));
-const visibleGuides = guides.filter((g) => realSlugs.has(g.slug));
-
-const categories = ["Toate", "Fiscal", "Juridic", "HR", "Contabilitate"];
+const props = await guidesIndexProps(locale);
 
 const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const guidesMetaEntries = await getCollection("guides-meta");
+const guides: ContentMeta[] = guidesMetaEntries.map((e) => e.data as ContentMeta);
 const guidesJsonLd = [
   {
     "@context": "https://schema.org",
@@ -48,8 +34,8 @@ const guidesJsonLd = [
       "Ghiduri practice pentru antreprenori din Republica Moldova: înregistrare firmă, TVA, fiscalitate, dreptul muncii și conformitate.",
     mainEntity: {
       "@type": "ItemList",
-      numberOfItems: realMeta.length,
-      itemListElement: realMeta.map((m, i) => ({
+      numberOfItems: guides.length,
+      itemListElement: guides.map((m, i) => ({
         "@type": "ListItem",
         position: i + 1,
         item: {
@@ -73,24 +59,6 @@ const guidesJsonLd = [
   jsonLd={guidesJsonLd}
 >
   <PageShell locale={locale} activeSection="guides" siblings={siblings}>
-    <GuidesIndexIsland
-      client:visible
-      locale={locale}
-      guides={visibleGuides}
-      categories={categories}
-      readTimeLabel="min citire"
-      readLabel="Citește ghidul"
-      featuredLabel="Featured"
-      noResultsLabel="Nu am găsit ghiduri pentru filtrele selectate."
-      ctaTitle="Ai nevoie de ajutor personalizat?"
-      ctaBody="Echipa noastră de experți poate răspunde la orice întrebare specifică situației tale."
-      ctaBtn="Programează consultație"
-      pageEyebrow="Ghiduri"
-      pageTitle="Toate ghidurile"
-      pageSubtitle="Resurse practice pentru a naviga prin cerințele administrative, fiscale și juridice ale afacerilor din Moldova."
-      pageBreadcrumbHome="Acasă"
-      pageBreadcrumbCurrent="Ghiduri"
-      homeHref={homeUrl(locale)}
-    />
+    <GuidesIndexIsland client:visible {...props} />
   </PageShell>
 </Base>

@@ -59,7 +59,7 @@ msgstr "Выберите время"
 msgid "Alege ziua"
 msgstr "Выберите день"
 
-#: ../ui/src/Footer/Footer.tsx:255
+#: ../ui/src/Footer/Footer.tsx:260
 msgid "All rights reserved."
 msgstr "Все права защищены."
 
@@ -218,7 +218,7 @@ msgstr "Email"
 msgid "email@exemplu.md"
 msgstr "email@example.com"
 
-#: ../ui/src/Footer/Footer.tsx:258
+#: ../ui/src/Footer/Footer.tsx:263
 msgid "Experience · Efficiency · Results"
 msgstr "Опыт · Эффективность · Результат"
 
@@ -519,6 +519,10 @@ msgstr "Юридические услуги"
 #: ../../apps/web/src/components/modals/booking/strings.ts:14
 msgid "Serviciu"
 msgstr "Услуга"
+
+#: ../ui/src/Footer/Footer.tsx:247
+msgid "Sitemap"
+msgstr "Карта сайта"
 
 #: ../ui/src/Nav/Nav.tsx:69
 msgid "Solutions"

@@ -50,7 +50,7 @@ export default function GuidesIndexIsland({
   homeHref,
 }: Props) {
   const featured = guides.find((g) => g.featured);
-  const rest = guides.filter((g) => !g.featured);
+  const rest = guides.filter((g) => g !== featured);
 
   return (
     <>
