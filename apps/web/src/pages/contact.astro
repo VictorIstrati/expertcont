@@ -11,14 +11,39 @@ const siblings: Record<Locale, string> = {
   ru: sectionUrl("contact", "ru"),
   en: sectionUrl("contact", "en"),
 };
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const contactJsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Contact ExpertCont",
+    url: `${siteUrl}${sectionUrl("contact", locale)}`,
+    inLanguage: "ro",
+    mainEntity: {
+      "@type": "AccountingService",
+      name: site.business.name,
+      telephone: site.business.phone,
+      email: site.business.email,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: site.business.address.street.ro,
+        addressLocality: site.business.address.city.ro,
+        addressCountry: site.business.address.countryCode,
+        postalCode: site.business.address.postalCode,
+      },
+    },
+  },
+];
 ---
 
 <Base
-  title="Contact — ExpertCont"
-  description="Contactați echipa ExpertCont pentru o consultație gratuită în contabilitate și fiscalitate."
+  title="Contact ExpertCont — contabilitate în Chișinău și Moldova"
+  description="Contactează echipa ExpertCont: telefon +373 60 82 55 81, email info@expertcont.md, formular online și consultație gratuită. Birou în Chișinău, str. Alexandru cel Bun 51/A."
   locale={locale}
   path={sectionUrl("contact", locale)}
   siblings={siblings}
+  jsonLd={contactJsonLd}
 >
   <PageShell locale={locale} activeSection="contact" siblings={siblings}>
     <ContactIsland
