@@ -12,6 +12,12 @@ interface WhyCard {
   desc: string;
 }
 
+interface ProcessStep {
+  n: string;
+  title: string;
+  desc: string;
+}
+
 interface JobCard {
   title: string;
   level: string;
@@ -32,11 +38,23 @@ interface LocaleStrings {
   whySubtitle: string;
   whyCards: WhyCard[];
 
+  cultureEyebrow: string;
+  cultureTitle: string;
+  cultureParagraphs: string[];
+
+  processEyebrow: string;
+  processTitle: string;
+  processSubtitle: string;
+  processSteps: ProcessStep[];
+
   openingsEyebrow: string;
   openingsTitle: string;
   openingsSubtitle: string;
   jobs: JobCard[];
   applyBtn: string;
+  /** Shown when jobs is empty — invites spontaneous CV submission via the
+   * bottom CTA section that follows. */
+  noOpeningsTitle: string;
 
   ctaEyebrow: string;
   ctaTitle: string;
@@ -54,62 +72,68 @@ const strings: Record<Locale, LocaleStrings> = {
     breadcrumbCareers: "Cariere",
 
     whyEyebrow: "DE CE SĂ NE ALEGI",
-    whyTitle: "Locul unde crești professional",
+    whyTitle: "Locul unde crești profesional",
     whySubtitle:
-      "Îți oferim mai mult decât un job — îți oferim un mediu în care te poți dezvolta și contribui la ceva semnificativ.",
+      "Îți oferim mai mult decât un job — un mediu unde te poți dezvolta alături de o echipă multidisciplinară și să contribui la ceva real.",
     whyCards: [
       {
         icon: "users",
-        title: "Echipă tânără și pasionată",
-        desc: "Lucrăm cu profesioniști din diverse domenii — contabilitate, juridic, IT, HR — într-un mediu colaborativ.",
+        title: "Echipă multidisciplinară",
+        desc: "Lucrezi alături de contabili, juriști, specialiști HR și IT — schimbi perspective și înveți pe parcursul muncii, nu doar din cursuri.",
       },
       {
         icon: "trending",
-        title: "Creștere profesională",
-        desc: "Programe de mentorat, certificări internaționale (ACCA, CIMA), bugete pentru cursuri și conferințe.",
+        title: "Mentorat și creștere",
+        desc: "Oameni seniori cu 10+ ani experiență îți deschid drumul — proiecte reale, feedback regulat, claritate asupra următorului pas în carieră.",
       },
       {
-        icon: "shield",
-        title: "Beneficii reale",
-        desc: "Salarii competitive, asigurare medicală privată, zile libere generoase, lucru hibrid și birou modern în centrul Chișinăului.",
+        icon: "clock",
+        title: "Lucru hibrid",
+        desc: "Birou în Chișinău + lucru remote când are sens. Acord asupra programului flexibil în funcție de rolul tău.",
       },
     ],
 
-    openingsEyebrow: "OPORTUNITĂȚI ACTIVE",
-    openingsTitle: "Posturi disponibile",
-    openingsSubtitle:
-      "Explorează rolurile deschise și găsește oportunitatea potrivită pentru tine.",
-    jobs: [
+    cultureEyebrow: "CULTURA NOASTRĂ",
+    cultureTitle: "Cum este să lucrezi la ExpertCont",
+    cultureParagraphs: [
+      "Nu suntem o firmă mare unde ești un număr. Suntem o echipă mică în care fiecare voce contează — dacă ai o idee mai bună despre cum facem ceva, o discutăm. Dacă ai nevoie de timp pentru o problemă personală, primești sprijin, nu interogatoriu.",
+      "Lucrăm cu clienți reali din diverse industrii — IT, e-commerce, HoReCa, transport, producție. Asta înseamnă că nu vei face același tip de declarație de o mie de ori; te vei lovi de provocări noi în fiecare lună și vei avea oportunitatea să devii expert într-un domeniu pe care îl alegi tu.",
+    ],
+
+    processEyebrow: "PROCESUL DE APLICARE",
+    processTitle: "Cum decurge aplicarea",
+    processSubtitle:
+      "Transparent și rapid — îți răspundem în 5 zile lucrătoare după primirea CV-ului.",
+    processSteps: [
       {
-        title: "Contabil Senior",
-        level: "Senior",
-        location: "Chișinău · Hybrid",
-        desc: "Gestionezi situații financiare conform IFRS, coordonezi raportarea lunară și mentorezii colegii junior.",
-        tags: ["IFRS", "1C", "Excel avansat", "Raportare financiară"],
+        n: "1",
+        title: "Trimite CV-ul",
+        desc: "Pe email la careers@expertcont.md. Adaugă o scurtă descriere a rolului care te interesează.",
       },
       {
-        title: "Specialist HR",
-        level: "Mid",
-        location: "Chișinău",
-        desc: "Administrezi dosarele de personal, coordonezi procesele de recrutare și asiguri conformitatea cu legislația muncii.",
-        tags: ["Legislația muncii", "Recrutare", "1C: Salarizare", "GDPR"],
+        n: "2",
+        title: "Screening call",
+        desc: "20 de minute cu un membru al echipei pentru a discuta experiența ta și ce cauți.",
       },
       {
-        title: "Consultant IT",
-        level: "Senior",
-        location: "Chișinău · Hybrid",
-        desc: "Implementezi și configurezi soluții ERP/CRM pentru clienții noștri, oferind suport tehnic și training.",
-        tags: ["1C", "SAP", "ERP", "SQL"],
+        n: "3",
+        title: "Interviu tehnic",
+        desc: "60 de minute cu echipa în care vei lucra — întrebări concrete pe baza CV-ului și a unei mini-studii de caz.",
       },
       {
-        title: "Contabil Junior — Fiscalitate",
-        level: "Junior",
-        location: "Remote-friendly",
-        desc: "Asist la pregătirea declarațiilor fiscale, înveți să lucrezi cu sistemele de raportare fiscală din Moldova.",
-        tags: ["Fiscalitate", "Excel", "Declarații TVA"],
+        n: "4",
+        title: "Ofertă și onboarding",
+        desc: "Decizie în 3 zile lucrătoare după interviu. Ofertă cu pachet salarial detaliat și plan de onboarding pentru primele 30 de zile.",
       },
     ],
+
+    openingsEyebrow: "POZIȚII DESCHISE",
+    openingsTitle: "Poziții disponibile",
+    openingsSubtitle:
+      "Suntem mereu în căutare de oameni talentați pentru echipele noastre de contabilitate, juridic, HR și IT.",
+    jobs: [],
     applyBtn: "Aplică acum",
+    noOpeningsTitle: "În acest moment nu avem poziții deschise",
 
     ctaEyebrow: "Nu vezi rolul potrivit?",
     ctaTitle: "Trimite-ne CV-ul tău",
@@ -129,59 +153,66 @@ const strings: Record<Locale, LocaleStrings> = {
     whyEyebrow: "ПОЧЕМУ МЫ",
     whyTitle: "Место для профессионального роста",
     whySubtitle:
-      "Мы предлагаем больше, чем просто работу — среду, в которой вы можете развиваться и вносить значимый вклад.",
+      "Мы предлагаем больше, чем просто работу — среду, где можно развиваться рядом с мультидисциплинарной командой и реально что-то менять.",
     whyCards: [
       {
         icon: "users",
-        title: "Молодая и увлечённая команда",
-        desc: "Работаем со специалистами из разных областей — бухгалтерии, права, IT, HR — в атмосфере сотрудничества.",
+        title: "Мультидисциплинарная команда",
+        desc: "Работаете рядом с бухгалтерами, юристами, HR и IT-специалистами — обмениваетесь подходами и учитесь в процессе работы, а не только на курсах.",
       },
       {
         icon: "trending",
-        title: "Профессиональный рост",
-        desc: "Программы наставничества, международные сертификации (ACCA, CIMA), бюджеты на курсы и конференции.",
+        title: "Наставничество и рост",
+        desc: "Старшие коллеги с 10+ годами опыта открывают вам путь — реальные проекты, регулярная обратная связь и ясность относительно следующего шага в карьере.",
       },
       {
-        icon: "shield",
-        title: "Реальные льготы",
-        desc: "Конкурентная зарплата, частная медицинская страховка, щедрые отпуска, гибридная работа и современный офис в центре Кишинёва.",
+        icon: "clock",
+        title: "Гибридный формат",
+        desc: "Офис в Кишинёве + удалённая работа, когда это уместно. Гибкий график согласовываем под вашу роль.",
       },
     ],
 
-    openingsEyebrow: "ОТКРЫТЫЕ ВАКАНСИИ",
-    openingsTitle: "Доступные позиции",
-    openingsSubtitle: "Изучите открытые вакансии и найдите подходящую для вас возможность.",
-    jobs: [
+    cultureEyebrow: "НАША КУЛЬТУРА",
+    cultureTitle: "Каково работать в ExpertCont",
+    cultureParagraphs: [
+      "Мы не большая фирма, где вы — просто номер. Мы небольшая команда, где голос каждого важен — если у вас есть идея лучше, мы её обсуждаем. Если вам нужно время для личного дела, вы получаете поддержку, а не допрос.",
+      "Работаем с реальными клиентами из разных отраслей — IT, e-commerce, HoReCa, транспорт, производство. Это значит, что вы не будете делать одну и ту же декларацию тысячу раз; каждый месяц новые задачи и возможность стать экспертом в выбранной вами области.",
+    ],
+
+    processEyebrow: "ПРОЦЕСС ПРИЁМА",
+    processTitle: "Как проходит отклик",
+    processSubtitle:
+      "Прозрачно и быстро — ответим в течение 5 рабочих дней после получения резюме.",
+    processSteps: [
       {
-        title: "Старший бухгалтер",
-        level: "Senior",
-        location: "Кишинёв · Гибрид",
-        desc: "Ведёте финансовую отчётность по МСФО, координируете ежемесячные отчёты и наставляете младших коллег.",
-        tags: ["МСФО", "1С", "Excel", "Финансовая отчётность"],
+        n: "1",
+        title: "Отправьте резюме",
+        desc: "На careers@expertcont.md. Добавьте короткое описание интересующей вас роли.",
       },
       {
-        title: "HR-специалист",
-        level: "Mid",
-        location: "Кишинёв",
-        desc: "Ведёте кадровые дела, координируете процессы подбора персонала и обеспечиваете соответствие трудовому законодательству.",
-        tags: ["Трудовое право", "Рекрутинг", "1С: ЗУП", "GDPR"],
+        n: "2",
+        title: "Скрининг-звонок",
+        desc: "20 минут с членом команды, чтобы обсудить ваш опыт и пожелания.",
       },
       {
-        title: "IT-консультант",
-        level: "Senior",
-        location: "Кишинёв · Гибрид",
-        desc: "Внедряете и настраиваете ERP/CRM-решения для клиентов, оказываете техническую поддержку и проводите обучение.",
-        tags: ["1С", "SAP", "ERP", "SQL"],
+        n: "3",
+        title: "Технический интервью",
+        desc: "60 минут с командой, в которой будете работать — конкретные вопросы по резюме и мини-кейс.",
       },
       {
-        title: "Младший налоговый бухгалтер",
-        level: "Junior",
-        location: "Удалённо",
-        desc: "Помогаете в подготовке налоговых деклараций и учитесь работать с системами налоговой отчётности Молдовы.",
-        tags: ["Налогообложение", "Excel", "НДС"],
+        n: "4",
+        title: "Оффер и онбординг",
+        desc: "Решение в течение 3 рабочих дней после интервью. Оффер с детальным пакетом и планом онбординга на первые 30 дней.",
       },
     ],
+
+    openingsEyebrow: "ОТКРЫТЫЕ ПОЗИЦИИ",
+    openingsTitle: "Доступные позиции",
+    openingsSubtitle:
+      "Мы всегда в поиске талантливых людей в команды бухгалтерии, юридического сопровождения, HR и IT.",
+    jobs: [],
     applyBtn: "Откликнуться",
+    noOpeningsTitle: "На данный момент открытых позиций нет",
 
     ctaEyebrow: "Не нашли подходящую роль?",
     ctaTitle: "Отправьте нам своё резюме",
@@ -201,59 +232,65 @@ const strings: Record<Locale, LocaleStrings> = {
     whyEyebrow: "WHY JOIN US",
     whyTitle: "A place where you grow professionally",
     whySubtitle:
-      "We offer more than a job — an environment where you can develop and contribute to something meaningful.",
+      "We offer more than a job — an environment where you grow alongside a multidisciplinary team and contribute to something real.",
     whyCards: [
       {
         icon: "users",
-        title: "Young and passionate team",
-        desc: "We work with professionals from diverse fields — accounting, legal, IT, HR — in a collaborative environment.",
+        title: "Multidisciplinary team",
+        desc: "Work alongside accountants, lawyers, HR and IT specialists — swap perspectives and learn on the job, not just from courses.",
       },
       {
         icon: "trending",
-        title: "Professional growth",
-        desc: "Mentorship programmes, international certifications (ACCA, CIMA), budgets for courses and conferences.",
+        title: "Mentorship and growth",
+        desc: "Senior colleagues with 10+ years of experience open the path — real projects, regular feedback, clarity on your next career step.",
       },
       {
-        icon: "shield",
-        title: "Real benefits",
-        desc: "Competitive salaries, private health insurance, generous leave, hybrid work and a modern office in central Chișinău.",
+        icon: "clock",
+        title: "Hybrid work",
+        desc: "Office in Chișinău + remote when it makes sense. Flexible schedule agreed based on your role.",
+      },
+    ],
+
+    cultureEyebrow: "OUR CULTURE",
+    cultureTitle: "What it's like to work at ExpertCont",
+    cultureParagraphs: [
+      "We're not a big firm where you're just a number. We're a small team where every voice matters — if you have a better idea about how we do something, we discuss it. If you need time for a personal matter, you get support, not interrogation.",
+      "We work with real clients from many industries — IT, e-commerce, HoReCa, transport, manufacturing. That means you won't file the same declaration a thousand times; every month brings new challenges and the chance to become an expert in a field you choose.",
+    ],
+
+    processEyebrow: "APPLICATION PROCESS",
+    processTitle: "How applying works",
+    processSubtitle: "Transparent and fast — we reply within 5 business days of receiving your CV.",
+    processSteps: [
+      {
+        n: "1",
+        title: "Send your CV",
+        desc: "To careers@expertcont.md. Add a short note about the role you're interested in.",
+      },
+      {
+        n: "2",
+        title: "Screening call",
+        desc: "20 minutes with a team member to discuss your experience and what you're looking for.",
+      },
+      {
+        n: "3",
+        title: "Technical interview",
+        desc: "60 minutes with the team you'd join — concrete questions based on your CV and a mini case study.",
+      },
+      {
+        n: "4",
+        title: "Offer and onboarding",
+        desc: "Decision within 3 business days after the interview. Offer with a detailed compensation package and a 30-day onboarding plan.",
       },
     ],
 
     openingsEyebrow: "OPEN ROLES",
     openingsTitle: "Available positions",
-    openingsSubtitle: "Explore our open roles and find the right opportunity for you.",
-    jobs: [
-      {
-        title: "Senior Accountant",
-        level: "Senior",
-        location: "Chișinău · Hybrid",
-        desc: "Manage financial statements under IFRS, coordinate monthly reporting and mentor junior colleagues.",
-        tags: ["IFRS", "1C", "Advanced Excel", "Financial Reporting"],
-      },
-      {
-        title: "HR Specialist",
-        level: "Mid",
-        location: "Chișinău",
-        desc: "Administer personnel records, coordinate recruitment processes and ensure compliance with labour legislation.",
-        tags: ["Labour Law", "Recruitment", "1C Payroll", "GDPR"],
-      },
-      {
-        title: "IT Consultant",
-        level: "Senior",
-        location: "Chișinău · Hybrid",
-        desc: "Implement and configure ERP/CRM solutions for our clients, providing technical support and training.",
-        tags: ["1C", "SAP", "ERP", "SQL"],
-      },
-      {
-        title: "Junior Tax Accountant",
-        level: "Junior",
-        location: "Remote-friendly",
-        desc: "Assist with preparing tax returns and learn to work with Moldova's tax reporting systems.",
-        tags: ["Taxation", "Excel", "VAT Returns"],
-      },
-    ],
+    openingsSubtitle:
+      "We're always looking for talented people for our accounting, legal, HR and IT teams.",
+    jobs: [],
     applyBtn: "Apply now",
+    noOpeningsTitle: "No open positions at the moment",
 
     ctaEyebrow: "Don't see the right role?",
     ctaTitle: "Send us your CV",
@@ -308,6 +345,49 @@ export function CareersIsland({ locale, homeHref }: CareersIslandProps) {
         </div>
       </section>
 
+      {/* ── Culture ─────────────────────────────────────────────── */}
+      <section className="section">
+        <div className="container">
+          <SectionHeader
+            align="center"
+            eyebrow={t.cultureEyebrow}
+            title={t.cultureTitle}
+            maxWidth={720}
+          />
+          <div className="max-w-3xl mx-auto flex flex-col gap-5">
+            {t.cultureParagraphs.map((p, i) => (
+              <p key={i} className="text-base text-text-secondary leading-relaxed mb-0">
+                {p}
+              </p>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Application Process ─────────────────────────────────── */}
+      <section className="section section-alt">
+        <div className="container">
+          <SectionHeader
+            align="center"
+            eyebrow={t.processEyebrow}
+            title={t.processTitle}
+            subtitle={t.processSubtitle}
+            maxWidth={640}
+          />
+          <div className="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 max-w-5xl mx-auto">
+            {t.processSteps.map((step, i) => (
+              <div key={i} className="card p-6 flex flex-col gap-3">
+                <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-white font-bold text-sm shrink-0">
+                  {step.n}
+                </div>
+                <h4 className="text-base font-semibold mb-0">{step.title}</h4>
+                <p className="text-sm text-text-secondary leading-relaxed mb-0">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── Current Openings ─────────────────────────────────────── */}
       <section className="section section-alt">
         <div className="container">
@@ -319,45 +399,54 @@ export function CareersIsland({ locale, homeHref }: CareersIslandProps) {
             maxWidth={600}
           />
           <div className="flex flex-col gap-5 max-w-3xl mx-auto">
-            {t.jobs.map((job, i) => (
-              <div key={i} className="card flex flex-col gap-4">
-                {/* Top row */}
-                <div className="flex flex-wrap items-center gap-3">
-                  <h4 className="text-base font-semibold flex-1 min-w-0">{job.title}</h4>
-                  <span
-                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${levelColors[job.level] ?? levelColors["Mid"]}`}
-                  >
-                    {job.level}
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 text-xs text-text-secondary">
-                    <Icon name="map-pin" size={12} />
-                    {job.location}
-                  </span>
+            {t.jobs.length === 0 ? (
+              <div className="card text-center p-12 flex flex-col items-center gap-4">
+                <div className="w-14 h-14 rounded-full bg-primary-50 text-primary flex items-center justify-center">
+                  <Icon name="briefcase" size={26} />
                 </div>
-
-                {/* Description */}
-                <p className="text-sm text-text-secondary leading-relaxed">{job.desc}</p>
-
-                {/* Tags + apply button */}
-                <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
-                  <div className="flex flex-wrap gap-2">
-                    {job.tags.map((tag, j) => (
-                      <span key={j} className="pill pill-soft text-xs">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    href={`mailto:careers@expertcont.md?subject=${encodeURIComponent(job.title)}`}
-                    iconRight="arrow-right"
-                  >
-                    {t.applyBtn}
-                  </Button>
-                </div>
+                <h3 className="text-xl font-bold m-0">{t.noOpeningsTitle}</h3>
               </div>
-            ))}
+            ) : (
+              t.jobs.map((job, i) => (
+                <div key={i} className="card flex flex-col gap-4">
+                  {/* Top row */}
+                  <div className="flex flex-wrap items-center gap-3">
+                    <h4 className="text-base font-semibold flex-1 min-w-0">{job.title}</h4>
+                    <span
+                      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${levelColors[job.level] ?? levelColors["Mid"]}`}
+                    >
+                      {job.level}
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 text-xs text-text-secondary">
+                      <Icon name="map-pin" size={12} />
+                      {job.location}
+                    </span>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-sm text-text-secondary leading-relaxed">{job.desc}</p>
+
+                  {/* Tags + apply button */}
+                  <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
+                    <div className="flex flex-wrap gap-2">
+                      {job.tags.map((tag, j) => (
+                        <span key={j} className="pill pill-soft text-xs">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      href={`mailto:careers@expertcont.md?subject=${encodeURIComponent(job.title)}`}
+                      iconRight="arrow-right"
+                    >
+                      {t.applyBtn}
+                    </Button>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </section>

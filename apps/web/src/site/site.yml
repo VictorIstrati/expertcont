@@ -301,13 +301,13 @@ pricing:
         ru: "Нет. Все указанные цены без НДС. НДС 20% начисляется в соответствии с действующим законодательством."
         en: "No. All displayed prices are exclusive of VAT. 20% VAT applies in accordance with current legislation."
     - q:
-        ro: "Pot anula contractul oricând?"
-        ru: "Можно ли отменить договор в любое время?"
-        en: "Can I cancel at any time?"
+        ro: "Care este durata contractului?"
+        ru: "Какова длительность договора?"
+        en: "What is the contract duration?"
       a:
-        ro: "Da, cu preaviz de 30 de zile. Nu există penalități sau taxe de ieșire."
-        ru: "Да, с уведомлением за 30 дней. Штрафов и выходных комиссий нет."
-        en: "Yes, with 30 days notice. There are no penalties or exit fees."
+        ro: "Contractul standard este pe 12 luni. După primele 3 luni, poți rezilia cu preaviz de 30 de zile, fără penalități."
+        ru: "Стандартный договор — на 12 месяцев. После первых 3 месяцев можно расторгнуть с уведомлением за 30 дней, без штрафов."
+        en: "The standard contract is 12 months. After the first 3 months you can terminate with 30 days' notice, with no penalties."
     - q:
         ro: "Există perioadă de probă?"
         ru: "Есть ли пробный период?"

@@ -27,6 +27,20 @@ interface LocaleStrings {
   valuesTitle: string;
   values: { icon: string; t: string; d: string }[];
 
+  guaranteesEyebrow: string;
+  guaranteesTitle: string;
+  guaranteesIntro: string;
+  guarantees: { icon: string; t: string; d: string }[];
+
+  growEyebrow: string;
+  growTitle: string;
+  growParagraphs: string[];
+
+  industriesEyebrow: string;
+  industriesTitle: string;
+  industriesIntro: string;
+  industries: string[];
+
   teamEyebrow: string;
   teamTitle: string;
   team: { name: string; role: string }[];
@@ -54,9 +68,9 @@ const strings: Record<Locale, LocaleStrings> = {
     missionP2:
       "Astăzi, echipa noastră de profesioniști — contabili autorizați, juriști, consultanți HR și IT — oferă servicii integrate pentru antreprenorii și companiile care vor un singur partener pentru toate aspectele administrative.",
     stats: [
-      { v: "15+", l: "Ani de activitate" },
+      { v: "15+", l: "Ani experiență cumulată" },
       { v: "5", l: "Domenii integrate" },
-      { v: "100%", l: "Conform GDPR" },
+      { v: "1C", l: "Software contabil exclusiv" },
       { v: "<4h", l: "Timp de răspuns" },
     ],
     teamImageLabel: "Echipa ExpertCont · biroul din Chișinău",
@@ -81,13 +95,64 @@ const strings: Record<Locale, LocaleStrings> = {
       },
     ],
 
+    guaranteesEyebrow: "Ce garantăm",
+    guaranteesTitle: "Preluăm responsabilitatea pentru zona ta administrativă",
+    guaranteesIntro:
+      "Asigurăm preluarea responsabilităților entităților economice pe toate cele 5 direcții integrate — contabilitate, juridic, HR, audit și IT — astfel încât tu să te concentrezi pe activitatea de bază a companiei.",
+    guarantees: [
+      {
+        icon: "file-text",
+        t: "Evidență contabilă completă",
+        d: "Înregistrare documente primare, raportare TVA, salarizare CNAS/CNAM, bilanț anual — totul pe 1C, la termen, conform Codului Fiscal al Republicii Moldova.",
+      },
+      {
+        icon: "scale",
+        t: "Asistență juridică",
+        d: "Drept comercial, dreptul muncii, drept civil, administrativ și antreprenorial — contracte, opinii juridice, asistență la controale și reprezentare.",
+      },
+      {
+        icon: "users",
+        t: "Administrare HR",
+        d: "Contracte de muncă, payroll, evidență personal și conformitate cu Codul Muncii — facturat per angajat acoperit, fără minim contractual.",
+      },
+      {
+        icon: "trending",
+        t: "Consultanță financiară",
+        d: "Planificare fiscală, optimizare costuri, due diligence, plan financiar — strategii fiabile pentru dezvoltarea armonioasă a afacerii tale.",
+      },
+    ],
+
+    growEyebrow: "Cum creștem împreună",
+    growTitle: "Parteneri pe termen lung, nu doar furnizori",
+    growParagraphs: [
+      "Dezvoltăm și transformăm afacerea ta de la primii pași până la atingerea obiectivelor strategice. Asigurăm consultanță profesională conform ultimelor modificări legislative — actualizările legislative frecvente din Moldova nu te mai prind nepregătit.",
+      "Lucrăm hibrid din biroul nostru din Chișinău: comunicăm pe email, telefon, WhatsApp, Viber și Telegram — alegem canalul preferat la onboarding. Operăm în română, rusă și engleză, în funcție de nevoile echipei tale.",
+    ],
+
+    industriesEyebrow: "Cui ne adresăm",
+    industriesTitle: "Companii din toate industriile din Moldova",
+    industriesIntro:
+      "Serviciile noastre integrate funcționează pentru SRL, SA, ÎI, ICS și ONG. Deservim atât start-up-uri la prima înregistrare fiscală, cât și companii mature cu raportare consolidată. Avem experiență concretă în:",
+    industries: [
+      "IT & SaaS (inclusiv rezidenți IT Park)",
+      "E-commerce și marketplace",
+      "HoReCa (restaurante, cafenele, hoteluri)",
+      "Comerț (en-gros, en-detail)",
+      "Producție și manufacturing",
+      "Construcții și montaj",
+      "Transport și logistică",
+      "Servicii profesionale (consultanță, marketing)",
+      "Imobiliare",
+      "ONG-uri și asociații non-profit",
+    ],
+
     teamEyebrow: "Echipa",
     teamTitle: "Oameni cu care vei lucra",
     team: [
-      { name: "Elena Bostan", role: "Fondator & Managing Partner" },
-      { name: "Mihai Cazacu", role: "Head of Accounting" },
-      { name: "Cristina Vrabie", role: "Senior Legal Counsel" },
-      { name: "Radu Crăciun", role: "HR & IT Consultant" },
+      { name: "Oleg Balan", role: "Fondator & Managing Partner" },
+      { name: "Constanța Tulgara", role: "Head of Accounting" },
+      { name: "Vasile Secrieru", role: "Senior Legal Counsel" },
+      { name: "Iuliana Oboroceanu", role: "Human Resources Consultant" },
     ],
 
     ctaEyebrow: "HAI SĂ ÎNCEPEM",
@@ -113,9 +178,9 @@ const strings: Record<Locale, LocaleStrings> = {
     missionP2:
       "Сегодня наша команда профессионалов — сертифицированные бухгалтеры, юристы, HR и IT-консультанты — предоставляет интегрированные услуги для предпринимателей, которым нужен один партнёр для всех административных вопросов.",
     stats: [
-      { v: "15+", l: "Лет опыта" },
-      { v: "5", l: "Направлений" },
-      { v: "100%", l: "Соответствие GDPR" },
+      { v: "15+", l: "Лет совокупного опыта" },
+      { v: "5", l: "Интегрированных направлений" },
+      { v: "1С", l: "Эксклюзивное бух. ПО" },
       { v: "<4ч", l: "Время ответа" },
     ],
     teamImageLabel: "Команда ExpertCont · офис в Кишинёве",
@@ -140,13 +205,64 @@ const strings: Record<Locale, LocaleStrings> = {
       },
     ],
 
+    guaranteesEyebrow: "Что мы гарантируем",
+    guaranteesTitle: "Берём на себя ответственность за вашу административную часть",
+    guaranteesIntro:
+      "Принимаем на себя обязанности экономических единиц по 5 интегрированным направлениям — бухгалтерия, юридическое сопровождение, HR, аудит и IT — чтобы вы могли сосредоточиться на основной деятельности компании.",
+    guarantees: [
+      {
+        icon: "file-text",
+        t: "Полный бухгалтерский учёт",
+        d: "Регистрация первичных документов, отчётность по НДС, расчёт зарплат CNAS/CNAM, годовой баланс — всё на 1С, в срок, согласно Налоговому кодексу Республики Молдова.",
+      },
+      {
+        icon: "scale",
+        t: "Юридическое сопровождение",
+        d: "Коммерческое право, трудовое право, гражданское, административное и предпринимательское — договоры, юридические заключения, сопровождение проверок и представительство.",
+      },
+      {
+        icon: "users",
+        t: "Кадровое администрирование",
+        d: "Трудовые договоры, расчёт зарплат, кадровый учёт и соответствие Трудовому кодексу — оплата за каждого сотрудника под управлением, без минимального контракта.",
+      },
+      {
+        icon: "trending",
+        t: "Финансовый консалтинг",
+        d: "Налоговое планирование, оптимизация расходов, due diligence, финансовый план — надёжные стратегии для гармоничного развития вашего бизнеса.",
+      },
+    ],
+
+    growEyebrow: "Как мы растём вместе",
+    growTitle: "Партнёры на долгий срок, а не просто поставщики",
+    growParagraphs: [
+      "Развиваем и трансформируем ваш бизнес с первых шагов до достижения стратегических целей. Обеспечиваем профессиональный консалтинг в соответствии с последними изменениями законодательства — частые обновления в Молдове больше не застанут вас врасплох.",
+      "Работаем в гибридном формате из нашего офиса в Кишинёве: общаемся по email, телефону, WhatsApp, Viber и Telegram — выбираем канал на онбординге. Работаем на румынском, русском и английском в зависимости от потребностей вашей команды.",
+    ],
+
+    industriesEyebrow: "К кому мы обращаемся",
+    industriesTitle: "Компании из всех отраслей Молдовы",
+    industriesIntro:
+      "Наши интегрированные услуги подходят для ООО, АО, ИП, ICS и НКО. Обслуживаем как стартапы на этапе первой налоговой регистрации, так и зрелые компании с консолидированной отчётностью. Имеем конкретный опыт в:",
+    industries: [
+      "IT и SaaS (включая резидентов IT Park)",
+      "E-commerce и маркетплейсы",
+      "HoReCa (рестораны, кафе, отели)",
+      "Торговля (оптовая, розничная)",
+      "Производство",
+      "Строительство и монтаж",
+      "Транспорт и логистика",
+      "Профессиональные услуги (консалтинг, маркетинг)",
+      "Недвижимость",
+      "НКО и некоммерческие ассоциации",
+    ],
+
     teamEyebrow: "Команда",
     teamTitle: "Люди, с которыми вы будете работать",
     team: [
-      { name: "Elena Bostan", role: "Основатель & Управляющий партнёр" },
-      { name: "Mihai Cazacu", role: "Руководитель отдела бухгалтерии" },
-      { name: "Cristina Vrabie", role: "Старший юридический советник" },
-      { name: "Radu Crăciun", role: "HR & IT-консультант" },
+      { name: "Oleg Balan", role: "Основатель & Управляющий партнёр" },
+      { name: "Constanța Tulgara", role: "Руководитель отдела бухгалтерии" },
+      { name: "Vasile Secrieru", role: "Старший юридический советник" },
+      { name: "Iuliana Oboroceanu", role: "Консультант по управлению персоналом" },
     ],
 
     ctaEyebrow: "НАЧНЁМ",
@@ -172,9 +288,9 @@ const strings: Record<Locale, LocaleStrings> = {
     missionP2:
       "Today, our team of professionals — certified accountants, lawyers, HR and IT consultants — provides integrated services for entrepreneurs and companies that want a single partner for all administrative aspects.",
     stats: [
-      { v: "15+", l: "Years of experience" },
+      { v: "15+", l: "Years of combined experience" },
       { v: "5", l: "Integrated domains" },
-      { v: "100%", l: "GDPR compliant" },
+      { v: "1C", l: "Exclusive accounting software" },
       { v: "<4h", l: "Response time" },
     ],
     teamImageLabel: "ExpertCont team · Chișinău office",
@@ -199,13 +315,64 @@ const strings: Record<Locale, LocaleStrings> = {
       },
     ],
 
+    guaranteesEyebrow: "What we guarantee",
+    guaranteesTitle: "We take responsibility for your administrative back-office",
+    guaranteesIntro:
+      "We take on the responsibilities of economic entities across 5 integrated domains — accounting, legal, HR, audit, and IT — so you can focus on your company's core activity.",
+    guarantees: [
+      {
+        icon: "file-text",
+        t: "Complete bookkeeping",
+        d: "Primary document recording, VAT reporting, payroll with CNAS/CNAM, annual balance sheet — all on 1C, on time, per the Tax Code of the Republic of Moldova.",
+      },
+      {
+        icon: "scale",
+        t: "Legal assistance",
+        d: "Commercial law, employment law, civil, administrative and entrepreneurial — contracts, legal opinions, inspection support and court representation.",
+      },
+      {
+        icon: "users",
+        t: "HR administration",
+        d: "Employment contracts, payroll, personnel records and Labour Code compliance — billed per covered employee, no minimum contract.",
+      },
+      {
+        icon: "trending",
+        t: "Financial consulting",
+        d: "Tax planning, cost optimisation, due diligence, financial plans — reliable strategies for the sustainable growth of your business.",
+      },
+    ],
+
+    growEyebrow: "How we grow together",
+    growTitle: "Long-term partners, not just vendors",
+    growParagraphs: [
+      "We develop and transform your business from the first steps to your strategic goals. We provide professional consulting aligned with the latest legislative changes — Moldova's frequent legal updates won't catch you off guard anymore.",
+      "We work hybrid from our Chișinău office: we communicate by email, phone, WhatsApp, Viber and Telegram — your channel of choice at onboarding. We operate in Romanian, Russian and English depending on your team's needs.",
+    ],
+
+    industriesEyebrow: "Who we serve",
+    industriesTitle: "Companies across every industry in Moldova",
+    industriesIntro:
+      "Our integrated services work for LLCs, JSCs, sole traders, ICS and NGOs. We serve both start-ups at first tax registration and mature companies with consolidated reporting. We have concrete experience in:",
+    industries: [
+      "IT and SaaS (including IT Park residents)",
+      "E-commerce and marketplaces",
+      "HoReCa (restaurants, cafes, hotels)",
+      "Trade (wholesale, retail)",
+      "Manufacturing and production",
+      "Construction and assembly",
+      "Transport and logistics",
+      "Professional services (consulting, marketing)",
+      "Real estate",
+      "NGOs and non-profit associations",
+    ],
+
     teamEyebrow: "Team",
     teamTitle: "People you'll work with",
     team: [
-      { name: "Elena Bostan", role: "Founder & Managing Partner" },
-      { name: "Mihai Cazacu", role: "Head of Accounting" },
-      { name: "Cristina Vrabie", role: "Senior Legal Counsel" },
-      { name: "Radu Crăciun", role: "HR & IT Consultant" },
+      { name: "Oleg Balan", role: "Founder & Managing Partner" },
+      { name: "Constanța Tulgara", role: "Head of Accounting" },
+      { name: "Vasile Secrieru", role: "Senior Legal Counsel" },
+      { name: "Iuliana Oboroceanu", role: "Human Resources Consultant" },
     ],
 
     ctaEyebrow: "LET'S GET STARTED",
@@ -271,6 +438,75 @@ export default function AboutIsland({ locale, bookHref: _bookHref }: AboutIsland
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── Guarantees ──────────────────────────────────────────── */}
+      <section className="section">
+        <div className="container">
+          <SectionHeader
+            align="center"
+            eyebrow={t.guaranteesEyebrow}
+            title={t.guaranteesTitle}
+            subtitle={t.guaranteesIntro}
+            maxWidth={780}
+          />
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+            {t.guarantees.map((g) => (
+              <div key={g.t} className="card p-6 flex gap-4 items-start">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-primary-50 text-primary">
+                  <Icon name={g.icon as Parameters<typeof Icon>[0]["name"]} size={22} />
+                </div>
+                <div>
+                  <h4 className="mb-2 text-base font-semibold">{g.t}</h4>
+                  <p className="text-sm text-text-secondary leading-relaxed mb-0">{g.d}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Grow Together ───────────────────────────────────────── */}
+      <section className="section section-alt">
+        <div className="container">
+          <SectionHeader
+            align="center"
+            eyebrow={t.growEyebrow}
+            title={t.growTitle}
+            maxWidth={700}
+          />
+          <div className="max-w-3xl mx-auto flex flex-col gap-5">
+            {t.growParagraphs.map((p, i) => (
+              <p key={i} className="text-base text-text-secondary leading-relaxed mb-0">
+                {p}
+              </p>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Industries ──────────────────────────────────────────── */}
+      <section className="section">
+        <div className="container">
+          <SectionHeader
+            align="center"
+            eyebrow={t.industriesEyebrow}
+            title={t.industriesTitle}
+            subtitle={t.industriesIntro}
+            maxWidth={780}
+          />
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-w-4xl mx-auto list-none p-0 m-0">
+            {t.industries.map((ind, i) => (
+              <li
+                key={i}
+                className="flex items-center gap-3 px-4 py-3 rounded-md bg-bg-card border border-border text-sm"
+              >
+                <Icon name="check" size={14} stroke={2.5} />
+                {ind}
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 

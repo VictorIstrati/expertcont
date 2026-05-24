@@ -23,11 +23,15 @@ const groups = [
       },
       {
         q: "Care este timpul mediu de răspuns?",
-        a: "Garantăm răspuns în maxim 4 ore în zile lucrătoare. Pentru clienți cu pachetul Enterprise, SLA este de 2 ore.",
+        a: "Garantăm răspuns în maxim 4 ore în zile lucrătoare. Pentru clienții cu pachetul Premium, SLA prioritar este de 2 ore.",
       },
       {
         q: "Care este durata minimă de contract?",
         a: "Standard 12 luni, cu posibilitate de încetare cu preaviz de 30 de zile după primele 3 luni.",
+      },
+      {
+        q: "Lucrați cu clienți din afara Moldovei?",
+        a: "Da, pentru fondatori non-rezidenți care au înregistrat o entitate în Republica Moldova (SRL, ICS, IT Park). Comunicăm în română, rusă sau engleză — alegi limba la onboarding.",
       },
     ],
   },
@@ -35,16 +39,28 @@ const groups = [
     cat: "Contabilitate",
     items: [
       {
-        q: "Ce sisteme contabile suportați?",
-        a: "1C, Universal Accounting, SmartAccount, Xero, Zoho Books. Putem migra de pe sistemul actual sau implementa o soluție nouă.",
+        q: "Ce software contabil utilizați?",
+        a: "Lucrăm exclusiv pe 1C — versiunea actuală pentru Republica Moldova. Pentru firmele care vin cu alte sisteme, ne ocupăm de migrarea datelor în 1C în cadrul onboarding-ului.",
       },
       {
         q: "Cum primesc documentele și rapoartele?",
-        a: "Prin portalul nostru securizat (acces 24/7), pe email și — la cerere — în ședințe lunare cu managerul de cont.",
+        a: "Pe email, telefon sau prin canalele de chat agreate (WhatsApp, Viber, Telegram) — și, la cerere, în ședințe lunare cu managerul de cont dedicat.",
       },
       {
-        q: "Aveți contabili autorizați?",
-        a: "Toți contabilii noștri seniori sunt autorizați și membri ai Asociației Contabililor și Auditorilor din Moldova (ACAP).",
+        q: "Ce experiență au contabilii voștri?",
+        a: "Contabilii noștri seniori au peste 10 ani de experiență în contabilitatea moldovenească și cunosc în detaliu modificările legislative frecvente. Echipa cumulează 15+ ani de experiență în diverse industrii.",
+      },
+      {
+        q: "Sunteți compatibili cu cerințele IT Park?",
+        a: "Da. Cunoaștem regimul fiscal IT Park (impozit unic de 7% pe venit, scutiri de TVA pe export servicii IT) și raportarea separată către administrația IT Park. Configurăm 1C cu planul de conturi adaptat.",
+      },
+      {
+        q: "Cum schimb contabilul actual fără pierderi de termene?",
+        a: "Onboarding-ul nostru este conceput pentru tranziție zero-pauză: preluăm istoricul contabil, verificăm soldurile inițiale și ne sincronizăm pe calendarul actual de raportare. Cea mai bună perioadă de tranziție este 5–15 ale lunii.",
+      },
+      {
+        q: "Cum protejați datele financiare ale companiei?",
+        a: "Documentele se transmit prin canale criptate (email, WhatsApp Business, Telegram). Accesul la 1C este restricționat per manager de cont, cu loguri de audit. Semnăm acord de confidențialitate cu fiecare client.",
       },
     ],
   },
@@ -57,7 +73,7 @@ const groups = [
       },
       {
         q: "Cum facturați?",
-        a: "Lunar anticipat, până la data de 5. Transfer bancar sau plată cu cardul.",
+        a: "Lunar anticipat, până la data de 5 a lunii. Plata se face exclusiv prin transfer bancar.",
       },
       {
         q: "Pot schimba pachetul?",
@@ -69,12 +85,20 @@ const groups = [
     cat: "Tehnic & Onboarding",
     items: [
       {
-        q: "Cum funcționează portalul de documente?",
-        a: "Portalul nostru securizat vă permite să încărcați documente, să vizualizați rapoarte și să comunicați cu echipa — disponibil 24/7 de pe orice dispozitiv.",
+        q: "Cum trimit documentele și cum comunicăm?",
+        a: "Documentele se trimit pe email sau prin chat (WhatsApp, Viber, Telegram). Comunicarea curentă cu managerul de cont se face pe email, telefon și chat — alegem canalul preferat la onboarding.",
       },
       {
         q: "Cât durează procesul de onboarding?",
         a: "De obicei 5–7 zile lucrătoare: semnăm contractul, vă alocăm un manager de cont, facem o ședință de inițiere și preluăm istoricul contabil.",
+      },
+      {
+        q: "Ce se întâmplă dacă pierd un document original?",
+        a: "Lucrăm și cu copii scanate pentru evidența curentă. Pentru documentele originale obligatorii (facturi fiscale, acte primare), te ajutăm să obții duplicate de la emitent sau să întocmești cerere de reconstituire conform Codului Fiscal.",
+      },
+      {
+        q: "Oferiți asistență la controale fiscale?",
+        a: "Da. Te asistăm de la primirea înștiințării de control până la răspunsul final: pregătirea dosarului, comunicarea cu inspectorul, contestarea deciziilor (dacă e cazul). Pentru toate pachetele, prima oră de asistență la control este inclusă.",
       },
     ],
   },
@@ -90,8 +114,8 @@ const jsonLd = [
 ---
 
 <Base
-  title="Întrebări frecvente — ExpertCont"
-  description="Răspunsuri la cele mai comune întrebări despre serviciile de contabilitate și consultanță."
+  title="Întrebări frecvente despre contabilitate — ExpertCont"
+  description="Răspunsuri clare la cele mai comune întrebări despre servicii de contabilitate, evidență contabilă, consultanță juridică și HR pentru companii din Moldova."
   locale={locale}
   path={sectionUrl("faq", locale)}
   siblings={siblings}

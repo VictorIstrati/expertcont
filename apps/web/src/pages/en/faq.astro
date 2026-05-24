@@ -19,15 +19,19 @@ const groups = [
     items: [
       {
         q: "Do you work only with companies from Chișinău?",
-        a: "No, we serve clients from all over Moldova. With our online portal, the entire collaboration can be 100% remote — from onboarding to monthly reports.",
+        a: "No, we serve clients from all over Moldova. The entire collaboration can be 100% remote — we communicate by email, phone and chat (WhatsApp, Viber, Telegram).",
       },
       {
         q: "What is the average response time?",
-        a: "We guarantee a response within 4 hours on business days. For Enterprise plan clients, the SLA is 2 hours.",
+        a: "We guarantee a response within 4 hours on business days. For Premium plan clients, the priority SLA is 2 hours.",
       },
       {
         q: "What is the minimum contract duration?",
         a: "Standard 12 months, with the option to terminate with 30-day notice after the first 3 months.",
+      },
+      {
+        q: "Do you work with clients based outside Moldova?",
+        a: "Yes, for non-resident founders who have registered an entity in the Republic of Moldova (LLC, ICS, IT Park). We communicate in Romanian, Russian or English — your choice at onboarding.",
       },
     ],
   },
@@ -35,16 +39,28 @@ const groups = [
     cat: "Accounting",
     items: [
       {
-        q: "Which accounting systems do you support?",
-        a: "1C, Universal Accounting, SmartAccount, Xero, Zoho Books. We can migrate from your current system or implement a new solution.",
+        q: "Which accounting software do you use?",
+        a: "We work exclusively on 1C — the current Republic of Moldova version. For companies coming from other systems, we handle the migration to 1C as part of onboarding.",
       },
       {
         q: "How do I receive documents and reports?",
-        a: "Through our secure portal (24/7 access), by email and — on request — in monthly meetings with your account manager.",
+        a: "By email, phone or your preferred chat channel (WhatsApp, Viber, Telegram) — and on request in monthly meetings with your dedicated account manager.",
       },
       {
-        q: "Do you have certified accountants?",
-        a: "All our senior accountants are certified and members of the Association of Accountants and Auditors of Moldova (ACAP).",
+        q: "What experience do your accountants have?",
+        a: "Our senior accountants have over 10 years of experience in Moldovan accounting and know the frequent legislative changes in detail. The team has 15+ years of combined experience across many industries.",
+      },
+      {
+        q: "Are you compatible with IT Park requirements?",
+        a: "Yes. We know the IT Park tax regime (7% single tax on revenue, VAT exemption on exported IT services) and the separate reporting to the IT Park administration. We configure 1C with an adapted chart of accounts.",
+      },
+      {
+        q: "How do I switch from my current accountant without missing deadlines?",
+        a: "Our onboarding is designed for zero-pause transition: we take over the accounting history, verify opening balances, and sync with your current reporting calendar. The best window to switch is the 5th–15th of the month.",
+      },
+      {
+        q: "How do you protect our financial data?",
+        a: "Documents are transmitted via encrypted channels (email, WhatsApp Business, Telegram). 1C access is restricted at the account-manager level with audit logs. We sign a confidentiality agreement with every client.",
       },
     ],
   },
@@ -57,7 +73,7 @@ const groups = [
       },
       {
         q: "How do you invoice?",
-        a: "Monthly in advance, by the 5th. Bank transfer or card payment.",
+        a: "Monthly in advance, by the 5th of the month. Payment is exclusively by bank transfer.",
       },
       {
         q: "Can I change my plan?",
@@ -69,12 +85,20 @@ const groups = [
     cat: "Technical & Onboarding",
     items: [
       {
-        q: "How does the document portal work?",
-        a: "Our secure portal lets you upload documents, view reports and communicate with the team — available 24/7 from any device.",
+        q: "How do I send documents and how do we communicate?",
+        a: "Documents are sent by email or via chat (WhatsApp, Viber, Telegram). Ongoing communication with your account manager uses email, phone and chat — we pick the preferred channel at onboarding.",
       },
       {
         q: "How long does the onboarding process take?",
         a: "Usually 5–7 business days: we sign the contract, assign an account manager, hold an introductory meeting, and take over the accounting history.",
+      },
+      {
+        q: "What happens if I lose an original document?",
+        a: "Scans work for ongoing bookkeeping. For mandatory originals (tax invoices, primary documents), we help you obtain duplicates from the issuer or file a reconstitution request under the Tax Code.",
+      },
+      {
+        q: "Do you support clients during tax inspections?",
+        a: "Yes. We assist from the inspection notice through to the final response: dossier preparation, communication with the inspector, contesting decisions (if needed). All packages include the first hour of inspection support.",
       },
     ],
   },
@@ -90,8 +114,8 @@ const jsonLd = [
 ---
 
 <Base
-  title="FAQ — ExpertCont"
-  description="Answers to the most common questions about our accounting and consulting services."
+  title="Accounting FAQ — frequently asked questions · ExpertCont"
+  description="Clear answers to the most common questions about accounting, bookkeeping, legal consulting and HR services for companies in Moldova."
   locale={locale}
   path={sectionUrl("faq", locale)}
   siblings={siblings}
