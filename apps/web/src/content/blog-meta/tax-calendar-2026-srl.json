@@ -1,0 +1,28 @@
+{
+  "id": "tax-calendar-2026-srl",
+  "slugs": {
+    "ro": "calendar-fiscal-2026-srl-moldova",
+    "ru": "nalogovyi-kalendar-2026-ooo-moldova",
+    "en": "tax-calendar-2026-srl-moldova"
+  },
+  "titles": {
+    "ro": "Calendar fiscal 2026 pentru SRL-uri din Moldova: toate termenele într-un singur loc",
+    "ru": "Налоговый календарь 2026 для ООО в Молдове: все сроки в одном месте",
+    "en": "Tax calendar 2026 for LLCs in Moldova: every deadline in one place"
+  },
+  "summaries": {
+    "ro": "Calendar fiscal complet pentru SRL-uri din Moldova în 2026: toate termenele de declarare și plată, formularele obligatorii, regimuri speciale (IT Park, antreprenor independent), obligații lunare și anuale.",
+    "ru": "Полный налоговый календарь для ООО в Молдове на 2026: все сроки подачи и оплаты, обязательные формы, специальные режимы (IT Park, независимый предприниматель), ежемесячные и годовые обязательства.",
+    "en": "Complete tax calendar for LLCs in Moldova in 2026: all filing and payment deadlines, mandatory forms, special regimes (IT Park, independent entrepreneur), monthly and annual obligations."
+  },
+  "category": {
+    "ro": "Fiscalitate",
+    "ru": "Налоги",
+    "en": "Taxation"
+  },
+  "readTime": 13,
+  "featured": false,
+  "author": "Oleg Balan",
+  "updated": "2026-05-24",
+  "publishedAt": "2026-05-24"
+}

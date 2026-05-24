@@ -193,31 +193,33 @@ export default function BlogIndexIsland({
             <div className="py-16 text-center text-text-secondary">{noResultsLabel}</div>
           )}
 
-          <div className="mt-12 flex items-center justify-center gap-2 text-sm">
-            <span className="inline-flex cursor-not-allowed items-center gap-1.5 text-text-secondary">
-              <Icon name="arrow-left" size={14} />
-              {paginationPrev}
-            </span>
-            {[1, 2, 3].map((n) => {
-              const isCurrent = n === 1;
-              return (
-                <span
-                  key={n}
-                  className={`flex h-10 w-10 items-center justify-center rounded-sm border font-semibold ${
-                    isCurrent
-                      ? "cursor-default border-primary bg-primary text-white"
-                      : "cursor-pointer border-border text-text-secondary"
-                  }`}
-                >
-                  {n}
-                </span>
-              );
-            })}
-            <span className="inline-flex cursor-pointer items-center gap-1.5 text-text-secondary">
-              {paginationNext}
-              <Icon name="arrow-right" size={14} />
-            </span>
-          </div>
+          {filtered.length > 9 && (
+            <div className="mt-12 flex items-center justify-center gap-2 text-sm">
+              <span className="inline-flex cursor-not-allowed items-center gap-1.5 text-text-secondary">
+                <Icon name="arrow-left" size={14} />
+                {paginationPrev}
+              </span>
+              {[1, 2, 3].map((n) => {
+                const isCurrent = n === 1;
+                return (
+                  <span
+                    key={n}
+                    className={`flex h-10 w-10 items-center justify-center rounded-sm border font-semibold ${
+                      isCurrent
+                        ? "cursor-default border-primary bg-primary text-white"
+                        : "cursor-pointer border-border text-text-secondary"
+                    }`}
+                  >
+                    {n}
+                  </span>
+                );
+              })}
+              <span className="inline-flex cursor-pointer items-center gap-1.5 text-text-secondary">
+                {paginationNext}
+                <Icon name="arrow-right" size={14} />
+              </span>
+            </div>
+          )}
         </Container>
       </Section>
     </>
