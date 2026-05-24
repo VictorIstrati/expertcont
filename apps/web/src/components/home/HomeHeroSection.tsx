@@ -1,4 +1,4 @@
-import { Icon, ImagePlaceholder, Button } from "@expertcont/ui";
+import { Icon, Button } from "@expertcont/ui";
 import type { Locale } from "@expertcont/i18n";
 import { openModal } from "../../lib/modalBus";
 import { phoneTel, site } from "../../site";
@@ -175,10 +175,12 @@ export default function HomeHeroSection({ locale }: Props) {
         {/* Right column */}
         <div className="hero-a-right relative max-lg:hidden">
           <div className="relative bg-bg-card rounded-2xl border border-border p-8 shadow-xl">
-            <ImagePlaceholder
-              label="Team photo · ExpertCont office"
-              ratio="4/5"
-              style={{ borderRadius: "var(--r-lg)" }}
+            <img
+              src="/home.webp"
+              alt="Echipa ExpertCont · biroul din Chișinău"
+              loading="eager"
+              decoding="async"
+              className="block h-auto w-full rounded-lg object-cover aspect-[4/5]"
             />
 
             {/* Floating team badge */}

@@ -1,4 +1,4 @@
-import { ImagePlaceholder, PageHeader, SectionHeader, Stat, Icon, Button } from "@expertcont/ui";
+import { PageHeader, SectionHeader, Stat, Icon, Button } from "@expertcont/ui";
 import type { Locale } from "@expertcont/i18n";
 import { openModal } from "../../lib/modalBus";
 import { site, phoneTel } from "../../site";
@@ -414,7 +414,13 @@ export default function AboutIsland({ locale, bookHref: _bookHref }: AboutIsland
             </div>
           </div>
 
-          <ImagePlaceholder ratio="4/5" label={t.teamImageLabel} />
+          <img
+            src="/about.webp"
+            alt={t.teamImageLabel}
+            loading="lazy"
+            decoding="async"
+            className="block h-auto w-full rounded-lg object-cover aspect-[4/5]"
+          />
         </div>
       </section>
 

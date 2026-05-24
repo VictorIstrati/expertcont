@@ -10,6 +10,7 @@ interface Guide {
   excerpt: string;
   readTime: number;
   featured?: boolean;
+  cover?: string;
 }
 
 interface Props {
@@ -71,11 +72,23 @@ export default function GuidesIndexIsland({
               href={featured.href}
               className="card card-hover mb-10 grid grid-cols-1 overflow-hidden p-0 no-underline md:grid-cols-[1.2fr_1fr]"
             >
-              <ImagePlaceholder
-                ratio="16/10"
-                label={`Featured · ${featured.category}`}
-                style={{ borderRadius: 0 }}
-              />
+              {featured.cover ? (
+                <img
+                  src={featured.cover}
+                  alt={featured.title}
+                  width="1600"
+                  height="1000"
+                  loading="eager"
+                  decoding="async"
+                  className="block h-full w-full object-cover aspect-[16/10]"
+                />
+              ) : (
+                <ImagePlaceholder
+                  ratio="16/10"
+                  label={`Featured · ${featured.category}`}
+                  style={{ borderRadius: 0 }}
+                />
+              )}
               <div className="flex flex-col justify-center p-10 max-sm:p-6">
                 <div className="mb-4 flex gap-2">
                   <span className="pill pill-accent">★ {featuredLabel}</span>
@@ -103,11 +116,23 @@ export default function GuidesIndexIsland({
                     href={g.href}
                     className="card card-hover block overflow-hidden p-0 no-underline"
                   >
-                    <ImagePlaceholder
-                      ratio="16/10"
-                      label={g.category}
-                      style={{ borderRadius: 0 }}
-                    />
+                    {g.cover ? (
+                      <img
+                        src={g.cover}
+                        alt={g.title}
+                        width="1600"
+                        height="1000"
+                        loading="lazy"
+                        decoding="async"
+                        className="block h-full w-full object-cover aspect-[16/10]"
+                      />
+                    ) : (
+                      <ImagePlaceholder
+                        ratio="16/10"
+                        label={g.category}
+                        style={{ borderRadius: 0 }}
+                      />
+                    )}
                     <div className="p-6">
                       <span className="pill pill-soft mb-3 inline-block">{g.category}</span>
                       <h3 className="mt-2 mb-3 text-lg leading-snug">{g.title}</h3>

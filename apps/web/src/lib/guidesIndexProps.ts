@@ -85,6 +85,7 @@ export async function guidesIndexProps(locale: Locale) {
       excerpt: m.summaries[locale],
       readTime: m.readTime,
       featured: m.featured,
+      cover: m.cover,
     };
   });
 

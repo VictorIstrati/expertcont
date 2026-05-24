@@ -85,6 +85,7 @@ export async function blogIndexProps(locale: Locale) {
       readTime: m.readTime,
       featured: m.featured,
       author: m.author ?? "",
+      cover: m.cover,
     };
   });
 

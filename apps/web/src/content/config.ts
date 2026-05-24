@@ -61,6 +61,7 @@ const blogMeta = defineCollection({
     readTime: z.number().int().positive(),
     featured: z.boolean().optional(),
     author: z.string().optional(),
+    cover: z.string().optional(),
   }),
 });
 const guidesMeta = defineCollection({
@@ -73,6 +74,7 @@ const guidesMeta = defineCollection({
     category: localeMap,
     readTime: z.number().int().positive(),
     featured: z.boolean().optional(),
+    cover: z.string().optional(),
   }),
 });
 const pagesMeta = defineCollection({

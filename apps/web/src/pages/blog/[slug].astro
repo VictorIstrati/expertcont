@@ -79,7 +79,21 @@ const jsonLd = [
           <span>·</span>
           <span>{meta.readTime} {labels.readTimeLabel}</span>
         </div>
-        <ImagePlaceholder ratio="21/9" label="Article cover" />
+        {
+          meta.cover ? (
+            <img
+              src={meta.cover}
+              alt={meta.titles[locale]}
+              width="2100"
+              height="900"
+              loading="eager"
+              decoding="async"
+              class="block h-auto w-full rounded-lg object-cover aspect-[21/9]"
+            />
+          ) : (
+            <ImagePlaceholder ratio="21/9" label="Article cover" />
+          )
+        }
       </Container>
     </Section>
 
@@ -170,7 +184,19 @@ const jsonLd = [
               {related.map((p) => (
                 <article>
                   <a href={p.href} class="card card-hover block overflow-hidden p-0 no-underline">
-                    <ImagePlaceholder ratio="16/10" label={p.category} />
+                    {p.cover ? (
+                      <img
+                        src={p.cover}
+                        alt={p.title}
+                        width="1600"
+                        height="1000"
+                        loading="lazy"
+                        decoding="async"
+                        class="block h-full w-full object-cover aspect-[16/10]"
+                      />
+                    ) : (
+                      <ImagePlaceholder ratio="16/10" label={p.category} />
+                    )}
                     <div class="p-6">
                       <span class="pill pill-soft mb-3 inline-block">{p.category}</span>
                       <h3 class="mt-2 mb-3 text-lg leading-snug text-text-primary">{p.title}</h3>

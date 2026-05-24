@@ -229,6 +229,18 @@ function ContactInner({ locale, address, phone, email, hours }: ContactIslandPro
             </div>
 
             <div className="flex flex-col gap-5">
+              <img
+                src="/contact-office.webp"
+                alt={t({
+                  message: `Biroul ExpertCont · Chișinău`,
+                  comment: "Alt text for the office photo on the contact page.",
+                })}
+                width="1448"
+                height="1086"
+                loading="lazy"
+                decoding="async"
+                className="block h-auto w-full rounded-lg object-cover aspect-[4/3]"
+              />
               <div className="card p-8">
                 <div className="flex items-center gap-3 mb-4">
                   <span className="w-10 h-10 rounded-sm bg-primary-50 text-primary flex items-center justify-center">

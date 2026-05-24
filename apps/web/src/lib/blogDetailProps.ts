@@ -7,6 +7,7 @@ export interface BlogMeta extends ContentMeta {
   readTime: number;
   featured?: boolean;
   author?: string;
+  cover?: string;
 }
 
 interface DetailLabels {
@@ -65,6 +66,7 @@ export interface RelatedPost {
   title: string;
   date: string;
   readTime: number;
+  cover?: string;
 }
 
 export async function blogDetailProps(meta: BlogMeta, locale: Locale) {
@@ -78,6 +80,7 @@ export async function blogDetailProps(meta: BlogMeta, locale: Locale) {
       title: e.data.titles[locale],
       date: e.data.publishedAt,
       readTime: e.data.readTime,
+      cover: e.data.cover,
     }));
 
   return {

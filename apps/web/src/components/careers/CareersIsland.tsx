@@ -354,6 +354,15 @@ export function CareersIsland({ locale, homeHref }: CareersIslandProps) {
             title={t.cultureTitle}
             maxWidth={720}
           />
+          <img
+            src="/careers-team-culture.webp"
+            alt={t.cultureTitle}
+            width="1672"
+            height="941"
+            loading="lazy"
+            decoding="async"
+            className="mx-auto mb-10 block h-auto w-full max-w-5xl rounded-lg object-cover aspect-[16/9]"
+          />
           <div className="max-w-3xl mx-auto flex flex-col gap-5">
             {t.cultureParagraphs.map((p, i) => (
               <p key={i} className="text-base text-text-secondary leading-relaxed mb-0">

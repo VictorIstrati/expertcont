@@ -6,6 +6,7 @@ export interface GuideMeta extends ContentMeta {
   category: { ro: string; ru: string; en: string };
   readTime: number;
   featured?: boolean;
+  cover?: string;
 }
 
 interface DetailLabels {
@@ -68,6 +69,7 @@ export interface RelatedItem {
   title: string;
   date: string;
   readTime: number;
+  cover?: string;
 }
 
 export async function guidesDetailProps(meta: GuideMeta, locale: Locale) {
@@ -81,6 +83,7 @@ export async function guidesDetailProps(meta: GuideMeta, locale: Locale) {
       title: e.data.titles[locale],
       date: e.data.publishedAt ?? "",
       readTime: e.data.readTime,
+      cover: e.data.cover,
     }));
 
   const allBlog = await getCollection("blog-meta");
@@ -90,6 +93,7 @@ export async function guidesDetailProps(meta: GuideMeta, locale: Locale) {
     title: e.data.titles[locale],
     date: e.data.publishedAt,
     readTime: e.data.readTime,
+    cover: e.data.cover,
   }));
 
   return {

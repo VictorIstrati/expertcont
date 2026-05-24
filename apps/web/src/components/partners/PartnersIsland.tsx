@@ -409,11 +409,20 @@ export function PartnersIsland({ locale, homeHref }: PartnersIslandProps) {
       {/* ── Intro ────────────────────────────────────────────────── */}
       <section className="section">
         <div className="container">
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="max-w-3xl mx-auto text-center mb-12">
             <div className="eyebrow mb-4 inline-flex">{t.introEyebrow}</div>
             <h2 className="mb-5">{t.introTitle}</h2>
             <p className="text-text-secondary text-lg leading-relaxed mb-0">{t.introText}</p>
           </div>
+          <img
+            src="/partners-handshake.webp"
+            alt={t.introTitle}
+            width="1672"
+            height="941"
+            loading="lazy"
+            decoding="async"
+            className="mx-auto block h-auto w-full max-w-5xl rounded-lg object-cover aspect-[16/9]"
+          />
         </div>
       </section>
 

@@ -98,6 +98,16 @@ const jsonLd = [
         <div class="svc-detail-layout grid grid-cols-1 lg:grid-cols-[1.6fr_1fr] gap-14 items-start">
           <!-- Main content -->
           <div class="svc-detail-main">
+            <img
+              src={`/service-${meta.id}.webp`}
+              alt={meta.titles[locale]}
+              width="1672"
+              height="941"
+              loading="lazy"
+              decoding="async"
+              class="mb-10 block h-auto w-full rounded-lg object-cover aspect-[16/9]"
+            />
+
             {
               pageData && (
                 <p class="text-lg text-text-secondary mb-10 leading-relaxed">
