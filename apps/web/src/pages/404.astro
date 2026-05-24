@@ -1,0 +1,216 @@
+---
+/**
+ * Static 404 served for any unknown route on Cloudflare Pages.
+ *
+ * Astro emits a single 404.html, so all three locales must coexist client-side.
+ * The page renders RO content by default; a tiny inline script swaps to RU/EN
+ * when the request path starts with /ru or /en. Nav + Footer islands stay in
+ * the default locale (RO) — they're prebuilt React islands.
+ */
+import Base from "../layouts/Base.astro";
+import PageShell from "../components/PageShell.astro";
+import { Container } from "@expertcont/ui";
+import { homeUrl, type Locale } from "@expertcont/i18n";
+
+const locale: Locale = "ro";
+const siblings: Record<Locale, string> = {
+  ro: homeUrl("ro"),
+  ru: homeUrl("ru"),
+  en: homeUrl("en"),
+};
+
+const copy = {
+  ro: {
+    lang: "ro",
+    title: "404 — Pagina nu se găsește | ExpertCont",
+    description:
+      "Pagina căutată nu există sau a fost mutată. Întoarce-te la pagina principală sau explorează serviciile noastre.",
+    eyebrow: "Eroare 404",
+    heading: "Această pagină nu este în registrul nostru.",
+    body: "Verificăm fiecare cifră de două ori — dar adresa pe care ai deschis-o nu apare în evidențele site-ului. Poate a fost mutată sau linkul conține o greșeală de tipar.",
+    ctaPrimary: "Înapoi acasă",
+    ctaSecondary: "Vezi serviciile",
+    quickTitle: "Sau mergi direct la:",
+    quick: [
+      { label: "Prețuri", href: "/preturi" },
+      { label: "Contact", href: "/contact" },
+      { label: "Întrebări frecvente", href: "/intrebari-frecvente" },
+      { label: "Harta site-ului", href: "/harta-site" },
+    ],
+    home: "/",
+    services: "/servicii",
+  },
+  ru: {
+    lang: "ru",
+    title: "404 — Страница не найдена | ExpertCont",
+    description:
+      "Запрошенная страница не существует или была перемещена. Вернитесь на главную или ознакомьтесь с нашими услугами.",
+    eyebrow: "Ошибка 404",
+    heading: "Этой страницы нет в нашем реестре.",
+    body: "Мы сверяем каждую цифру дважды — но адрес, который вы открыли, не значится в записях сайта. Возможно, страница была перемещена или в ссылке опечатка.",
+    ctaPrimary: "На главную",
+    ctaSecondary: "Наши услуги",
+    quickTitle: "Или сразу перейдите к:",
+    quick: [
+      { label: "Цены", href: "/ru/tseny" },
+      { label: "Контакты", href: "/ru/kontakty" },
+      { label: "Частые вопросы", href: "/ru/voprosy" },
+      { label: "Карта сайта", href: "/ru/karta-sayta" },
+    ],
+    home: "/ru",
+    services: "/ru/uslugi",
+  },
+  en: {
+    lang: "en",
+    title: "404 — Page not found | ExpertCont",
+    description:
+      "The page you are looking for doesn't exist or has moved. Head back to the homepage or explore our services.",
+    eyebrow: "Error 404",
+    heading: "This page isn't in our ledger.",
+    body: "We double-check every figure — but the address you opened doesn't appear on the books. It may have been moved, or the link contains a typo.",
+    ctaPrimary: "Back home",
+    ctaSecondary: "View services",
+    quickTitle: "Or jump straight to:",
+    quick: [
+      { label: "Pricing", href: "/en/pricing" },
+      { label: "Contact", href: "/en/contact" },
+      { label: "FAQ", href: "/en/faq" },
+      { label: "Sitemap", href: "/en/sitemap" },
+    ],
+    home: "/en",
+    services: "/en/services",
+  },
+} as const;
+
+const ro = copy.ro;
+---
+
+<Base
+  title={ro.title}
+  description={ro.description}
+  locale={locale}
+  path="/404"
+  siblings={siblings}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <section class="section section-alt border-b border-border">
+      <Container>
+        <div class="mx-auto flex max-w-[720px] flex-col items-center text-center">
+          <img
+            src="/illustrations/404.svg"
+            alt=""
+            width="513"
+            height="269"
+            loading="eager"
+            decoding="async"
+            class="mb-8 block h-auto w-full max-w-[360px] md:mb-10 md:max-w-[480px]"
+          />
+
+          <p
+            class="mb-4 text-[13px] font-semibold uppercase tracking-[0.16em] text-accent-dark"
+            data-i18n="eyebrow"
+          >
+            {ro.eyebrow}
+          </p>
+
+          <h1
+            class="mb-5 text-[clamp(32px,4.6vw,56px)] font-bold leading-[1.1] tracking-[-0.01em] text-text-primary"
+            data-i18n="heading"
+          >
+            {ro.heading}
+          </h1>
+
+          <p
+            class="mb-8 max-w-[540px] text-base leading-relaxed text-text-secondary md:text-lg"
+            data-i18n="body"
+          >
+            {ro.body}
+          </p>
+
+          <div class="mb-12 flex flex-wrap justify-center gap-3">
+            <a
+              class="btn btn-primary btn-lg"
+              href={ro.home}
+              data-href="home"
+              data-i18n="ctaPrimary"
+            >
+              {ro.ctaPrimary}
+            </a>
+            <a
+              class="btn btn-outline btn-lg"
+              href={ro.services}
+              data-href="services"
+              data-i18n="ctaSecondary"
+            >
+              {ro.ctaSecondary}
+            </a>
+          </div>
+
+          <div class="w-full max-w-[560px] border-t border-border pt-7">
+            <p
+              class="mb-3.5 text-xs font-semibold uppercase tracking-[0.14em] text-text-secondary"
+              data-i18n="quickTitle"
+            >
+              {ro.quickTitle}
+            </p>
+            <ul class="m-0 flex list-none flex-wrap justify-center gap-2 p-0" data-quick-list>
+              {ro.quick.map((q) => (
+                <li>
+                  <a
+                    href={q.href}
+                    class="inline-flex h-9 items-center rounded-pill border border-border bg-bg-card px-3.5 text-sm font-medium text-text-primary no-underline transition-[border-color,color,transform] duration-150 hover:-translate-y-px hover:border-primary hover:text-primary"
+                  >
+                    {q.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <script type="application/json" id="nf-copy" set:html={JSON.stringify(copy)} />
+
+    <script is:inline>
+      (function () {
+        var raw = document.getElementById("nf-copy");
+        if (!raw) return;
+        var COPY = JSON.parse(raw.textContent || "{}");
+        var path = window.location.pathname || "/";
+        var locale = "ro";
+        if (/^\/ru(\/|$)/.test(path)) locale = "ru";
+        else if (/^\/en(\/|$)/.test(path)) locale = "en";
+        var c = COPY[locale];
+        if (!c) return;
+
+        document.documentElement.lang = c.lang;
+        document.title = c.title;
+        var desc = document.querySelector('meta[name="description"]');
+        if (desc) desc.setAttribute("content", c.description);
+
+        document.querySelectorAll("[data-i18n]").forEach(function (el) {
+          var key = el.getAttribute("data-i18n");
+          if (key && c[key]) el.textContent = c[key];
+        });
+
+        document.querySelectorAll("[data-href]").forEach(function (a) {
+          var key = a.getAttribute("data-href");
+          if (key && c[key]) a.setAttribute("href", c[key]);
+        });
+
+        var list = document.querySelector("[data-quick-list]");
+        if (list) {
+          var cls =
+            "inline-flex h-9 items-center rounded-pill border border-border bg-bg-card px-3.5 text-sm font-medium text-text-primary no-underline transition-[border-color,color,transform] duration-150 hover:-translate-y-px hover:border-primary hover:text-primary";
+          list.innerHTML = c.quick
+            .map(function (q) {
+              return '<li><a href="' + q.href + '" class="' + cls + '">' + q.label + "</a></li>";
+            })
+            .join("");
+        }
+      })();
+    </script>
+
+  </PageShell>
+</Base>
