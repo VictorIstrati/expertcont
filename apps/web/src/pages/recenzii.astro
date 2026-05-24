@@ -4,6 +4,7 @@ import PageShell from "../components/PageShell.astro";
 import ReviewsPageIsland from "../components/reviews/ReviewsPageIsland";
 import { Container, PageHeader, Section } from "@expertcont/ui";
 import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+import { site } from "../site";
 
 const locale: Locale = "ro";
 const siblings: Record<Locale, string> = {
@@ -62,6 +63,39 @@ const reviews = [
     body: "Organizăm evenimente și veniturile noastre sunt variabile. ExpertCont ne ajută să gestionăm cash-flow-ul și să fim întotdeauna pregătiți pentru obligațiile fiscale. Portalul online este extrem de comod.",
   },
 ];
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const reviewsJsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Recenzii clienți ExpertCont",
+    url: `${siteUrl}${sectionUrl("reviews", locale)}`,
+    inLanguage: "ro",
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: reviews.length,
+      itemListElement: reviews.map((r, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "Review",
+          reviewBody: r.body,
+          author: { "@type": "Person", name: r.author },
+          reviewRating: {
+            "@type": "Rating",
+            ratingValue: r.rating,
+            bestRating: 5,
+          },
+          itemReviewed: {
+            "@type": "AccountingService",
+            name: site.business.name,
+          },
+        },
+      })),
+    },
+  },
+];
 ---
 
 <Base
@@ -70,6 +104,7 @@ const reviews = [
   locale={locale}
   path={sectionUrl("reviews", locale)}
   siblings={siblings}
+  jsonLd={reviewsJsonLd}
 >
   <PageShell locale={locale} siblings={siblings}>
     <PageHeader
@@ -84,7 +119,7 @@ const reviews = [
           client:visible
           locale={locale}
           reviews={reviews}
-          ratingSummaryLabel="din 247 recenzii"
+          ratingSummaryLabel="din 8 recenzii publicate"
           filterChips={["Toate", "Cu fotografii", "Doar 5★", "Doar cu detalii"]}
           ctaTitle="Lasă o recenzie"
           ctaBtn="Scrie o recenzie"

@@ -1,8 +1,14 @@
 ---
+import { getCollection } from "astro:content";
 import Base from "../../../layouts/Base.astro";
 import PageShell from "../../../components/PageShell.astro";
 import GuidesIndexIsland from "../../../components/guides/GuidesIndexIsland";
-import { sectionUrl, type Locale } from "@expertcont/i18n";
+import {
+  sectionUrl,
+  detailUrl,
+  type Locale,
+  type ContentMeta,
+} from "@expertcont/i18n";
 import { guidesIndexProps } from "../../../lib/guidesIndexProps";
 
 const locale: Locale = "ru";
@@ -13,14 +19,44 @@ const siblings: Record<Locale, string> = {
 };
 
 const props = await guidesIndexProps(locale);
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const guidesMetaEntries = await getCollection("guides-meta");
+const guides: ContentMeta[] = guidesMetaEntries.map((e) => e.data as ContentMeta);
+const guidesJsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Практические руководства ExpertCont",
+    url: `${siteUrl}${sectionUrl("guides", locale)}`,
+    inLanguage: "ru",
+    description:
+      "Практические руководства для предпринимателей в Республике Молдова: регистрация компании, НДС, налогообложение, трудовое право и соответствие законодательству.",
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: guides.length,
+      itemListElement: guides.map((m, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "Article",
+          headline: m.titles[locale],
+          description: m.summaries[locale],
+          url: `${siteUrl}${detailUrl("guides", m, locale)}`,
+        },
+      })),
+    },
+  },
+];
 ---
 
 <Base
-  title="Руководства — ExpertCont"
-  description="Практические руководства для предпринимателей в Республике Молдова."
+  title="Практические руководства ExpertCont — для предпринимателей в Молдове"
+  description="Пошаговые руководства для предпринимателей в Республике Молдова: регистрация ООО, НДС, налогообложение, трудовое право и соответствие молдавскому законодательству."
   locale={locale}
   path={sectionUrl("guides", locale)}
   siblings={siblings}
+  jsonLd={guidesJsonLd}
 >
   <PageShell locale={locale} activeSection="guides" siblings={siblings}>
     <GuidesIndexIsland client:visible {...props} />

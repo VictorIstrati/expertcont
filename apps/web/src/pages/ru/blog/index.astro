@@ -1,8 +1,14 @@
 ---
+import { getCollection } from "astro:content";
 import Base from "../../../layouts/Base.astro";
 import PageShell from "../../../components/PageShell.astro";
 import BlogIndexIsland from "../../../components/blog/BlogIndexIsland";
-import { sectionUrl, type Locale } from "@expertcont/i18n";
+import {
+  sectionUrl,
+  detailUrl,
+  type Locale,
+  type ContentMeta,
+} from "@expertcont/i18n";
 import { blogIndexProps } from "../../../lib/blogIndexProps";
 
 const locale: Locale = "ru";
@@ -13,14 +19,44 @@ const siblings: Record<Locale, string> = {
 };
 
 const props = await blogIndexProps(locale);
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const blogMetaEntries = await getCollection("blog-meta");
+const blogPosts: ContentMeta[] = blogMetaEntries.map((e) => e.data as ContentMeta);
+const blogJsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: "Блог ExpertCont",
+    url: `${siteUrl}${sectionUrl("blog", locale)}`,
+    inLanguage: "ru",
+    description:
+      "Статьи о бухгалтерии, налогообложении, законодательных изменениях и отчётности для компаний в Молдове.",
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: blogPosts.length,
+      itemListElement: blogPosts.map((p, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "BlogPosting",
+          headline: p.titles[locale],
+          description: p.summaries[locale],
+          url: `${siteUrl}${detailUrl("blog", p, locale)}`,
+        },
+      })),
+    },
+  },
+];
 ---
 
 <Base
-  title="Блог — ExpertCont"
-  description="Статьи о бухгалтерии, налогах и законодательстве для бизнеса в Молдове."
+  title="Блог ExpertCont — статьи о бухгалтерии и налогах в Молдове"
+  description="Статьи для предпринимателей и компаний в Молдове: бухгалтерия, налогообложение, законодательные изменения, отчётность НДС и практические советы для вашего бизнеса."
   locale={locale}
   path={sectionUrl("blog", locale)}
   siblings={siblings}
+  jsonLd={blogJsonLd}
 >
   <PageShell locale={locale} activeSection="blog" siblings={siblings}>
     <BlogIndexIsland client:visible {...props} />

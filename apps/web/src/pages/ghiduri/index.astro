@@ -35,14 +35,42 @@ const realSlugs = new Set(realMeta.map((m) => m.slugs.ro));
 const visibleGuides = guides.filter((g) => realSlugs.has(g.slug));
 
 const categories = ["Toate", "Fiscal", "Juridic", "HR", "Contabilitate"];
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const guidesJsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Ghiduri practice ExpertCont",
+    url: `${siteUrl}${sectionUrl("guides", locale)}`,
+    inLanguage: "ro",
+    description:
+      "Ghiduri practice pentru antreprenori din Republica Moldova: înregistrare firmă, TVA, fiscalitate, dreptul muncii și conformitate.",
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: realMeta.length,
+      itemListElement: realMeta.map((m, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "Article",
+          headline: m.titles[locale],
+          description: m.summaries[locale],
+          url: `${siteUrl}${detailUrl("guides", m, locale)}`,
+        },
+      })),
+    },
+  },
+];
 ---
 
 <Base
-  title="Ghiduri — ExpertCont"
-  description="Ghiduri practice pentru antreprenori din Republica Moldova."
+  title="Ghiduri practice ExpertCont — pentru antreprenori din Moldova"
+  description="Ghiduri pas-cu-pas pentru antreprenori din Republica Moldova: înregistrare SRL, TVA, fiscalitate, dreptul muncii și conformitate cu legislația moldovenească."
   locale={locale}
   path={sectionUrl("guides", locale)}
   siblings={siblings}
+  jsonLd={guidesJsonLd}
 >
   <PageShell locale={locale} activeSection="guides" siblings={siblings}>
     <GuidesIndexIsland

@@ -4,6 +4,7 @@ import PageShell from "../../components/PageShell.astro";
 import ReviewsPageIsland from "../../components/reviews/ReviewsPageIsland";
 import { Container, PageHeader, Section } from "@expertcont/ui";
 import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+import { site } from "../../site";
 
 const locale: Locale = "en";
 const siblings: Record<Locale, string> = {
@@ -62,6 +63,39 @@ const reviews = [
     body: "We organise events and our revenue is variable. ExpertCont helps us manage cash flow and always be prepared for tax obligations. The online portal is extremely convenient.",
   },
 ];
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const reviewsJsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "ExpertCont client reviews",
+    url: `${siteUrl}${sectionUrl("reviews", locale)}`,
+    inLanguage: "en",
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: reviews.length,
+      itemListElement: reviews.map((r, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "Review",
+          reviewBody: r.body,
+          author: { "@type": "Person", name: r.author },
+          reviewRating: {
+            "@type": "Rating",
+            ratingValue: r.rating,
+            bestRating: 5,
+          },
+          itemReviewed: {
+            "@type": "AccountingService",
+            name: site.business.name,
+          },
+        },
+      })),
+    },
+  },
+];
 ---
 
 <Base
@@ -70,6 +104,7 @@ const reviews = [
   locale={locale}
   path={sectionUrl("reviews", locale)}
   siblings={siblings}
+  jsonLd={reviewsJsonLd}
 >
   <PageShell locale={locale} siblings={siblings}>
     <PageHeader
@@ -84,7 +119,7 @@ const reviews = [
           client:visible
           locale={locale}
           reviews={reviews}
-          ratingSummaryLabel="from 247 reviews"
+          ratingSummaryLabel="from 8 published reviews"
           filterChips={["All", "With photos", "5★ only", "Detailed only"]}
           ctaTitle="Leave a review"
           ctaBtn="Write a review"

@@ -67,7 +67,7 @@ const content: ContentMap = {
         },
         {
           h: "5. Drepturile tale",
-          t: `Ai dreptul de acces, rectificare, ștergere, portabilitate și opoziție conform GDPR și Legii 133/2011 a RM. Pentru exercitarea acestor drepturi, contactează-ne la ${EMAIL}. Răspundem în maxim 30 de zile calendaristice.`,
+          t: `Ai dreptul de acces, rectificare, ștergere, portabilitate și opoziție conform Legii 133/2011 a Republicii Moldova privind protecția datelor cu caracter personal. Pentru exercitarea acestor drepturi, contactează-ne la ${EMAIL}. Răspundem în maxim 30 de zile calendaristice.`,
         },
         {
           h: "6. Perioada de păstrare",
@@ -98,7 +98,7 @@ const content: ContentMap = {
         },
         {
           h: "4. Cookie-uri analitice",
-          t: "Utilizăm Plausible Analytics, o alternativă privacy-friendly la Google Analytics, pentru a înțelege traficul pe site. Plausible nu folosește cookie-uri de tracking și nu colectează date personale identificabile — respectă GDPR prin design.",
+          t: "Utilizăm Plausible Analytics, o alternativă privacy-friendly la Google Analytics, pentru a înțelege traficul pe site. Plausible nu folosește cookie-uri de tracking și nu colectează date personale identificabile.",
         },
         {
           h: "5. Cum să gestionezi cookie-urile",
@@ -117,19 +117,19 @@ const content: ContentMap = {
       sections: [
         {
           h: "1. Acceptarea termenilor",
-          t: "Utilizarea acestui site și a serviciilor ExpertCont SRL implică acceptarea integrală a acestor termeni și condiții. Dacă nu ești de acord cu oricare dintre prevederi, te rugăm să nu utilizezi site-ul sau serviciile noastre.",
+          t: "Utilizarea acestui site și a serviciilor ExpertCont implică acceptarea integrală a acestor termeni și condiții. Dacă nu ești de acord cu oricare dintre prevederi, te rugăm să nu utilizezi site-ul sau serviciile noastre.",
         },
         {
           h: "2. Serviciile oferite",
-          t: "ExpertCont SRL oferă servicii de contabilitate, consultanță fiscală, juridică, HR și IT pentru companii din Republica Moldova. Detaliile specifice privind volumul de muncă, termenele și livrabilele sunt stipulate în contractele individuale semnate cu fiecare client.",
+          t: "ExpertCont oferă servicii de contabilitate, consultanță fiscală, juridică, HR și IT pentru companii din Republica Moldova. Detaliile specifice privind volumul de muncă, termenele și livrabilele sunt stipulate în contractele individuale semnate cu fiecare client.",
         },
         {
           h: "3. Proprietate intelectuală",
-          t: "Conținutul site-ului (texte, imagini, logo, grafice, structura vizuală) este proprietatea exclusivă a ExpertCont SRL și este protejat de legislația privind drepturile de autor din Republica Moldova. Utilizarea fără acord scris prealabil este interzisă.",
+          t: "Conținutul site-ului (texte, imagini, logo, grafice, structura vizuală) este proprietatea exclusivă a ExpertCont și este protejat de legislația privind drepturile de autor din Republica Moldova. Utilizarea fără acord scris prealabil este interzisă.",
         },
         {
           h: "4. Răspundere",
-          t: "Informațiile de pe site au caracter general informativ și nu constituie consultanță fiscală, contabilă sau juridică personalizată. Pentru recomandări specifice situației dumneavoastră, vă rugăm să contactați direct echipa noastră. ExpertCont SRL nu este responsabilă pentru decizii luate exclusiv pe baza informațiilor de pe site.",
+          t: "Informațiile de pe site au caracter general informativ și nu constituie consultanță fiscală, contabilă sau juridică personalizată. Pentru recomandări specifice situației dumneavoastră, vă rugăm să contactați direct echipa noastră. ExpertCont nu este responsabilă pentru decizii luate exclusiv pe baza informațiilor de pe site.",
         },
         {
           h: "5. Modificări ale termenilor",
@@ -170,7 +170,7 @@ const content: ContentMap = {
         },
         {
           h: "5. Ваши права",
-          t: `Вы имеете право на доступ, исправление, удаление, переносимость и возражение в соответствии с GDPR и Законом 133/2011 Республики Молдова. Для осуществления этих прав свяжитесь с нами по адресу ${EMAIL}. Мы отвечаем в течение 30 календарных дней.`,
+          t: `Вы имеете право на доступ, исправление, удаление, переносимость и возражение в соответствии с Законом 133/2011 Республики Молдова о защите персональных данных. Для осуществления этих прав свяжитесь с нами по адресу ${EMAIL}. Мы отвечаем в течение 30 календарных дней.`,
         },
         {
           h: "6. Срок хранения данных",
@@ -201,7 +201,7 @@ const content: ContentMap = {
         },
         {
           h: "4. Аналитические cookie-файлы",
-          t: "Мы используем Plausible Analytics — privacy-friendly альтернативу Google Analytics — для понимания трафика на сайте. Plausible не использует трекинговые cookie и не собирает идентифицируемые персональные данные — соответствует GDPR по своей архитектуре.",
+          t: "Мы используем Plausible Analytics — privacy-friendly альтернативу Google Analytics — для понимания трафика на сайте. Plausible не использует трекинговые cookie и не собирает идентифицируемые персональные данные.",
         },
         {
           h: "5. Как управлять cookie-файлами",
@@ -220,19 +220,19 @@ const content: ContentMap = {
       sections: [
         {
           h: "1. Принятие условий",
-          t: "Использование данного сайта и услуг ExpertCont SRL означает полное принятие настоящих условий использования. Если вы не согласны с каким-либо из положений, просим вас не использовать сайт или наши услуги.",
+          t: "Использование данного сайта и услуг ExpertCont означает полное принятие настоящих условий использования. Если вы не согласны с каким-либо из положений, просим вас не использовать сайт или наши услуги.",
         },
         {
           h: "2. Предоставляемые услуги",
-          t: "ExpertCont SRL предоставляет услуги бухгалтерского учёта, налогового, юридического, HR и IT-консалтинга для компаний Республики Молдова. Конкретные детали объёма работ, сроков и результатов указываются в индивидуальных договорах, подписанных с каждым клиентом.",
+          t: "ExpertCont предоставляет услуги бухгалтерского учёта, налогового, юридического, HR и IT-консалтинга для компаний Республики Молдова. Конкретные детали объёма работ, сроков и результатов указываются в индивидуальных договорах, подписанных с каждым клиентом.",
         },
         {
           h: "3. Интеллектуальная собственность",
-          t: "Содержимое сайта (тексты, изображения, логотип, графика, визуальная структура) является исключительной собственностью ExpertCont SRL и защищено законодательством Республики Молдова об авторских правах. Использование без предварительного письменного согласия запрещено.",
+          t: "Содержимое сайта (тексты, изображения, логотип, графика, визуальная структура) является исключительной собственностью ExpertCont и защищено законодательством Республики Молдова об авторских правах. Использование без предварительного письменного согласия запрещено.",
         },
         {
           h: "4. Ответственность",
-          t: "Информация на сайте носит общий информационный характер и не является персонализированной налоговой, бухгалтерской или юридической консультацией. Для рекомендаций, соответствующих вашей конкретной ситуации, обратитесь непосредственно к нашей команде. ExpertCont SRL не несёт ответственности за решения, принятые исключительно на основе информации с сайта.",
+          t: "Информация на сайте носит общий информационный характер и не является персонализированной налоговой, бухгалтерской или юридической консультацией. Для рекомендаций, соответствующих вашей конкретной ситуации, обратитесь непосредственно к нашей команде. ExpertCont не несёт ответственности за решения, принятые исключительно на основе информации с сайта.",
         },
         {
           h: "5. Изменения условий",
@@ -273,7 +273,7 @@ const content: ContentMap = {
         },
         {
           h: "5. Your Rights",
-          t: `You have the right of access, rectification, erasure, portability, and objection under GDPR and Law 133/2011 of the Republic of Moldova. To exercise these rights, contact us at ${EMAIL}. We respond within 30 calendar days.`,
+          t: `You have the right of access, rectification, erasure, portability, and objection under Law 133/2011 of the Republic of Moldova on personal data protection. To exercise these rights, contact us at ${EMAIL}. We respond within 30 calendar days.`,
         },
         {
           h: "6. Retention Period",
@@ -304,7 +304,7 @@ const content: ContentMap = {
         },
         {
           h: "4. Analytical Cookies",
-          t: "We use Plausible Analytics, a privacy-friendly alternative to Google Analytics, to understand traffic on the site. Plausible does not use tracking cookies and does not collect identifiable personal data — it is GDPR-compliant by design.",
+          t: "We use Plausible Analytics, a privacy-friendly alternative to Google Analytics, to understand traffic on the site. Plausible does not use tracking cookies and does not collect identifiable personal data.",
         },
         {
           h: "5. How to Manage Cookies",
@@ -323,19 +323,19 @@ const content: ContentMap = {
       sections: [
         {
           h: "1. Acceptance of Terms",
-          t: "Use of this website and ExpertCont SRL's services constitutes full acceptance of these terms and conditions. If you do not agree with any of the provisions, please do not use the website or our services.",
+          t: "Use of this website and ExpertCont's services constitutes full acceptance of these terms and conditions. If you do not agree with any of the provisions, please do not use the website or our services.",
         },
         {
           h: "2. Services Provided",
-          t: "ExpertCont SRL provides accounting, tax consulting, legal, HR, and IT services for companies in the Republic of Moldova. Specific details regarding scope, timelines, and deliverables are stipulated in individual contracts signed with each client.",
+          t: "ExpertCont provides accounting, tax consulting, legal, HR, and IT services for companies in the Republic of Moldova. Specific details regarding scope, timelines, and deliverables are stipulated in individual contracts signed with each client.",
         },
         {
           h: "3. Intellectual Property",
-          t: "The website content (texts, images, logo, graphics, visual structure) is the exclusive property of ExpertCont SRL and is protected by copyright law in the Republic of Moldova. Use without prior written consent is prohibited.",
+          t: "The website content (texts, images, logo, graphics, visual structure) is the exclusive property of ExpertCont and is protected by copyright law in the Republic of Moldova. Use without prior written consent is prohibited.",
         },
         {
           h: "4. Liability",
-          t: "The information on the website is of a general informational nature and does not constitute personalized tax, accounting, or legal advice. For recommendations specific to your situation, please contact our team directly. ExpertCont SRL is not responsible for decisions made solely on the basis of information from the website.",
+          t: "The information on the website is of a general informational nature and does not constitute personalized tax, accounting, or legal advice. For recommendations specific to your situation, please contact our team directly. ExpertCont is not responsible for decisions made solely on the basis of information from the website.",
         },
         {
           h: "5. Changes to Terms",
