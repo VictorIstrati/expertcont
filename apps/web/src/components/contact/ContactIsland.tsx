@@ -290,7 +290,7 @@ function ContactInner({ locale, address, phone, email, hours }: ContactIslandPro
                 </div>
                 <p className="text-sm text-text-secondary leading-relaxed">{address}</p>
                 <a
-                  href="https://maps.google.com/?q=Chișinău+Mitropolit+Varlaam+65"
+                  href={`https://maps.google.com/?q=${encodeURIComponent(address)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 mt-3 text-sm text-primary font-semibold"

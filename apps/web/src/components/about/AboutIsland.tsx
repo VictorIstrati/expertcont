@@ -149,7 +149,7 @@ const strings: Record<Locale, LocaleStrings> = {
     teamEyebrow: "Echipa",
     teamTitle: "Oameni cu care vei lucra",
     team: [
-      { name: "Oleg Balan", role: "Fondator & Managing Partner" },
+      { name: "Oleg Balan", role: "Fondator & Partener Administrator" },
       { name: "Constanța Tulgara", role: "Head of Accounting" },
       { name: "Vasile Secrieru", role: "Senior Legal Counsel" },
       { name: "Iuliana Oboroceanu", role: "Human Resources Consultant" },
