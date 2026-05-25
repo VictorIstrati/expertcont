@@ -78,6 +78,10 @@ const SiteSchema = z.object({
       postalCode: z.string(),
       countryCode: z.string().length(2),
       countryName: localized,
+      geo: z.object({
+        latitude: z.number(),
+        longitude: z.number(),
+      }),
     }),
     hours: localized,
   }),

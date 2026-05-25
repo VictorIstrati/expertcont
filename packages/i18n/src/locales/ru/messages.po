@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. Placeholder text inside the contact form 'Phone' field (Moldova country code +373). Keep as-is in every locale.
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:182
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:185
 msgid "+373 ..."
 msgstr "+373 ..."
 
@@ -30,7 +30,7 @@ msgstr "О нас"
 msgid "About us"
 msgstr "О нас"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:104
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:107
 #: ../../apps/web/src/components/faq/FaqPageIsland.tsx:56
 msgid "Acasă"
 msgstr "Главная"
@@ -67,7 +67,7 @@ msgstr "Все права защищены."
 msgid "All services"
 msgstr "Все услуги"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:43
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:46
 msgid "Altele"
 msgstr "Другое"
 
@@ -84,12 +84,16 @@ msgstr "Аудит"
 msgid "Bază de cunoștințe"
 msgstr "База знаний"
 
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:355
+msgid "Biroul ExpertCont"
+msgstr "Офис ExpertCont"
+
 #. Alt text for the office photo on the contact page.
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:272
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:275
 msgid "Biroul ExpertCont · Chișinău"
 msgstr "Офис ExpertCont · Кишинёв"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:288
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:291
 msgid "Biroul nostru"
 msgstr "Наш офис"
 
@@ -119,7 +123,7 @@ msgstr "Карьера"
 msgid "Caută o întrebare..."
 msgstr "Найдите вопрос…"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:191
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:194
 msgid "Companie"
 msgstr "Компания"
 
@@ -145,7 +149,7 @@ msgstr "Подтверждено"
 msgid "Consultanță"
 msgstr "Консалтинг"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:32
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:35
 msgid "Consultanță fiscală"
 msgstr "Налоговый консалтинг"
 
@@ -154,21 +158,21 @@ msgstr "Налоговый консалтинг"
 msgid "Contabilitate"
 msgstr "Бухгалтерия"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:31
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:34
 msgid "Contabilitate & evidență"
 msgstr "Бухгалтерия и учёт"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:104
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:107
 #: ../ui/src/Footer/Footer.tsx:187
 #: ../ui/src/Nav/Nav.tsx:79
 msgid "Contact"
 msgstr "Контакты"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:101
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:104
 msgid "CONTACT"
 msgstr "КОНТАКТЫ"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:402
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:393
 msgid "Contactează-ne rapid"
 msgstr "Свяжитесь с нами быстро"
 
@@ -193,9 +197,13 @@ msgstr "Дата и время"
 msgid "Date contact"
 msgstr "Контактные данные"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:298
-msgid "Deschide în Maps"
-msgstr "Открыть в Картах"
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:302
+msgid "Deschide în Google Maps"
+msgstr "Открыть в Google Maps"
+
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:311
+msgid "Deschide în Waze"
+msgstr "Открыть в Waze"
 
 #: ../../apps/web/src/components/faq/types.ts:65
 msgid "Descrie întrebarea ta în câteva propoziții — cu cât mai concret, cu atât răspundem mai precis."
@@ -205,12 +213,12 @@ msgstr "Опишите ваш вопрос в нескольких предло�
 msgid "Detalii suplimentare (opțional)"
 msgstr "Дополнительные сведения (необязательно)"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:333
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:347
 msgid "Disponibil acum"
 msgstr "Доступны сейчас"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:154
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:422
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:157
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:413
 #: ../../apps/web/src/components/faq/FaqPageIsland.tsx:89
 #: ../../apps/web/src/components/faq/types.ts:52
 #: ../../apps/web/src/components/modals/booking/strings.ts:47
@@ -240,7 +248,7 @@ msgid "Financial audit"
 msgstr "Финансовый аудит"
 
 #. Placeholder text inside the contact form 'Company' field. Use a local sample form: EN 'Acme LLC', RU 'ООО «Компания»'.
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:198
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:201
 msgid "Firma SRL"
 msgstr "ООО «Компания»"
 
@@ -257,7 +265,11 @@ msgstr "Общее"
 msgid "Get in touch"
 msgstr "Связаться с нами"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:102
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:356
+msgid "Google Maps"
+msgstr ""
+
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:105
 msgid "Hai să discutăm"
 msgstr "Давайте поговорим"
 
@@ -311,14 +323,14 @@ msgstr "Часто задаваемые вопросы"
 
 #. Placeholder text inside the 'Name' field on the FAQ form. Common Moldovan name — transliterate (e.g. RU 'Ион Попеску'), don't replace.
 #. Placeholder text inside the contact form 'Name' field. Common Moldovan name — transliterate (e.g. RU 'Ион Попеску'), don't replace.
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:145
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:148
 #: ../../apps/web/src/components/faq/types.ts:55
 msgid "Ion Popescu"
 msgstr "Ион Попеску"
 
 #. Placeholder text inside the 'Email' field on the FAQ form. Sample address — use a locale-appropriate example domain.
 #. Placeholder text inside the contact form 'Email' field. Sample address — use a locale-appropriate example domain.
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:163
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:166
 #: ../../apps/web/src/components/faq/types.ts:60
 msgid "ion@firma.md"
 msgstr "ion@company.md"
@@ -331,7 +343,7 @@ msgstr "IT и ПО"
 msgid "IT consulting"
 msgstr "IT-консалтинг"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:42
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:45
 msgid "IT Consulting"
 msgstr "IT-консалтинг"
 
@@ -360,11 +372,11 @@ msgstr "Правовая информация"
 msgid "Legal services"
 msgstr "Юридические услуги"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:225
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:228
 msgid "Mesaj"
 msgstr "Сообщение"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:124
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:127
 msgid "Mesaj trimis cu succes!"
 msgstr "Сообщение успешно отправлено!"
 
@@ -389,7 +401,7 @@ msgstr "Не удалось отправить вопрос. Попробуйт�
 msgid "Nu am putut trimite programarea. Încearcă din nou."
 msgstr "Не удалось отправить запись. Попробуйте ещё раз."
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:137
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:140
 #: ../../apps/web/src/components/faq/FaqPageIsland.tsx:88
 msgid "Nume"
 msgstr "Имя"
@@ -435,7 +447,7 @@ msgstr "Цены и договор"
 msgid "Pricing"
 msgstr "Цены"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:238
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:241
 msgid "Prin trimiterea formularului ești de acord cu prelucrarea datelor conform GDPR și <0>Politica de confidențialitate</0>."
 msgstr "Отправляя форму, вы соглашаетесь на обработку данных согласно GDPR и <0>Политикой конфиденциальности</0>."
 
@@ -443,11 +455,11 @@ msgstr "Отправляя форму, вы соглашаетесь на обр
 msgid "Privacy"
 msgstr "Конфиденциальность"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:327
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:341
 msgid "Program de lucru"
 msgstr "Часы работы"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:377
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:368
 msgid "PROGRAMARE"
 msgstr "ЗАПИСЬ"
 
@@ -463,7 +475,7 @@ msgstr "Запись отправлена!"
 msgid "Programează consultație"
 msgstr "Записаться на консультацию"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:390
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:381
 msgid "Programează consultație gratuită"
 msgstr "Записаться на бесплатную консультацию"
 
@@ -501,7 +513,7 @@ msgid "Resources"
 msgstr "Ресурсы"
 
 #. Contact form 'subject' option for HR-related inquiries (literally 'human resources').
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:36
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:39
 msgid "Resurse umane"
 msgstr "Кадровые услуги"
 
@@ -509,16 +521,16 @@ msgstr "Кадровые услуги"
 msgid "Rezumat programare"
 msgstr "Сводка записи"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:381
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:372
 msgid "Sau programează direct o consultație gratuită de 30 minute."
 msgstr "Или сразу запишитесь на бесплатную 30-минутную консультацию."
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:112
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:115
 msgid "Scrie-ne un mesaj"
 msgstr "Напишите нам сообщение"
 
 #. Booking modal — loading state shown on the confirm button while the request is in flight.
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:260
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:263
 #: ../../apps/web/src/components/faq/FaqPageIsland.tsx:99
 #: ../../apps/web/src/components/modals/booking/strings.ts:64
 msgid "Se trimite…"
@@ -533,7 +545,7 @@ msgstr "Безопасность и GDPR"
 msgid "Services"
 msgstr "Услуги"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:33
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:36
 msgid "Servicii juridice"
 msgstr "Юридические услуги"
 
@@ -549,7 +561,7 @@ msgstr "Карта сайта"
 msgid "Solutions"
 msgstr "Решения"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:234
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:237
 msgid "Spune-ne pe scurt despre afacerea ta..."
 msgstr "Расскажите коротко о вашем бизнесе…"
 
@@ -558,7 +570,7 @@ msgstr "Расскажите коротко о вашем бизнесе…"
 msgid "Subiect"
 msgstr "Тема"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:208
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:211
 msgid "Subiect / Serviciu"
 msgstr "Тема / Услуга"
 
@@ -575,7 +587,7 @@ msgstr "Подпишитесь на нашу рассылку"
 msgid "Sunt de acord cu prelucrarea datelor conform"
 msgstr "Я согласен(на) на обработку данных согласно"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:103
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:106
 msgid "Suntem disponibili pentru o consultație gratuită. Completați formularul sau folosiți una dintre căile rapide de mai jos."
 msgstr "Мы готовы провести бесплатную консультацию. Заполните форму или воспользуйтесь одним из быстрых способов ниже."
 
@@ -583,14 +595,14 @@ msgstr "Мы готовы провести бесплатную консульт
 msgid "Tax guides"
 msgstr "Налоговые руководства"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:174
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:177
 #: ../../apps/web/src/components/faq/types.ts:50
 #: ../../apps/web/src/components/faq/types.ts:51
 #: ../../apps/web/src/components/modals/booking/strings.ts:48
 msgid "Telefon"
 msgstr "Телефон"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:308
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:322
 msgid "Telefon & Email"
 msgstr "Телефон и email"
 
@@ -620,7 +632,7 @@ msgstr "Отправить ещё вопрос"
 msgid "Trimite întrebarea"
 msgstr "Отправить вопрос"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:262
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:265
 msgid "Trimite mesajul"
 msgstr "Отправить сообщение"
 
@@ -632,13 +644,17 @@ msgstr "Мы свяжемся с вами в течение 4 часов в ра
 msgid "Vei primi răspuns pe email în maxim 4 ore în zile lucrătoare."
 msgstr "Вы получите ответ по email в течение 4 часов в рабочие дни."
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:127
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:130
 msgid "Vom reveni cât mai curând posibil. Mulțumim pentru mesaj!"
 msgstr "Свяжемся с вами в ближайшее время. Спасибо за сообщение!"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:115
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:118
 msgid "Vom reveni în maximum 4 ore în zile lucrătoare."
 msgstr "Мы вернёмся к вам в течение 4 часов в рабочие дни."
+
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:357
+msgid "Waze"
+msgstr ""
 
 #: ../../apps/web/src/components/CookieBanner.tsx:47
 msgid "We use cookies"

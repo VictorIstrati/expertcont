@@ -5,6 +5,7 @@ import { I18nRoot, sectionUrl } from "@expertcont/i18n";
 import type { Locale } from "@expertcont/i18n";
 import { openModal } from "../../lib/modalBus";
 import { backendClient, detectLanguage } from "../../lib/backend";
+import { OfficeMap } from "./OfficeMap";
 
 export interface ContactIslandProps {
   locale: Locale;
@@ -14,6 +15,8 @@ export interface ContactIslandProps {
   email: string;
   /** Working-hours string, e.g. "Luni–Vineri, 9:00–18:00". */
   hours: string;
+  /** Office GPS coordinates for the embedded map + nav links. */
+  geo: { latitude: number; longitude: number };
 }
 
 interface FormState {
@@ -44,7 +47,7 @@ function useServiceOptions(): { value: string; label: string }[] {
   ];
 }
 
-function ContactInner({ locale, address, phone, email, hours }: ContactIslandProps) {
+function ContactInner({ locale, address, phone, email, hours, geo }: ContactIslandProps) {
   const { t } = useLingui();
   const homeHref = locale === "ro" ? "/" : `/${locale}`;
   const services = useServiceOptions();
@@ -289,14 +292,25 @@ function ContactInner({ locale, address, phone, email, hours }: ContactIslandPro
                   </h4>
                 </div>
                 <p className="text-sm text-text-secondary leading-relaxed">{address}</p>
-                <a
-                  href={`https://maps.google.com/?q=${encodeURIComponent(address)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 mt-3 text-sm text-primary font-semibold"
-                >
-                  <Trans>Deschide în Maps</Trans> <Icon name="arrow-up-right" size={14} />
-                </a>
+                <div className="mt-3 flex flex-wrap gap-3 text-sm font-semibold">
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${geo.latitude},${geo.longitude}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-primary"
+                  >
+                    <Trans>Deschide în Google Maps</Trans>{" "}
+                    <Icon name="arrow-up-right" size={14} />
+                  </a>
+                  <a
+                    href={`https://www.waze.com/ul?ll=${geo.latitude},${geo.longitude}&navigate=yes`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-primary"
+                  >
+                    <Trans>Deschide în Waze</Trans> <Icon name="arrow-up-right" size={14} />
+                  </a>
+                </div>
               </div>
 
               <div className="card p-8">
@@ -334,37 +348,12 @@ function ContactInner({ locale, address, phone, email, hours }: ContactIslandPro
                 </div>
               </div>
 
-              <div className="relative aspect-4/3 overflow-hidden rounded-lg border border-border bg-bg-section-alt">
-                <div className="dot-pattern-bg absolute inset-0 opacity-50" />
-                <svg
-                  viewBox="0 0 400 300"
-                  className="absolute inset-0 h-full w-full"
-                  aria-hidden="true"
-                >
-                  <path d="M0 80 L400 100" stroke="var(--border-strong)" strokeWidth="3" />
-                  <path d="M0 180 L400 200" stroke="var(--border-strong)" strokeWidth="3" />
-                  <path d="M120 0 L130 300" stroke="var(--border-strong)" strokeWidth="3" />
-                  <path d="M280 0 L290 300" stroke="var(--border-strong)" strokeWidth="3" />
-                  <path
-                    d="M50 0 L60 300"
-                    stroke="var(--border-strong)"
-                    strokeWidth="1.5"
-                    opacity="0.5"
-                  />
-                  <path
-                    d="M350 0 L355 300"
-                    stroke="var(--border-strong)"
-                    strokeWidth="1.5"
-                    opacity="0.5"
-                  />
-                </svg>
-                <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-full flex-col items-center">
-                  <div className="whitespace-nowrap rounded-full bg-accent px-4 py-2 text-xs font-bold text-[#1A1A2E] shadow-md">
-                    ExpertCont
-                  </div>
-                  <div className="h-0 w-0 border-x-8 border-t-[10px] border-x-transparent border-t-accent" />
-                </div>
-              </div>
+              <OfficeMap
+                latitude={geo.latitude}
+                longitude={geo.longitude}
+                address={address}
+                label={t`Biroul ExpertCont`}
+              />
 
               <div className="card p-8 bg-primary dark:bg-primary-deep text-white relative overflow-hidden">
                 <div className="absolute -top-8 -right-8 w-32 h-32 border border-[rgba(223,183,65,0.3)] rounded-full" />

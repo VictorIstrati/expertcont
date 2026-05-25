@@ -50,6 +50,13 @@ business:
       ro: "Republica Moldova"
       ru: "Республика Молдова"
       en: "Republic of Moldova"
+    # Office GPS coordinates — used by the Leaflet map on the contact page
+    # and by Google Maps / Waze "Get directions" links. Approximate; verify
+    # by right-clicking the office on https://www.google.com/maps and pasting
+    # the "lat, lon" from the context menu.
+    geo:
+      latitude: 47.02531662984278
+      longitude: 28.838990858044426
   hours:
     ro: "Luni–Vineri, 9:00–18:00"
     ru: "Понедельник–пятница, 9:00–18:00"
