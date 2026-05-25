@@ -96,6 +96,8 @@ function FaqInner({ locale, groups, contactPhone, contactEmail }: Props) {
             formConsentLabel={t`Sunt de acord cu prelucrarea datelor conform`}
             formConsentLink={t`politicii de confidențialitate`}
             formSubmitLabel={t`Trimite întrebarea`}
+            formSendingLabel={t`Se trimite…`}
+            formErrorLabel={t`Nu am putut trimite întrebarea. Încearcă din nou.`}
             formSentTitle={t`Întrebarea ta a fost trimisă`}
             formSentBody={t`Vei primi răspuns pe email în maxim 4 ore în zile lucrătoare.`}
             formSentReset={t`Trimite altă întrebare`}

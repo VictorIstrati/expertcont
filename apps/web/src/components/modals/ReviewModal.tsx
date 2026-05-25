@@ -2,6 +2,7 @@ import { useId, useState } from "react";
 import { Icon } from "@expertcont/ui";
 import type { Locale } from "@expertcont/i18n";
 import { Modal } from "./Modal";
+import { backendClient, detectLanguage } from "../../lib/backend";
 
 interface Props {
   open: boolean;
@@ -24,6 +25,8 @@ interface Strings {
   consentLink: string;
   cancel: string;
   submit: string;
+  sending: string;
+  errorGeneric: string;
   close: string;
   successTitle: string;
   successMsg: string;
@@ -46,9 +49,11 @@ const strings: Record<Locale, Strings> = {
     consentLink: "politicii de confidențialitate",
     cancel: "Anulează",
     submit: "Trimite recenzia",
+    sending: "Se trimite…",
+    errorGeneric: "Nu am putut trimite recenzia. Încearcă din nou.",
     close: "Închide",
     successTitle: "Mulțumim pentru recenzie!",
-    successMsg: "Echipa noastră va revizui recenzia și o va publica în maxim 48 de ore.",
+    successMsg: "Echipa noastră va revizui recenzia și o va publica în curând.",
   },
   ru: {
     title: "Оставить отзыв",
@@ -66,9 +71,11 @@ const strings: Record<Locale, Strings> = {
     consentLink: "политике конфиденциальности",
     cancel: "Отмена",
     submit: "Отправить отзыв",
+    sending: "Отправка…",
+    errorGeneric: "Не удалось отправить отзыв. Попробуйте ещё раз.",
     close: "Закрыть",
     successTitle: "Спасибо за отзыв!",
-    successMsg: "Наша команда рассмотрит отзыв и опубликует его в течение 48 часов.",
+    successMsg: "Наша команда рассмотрит отзыв и опубликует его в ближайшее время.",
   },
   en: {
     title: "Leave a review",
@@ -86,9 +93,11 @@ const strings: Record<Locale, Strings> = {
     consentLink: "privacy policy",
     cancel: "Cancel",
     submit: "Submit review",
+    sending: "Sending…",
+    errorGeneric: "Could not submit your review. Please try again.",
     close: "Close",
     successTitle: "Thank you for your review!",
-    successMsg: "Our team will review it and publish it within 48 hours.",
+    successMsg: "Our team will review it and publish it soon.",
   },
 };
 
@@ -98,6 +107,8 @@ export function ReviewModal({ open, onClose, locale }: Props) {
   const [hover, setHover] = useState(0);
   const [form, setForm] = useState({ name: "", company: "", role: "", quote: "", consent: false });
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const nameId = useId();
   const companyId = useId();
   const roleId = useId();
@@ -107,11 +118,37 @@ export function ReviewModal({ open, onClose, locale }: Props) {
 
   const handleClose = () => {
     setSent(false);
+    setSubmitting(false);
+    setErrorMsg(null);
     setRating(5);
     setHover(0);
     setForm({ name: "", company: "", role: "", quote: "", consent: false });
     onClose();
   };
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!canSubmit || submitting) return;
+    setSubmitting(true);
+    setErrorMsg(null);
+
+    const titleParts = [form.role, form.company].filter((s) => s.trim().length > 0);
+    const result = await backendClient.submitReview({
+      language: detectLanguage(form.quote, locale),
+      name: form.name,
+      rating: rating as 1 | 2 | 3 | 4 | 5,
+      title: titleParts.length > 0 ? titleParts.join(" · ") : undefined,
+      content: form.quote,
+      source_url: typeof window !== "undefined" ? window.location.href : undefined,
+    });
+
+    setSubmitting(false);
+    if (result.ok) {
+      setSent(true);
+    } else {
+      setErrorMsg(t.errorGeneric);
+    }
+  }
 
   return (
     <Modal open={open} onClose={handleClose} title={t.title} subtitle={t.subtitle} size="md">
@@ -129,13 +166,7 @@ export function ReviewModal({ open, onClose, locale }: Props) {
           </button>
         </div>
       ) : (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (canSubmit) setSent(true);
-          }}
-          className="flex flex-col gap-5"
-        >
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           {/* Star rating */}
           <div>
             <label className="text-sm font-bold block mb-3">{t.ratingLabel}</label>
@@ -239,16 +270,26 @@ export function ReviewModal({ open, onClose, locale }: Props) {
             </span>
           </label>
 
+          {errorMsg ? (
+            <p role="alert" className="text-sm text-[#B91C1C]">
+              {errorMsg}
+            </p>
+          ) : null}
           <div className="flex gap-3 justify-end">
-            <button type="button" className="btn btn-ghost btn-md" onClick={handleClose}>
+            <button
+              type="button"
+              className="btn btn-ghost btn-md"
+              onClick={handleClose}
+              disabled={submitting}
+            >
               {t.cancel}
             </button>
             <button
               type="submit"
-              className={`btn btn-primary btn-md ${canSubmit ? "opacity-100 cursor-pointer" : "opacity-50 cursor-not-allowed"}`}
-              disabled={!canSubmit}
+              className={`btn btn-primary btn-md ${canSubmit && !submitting ? "opacity-100 cursor-pointer" : "opacity-50 cursor-not-allowed"}`}
+              disabled={!canSubmit || submitting}
             >
-              {t.submit}
+              {submitting ? t.sending : t.submit}
             </button>
           </div>
         </form>

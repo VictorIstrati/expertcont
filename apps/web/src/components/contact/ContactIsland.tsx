@@ -4,6 +4,7 @@ import { Button, Container, Icon, PageHeader } from "@expertcont/ui";
 import { I18nRoot, sectionUrl } from "@expertcont/i18n";
 import type { Locale } from "@expertcont/i18n";
 import { openModal } from "../../lib/modalBus";
+import { backendClient, detectLanguage } from "../../lib/backend";
 
 export interface ContactIslandProps {
   locale: Locale;
@@ -65,11 +66,33 @@ function ContactInner({ locale, address, phone, email, hours }: ContactIslandPro
     message: "",
   });
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log("[ContactForm] submission", form);
-    setSent(true);
+    if (submitting) return;
+    setSubmitting(true);
+    setErrorMsg(null);
+
+    const serviceLabel = services.find((s) => s.value === form.service)?.label ?? form.service;
+    const result = await backendClient.submitContact({
+      language: detectLanguage(form.message, locale),
+      name: form.name,
+      email: form.email,
+      phone: form.phone || undefined,
+      company: form.company || undefined,
+      subject: serviceLabel,
+      message: form.message,
+      source_url: typeof window !== "undefined" ? window.location.href : undefined,
+    });
+
+    setSubmitting(false);
+    if (result.ok) {
+      setSent(true);
+    } else {
+      setErrorMsg(result.error);
+    }
   }
 
   return (
@@ -102,7 +125,7 @@ function ContactInner({ locale, address, phone, email, hours }: ContactIslandPro
                   </h4>
                   <p className="text-text-secondary text-sm">
                     <Trans>
-                      Vom reveni în maximum 4 ore. Verifică emailul — am trimis o confirmare.
+                      Vom reveni cât mai curând posibil. Mulțumim pentru mesaj!
                     </Trans>
                   </p>
                 </div>
@@ -221,8 +244,23 @@ function ContactInner({ locale, address, phone, email, hours }: ContactIslandPro
                       .
                     </Trans>
                   </p>
-                  <Button variant="primary" size="lg" type="submit" iconRight="send">
-                    <Trans>Trimite mesajul</Trans>
+                  {errorMsg ? (
+                    <p role="alert" className="text-sm text-[#B91C1C]">
+                      {errorMsg}
+                    </p>
+                  ) : null}
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    type="submit"
+                    iconRight="send"
+                    disabled={submitting}
+                  >
+                    {submitting ? (
+                      <Trans>Se trimite…</Trans>
+                    ) : (
+                      <Trans>Trimite mesajul</Trans>
+                    )}
                   </Button>
                 </form>
               )}

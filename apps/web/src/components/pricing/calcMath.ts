@@ -8,12 +8,23 @@ import type {
 
 export type BreakdownKey = "accounting" | "legal" | "financial" | "it" | "hr";
 
+/** Per-service input parameters captured at the moment the breakdown was built.
+ *  Sent to the backend so staff can see exactly what the customer configured. */
+export type BreakdownParams =
+  | { key: "accounting"; industry: string; invoices: number; revenueMDL: number; vat: boolean }
+  | { key: "hr"; employees: number; perEmployee: number }
+  | { key: "legal"; hours: number; hourlyRate: number }
+  | { key: "financial"; hours: number; hourlyRate: number }
+  | { key: "it"; hours: number; hourlyRate: number };
+
 export interface BreakdownItem {
   key: BreakdownKey;
   /** Service label, locale-resolved. */
   label: string;
   /** Optional secondary line (e.g. industry name, "10h × 500 MDL"). */
   detail?: string;
+  /** Structured per-service inputs (industry / invoices / hours / etc). */
+  params?: BreakdownParams;
   /** Subtotal AFTER any promo discount — what the customer actually pays. */
   subtotal: number;
   /** Subtotal BEFORE the discount (only set when a promo applies). */
@@ -114,6 +125,13 @@ export function computeBreakdown(state: CalculatorState, cfg: CalcConfig): Break
         key: "accounting",
         label: cfg.services.accounting.label,
         detail: industry.label,
+        params: {
+          key: "accounting",
+          industry: industry.label,
+          invoices,
+          revenueMDL,
+          vat,
+        },
         subtotal: comp.subtotal,
         ...(comp.discountPct !== undefined && {
           originalSubtotal: comp.preDiscount,
@@ -129,6 +147,7 @@ export function computeBreakdown(state: CalculatorState, cfg: CalcConfig): Break
       key: "hr",
       label: cfg.services.hr.label,
       detail: `${state.hr.employees} × ${cfg.hrPerEmployee} MDL`,
+      params: { key: "hr", employees: state.hr.employees, perEmployee: cfg.hrPerEmployee },
       subtotal: state.hr.employees * cfg.hrPerEmployee,
     });
   }
@@ -138,6 +157,7 @@ export function computeBreakdown(state: CalculatorState, cfg: CalcConfig): Break
       key: "legal",
       label: cfg.services.legal.label,
       detail: `${state.legal.hours}h × ${cfg.hourlyRates.legal} MDL`,
+      params: { key: "legal", hours: state.legal.hours, hourlyRate: cfg.hourlyRates.legal },
       subtotal: state.legal.hours * cfg.hourlyRates.legal,
     });
   }
@@ -147,6 +167,11 @@ export function computeBreakdown(state: CalculatorState, cfg: CalcConfig): Break
       key: "financial",
       label: cfg.services.financial.label,
       detail: `${state.financial.hours}h × ${cfg.hourlyRates.financial} MDL`,
+      params: {
+        key: "financial",
+        hours: state.financial.hours,
+        hourlyRate: cfg.hourlyRates.financial,
+      },
       subtotal: state.financial.hours * cfg.hourlyRates.financial,
     });
   }
@@ -156,6 +181,7 @@ export function computeBreakdown(state: CalculatorState, cfg: CalcConfig): Break
       key: "it",
       label: cfg.services.it.label,
       detail: `${state.it.hours}h × ${cfg.hourlyRates.it} MDL`,
+      params: { key: "it", hours: state.it.hours, hourlyRate: cfg.hourlyRates.it },
       subtotal: state.it.hours * cfg.hourlyRates.it,
     });
   }

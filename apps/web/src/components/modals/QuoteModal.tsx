@@ -3,6 +3,7 @@ import { Icon } from "@expertcont/ui";
 import { localeTag, type Locale } from "@expertcont/i18n";
 import { Modal } from "./Modal";
 import type { BreakdownItem } from "../pricing/calcMath";
+import { backendClient, detectLanguage } from "../../lib/backend";
 
 interface Props {
   open: boolean;
@@ -31,6 +32,8 @@ interface Strings {
   consentNote: string;
   cancel: string;
   submit: string;
+  sending: string;
+  errorGeneric: string;
   successTitle: string;
   successMsg: string;
   close: string;
@@ -53,8 +56,10 @@ const strings: Record<Locale, Strings> = {
     consentNote: "Prin trimitere ești de acord cu prelucrarea datelor conform GDPR.",
     cancel: "Anulează",
     submit: "Trimite cererea",
+    sending: "Se trimite…",
+    errorGeneric: "Nu am putut trimite cererea. Încearcă din nou.",
     successTitle: "Cererea ta a fost trimisă!",
-    successMsg: "Te contactăm telefonic în mai puțin de 4 ore în zile lucrătoare.",
+    successMsg: "Te contactăm telefonic în cel mai scurt timp.",
     close: "Închide",
   },
   ru: {
@@ -74,8 +79,10 @@ const strings: Record<Locale, Strings> = {
     consentNote: "Отправляя форму, вы соглашаетесь на обработку данных согласно GDPR.",
     cancel: "Отмена",
     submit: "Отправить запрос",
+    sending: "Отправка…",
+    errorGeneric: "Не удалось отправить запрос. Попробуйте ещё раз.",
     successTitle: "Запрос отправлен!",
-    successMsg: "Мы перезвоним вам в течение 4 часов в рабочие дни.",
+    successMsg: "Мы перезвоним вам в ближайшее время.",
     close: "Закрыть",
   },
   en: {
@@ -95,8 +102,10 @@ const strings: Record<Locale, Strings> = {
     consentNote: "By submitting you agree to data processing per GDPR.",
     cancel: "Cancel",
     submit: "Send request",
+    sending: "Sending…",
+    errorGeneric: "Could not send your request. Please try again.",
     successTitle: "Your request has been sent!",
-    successMsg: "We'll call you within 4 hours on business days.",
+    successMsg: "We'll call you back as soon as possible.",
     close: "Close",
   },
 };
@@ -112,38 +121,51 @@ export function QuoteModal({ open, onClose, locale, quote }: Props) {
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   // Reset success/form state every time the modal re-opens.
   useEffect(() => {
     if (open) {
       setSent(false);
+      setSubmitting(false);
+      setErrorMsg(null);
     }
   }, [open]);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // Backend integration is pending — for now we just log a structured payload
-    // so it shows up in DevTools while the lead-capture endpoint is being built.
-    // eslint-disable-next-line no-console
-    console.log("[QuoteModal] submission", {
-      locale,
-      contact: { name, phone, message: message || null },
-      quote: {
-        total: quote.total,
-        items: quote.items.map((it) => ({
-          key: it.key,
-          label: it.label,
-          detail: it.detail,
-          subtotal: it.subtotal,
-          ...(it.discountPct !== undefined && {
-            discountPct: it.discountPct,
-            saleMonths: it.saleMonths,
-            originalSubtotal: it.originalSubtotal,
-          }),
-        })),
-      },
+    if (submitting) return;
+    setSubmitting(true);
+    setErrorMsg(null);
+
+    const result = await backendClient.submitQuote({
+      language: detectLanguage(message, locale),
+      name,
+      phone,
+      message: message || undefined,
+      total_mdl: quote.total,
+      items: quote.items.map((it) => ({
+        key: it.key,
+        label: it.label,
+        detail: it.detail,
+        ...(it.params !== undefined && { params: it.params }),
+        subtotal: it.subtotal,
+        ...(it.discountPct !== undefined && {
+          discountPct: it.discountPct,
+          saleMonths: it.saleMonths,
+          originalSubtotal: it.originalSubtotal,
+        }),
+      })),
+      source_url: typeof window !== "undefined" ? window.location.href : undefined,
     });
-    setSent(true);
+
+    setSubmitting(false);
+    if (result.ok) {
+      setSent(true);
+    } else {
+      setErrorMsg(t.errorGeneric);
+    }
   }
 
   if (sent) {
@@ -267,13 +289,28 @@ export function QuoteModal({ open, onClose, locale, quote }: Props) {
 
           <p className="text-xs text-text-secondary m-0">{t.consentNote}</p>
 
+          {errorMsg ? (
+            <p role="alert" className="text-sm text-[#B91C1C] m-0">
+              {errorMsg}
+            </p>
+          ) : null}
+
           <div className="flex flex-wrap gap-3 justify-end mt-2">
-            <button type="button" onClick={onClose} className="btn btn-ghost">
+            <button
+              type="button"
+              onClick={onClose}
+              className="btn btn-ghost"
+              disabled={submitting}
+            >
               {t.cancel}
             </button>
-            <button type="submit" className="btn btn-primary inline-flex items-center gap-2">
-              {t.submit}
-              <Icon name="arrow-right" size={14} />
+            <button
+              type="submit"
+              className={`btn btn-primary inline-flex items-center gap-2 ${submitting ? "opacity-50 cursor-not-allowed" : ""}`}
+              disabled={submitting}
+            >
+              {submitting ? t.sending : t.submit}
+              {submitting ? null : <Icon name="arrow-right" size={14} />}
             </button>
           </div>
         </form>

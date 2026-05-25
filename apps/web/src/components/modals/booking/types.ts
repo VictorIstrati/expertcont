@@ -31,6 +31,8 @@ export interface Strings {
   prev: string;
   next: string;
   confirm: string;
+  sending: string;
+  errorGeneric: string;
   cancel: string;
   close: string;
   doneTitle: string;

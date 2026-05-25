@@ -2,6 +2,7 @@ import { useId, useState } from "react";
 import { Button, Icon } from "@expertcont/ui";
 import type { Locale } from "@expertcont/i18n";
 import { useResponseLabels, useTopics } from "./types";
+import { backendClient, detectLanguage } from "../../lib/backend";
 
 interface Props {
   locale: Locale;
@@ -15,6 +16,8 @@ interface Props {
   formConsentLabel: string;
   formConsentLink: string;
   formSubmitLabel: string;
+  formSendingLabel: string;
+  formErrorLabel: string;
   formSentTitle: string;
   formSentBody: string;
   formSentReset: string;
@@ -34,6 +37,8 @@ export function FaqQuestionForm({
   formConsentLabel,
   formConsentLink,
   formSubmitLabel,
+  formSendingLabel,
+  formErrorLabel,
   formSentTitle,
   formSentBody,
   formSentReset,
@@ -42,7 +47,6 @@ export function FaqQuestionForm({
 }: Props) {
   const topics = useTopics();
   const labels = useResponseLabels();
-  void locale;
 
   const [form, setForm] = useState({
     name: "",
@@ -52,6 +56,8 @@ export function FaqQuestionForm({
     consent: false,
   });
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const nameId = useId();
   const emailId = useId();
   const questionId = useId();
@@ -61,6 +67,29 @@ export function FaqQuestionForm({
     form.email.trim() !== "" &&
     form.question.trim().length >= 10 &&
     form.consent;
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!canSubmit || submitting) return;
+    setSubmitting(true);
+    setErrorMsg(null);
+
+    const result = await backendClient.submitFaqQuestion({
+      language: detectLanguage(form.question, locale),
+      name: form.name,
+      email: form.email,
+      topic: form.topic,
+      question: form.question,
+      source_url: typeof window !== "undefined" ? window.location.href : undefined,
+    });
+
+    setSubmitting(false);
+    if (result.ok) {
+      setSent(true);
+    } else {
+      setErrorMsg(formErrorLabel);
+    }
+  }
 
   return (
     <div className="faq-form-grid mx-auto grid max-w-6xl grid-cols-1 items-start gap-12 lg:grid-cols-[1fr_1.4fr]">
@@ -139,13 +168,7 @@ export function FaqQuestionForm({
             </Button>
           </div>
         ) : (
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              if (canSubmit) setSent(true);
-            }}
-            className="flex flex-col gap-4"
-          >
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="field">
                 <label htmlFor={nameId}>{formNameLabel} *</label>
@@ -219,15 +242,20 @@ export function FaqQuestionForm({
               </span>
             </label>
 
+            {errorMsg ? (
+              <p role="alert" className="text-sm text-[#B91C1C]">
+                {errorMsg}
+              </p>
+            ) : null}
             <Button
               variant="primary"
               size="md"
               type="submit"
               iconRight="send"
-              disabled={!canSubmit}
-              className={`self-start ${canSubmit ? "" : "cursor-not-allowed opacity-50"}`}
+              disabled={!canSubmit || submitting}
+              className={`self-start ${canSubmit && !submitting ? "" : "cursor-not-allowed opacity-50"}`}
             >
-              {formSubmitLabel}
+              {submitting ? formSendingLabel : formSubmitLabel}
             </Button>
           </form>
         )}

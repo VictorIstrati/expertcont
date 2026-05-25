@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "doppler run -- astro dev",
     "build": "astro build && node ./scripts/generate-markdown.mjs",
     "preview": "astro preview",
     "typecheck": "astro check",
@@ -14,6 +14,7 @@
     "@astrojs/mdx": "^3.1.0",
     "@astrojs/react": "^3.6.2",
     "@astrojs/sitemap": "^3.2.1",
+    "@expertcont/backend": "workspace:*",
     "@expertcont/i18n": "workspace:*",
     "@expertcont/tokens": "workspace:*",
     "@expertcont/ui": "workspace:*",

@@ -61,6 +61,14 @@ export function useBookingStrings(): Strings {
       message: `Confirmă programarea`,
       comment: "Booking modal — final-step primary button. Imperative verb.",
     }),
+    sending: t({
+      message: `Se trimite…`,
+      comment: "Booking modal — loading state shown on the confirm button while the request is in flight.",
+    }),
+    errorGeneric: t({
+      message: `Nu am putut trimite programarea. Încearcă din nou.`,
+      comment: "Booking modal — generic error message shown when submission fails.",
+    }),
     cancel: t({
       message: `Anulează`,
       comment: "Booking modal — secondary button that aborts the booking flow. Imperative verb.",

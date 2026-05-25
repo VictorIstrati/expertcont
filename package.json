@@ -18,7 +18,13 @@
     "compile": "turbo run compile",
     "extract:check": "pnpm extract && git diff --exit-code -- packages/i18n/src/locales",
     "format": "prettier --write \"**/*.{ts,tsx,astro,css,md,json}\"",
-    "format:check": "prettier --check \"**/*.{ts,tsx,astro,css,md,json}\""
+    "format:check": "prettier --check \"**/*.{ts,tsx,astro,css,md,json}\"",
+    "supabase:start": "supabase start",
+    "supabase:stop": "supabase stop",
+    "supabase:reset": "supabase db reset",
+    "supabase:types": "supabase gen types typescript --local --schema public > packages/backend/src/db-types.ts",
+    "functions:env": "doppler secrets download --no-file --format env --no-read-env > supabase/functions/.env.local",
+    "functions:dev": "pnpm run functions:env && supabase functions serve --env-file supabase/functions/.env.local --no-verify-jwt"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.0",
