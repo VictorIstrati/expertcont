@@ -63,7 +63,8 @@ export function useBookingStrings(): Strings {
     }),
     sending: t({
       message: `Se trimite…`,
-      comment: "Booking modal — loading state shown on the confirm button while the request is in flight.",
+      comment:
+        "Booking modal — loading state shown on the confirm button while the request is in flight.",
     }),
     errorGeneric: t({
       message: `Nu am putut trimite programarea. Încearcă din nou.`,

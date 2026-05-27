@@ -9,12 +9,7 @@ export function PricingIntro({ intro }: Props) {
   return (
     <section className="section">
       <Container>
-        <SectionHeader
-          align="center"
-          eyebrow={intro.eyebrow}
-          title={intro.title}
-          maxWidth={760}
-        />
+        <SectionHeader align="center" eyebrow={intro.eyebrow} title={intro.title} maxWidth={760} />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
           {intro.paragraphs.map((p, i) => (
             <div key={i} className="card p-6">

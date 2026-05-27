@@ -1,9 +1,9 @@
-import { preflight } from '../_shared/cors.ts';
-import { getServiceClient } from '../_shared/supabase.ts';
-import { normalizeLanguage, isEmail, requireString, clampString } from '../_shared/types.ts';
-import { hashIp, userAgent, sourceUrl } from '../_shared/request-meta.ts';
-import { json, badRequest, methodNotAllowed, serverError } from '../_shared/respond.ts';
-import { notify } from '../_shared/notify.ts';
+import { preflight } from "../_shared/cors.ts";
+import { getServiceClient } from "../_shared/supabase.ts";
+import { normalizeLanguage, isEmail, requireString, clampString } from "../_shared/types.ts";
+import { hashIp, userAgent, sourceUrl } from "../_shared/request-meta.ts";
+import { json, badRequest, methodNotAllowed, serverError } from "../_shared/respond.ts";
+import { notify } from "../_shared/notify.ts";
 
 type QuoteItem = {
   key?: unknown;
@@ -17,32 +17,32 @@ type QuoteItem = {
 };
 
 type SanitizedParams =
-  | { key: 'accounting'; industry: string; invoices: number; revenueMDL: number; vat: boolean }
-  | { key: 'hr'; employees: number; perEmployee: number }
-  | { key: 'legal' | 'financial' | 'it'; hours: number; hourlyRate: number }
+  | { key: "accounting"; industry: string; invoices: number; revenueMDL: number; vat: boolean }
+  | { key: "hr"; employees: number; perEmployee: number }
+  | { key: "legal" | "financial" | "it"; hours: number; hourlyRate: number }
   | null;
 
 function num(v: unknown): number {
-  return typeof v === 'number' && Number.isFinite(v) ? v : 0;
+  return typeof v === "number" && Number.isFinite(v) ? v : 0;
 }
 
 function sanitizeParams(raw: unknown): SanitizedParams {
-  if (!raw || typeof raw !== 'object') return null;
+  if (!raw || typeof raw !== "object") return null;
   const p = raw as Record<string, unknown>;
   switch (p.key) {
-    case 'accounting':
+    case "accounting":
       return {
-        key: 'accounting',
-        industry: typeof p.industry === 'string' ? p.industry.slice(0, 100) : '',
+        key: "accounting",
+        industry: typeof p.industry === "string" ? p.industry.slice(0, 100) : "",
         invoices: num(p.invoices),
         revenueMDL: num(p.revenueMDL),
         vat: p.vat === true,
       };
-    case 'hr':
-      return { key: 'hr', employees: num(p.employees), perEmployee: num(p.perEmployee) };
-    case 'legal':
-    case 'financial':
-    case 'it':
+    case "hr":
+      return { key: "hr", employees: num(p.employees), perEmployee: num(p.perEmployee) };
+    case "legal":
+    case "financial":
+    case "it":
       return { key: p.key, hours: num(p.hours), hourlyRate: num(p.hourlyRate) };
     default:
       return null;
@@ -69,14 +69,14 @@ function sanitizeItems(input: unknown) {
     const it = (raw ?? {}) as QuoteItem;
     const params = sanitizeParams(it.params);
     return {
-      key: typeof it.key === 'string' ? it.key.slice(0, 80) : null,
-      label: typeof it.label === 'string' ? it.label.slice(0, 200) : null,
-      detail: typeof it.detail === 'string' ? it.detail.slice(0, 300) : null,
+      key: typeof it.key === "string" ? it.key.slice(0, 80) : null,
+      label: typeof it.label === "string" ? it.label.slice(0, 200) : null,
+      detail: typeof it.detail === "string" ? it.detail.slice(0, 300) : null,
       subtotal: num(it.subtotal),
       ...(params ? { params } : {}),
-      ...(typeof it.discountPct === 'number' ? { discountPct: it.discountPct } : {}),
-      ...(typeof it.saleMonths === 'number' ? { saleMonths: it.saleMonths } : {}),
-      ...(typeof it.originalSubtotal === 'number' ? { originalSubtotal: it.originalSubtotal } : {}),
+      ...(typeof it.discountPct === "number" ? { discountPct: it.discountPct } : {}),
+      ...(typeof it.saleMonths === "number" ? { saleMonths: it.saleMonths } : {}),
+      ...(typeof it.originalSubtotal === "number" ? { originalSubtotal: it.originalSubtotal } : {}),
     };
   });
 }
@@ -84,23 +84,23 @@ function sanitizeItems(input: unknown) {
 Deno.serve(async (req) => {
   const pre = preflight(req);
   if (pre) return pre;
-  if (req.method !== 'POST') return methodNotAllowed(req);
+  if (req.method !== "POST") return methodNotAllowed(req);
 
   let body: Body;
   try {
     body = await req.json();
   } catch {
-    return badRequest(req, 'Invalid JSON');
+    return badRequest(req, "Invalid JSON");
   }
 
   const name = requireString(body.name, 200);
   const phone = requireString(body.phone, 50);
-  if (!name) return badRequest(req, 'name is required');
-  if (!phone) return badRequest(req, 'phone is required');
+  if (!name) return badRequest(req, "name is required");
+  if (!phone) return badRequest(req, "phone is required");
 
-  const totalNum = typeof body.total_mdl === 'number' ? body.total_mdl : Number(body.total_mdl);
+  const totalNum = typeof body.total_mdl === "number" ? body.total_mdl : Number(body.total_mdl);
   if (!Number.isFinite(totalNum) || totalNum < 0) {
-    return badRequest(req, 'total_mdl must be a non-negative number');
+    return badRequest(req, "total_mdl must be a non-negative number");
   }
 
   const language = normalizeLanguage(body.language);
@@ -112,7 +112,7 @@ Deno.serve(async (req) => {
   const supabase = getServiceClient();
   try {
     const { data: parent, error: parentErr } = await supabase
-      .from('quotes')
+      .from("quotes")
       .insert({
         language,
         name,
@@ -125,19 +125,19 @@ Deno.serve(async (req) => {
         user_agent: userAgent(req),
         ip_hash: await hashIp(req),
       })
-      .select('id')
+      .select("id")
       .single();
-    if (parentErr || !parent) throw parentErr ?? new Error('insert failed');
+    if (parentErr || !parent) throw parentErr ?? new Error("insert failed");
 
     if (message) {
       const { error: trErr } = await supabase
-        .from('quote_translations')
+        .from("quote_translations")
         .insert({ submission_id: parent.id, language, message });
       if (trErr) throw trErr;
     }
 
     await notify({
-      kind: 'quote',
+      kind: "quote",
       language,
       summary: {
         id: parent.id,

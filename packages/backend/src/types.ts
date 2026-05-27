@@ -1,6 +1,6 @@
-export const LANGUAGES = ['ro', 'ru', 'en'] as const;
+export const LANGUAGES = ["ro", "ru", "en"] as const;
 export type Language = (typeof LANGUAGES)[number];
-export const DEFAULT_LANGUAGE: Language = 'ro';
+export const DEFAULT_LANGUAGE: Language = "ro";
 
 export type ContactInput = {
   language?: Language;
@@ -50,11 +50,11 @@ export type FaqQuestionInput = {
 };
 
 export type QuoteItemParams =
-  | { key: 'accounting'; industry: string; invoices: number; revenueMDL: number; vat: boolean }
-  | { key: 'hr'; employees: number; perEmployee: number }
-  | { key: 'legal'; hours: number; hourlyRate: number }
-  | { key: 'financial'; hours: number; hourlyRate: number }
-  | { key: 'it'; hours: number; hourlyRate: number };
+  | { key: "accounting"; industry: string; invoices: number; revenueMDL: number; vat: boolean }
+  | { key: "hr"; employees: number; perEmployee: number }
+  | { key: "legal"; hours: number; hourlyRate: number }
+  | { key: "financial"; hours: number; hourlyRate: number }
+  | { key: "it"; hours: number; hourlyRate: number };
 
 export type QuoteItem = {
   key?: string;

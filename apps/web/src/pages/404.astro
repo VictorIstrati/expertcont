@@ -85,13 +85,7 @@ const copy = {
 const ro = copy.ro;
 ---
 
-<Base
-  title={ro.title}
-  description={ro.description}
-  locale={locale}
-  path="/404"
-  siblings={siblings}
->
+<Base title={ro.title} description={ro.description} locale={locale} path="/404" siblings={siblings}>
   <PageShell locale={locale} siblings={siblings}>
     <section class="section section-alt border-b border-border">
       <Container>
@@ -154,23 +148,25 @@ const ro = copy.ro;
               {ro.quickTitle}
             </p>
             <ul class="m-0 flex list-none flex-wrap justify-center gap-2 p-0" data-quick-list>
-              {ro.quick.map((q) => (
-                <li>
-                  <a
-                    href={q.href}
-                    class="inline-flex h-9 items-center rounded-pill border border-border bg-bg-card px-3.5 text-sm font-medium text-text-primary no-underline transition-[border-color,color,transform] duration-150 hover:-translate-y-px hover:border-primary hover:text-primary"
-                  >
-                    {q.label}
-                  </a>
-                </li>
-              ))}
+              {
+                ro.quick.map((q) => (
+                  <li>
+                    <a
+                      href={q.href}
+                      class="inline-flex h-9 items-center rounded-pill border border-border bg-bg-card px-3.5 text-sm font-medium text-text-primary no-underline transition-[border-color,color,transform] duration-150 hover:-translate-y-px hover:border-primary hover:text-primary"
+                    >
+                      {q.label}
+                    </a>
+                  </li>
+                ))
+              }
             </ul>
           </div>
         </div>
       </Container>
     </section>
 
-    <script type="application/json" id="nf-copy" set:html={JSON.stringify(copy)} />
+    <script is:inline type="application/json" id="nf-copy" set:html={JSON.stringify(copy)} />
 
     <script is:inline>
       (function () {
@@ -211,6 +207,5 @@ const ro = copy.ro;
         }
       })();
     </script>
-
   </PageShell>
 </Base>
