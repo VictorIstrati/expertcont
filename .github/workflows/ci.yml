@@ -60,14 +60,6 @@ jobs:
       - name: Build (secrets injected from Doppler prd)
         run: doppler run --project expertcont --config prd -- pnpm build
 
-      - name: Deploy to Cloudflare Pages
-        if: github.event_name == 'release'
-        run: |
-          doppler run --project expertcont --config prd -- \
-            npx wrangler@3 pages deploy apps/web/dist \
-              --project-name=expertcont \
-              --branch=main
-
       - name: Set up Supabase CLI
         if: github.event_name == 'release'
         uses: supabase/setup-cli@v1
@@ -103,3 +95,11 @@ jobs:
               --project-ref "$SUPABASE_PROJECT_REF" \
               --no-verify-jwt
           '
+
+      - name: Deploy to Cloudflare Pages
+        if: github.event_name == 'release'
+        run: |
+          doppler run --project expertcont --config prd -- \
+            npx wrangler@3 pages deploy apps/web/dist \
+              --project-name=expertcont \
+              --branch=main
