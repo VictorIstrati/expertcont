@@ -67,3 +67,36 @@ jobs:
             npx wrangler@3 pages deploy apps/web/dist \
               --project-name=expertcont \
               --branch=main
+
+      - name: Set up Supabase CLI
+        if: github.event_name == 'release'
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Link Supabase project
+        if: github.event_name == 'release'
+        run: |
+          doppler run --project expertcont --config prd -- \
+            supabase link --project-ref "$SUPABASE_PROJECT_REF"
+
+      - name: Apply database migrations
+        if: github.event_name == 'release'
+        run: |
+          doppler run --project expertcont --config prd -- \
+            supabase db push --include-all
+
+      - name: Deploy Supabase Edge Functions
+        if: github.event_name == 'release'
+        run: |
+          doppler run --project expertcont --config prd -- bash -c '
+            set -euo pipefail
+            for fn in submit-contact submit-review submit-newsletter \
+                      submit-book-a-call submit-faq-question submit-quote; do
+              echo "::group::Deploy $fn"
+              supabase functions deploy "$fn" \
+                --project-ref "$SUPABASE_PROJECT_REF" \
+                --no-verify-jwt
+              echo "::endgroup::"
+            done
+          '
