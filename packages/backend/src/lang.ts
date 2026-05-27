@@ -1,5 +1,5 @@
-import { detectAll } from 'tinyld';
-import { DEFAULT_LANGUAGE, LANGUAGES, type Language } from './types.js';
+import { detectAll } from "tinyld";
+import { DEFAULT_LANGUAGE, LANGUAGES, type Language } from "./types.js";
 
 /**
  * Detect the language of free-form text and snap it to one of our supported
@@ -19,4 +19,4 @@ export function detectLanguage(text: string, fallback: Language = DEFAULT_LANGUA
   return fallback;
 }
 
-export { LANGUAGES, DEFAULT_LANGUAGE, type Language } from './types.js';
+export { LANGUAGES, DEFAULT_LANGUAGE, type Language } from "./types.js";

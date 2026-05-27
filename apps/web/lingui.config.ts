@@ -11,6 +11,7 @@ const config: LinguiConfig = {
     },
   ],
   format: "po",
+  formatOptions: { lineNumbers: false },
   compileNamespace: "ts",
 };
 

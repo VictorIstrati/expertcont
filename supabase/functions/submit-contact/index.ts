@@ -1,9 +1,9 @@
-import { preflight } from '../_shared/cors.ts';
-import { getServiceClient } from '../_shared/supabase.ts';
-import { normalizeLanguage, isEmail, requireString, clampString } from '../_shared/types.ts';
-import { hashIp, userAgent, sourceUrl } from '../_shared/request-meta.ts';
-import { json, badRequest, methodNotAllowed, serverError } from '../_shared/respond.ts';
-import { notify } from '../_shared/notify.ts';
+import { preflight } from "../_shared/cors.ts";
+import { getServiceClient } from "../_shared/supabase.ts";
+import { normalizeLanguage, isEmail, requireString, clampString } from "../_shared/types.ts";
+import { hashIp, userAgent, sourceUrl } from "../_shared/request-meta.ts";
+import { json, badRequest, methodNotAllowed, serverError } from "../_shared/respond.ts";
+import { notify } from "../_shared/notify.ts";
 
 type Body = {
   language?: unknown;
@@ -19,21 +19,21 @@ type Body = {
 Deno.serve(async (req) => {
   const pre = preflight(req);
   if (pre) return pre;
-  if (req.method !== 'POST') return methodNotAllowed(req);
+  if (req.method !== "POST") return methodNotAllowed(req);
 
   let body: Body;
   try {
     body = await req.json();
   } catch {
-    return badRequest(req, 'Invalid JSON');
+    return badRequest(req, "Invalid JSON");
   }
 
   const name = requireString(body.name, 200);
   const email = isEmail(body.email) ? (body.email as string) : null;
   const message = requireString(body.message, 10_000);
-  if (!name) return badRequest(req, 'name is required');
-  if (!email) return badRequest(req, 'valid email is required');
-  if (!message) return badRequest(req, 'message is required');
+  if (!name) return badRequest(req, "name is required");
+  if (!email) return badRequest(req, "valid email is required");
+  if (!message) return badRequest(req, "message is required");
 
   const language = normalizeLanguage(body.language);
   const phone = clampString(body.phone, 50);
@@ -43,7 +43,7 @@ Deno.serve(async (req) => {
   const supabase = getServiceClient();
   try {
     const { data: parent, error: parentErr } = await supabase
-      .from('contact_submissions')
+      .from("contact_submissions")
       .insert({
         language,
         name,
@@ -54,19 +54,19 @@ Deno.serve(async (req) => {
         user_agent: userAgent(req),
         ip_hash: await hashIp(req),
       })
-      .select('id')
+      .select("id")
       .single();
-    if (parentErr || !parent) throw parentErr ?? new Error('insert failed');
+    if (parentErr || !parent) throw parentErr ?? new Error("insert failed");
 
     const { error: trErr } = await supabase
-      .from('contact_submission_translations')
+      .from("contact_submission_translations")
       .insert({ submission_id: parent.id, language, subject, message });
     if (trErr) throw trErr;
 
     await notify({
-      kind: 'contact',
+      kind: "contact",
       language,
-      summary: { id: parent.id, name, email, phone, subject: subject ?? '(no subject)', message },
+      summary: { id: parent.id, name, email, phone, subject: subject ?? "(no subject)", message },
     });
 
     return json(req, { ok: true, id: parent.id }, 201);

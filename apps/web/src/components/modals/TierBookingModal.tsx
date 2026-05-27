@@ -145,14 +145,15 @@ export function TierBookingModal({ open, onClose, locale, selection }: Props) {
   if (!selection) return null;
 
   const hasPrice = selection.price !== null;
-  const periodLabel = selection.billing === "yearly" ? t.yearLabel : selection.monthlyPeriod || t.monthLabel;
+  const periodLabel =
+    selection.billing === "yearly" ? t.yearLabel : selection.monthlyPeriod || t.monthLabel;
   const billingLabel = selection.billing === "yearly" ? t.yearly : t.monthly;
   // The quotes table requires a non-negative total_mdl. For custom/contact tiers we store 0
   // and the price label is kept in the items snapshot.
   const totalMdl = hasPrice ? (selection.price as number) : 0;
   const priceDetail = hasPrice
     ? `${nf.format(selection.price as number)} MDL ${periodLabel}`
-    : selection.priceLabel ?? "—";
+    : (selection.priceLabel ?? "—");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -262,12 +263,7 @@ export function TierBookingModal({ open, onClose, locale, selection }: Props) {
           ) : null}
 
           <div className="flex flex-wrap gap-3 justify-end mt-2">
-            <button
-              type="button"
-              onClick={onClose}
-              className="btn btn-ghost"
-              disabled={submitting}
-            >
+            <button type="button" onClick={onClose} className="btn btn-ghost" disabled={submitting}>
               {t.cancel}
             </button>
             <button

@@ -31,7 +31,6 @@ describe("Nav", () => {
     const onBookConsult = vi.fn();
     renderWithI18n(<Nav locale="ro" onBookConsult={onBookConsult} />);
     // "Book a consultation" button(s) — click the first one
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const firstBookBtn = screen.getAllByText(/book a consultation/i)[0]!;
     fireEvent.click(firstBookBtn);
     expect(onBookConsult).toHaveBeenCalledTimes(1);

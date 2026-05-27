@@ -1,20 +1,20 @@
-export const LANGUAGES = ['ro', 'ru', 'en'] as const;
+export const LANGUAGES = ["ro", "ru", "en"] as const;
 export type Language = (typeof LANGUAGES)[number];
-export const DEFAULT_LANGUAGE: Language = 'ro';
+export const DEFAULT_LANGUAGE: Language = "ro";
 
 export function normalizeLanguage(input: unknown): Language {
-  return typeof input === 'string' && (LANGUAGES as readonly string[]).includes(input)
+  return typeof input === "string" && (LANGUAGES as readonly string[]).includes(input)
     ? (input as Language)
     : DEFAULT_LANGUAGE;
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export function isEmail(value: unknown): value is string {
-  return typeof value === 'string' && value.length <= 320 && EMAIL_RE.test(value);
+  return typeof value === "string" && value.length <= 320 && EMAIL_RE.test(value);
 }
 
 export function clampString(value: unknown, max: number): string | null {
-  if (typeof value !== 'string') return null;
+  if (typeof value !== "string") return null;
   const trimmed = value.trim();
   if (!trimmed) return null;
   return trimmed.slice(0, max);

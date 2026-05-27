@@ -50,13 +50,7 @@ const groupHeadings: Record<"main" | "company" | "content" | "legal", Record<Loc
 
 type LinkableSection = Exclude<SectionKey, "sitemap">;
 const mainSections: LinkableSection[] = ["solutions", "services", "pricing", "contact"];
-const companySections: LinkableSection[] = [
-  "about",
-  "faq",
-  "reviews",
-  "partners",
-  "careers",
-];
+const companySections: LinkableSection[] = ["about", "faq", "reviews", "partners", "careers"];
 const legalSections: LinkableSection[] = ["privacy", "terms", "cookies"];
 
 function sectionLink(section: Exclude<SectionKey, "sitemap">, locale: Locale): SitemapLink {

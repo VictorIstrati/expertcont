@@ -1,9 +1,9 @@
-import { preflight } from '../_shared/cors.ts';
-import { getServiceClient } from '../_shared/supabase.ts';
-import { normalizeLanguage, isEmail, requireString, clampString } from '../_shared/types.ts';
-import { hashIp, userAgent, sourceUrl } from '../_shared/request-meta.ts';
-import { json, badRequest, methodNotAllowed, serverError } from '../_shared/respond.ts';
-import { notify } from '../_shared/notify.ts';
+import { preflight } from "../_shared/cors.ts";
+import { getServiceClient } from "../_shared/supabase.ts";
+import { normalizeLanguage, isEmail, requireString, clampString } from "../_shared/types.ts";
+import { hashIp, userAgent, sourceUrl } from "../_shared/request-meta.ts";
+import { json, badRequest, methodNotAllowed, serverError } from "../_shared/respond.ts";
+import { notify } from "../_shared/notify.ts";
 
 type Body = {
   language?: unknown;
@@ -17,7 +17,7 @@ type Body = {
 };
 
 function parsePreferredAt(value: unknown): string | null {
-  if (typeof value !== 'string' || !value) return null;
+  if (typeof value !== "string" || !value) return null;
   const d = new Date(value);
   return Number.isNaN(d.getTime()) ? null : d.toISOString();
 }
@@ -25,19 +25,19 @@ function parsePreferredAt(value: unknown): string | null {
 Deno.serve(async (req) => {
   const pre = preflight(req);
   if (pre) return pre;
-  if (req.method !== 'POST') return methodNotAllowed(req);
+  if (req.method !== "POST") return methodNotAllowed(req);
 
   let body: Body;
   try {
     body = await req.json();
   } catch {
-    return badRequest(req, 'Invalid JSON');
+    return badRequest(req, "Invalid JSON");
   }
 
   const name = requireString(body.name, 200);
   const email = isEmail(body.email) ? (body.email as string) : null;
-  if (!name) return badRequest(req, 'name is required');
-  if (!email) return badRequest(req, 'valid email is required');
+  if (!name) return badRequest(req, "name is required");
+  if (!email) return badRequest(req, "valid email is required");
 
   const language = normalizeLanguage(body.language);
   const phone = clampString(body.phone, 50);
@@ -48,7 +48,7 @@ Deno.serve(async (req) => {
   const supabase = getServiceClient();
   try {
     const { data: parent, error: parentErr } = await supabase
-      .from('book_a_call_submissions')
+      .from("book_a_call_submissions")
       .insert({
         language,
         name,
@@ -60,19 +60,19 @@ Deno.serve(async (req) => {
         user_agent: userAgent(req),
         ip_hash: await hashIp(req),
       })
-      .select('id')
+      .select("id")
       .single();
-    if (parentErr || !parent) throw parentErr ?? new Error('insert failed');
+    if (parentErr || !parent) throw parentErr ?? new Error("insert failed");
 
     if (notes) {
       const { error: trErr } = await supabase
-        .from('book_a_call_submission_translations')
+        .from("book_a_call_submission_translations")
         .insert({ submission_id: parent.id, language, notes });
       if (trErr) throw trErr;
     }
 
     await notify({
-      kind: 'book_a_call',
+      kind: "book_a_call",
       language,
       summary: { id: parent.id, name, email, preferred_at, notes },
     });

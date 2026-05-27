@@ -451,9 +451,7 @@ export function PartnersIsland({ locale, homeHref }: PartnersIslandProps) {
                     {cat.partners.map((p, j) => (
                       <span key={j}>
                         {p}
-                        {j < cat.partners.length - 1 && (
-                          <span className="ml-2 text-accent">·</span>
-                        )}
+                        {j < cat.partners.length - 1 && <span className="ml-2 text-accent">·</span>}
                       </span>
                     ))}
                   </div>

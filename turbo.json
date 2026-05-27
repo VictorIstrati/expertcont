@@ -27,7 +27,7 @@
     },
     "compile": {
       "dependsOn": ["extract"],
-      "outputs": ["src/locales/**/*.{js,d.ts}"]
+      "outputs": ["src/locales/**/messages.ts"]
     }
   }
 }

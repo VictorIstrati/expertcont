@@ -296,12 +296,7 @@ export function QuoteModal({ open, onClose, locale, quote }: Props) {
           ) : null}
 
           <div className="flex flex-wrap gap-3 justify-end mt-2">
-            <button
-              type="button"
-              onClick={onClose}
-              className="btn btn-ghost"
-              disabled={submitting}
-            >
+            <button type="button" onClick={onClose} className="btn btn-ghost" disabled={submitting}>
               {t.cancel}
             </button>
             <button

@@ -16,7 +16,7 @@
     "test": "turbo run test",
     "extract": "turbo run extract",
     "compile": "turbo run compile",
-    "extract:check": "pnpm extract && git diff --exit-code -- packages/i18n/src/locales",
+    "extract:check": "pnpm extract && pnpm compile && git diff --exit-code -- packages/i18n/src/locales",
     "format": "prettier --write \"**/*.{ts,tsx,astro,css,md,json}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,astro,css,md,json}\"",
     "supabase:start": "supabase start",

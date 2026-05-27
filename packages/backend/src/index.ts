@@ -1,5 +1,5 @@
-export { BackendClient, type BackendClientConfig } from './client.js';
-export { detectLanguage } from './lang.js';
+export { BackendClient, type BackendClientConfig } from "./client.js";
+export { detectLanguage } from "./lang.js";
 export {
   LANGUAGES,
   DEFAULT_LANGUAGE,
@@ -13,4 +13,4 @@ export {
   type QuoteItem,
   type QuoteItemParams,
   type SubmitResult,
-} from './types.js';
+} from "./types.js";

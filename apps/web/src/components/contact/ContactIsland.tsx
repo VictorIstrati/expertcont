@@ -127,9 +127,7 @@ function ContactInner({ locale, address, phone, email, hours, geo }: ContactIsla
                     <Trans>Mesaj trimis cu succes!</Trans>
                   </h4>
                   <p className="text-text-secondary text-sm">
-                    <Trans>
-                      Vom reveni cât mai curând posibil. Mulțumim pentru mesaj!
-                    </Trans>
+                    <Trans>Vom reveni cât mai curând posibil. Mulțumim pentru mesaj!</Trans>
                   </p>
                 </div>
               ) : (
@@ -259,11 +257,7 @@ function ContactInner({ locale, address, phone, email, hours, geo }: ContactIsla
                     iconRight="send"
                     disabled={submitting}
                   >
-                    {submitting ? (
-                      <Trans>Se trimite…</Trans>
-                    ) : (
-                      <Trans>Trimite mesajul</Trans>
-                    )}
+                    {submitting ? <Trans>Se trimite…</Trans> : <Trans>Trimite mesajul</Trans>}
                   </Button>
                 </form>
               )}
@@ -299,8 +293,7 @@ function ContactInner({ locale, address, phone, email, hours, geo }: ContactIsla
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-primary"
                   >
-                    <Trans>Deschide în Google Maps</Trans>{" "}
-                    <Icon name="arrow-up-right" size={14} />
+                    <Trans>Deschide în Google Maps</Trans> <Icon name="arrow-up-right" size={14} />
                   </a>
                   <a
                     href={`https://www.waze.com/ul?ll=${geo.latitude},${geo.longitude}&navigate=yes`}
