@@ -152,7 +152,15 @@ export function TierGrid({
 
                 <Button
                   variant={tier.popular ? "primary" : "outline"}
-                  onClick={() => openModal("booking")}
+                  onClick={() =>
+                    openModal("tier-booking", {
+                      tierName: tier.name,
+                      price: display,
+                      priceLabel: tier.priceLabel,
+                      billing,
+                      monthlyPeriod: tier.period,
+                    })
+                  }
                   className="w-full justify-center"
                 >
                   {tier.cta}

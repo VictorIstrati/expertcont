@@ -1,4 +1,4 @@
-export type ModalKey = "booking" | "review" | "ask-question" | "quote";
+export type ModalKey = "booking" | "review" | "ask-question" | "quote" | "tier-booking";
 
 const EVT = "expertcont-modal";
 
