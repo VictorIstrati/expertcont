@@ -172,7 +172,7 @@ msgstr "Contact"
 msgid "CONTACT"
 msgstr "CONTACT"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:393
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:391
 msgid "Contactează-ne rapid"
 msgstr "Contact us quickly"
 
@@ -218,7 +218,7 @@ msgid "Disponibil acum"
 msgstr "Available now"
 
 #: ../../apps/web/src/components/contact/ContactIsland.tsx:157
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:413
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:411
 #: ../../apps/web/src/components/faq/FaqPageIsland.tsx:89
 #: ../../apps/web/src/components/faq/types.ts:52
 #: ../../apps/web/src/components/modals/booking/strings.ts:47
@@ -264,10 +264,6 @@ msgstr "General"
 #: ../../apps/web/src/components/HelloIsland.tsx:22
 msgid "Get in touch"
 msgstr "Get in touch"
-
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:356
-msgid "Google Maps"
-msgstr ""
 
 #: ../../apps/web/src/components/contact/ContactIsland.tsx:105
 msgid "Hai să discutăm"
@@ -459,7 +455,7 @@ msgstr "Privacy"
 msgid "Program de lucru"
 msgstr "Business hours"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:368
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:366
 msgid "PROGRAMARE"
 msgstr "BOOKING"
 
@@ -475,7 +471,7 @@ msgstr "Booking sent!"
 msgid "Programează consultație"
 msgstr "Book a consultation"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:381
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:379
 msgid "Programează consultație gratuită"
 msgstr "Book a free consultation"
 
@@ -521,7 +517,7 @@ msgstr "Human resources"
 msgid "Rezumat programare"
 msgstr "Booking summary"
 
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:372
+#: ../../apps/web/src/components/contact/ContactIsland.tsx:370
 msgid "Sau programează direct o consultație gratuită de 30 minute."
 msgstr "Or book a free 30-minute consultation right away."
 
@@ -651,10 +647,6 @@ msgstr "We'll get back to you as soon as possible. Thanks for your message!"
 #: ../../apps/web/src/components/contact/ContactIsland.tsx:118
 msgid "Vom reveni în maximum 4 ore în zile lucrătoare."
 msgstr "We'll get back to you within 4 hours on business days."
-
-#: ../../apps/web/src/components/contact/ContactIsland.tsx:357
-msgid "Waze"
-msgstr ""
 
 #: ../../apps/web/src/components/CookieBanner.tsx:47
 msgid "We use cookies"
