@@ -83,6 +83,17 @@ jobs:
             supabase db push --include-all
           '
 
+      - name: Sync Edge Function runtime secrets (Doppler → Supabase)
+        if: github.event_name == 'release'
+        run: |
+          doppler run --project expertcont --config prd -- bash -c '
+            set -euo pipefail
+            supabase secrets set --project-ref "$SUPABASE_PROJECT_REF" \
+              "TELEGRAM_BOT_TOKEN=$TELEGRAM_BOT_TOKEN" \
+              "TELEGRAM_CHAT_ID=$TELEGRAM_CHAT_ID" \
+              ${ALLOWED_ORIGINS:+ALLOWED_ORIGINS="$ALLOWED_ORIGINS"}
+          '
+
       - name: Deploy Supabase Edge Functions
         if: github.event_name == 'release'
         run: |
