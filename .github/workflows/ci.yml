@@ -74,29 +74,21 @@ jobs:
         with:
           version: latest
 
-      - name: Link Supabase project
-        if: github.event_name == 'release'
-        run: |
-          doppler run --project expertcont --config prd -- \
-            supabase link --project-ref "$SUPABASE_PROJECT_REF"
-
       - name: Apply database migrations
         if: github.event_name == 'release'
         run: |
-          doppler run --project expertcont --config prd -- \
+          doppler run --project expertcont --config prd -- bash -c '
+            set -euo pipefail
+            supabase link --project-ref "$SUPABASE_PROJECT_REF"
             supabase db push --include-all
+          '
 
       - name: Deploy Supabase Edge Functions
         if: github.event_name == 'release'
         run: |
           doppler run --project expertcont --config prd -- bash -c '
             set -euo pipefail
-            for fn in submit-contact submit-review submit-newsletter \
-                      submit-book-a-call submit-faq-question submit-quote; do
-              echo "::group::Deploy $fn"
-              supabase functions deploy "$fn" \
-                --project-ref "$SUPABASE_PROJECT_REF" \
-                --no-verify-jwt
-              echo "::endgroup::"
-            done
+            supabase functions deploy \
+              --project-ref "$SUPABASE_PROJECT_REF" \
+              --no-verify-jwt
           '
