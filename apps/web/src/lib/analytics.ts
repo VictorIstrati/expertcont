@@ -49,13 +49,25 @@ type EventMap = {
   };
 };
 
-/** Push a typed marketing event to the dataLayer for GTM to route. */
+/**
+ * Push a typed marketing event to both:
+ *  - the dataLayer in object form (`{event, ...props}`) — picked up by GTM
+ *    custom event triggers if/when tags need them.
+ *  - gtag('event', name, props) — direct send to GA4, no GTM tag required.
+ *
+ * GA4 is loaded directly via gtag.js in Base.astro. GTM is reserved for
+ * non-GA4 tools (Meta Pixel etc.) added later. There is no GA4 tag inside
+ * GTM, so this won't double-count.
+ */
 export function track<E extends keyof EventMap>(event: E, properties: EventMap[E]): void {
   if (typeof window === "undefined") return;
   if (!Array.isArray(window.dataLayer)) {
     window.dataLayer = [];
   }
   window.dataLayer.push({ event, ...properties });
+  if (typeof window.gtag === "function") {
+    window.gtag("event", event, properties);
+  }
 }
 
 // ---- Consent Mode v2 ---------------------------------------------------------

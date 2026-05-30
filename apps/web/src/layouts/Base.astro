@@ -49,6 +49,7 @@ const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
 const canonical = `${siteUrl}${path}`;
 
 const gtmId = import.meta.env.PUBLIC_GTM_ID as string | undefined;
+const ga4Id = import.meta.env.PUBLIC_GA4_ID as string | undefined;
 const gscVerify = import.meta.env.PUBLIC_GSC_VERIFY as string | undefined;
 const bingVerify = import.meta.env.PUBLIC_BING_VERIFY as string | undefined;
 const alts: Record<Locale, string> = siblings ?? { ro: path, ru: path, en: path };
@@ -218,6 +219,18 @@ const organizationJsonLd = {
         );
       })();
     </script>
+
+    {
+      ga4Id && (
+        <>
+          <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`} />
+          <script is:inline define:vars={{ ga4Id }}>{`
+            gtag('js', new Date());
+            gtag('config', ga4Id, { send_page_view: true });
+          `}</script>
+        </>
+      )
+    }
 
     {
       gtmId && (
