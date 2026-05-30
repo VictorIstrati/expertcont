@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Container, Icon } from "@expertcont/ui";
 import { localeTag, type Locale } from "@expertcont/i18n";
 import { openModal } from "../../lib/modalBus";
+import { track } from "../../lib/analytics";
 import type {
   AccountingState,
   CalcConfig,
@@ -344,7 +345,14 @@ export function PriceCalculator({ calc, locale }: Props) {
               <p className="text-xs text-white/55 mt-5 leading-normal">{calc.result.disclaimer}</p>
               <button
                 className="btn btn-primary mt-5 w-full justify-center inline-flex items-center gap-2"
-                onClick={() => openModal("quote", { items, total })}
+                onClick={() => {
+                  track("calculator_completed", {
+                    total_mdl: total,
+                    services_count: items.length,
+                    locale,
+                  });
+                  openModal("quote", { items, total });
+                }}
               >
                 {calc.result.cta} <Icon name="arrow-right" size={14} />
               </button>

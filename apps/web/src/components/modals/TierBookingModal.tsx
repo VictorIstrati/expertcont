@@ -3,6 +3,7 @@ import { Icon } from "@expertcont/ui";
 import { localeTag, type Locale } from "@expertcont/i18n";
 import { Modal } from "./Modal";
 import { backendClient, detectLanguage } from "../../lib/backend";
+import { track } from "../../lib/analytics";
 
 export interface TierBookingSelection {
   tierName: string;
@@ -179,6 +180,7 @@ export function TierBookingModal({ open, onClose, locale, selection }: Props) {
 
     setSubmitting(false);
     if (result.ok) {
+      track("form_submitted", { form_type: "tier_booking", locale, tier_name: selection.tierName });
       setSent(true);
     } else {
       setErrorMsg(t.errorGeneric);

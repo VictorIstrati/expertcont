@@ -5,6 +5,7 @@ import { I18nRoot, sectionUrl } from "@expertcont/i18n";
 import type { Locale } from "@expertcont/i18n";
 import { openModal } from "../../lib/modalBus";
 import { backendClient, detectLanguage } from "../../lib/backend";
+import { track } from "../../lib/analytics";
 import { OfficeMap } from "./OfficeMap";
 
 export interface ContactIslandProps {
@@ -92,6 +93,7 @@ function ContactInner({ locale, address, phone, email, hours, geo }: ContactIsla
 
     setSubmitting(false);
     if (result.ok) {
+      track("form_submitted", { form_type: "contact", locale });
       setSent(true);
     } else {
       setErrorMsg(result.error);

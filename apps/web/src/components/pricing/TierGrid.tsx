@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Container, Icon } from "@expertcont/ui";
 import { localeTag, type Locale } from "@expertcont/i18n";
 import { openModal } from "../../lib/modalBus";
+import { track } from "../../lib/analytics";
 import type { Tier } from "./types";
 
 interface Props {
@@ -152,15 +153,20 @@ export function TierGrid({
 
                 <Button
                   variant={tier.popular ? "primary" : "outline"}
-                  onClick={() =>
+                  onClick={() => {
+                    track("cta_clicked", {
+                      cta_text: tier.name,
+                      cta_location: `pricing_tier_${billing}`,
+                      locale,
+                    });
                     openModal("tier-booking", {
                       tierName: tier.name,
                       price: display,
                       priceLabel: tier.priceLabel,
                       billing,
                       monthlyPeriod: tier.period,
-                    })
-                  }
+                    });
+                  }}
                   className="w-full justify-center"
                 >
                   {tier.cta}

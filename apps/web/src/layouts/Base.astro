@@ -47,6 +47,10 @@ const {
 } = Astro.props;
 const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
 const canonical = `${siteUrl}${path}`;
+
+const gtmId = import.meta.env.PUBLIC_GTM_ID as string | undefined;
+const gscVerify = import.meta.env.PUBLIC_GSC_VERIFY as string | undefined;
+const bingVerify = import.meta.env.PUBLIC_BING_VERIFY as string | undefined;
 const alts: Record<Locale, string> = siblings ?? { ro: path, ru: path, en: path };
 const langAttr = locale === "ro" ? "ro" : locale === "ru" ? "ru" : "en";
 const ogLocaleByLocale: Record<Locale, string> = {
@@ -159,6 +163,74 @@ const organizationJsonLd = {
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#4663ab" />
 
+    {gscVerify && <meta name="google-site-verification" content={gscVerify} />}
+    {bingVerify && <meta name="msvalidate.01" content={bingVerify} />}
+
+    {
+      /* Consent Mode v2 default + gtag() bootstrap. Must run before GTM so
+        any tag loaded by GTM sees a consent state. We default to denied for
+        marketing storage; the cookie banner upgrades on accept. Returning
+        users who previously accepted get an immediate inline upgrade so we
+        don't lose a pageview waiting for React hydration. */
+    }
+    <script is:inline>
+      (function () {
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          window.dataLayer.push(arguments);
+        }
+        window.gtag = gtag;
+        var granted = {
+          ad_storage: "granted",
+          ad_user_data: "granted",
+          ad_personalization: "granted",
+          analytics_storage: "granted",
+        };
+        var denied = {
+          ad_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+          analytics_storage: "denied",
+        };
+        gtag("consent", "default", denied);
+        try {
+          if (window.localStorage.getItem("expertcont-cookie-consent") === "accepted") {
+            gtag("consent", "update", granted);
+          }
+        } catch (e) {
+          /* localStorage blocked — leave defaults */
+        }
+
+        // Track tel: link clicks via event delegation (covers all components).
+        document.addEventListener(
+          "click",
+          function (e) {
+            var t = e.target;
+            if (!(t instanceof Element)) return;
+            var a = t.closest('a[href^="tel:"]');
+            if (!a) return;
+            window.dataLayer.push({
+              event: "phone_link_clicked",
+              location: window.location.pathname || "/",
+            });
+          },
+          { passive: true, capture: true },
+        );
+      })();
+    </script>
+
+    {
+      gtmId && (
+        <script is:inline define:vars={{ gtmId }}>{`
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','${gtmId}');
+      `}</script>
+      )
+    }
+
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
@@ -225,6 +297,20 @@ const organizationJsonLd = {
     />
   </head>
   <body>
+    {
+      gtmId && (
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+            height="0"
+            width="0"
+            class="hidden"
+            aria-hidden="true"
+            title="gtm"
+          />
+        </noscript>
+      )
+    }
     <slot />
   </body>
 </html>

@@ -4,6 +4,7 @@ import { localeTag, type Locale } from "@expertcont/i18n";
 import { Modal } from "./Modal";
 import type { BreakdownItem } from "../pricing/calcMath";
 import { backendClient, detectLanguage } from "../../lib/backend";
+import { track } from "../../lib/analytics";
 
 interface Props {
   open: boolean;
@@ -162,6 +163,7 @@ export function QuoteModal({ open, onClose, locale, quote }: Props) {
 
     setSubmitting(false);
     if (result.ok) {
+      track("form_submitted", { form_type: "quote", locale });
       setSent(true);
     } else {
       setErrorMsg(t.errorGeneric);

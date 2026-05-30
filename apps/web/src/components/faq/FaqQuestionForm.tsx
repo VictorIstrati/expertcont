@@ -3,6 +3,7 @@ import { Button, Icon } from "@expertcont/ui";
 import type { Locale } from "@expertcont/i18n";
 import { useResponseLabels, useTopics } from "./types";
 import { backendClient, detectLanguage } from "../../lib/backend";
+import { track } from "../../lib/analytics";
 
 interface Props {
   locale: Locale;
@@ -85,6 +86,7 @@ export function FaqQuestionForm({
 
     setSubmitting(false);
     if (result.ok) {
+      track("form_submitted", { form_type: "faq_question", locale });
       setSent(true);
     } else {
       setErrorMsg(formErrorLabel);
