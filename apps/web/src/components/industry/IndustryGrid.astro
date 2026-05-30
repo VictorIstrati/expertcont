@@ -1,0 +1,40 @@
+---
+import type { Locale } from "@expertcont/i18n";
+import { Icon } from "@expertcont/ui";
+import { IndustryIcon } from "./IndustryIcon";
+import { INDUSTRIES, industryDetailUrl } from "./industries";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const moreLabel =
+  locale === "ru" ? "Подробнее" : locale === "en" ? "Learn more" : "Află mai mult";
+---
+
+<div class="flex flex-col gap-4">
+  {
+    INDUSTRIES.map((industry) => (
+      <a
+        href={industryDetailUrl(industry.slug, locale)}
+        class="card card-hover p-6 sm:p-7 flex items-start gap-5 sm:gap-7 text-inherit no-underline"
+      >
+        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-lg bg-primary-50 text-primary flex items-center justify-center shrink-0">
+          <IndustryIcon id={industry.id} size={40} />
+        </div>
+        <div class="grow">
+          <h3 class="text-xl mb-2">{industry.title[locale]}</h3>
+          <p class="text-sm sm:text-base text-text-secondary leading-relaxed mb-3">
+            {industry.description[locale]}
+          </p>
+          <span class="inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+            {moreLabel}
+            <Icon name="arrow-right" size={16} />
+          </span>
+        </div>
+      </a>
+    ))
+  }
+</div>

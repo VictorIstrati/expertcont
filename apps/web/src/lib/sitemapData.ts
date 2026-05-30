@@ -21,6 +21,7 @@ export interface SitemapGroup {
 const sectionLabels: Record<Exclude<SectionKey, "sitemap">, Record<Locale, string>> = {
   solutions: { ro: "Soluții", ru: "Решения", en: "Solutions" },
   services: { ro: "Servicii", ru: "Услуги", en: "Services" },
+  industries: { ro: "Domenii", ru: "Отрасли", en: "Industries" },
   pricing: { ro: "Prețuri", ru: "Цены", en: "Pricing" },
   contact: { ro: "Contact", ru: "Контакты", en: "Contact" },
   about: { ro: "Despre noi", ru: "О нас", en: "About us" },
@@ -49,7 +50,13 @@ const groupHeadings: Record<"main" | "company" | "content" | "legal", Record<Loc
 };
 
 type LinkableSection = Exclude<SectionKey, "sitemap">;
-const mainSections: LinkableSection[] = ["solutions", "services", "pricing", "contact"];
+const mainSections: LinkableSection[] = [
+  "solutions",
+  "services",
+  "industries",
+  "pricing",
+  "contact",
+];
 const companySections: LinkableSection[] = ["about", "faq", "reviews", "partners", "careers"];
 const legalSections: LinkableSection[] = ["privacy", "terms", "cookies"];
 

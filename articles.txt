@@ -1,0 +1,145 @@
+Here is a tailored list of 50 article and guide topics designed to match the professional tone of **ExpertCont.md**, while incorporating sectorial developments and regulatory updates inspired by **Monitorul Fiscal** and **Contabilitate și Audit (contabilitate.md)** for the Moldovan market.
+
+### General Accounting & Fiscal Optimization
+
+1. **Fiscal Optimization vs. Tax Evasion:** Where is the legal boundary for Moldovan SMEs?
+2. **Step-by-Step Guide:** How to transition from a Sole Proprietorship (*Întreprindere Individuală*) to an LLC (*SRL*).
+3. **Common Accounting Errors:** Top 10 mistakes Moldovan entrepreneurs make and how to avoid them.
+4. **Dividends vs. Salary:** What is the most tax-efficient way to extract profits from your SRL in Moldova?
+5. **Restoring Accounting Records (*Restabilirea evidenței*):** When do you need it, and how does the process work?
+6. **Cash Register Management (*E-Integritate*):** New rules and compliance standards for physical retail points.
+7. **Document Management:** Best practices for organizing and storing primary accounting documents (*documente primare*).
+8. **Deductible vs. Non-deductible Expenses:** A comprehensive checklist for Moldovan company directors.
+9. **Corporate Income Tax (VEN12):** A definitive guide to preparing and filing your annual declaration.
+10. **The Role of an Outsource Accounting Firm:** Why it can be safer than a full-time in-house accountant.
+
+### IT Sector & Digital Transformation
+
+11. **Moldova Innovation Technology Park (MITP):** How to apply and maintain the 7% single tax rate.
+12. **Taxation for Freelancers:** Intellectual service contracts vs. registering an independent activity.
+13. **Online Services & Non-residents:** Withholding tax rules when paying for global software (Google, AWS, Meta) from Moldova.
+14. **Accounting for E-commerce:** Dealing with payment gateways (Stripe, PayPal, Paynet) and invoicing local clients.
+15. **SIA "e-Factura" Integration:** How to bridge your internal ERP/1C system via API with the State Fiscal Service.
+16. **Social & Medical Insurance in the IT Sector:** Specific calculations and updates for IT Park residents.
+17. **Crypto and Digital Assets:** The legal and accounting status of cryptocurrency transactions for corporate entities in Moldova.
+
+### Sectorial & Industry-Specific Accounting
+
+18. **Agricultural Accounting:** How to determine the VAT refund amount for local agricultural producers under current regulations.
+19. **HoReCa Sector Specifics:** Managing inventory, raw material waste, and tip taxation in restaurants and cafes.
+20. **Construction Accounting:** Dealing with long-term contracts, progress certificates (*Forma nr. 2*), and materials monitoring.
+21. **Transport & Logistics:** Accounting for fuel consumption norms, international waybills (*CMR*), and business trip allowances.
+22. **Financial Leasing for Lessees:** Practical aspects of accounting and taxation for company vehicles and equipment.
+23. **Real Estate & Condominiums:** Understanding the implications of new legal rules for homeowners' associations (*asociațiile de proprietari din condominiu*).
+24. **Non-Commercial Organizations (NGOs):** Taxation of payments made by NGOs to independent contractors and volunteers.
+25. **The Green Economy:** Accounting and tax treatment for investments in renewable energy assets (e.g., solar panels for business facilities).
+
+### Human Resources & Labor Law
+
+26. **Employee Onboarding Checklist:** Essential labor contracts, internal regulations, and personal file compliance.
+27. **Remote Work Regulations:** How to legally structure and account for remote employees inside and outside Moldova.
+28. **Declaration IPC21 Guide:** Avoiding penalties when reporting payroll taxes, social security, and medical insurance.
+29. **Dismissal and Resignation Laws:** How to terminate a labor contract without triggering legal disputes.
+30. **Sick Leaves and Maternity Allowances:** Calculation mechanics and the role of the employer vs. the state budget.
+31. **Benefits in Kind (*Facilități acordate de angajator*):** Taxation rules for providing company cars, gym memberships, or health insurance to staff.
+32. **Coffee & Office Perks:** Current conditions for deducting expenses related to office supplies, water, and catering for clients/staff.
+
+### Legal Support & Business Protection
+
+33. **Preparing for a Fiscal Audit:** What documents will inspectors ask for first, and how should you respond?
+34. **Contractual Security:** Key legal clauses every B2B collaboration contract must include to protect your cash flow.
+35. **Validation of Claims in Insolvency:** Legal recourse vs. debt recovery through standard court procedures.
+36. **Intellectual Property for Businesses:** How to account for trademarks, patents, and software licenses as intangible assets.
+37. **GDPR / Personal Data Protection:** Compliance requirements for corporate websites and client databases in Moldova.
+38. **Amending the Company Statute:** Changing administrators, adding new KODAM/CAEM activity codes, or shifting share capital ownership.
+
+### Trade, Importing & Exporting
+
+39. **Importing Goods into Moldova:** Custom duties, import VAT calculation, and required accounting entries.
+40. **Exporting Services Globally:** Determining the exact date of supply for VAT exemption purposes.
+41. **Exchange Rate Differences:** Managing currency fluctuations (EUR/USD to MDL) in foreign trade transactions.
+42. **Incoterms Rules:** A guide for managers on how shipping terms dictate the transfer of financial risks and assets.
+43. **B2B Retail vs. Wholesale:** Licensing, notification of activity (*notificarea în comerț*), and distinct accounting structures.
+
+### Financial Analysis & Strategic Planning
+
+44. **Cash Flow vs. Profitability:** Why a profitable company can still go bankrupt without cash flow monitoring.
+45. **Key Financial Metrics:** 5 ratios every Moldovan CEO should look at on a monthly balance sheet.
+46. **Budgeting for Growth:** How to build an operational budget for the upcoming fiscal year.
+47. **Managerial Accounting:** Moving beyond tax filings to use accounting data for corporate decision-making.
+48. **Funding and Grants:** Accounting for state grants (e.g., ODA programs) or international funding initiatives.
+49. **Anti-Money Laundering (AML) Compliance:** KYC regulations and reporting thresholds for Moldovan businesses.
+50. **Company Liquidation Procedure:** A legal and fiscal breakdown of how to properly close a dormant SRL.
+
+
+vs
+
+I'll analyze the existing content on expertcont.md and the competitor sites to generate a list of 50 article ideas you may want to add. Let me start by fetching these pages.Let me check the blog page now.Now let me check the competitor sites to identify topic coverage and gaps.This gives me a strong picture of sectoral coverage. Let me check contabilitate.md for their news/topic angles.I now have a clear picture of all four sources. Let me synthesize the analysis.
+
+**Existing on expertcont.md (7 pieces total):** IT Park residency, opening an LLC, 5 accounting mistakes, commercial contracts, in-house vs outsourced accounting, LLC vs sole trader vs independent activity, 2026 tax calendar. Coverage is heavy on entrepreneurship/registration and general LLC topics, but light on sector-specific accounting, VAT mechanics, payroll/HR detail, social contributions, and the newer 2026 legislative changes the competitors are actively covering.
+
+**Gaps the competitors fill** — monitorul.fisc.md covers sectoral accounting (public sector, NGOs, insolvency, agriculture, IT, e-commerce, tourism, trade, transport, construction, free economic zones, non-residents, meal vouchers, IFRS 17); contabilitate.md is pushing fresh 2026 regulatory topics (zilieri/e-Zilier into IPC21, minimum wage methodology, social security agreements with Canada/Ukraine, reorganization tax regime changes, SNCSP public-sector standards, PGA valuation guide, state aid definitions).
+
+Here's your list of 50 article ideas, organized so gaps are easy to scan. These are topics expertcont.md does **not** currently cover but that competitors do, plus natural extensions of your existing content.
+
+**Taxation & VAT**
+1. VAT in Moldova 2026: registration thresholds, rates, and when to register voluntarily
+2. How to file the VAT return (Declarația TVA) correctly — common errors and penalties
+3. VAT refunds in Moldova: eligibility, procedure, and typical processing times
+4. Reverse-charge VAT and intra-import operations for Moldovan businesses
+5. Corporate income tax for LLCs: 12% regime vs IT Park 7% vs small-business 4% turnover tax
+6. The 4% turnover tax regime for small businesses: who qualifies and how to opt in/out
+7. Excise duties in Moldova: which goods, current rates, and reporting obligations
+8. Local taxes and fees (taxe locale) every Chișinău business must know
+9. Real estate and land tax (impozit pe bunuri imobiliare) for companies
+10. Reorganization, mergers and asset transfers: the changing tax regime (aligning with EU rules)
+
+**Payroll, HR & social contributions**
+11. Payroll in Moldova 2026: gross-to-net calculation step by step
+12. Social (CAS) and health (CAM) contributions: rates, caps, and who pays what
+13. The IPC21 declaration explained: structure, deadlines, and frequent mistakes
+14. Hiring your first employee: contracts, registration, and onboarding obligations
+15. Day laborers (zilieri) and the new e-Zilier system feeding into IPC21 from June 2026
+16. Minimum wage in Moldova 2026: new methodology (50% of forecast average wage)
+17. Meal vouchers (tichete de masă): tax treatment and how to set them up
+18. Annual leave, sick leave and medical certificates: employer accounting and payroll impact
+19. Terminating an employment contract legally: grounds, notice, and severance
+20. Posting workers abroad and social security agreements (Canada, Ukraine, EU)
+
+**Sector-specific accounting**
+21. Accounting for IT companies and IT Park residents: revenue recognition and the single tax
+22. E-commerce accounting in Moldova: online sales, marketplaces, and fiscal receipts
+23. Accounting for the retail/trade (comerț) sector: cash registers and inventory
+24. Construction sector accounting: long-term contracts and revenue recognition
+25. Transport sector accounting: fuel, vehicle depreciation, and road taxes
+26. Tourism and HoReCa accounting: specific VAT and reporting considerations
+27. Accounting for NGOs and non-commercial organizations in Moldova
+28. Agricultural sector accounting and applicable tax incentives
+29. Accounting in Free Economic Zones (ZEL): incentives and obligations
+30. Non-residents doing business in Moldova: permanent establishment and withholding tax
+
+**Compliance, reporting & standards**
+31. National Accounting Standards (SNC) vs IFRS: which applies to your entity
+32. Annual financial statements: who must file, formats, and deadlines
+33. Mandatory financial audit: thresholds and how to prepare for it
+34. Primary documents (documente primare): legal requirements and retention rules
+35. The chart of accounts (planul de conturi) explained for non-accountants
+36. Fixed asset accounting: depreciation methods and revaluation
+37. Inventory accounting and year-end stocktaking procedures
+38. Business-generating property (PGA): cost vs fair value and the new valuation guide
+39. State aid rules: when your incentives count as "aid" and reporting duties
+40. e-Factura and electronic invoicing: rollout status and how to comply
+
+**Banking, finance & operations**
+41. Opening and managing a business bank account in Moldova
+42. Cash operations limits and rules for Moldovan companies
+43. Foreign currency operations and exchange-rate accounting
+44. Dividends: distribution rules, taxation, and accounting entries
+45. Loans between a founder and the company: tax and documentation
+46. Insolvency and liquidation: the accountant's role and obligations
+
+**Cross-border & growth**
+47. Importing and exporting: customs, VAT, and documentation essentials
+48. Transfer pricing in Moldova: documentation requirements for related-party deals
+49. Double taxation treaties: how to claim relief as a Moldovan company
+50. Closing or suspending a business: deregistration, final reporting, and tax clearance

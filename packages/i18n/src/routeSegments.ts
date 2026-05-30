@@ -16,6 +16,7 @@ export const SECTION_KEYS = [
   "partners",
   "careers",
   "sitemap",
+  "industries",
 ] as const;
 export type SectionKey = (typeof SECTION_KEYS)[number];
 
@@ -35,6 +36,7 @@ export const routeSegments: Record<SectionKey, Record<Locale, string>> = {
   partners: { ro: "parteneri", ru: "partnery", en: "partners" },
   careers: { ro: "cariere", ru: "kariera", en: "careers" },
   sitemap: { ro: "harta-site", ru: "karta-sayta", en: "sitemap" },
+  industries: { ro: "domenii", ru: "otrasli", en: "industries" },
 };
 
 /** Returns the section URL fragment for a locale, e.g. routeSegment("services","ro") === "servicii". */

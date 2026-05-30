@@ -1,0 +1,78 @@
+---
+import type { GetStaticPaths } from "astro";
+import Base from "../../../layouts/Base.astro";
+import PageShell from "../../../components/PageShell.astro";
+import { Container, PageHeader, Section } from "@expertcont/ui";
+import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+import {
+  INDUSTRIES,
+  industryDetailUrl,
+  industryDetailSiblings,
+  type Industry,
+} from "../../../components/industry/industries";
+import { serviceJsonLd, breadcrumbListJsonLd } from "../../../lib/jsonLd";
+
+export const getStaticPaths = (() =>
+  INDUSTRIES.map((industry) => ({
+    params: { slug: industry.slug },
+    props: { industry },
+  }))) satisfies GetStaticPaths;
+
+const locale: Locale = "en";
+const { industry } = Astro.props as { industry: Industry };
+const title = industry.title[locale];
+const path = industryDetailUrl(industry.slug, locale);
+const siblings = industryDetailSiblings(industry.slug);
+const pricingHref = sectionUrl("pricing", locale);
+const contactHref = sectionUrl("contact", locale);
+const metaDescription = `Specialised accounting for ${title} in Moldova. We understand your sector's tax realities — dedicated account manager and fast replies.`;
+
+const jsonLd = [
+  serviceJsonLd({
+    url: path,
+    name: `Accounting for ${title}`,
+    description: metaDescription,
+    locale,
+  }),
+  breadcrumbListJsonLd([
+    { name: "Home", url: homeUrl(locale) },
+    { name: "Industries", url: sectionUrl("industries", locale) },
+    { name: title, url: path },
+  ]),
+];
+---
+
+<Base
+  title={`Accounting for ${title} — ExpertCont`}
+  description={metaDescription}
+  locale={locale}
+  path={path}
+  siblings={siblings}
+  jsonLd={jsonLd}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <PageHeader
+      eyebrow="Industry"
+      title={`Accounting for ${title}`}
+      breadcrumbs={[
+        { label: "Home", href: homeUrl(locale) },
+        { label: "Industries", href: sectionUrl("industries", locale) },
+        { label: title },
+      ]}
+    />
+
+    <Section tone="default">
+      <Container>
+        <div class="mx-auto max-w-3xl">
+          <p class="text-lg leading-relaxed text-text-secondary mb-10">
+            {industry.description[locale]}
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href={pricingHref} class="btn btn-primary">See pricing</a>
+            <a href={contactHref} class="btn btn-secondary">Book a consultation</a>
+          </div>
+        </div>
+      </Container>
+    </Section>
+  </PageShell>
+</Base>
