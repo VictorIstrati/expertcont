@@ -3,6 +3,7 @@ import { Trans } from "@lingui/react/macro";
 import { Button } from "@expertcont/ui";
 import { I18nRoot } from "@expertcont/i18n/I18nRoot";
 import type { Locale } from "@expertcont/i18n";
+import { updateConsent } from "../lib/analytics";
 
 const STORAGE_KEY = "expertcont-cookie-consent";
 
@@ -29,11 +30,13 @@ function BannerContent({ policyHref }: { policyHref: string }) {
 
   const accept = () => {
     window.localStorage.setItem(STORAGE_KEY, "accepted");
+    updateConsent("accepted");
     setConsent("accepted");
   };
 
   const reject = () => {
     window.localStorage.setItem(STORAGE_KEY, "rejected");
+    updateConsent("rejected");
     setConsent("rejected");
   };
 

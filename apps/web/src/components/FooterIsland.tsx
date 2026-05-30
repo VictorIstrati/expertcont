@@ -2,6 +2,7 @@ import { I18nRoot } from "@expertcont/i18n/I18nRoot";
 import { Footer } from "@expertcont/ui";
 import type { Locale } from "@expertcont/i18n";
 import { backendClient } from "../lib/backend";
+import { track } from "../lib/analytics";
 
 interface Props {
   locale: Locale;
@@ -17,6 +18,9 @@ export default function FooterIsland({ locale, address, phone, email }: Props) {
       email: value,
       source_url: typeof window !== "undefined" ? window.location.href : undefined,
     });
+    if (result.ok) {
+      track("form_submitted", { form_type: "newsletter", locale });
+    }
     return result.ok;
   }
 

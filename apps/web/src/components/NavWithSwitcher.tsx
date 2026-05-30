@@ -3,6 +3,7 @@ import { I18nRoot } from "@expertcont/i18n/I18nRoot";
 import { Nav, type NavSection } from "@expertcont/ui";
 import type { Locale } from "@expertcont/i18n";
 import { openModal } from "../lib/modalBus";
+import { track } from "../lib/analytics";
 
 interface Props {
   locale: Locale;
@@ -47,7 +48,10 @@ export default function NavWithSwitcher({ locale, activeSection, siblings }: Pro
         onLocaleChange={(next) => {
           if (typeof window !== "undefined") window.location.href = siblings[next];
         }}
-        onBookConsult={() => openModal("booking")}
+        onBookConsult={() => {
+          track("cta_clicked", { cta_text: "book_consultation", cta_location: "nav", locale });
+          openModal("booking");
+        }}
       />
     </I18nRoot>
   );

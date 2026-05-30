@@ -1,5 +1,6 @@
 import type { Locale } from "@expertcont/i18n";
 import styles from "./LocaleSwitcher.module.css";
+import { track } from "../lib/analytics";
 
 interface Props {
   currentLocale: Locale;
@@ -22,6 +23,11 @@ export default function LocaleSwitcher({ currentLocale, siblings }: Props) {
           className={loc === currentLocale ? styles.active : styles.link}
           hrefLang={loc}
           aria-current={loc === currentLocale ? "true" : undefined}
+          onClick={
+            loc === currentLocale
+              ? undefined
+              : () => track("locale_switched", { from: currentLocale, to: loc })
+          }
         >
           {LOCALE_LABELS[loc]}
         </a>

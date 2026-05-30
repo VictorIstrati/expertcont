@@ -8,6 +8,7 @@ import { ContactStep } from "./booking/ContactStep";
 import { ConfirmationStep } from "./booking/ConfirmationStep";
 import { useBookingStrings, buildDays } from "./booking/strings";
 import { INITIAL_DATA, type BookingData } from "./booking/types";
+import { track } from "../../lib/analytics";
 import { backendClient, detectLanguage } from "../../lib/backend";
 
 interface Props {
@@ -92,6 +93,7 @@ export function BookingModal({ open, onClose, locale, initialService }: Props) {
 
     setSubmitting(false);
     if (result.ok) {
+      track("form_submitted", { form_type: "booking", locale });
       setStep(3);
     } else {
       setErrorMsg(t.errorGeneric);

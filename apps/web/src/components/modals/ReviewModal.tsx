@@ -3,6 +3,7 @@ import { Icon } from "@expertcont/ui";
 import type { Locale } from "@expertcont/i18n";
 import { Modal } from "./Modal";
 import { backendClient, detectLanguage } from "../../lib/backend";
+import { track } from "../../lib/analytics";
 
 interface Props {
   open: boolean;
@@ -144,6 +145,7 @@ export function ReviewModal({ open, onClose, locale }: Props) {
 
     setSubmitting(false);
     if (result.ok) {
+      track("form_submitted", { form_type: "review", locale });
       setSent(true);
     } else {
       setErrorMsg(t.errorGeneric);
