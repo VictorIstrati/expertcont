@@ -84,3 +84,22 @@ export function updateConsent(choice: ConsentChoice): void {
   if (typeof window === "undefined" || typeof window.gtag !== "function") return;
   window.gtag("consent", "update", choice === "accepted" ? GRANTED : DENIED);
 }
+
+// ---- Microsoft Clarity --------------------------------------------------------
+
+/**
+ * Lazily initialize Microsoft Clarity. Safe to call multiple times — Clarity's
+ * own init() is idempotent. No-ops when:
+ *   - running server-side
+ *   - PUBLIC_CLARITY_PROJECT_ID is not configured
+ *
+ * Should only be invoked once consent has been granted.
+ */
+export async function initClarity(): Promise<void> {
+  if (typeof window === "undefined") return;
+  const projectId = import.meta.env.PUBLIC_CLARITY_PROJECT_ID as string | undefined;
+  if (!projectId) return;
+  const Clarity = (await import("@microsoft/clarity")).default;
+  Clarity.init(projectId);
+  Clarity.consent(true);
+}

@@ -20,6 +20,7 @@
     "@expertcont/ui": "workspace:*",
     "@lingui/core": "^5.1.0",
     "@lingui/react": "^5.1.0",
+    "@microsoft/clarity": "^1.0.2",
     "@tailwindcss/vite": "^4.0.0",
     "astro": "^4.15.9",
     "leaflet": "^1.9.4",
