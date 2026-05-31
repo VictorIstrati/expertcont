@@ -197,6 +197,11 @@ export function Footer({ locale, address, phone, email, onNewsletterSubscribe }:
             </div>
             <ul className={styles.list}>
               <li>
+                <a href={sectionUrl("industries", locale)}>
+                  <Trans>Industries</Trans>
+                </a>
+              </li>
+              <li>
                 <a href={sectionUrl("blog", locale)}>
                   <Trans>Blog</Trans>
                 </a>

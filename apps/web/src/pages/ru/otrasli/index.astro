@@ -1,0 +1,90 @@
+---
+import Base from "../../../layouts/Base.astro";
+import PageShell from "../../../components/PageShell.astro";
+import { Container, PageHeader, Section } from "@expertcont/ui";
+import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+import IndustryGrid from "../../../components/industry/IndustryGrid.astro";
+import {
+  INDUSTRIES,
+  industryDetailUrl,
+  industryHubSiblings,
+} from "../../../components/industry/industries";
+import { ServiceCTAStrip } from "../../../components/service/ServiceCTAStrip";
+import { breadcrumbListJsonLd } from "../../../lib/jsonLd";
+
+const locale: Locale = "ru";
+const siblings = industryHubSiblings();
+const path = sectionUrl("industries", locale);
+const contactHref = sectionUrl("contact", locale);
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Бухгалтерия по отраслям — ExpertCont",
+    url: `${siteUrl}${path}`,
+    inLanguage: locale,
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: INDUSTRIES.length,
+      itemListElement: INDUSTRIES.map((industry, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: industry.title[locale],
+        url: `${siteUrl}${industryDetailUrl(industry.slug, locale)}`,
+      })),
+    },
+  },
+  breadcrumbListJsonLd([
+    { name: "Главная", url: homeUrl(locale) },
+    { name: "Отрасли", url: path },
+  ]),
+];
+---
+
+<Base
+  title="Бухгалтерия по отраслям — ExpertCont"
+  description="Специализированная бухгалтерия по отраслям в Молдове: HoReCa, строительство, e-commerce, IT, сельское хозяйство и другие. У каждой отрасли своя налоговая реальность — мы её знаем."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+  jsonLd={jsonLd}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <PageHeader
+      eyebrow="Отрасли"
+      title="Специализированная бухгалтерия для вашей отрасли"
+      subtitle="У ресторана, строительной компании и IT-бизнеса совершенно разная налоговая реальность. Выберите отрасль и узнайте, как мы помогаем."
+      breadcrumbs={[{ label: "Главная", href: homeUrl(locale) }, { label: "Отрасли" }]}
+    />
+
+    <Section tone="default">
+      <Container>
+        <div class="mx-auto max-w-3xl mb-12 text-center">
+          <p class="text-lg leading-relaxed text-text-secondary">
+            Бухгалтерия не одинакова для всех. Режим НДС, учёт запасов, расчёт зарплат и
+            специфические налоги отличаются от отрасли к отрасли — а ошибки дорого обходятся. Мы
+            знаем налоговые реалии каждой отрасли ниже и выстраиваем учёт под специфику вашего
+            бизнеса, с одним персональным менеджером, который понимает, как вы зарабатываете.
+          </p>
+        </div>
+
+        <IndustryGrid locale={locale} />
+
+        <div class="mx-auto max-w-2xl mt-12 text-center">
+          <p class="text-base text-text-secondary mb-0">
+            Не видите свою отрасль? Мы работаем с бизнесом из любой индустрии —
+            <a href={contactHref} class="text-primary underline">напишите нам</a>, и обсудим.
+          </p>
+        </div>
+      </Container>
+    </Section>
+
+    <Section tone="default">
+      <Container>
+        <ServiceCTAStrip client:visible locale={locale} contactHref={contactHref} />
+      </Container>
+    </Section>
+  </PageShell>
+</Base>

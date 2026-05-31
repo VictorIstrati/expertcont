@@ -1,0 +1,90 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageShell from "../../components/PageShell.astro";
+import { Container, PageHeader, Section } from "@expertcont/ui";
+import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+import IndustryGrid from "../../components/industry/IndustryGrid.astro";
+import {
+  INDUSTRIES,
+  industryDetailUrl,
+  industryHubSiblings,
+} from "../../components/industry/industries";
+import { ServiceCTAStrip } from "../../components/service/ServiceCTAStrip";
+import { breadcrumbListJsonLd } from "../../lib/jsonLd";
+
+const locale: Locale = "ro";
+const siblings = industryHubSiblings();
+const path = sectionUrl("industries", locale);
+const contactHref = sectionUrl("contact", locale);
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Contabilitate pe domenii de activitate — ExpertCont",
+    url: `${siteUrl}${path}`,
+    inLanguage: locale,
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: INDUSTRIES.length,
+      itemListElement: INDUSTRIES.map((industry, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: industry.title[locale],
+        url: `${siteUrl}${industryDetailUrl(industry.slug, locale)}`,
+      })),
+    },
+  },
+  breadcrumbListJsonLd([
+    { name: "Acasă", url: homeUrl(locale) },
+    { name: "Domenii", url: path },
+  ]),
+];
+---
+
+<Base
+  title="Contabilitate pe domenii de activitate — ExpertCont"
+  description="Contabilitate specializată pe industrii în Moldova: HoReCa, construcții, e-commerce, IT, agricultură și altele. Fiecare domeniu are regulile lui fiscale."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+  jsonLd={jsonLd}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <PageHeader
+      eyebrow="Domenii"
+      title="Contabilitate specializată pe domeniul tău de activitate"
+      subtitle="Un restaurant, o firmă de construcții și un business IT au realități fiscale complet diferite. Alege-ți domeniul și vezi cum te ajutăm."
+      breadcrumbs={[{ label: "Acasă", href: homeUrl(locale) }, { label: "Domenii" }]}
+    />
+
+    <Section tone="default">
+      <Container>
+        <div class="mx-auto max-w-3xl mb-12 text-center">
+          <p class="text-lg leading-relaxed text-text-secondary">
+            Contabilitatea nu arată la fel pentru toți. Regimul de TVA, gestiunea stocurilor,
+            salarizarea și taxele specifice diferă de la o industrie la alta — iar greșelile costă.
+            Cunoaștem realitățile fiscale ale fiecărui domeniu de mai jos și construim evidența pe
+            specificul afacerii tale, cu un singur manager de cont care înțelege cum câștigi banii.
+          </p>
+        </div>
+
+        <IndustryGrid locale={locale} />
+
+        <div class="mx-auto max-w-2xl mt-12 text-center">
+          <p class="text-base text-text-secondary mb-0">
+            Nu-ți vezi domeniul aici? Lucrăm cu afaceri din orice industrie —
+            <a href={contactHref} class="text-primary underline">scrie-ne</a> și discutăm.
+          </p>
+        </div>
+      </Container>
+    </Section>
+
+    <Section tone="default">
+      <Container>
+        <ServiceCTAStrip client:visible locale={locale} contactHref={contactHref} />
+      </Container>
+    </Section>
+  </PageShell>
+</Base>

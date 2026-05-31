@@ -1,0 +1,90 @@
+---
+import Base from "../../../layouts/Base.astro";
+import PageShell from "../../../components/PageShell.astro";
+import { Container, PageHeader, Section } from "@expertcont/ui";
+import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+import IndustryGrid from "../../../components/industry/IndustryGrid.astro";
+import {
+  INDUSTRIES,
+  industryDetailUrl,
+  industryHubSiblings,
+} from "../../../components/industry/industries";
+import { ServiceCTAStrip } from "../../../components/service/ServiceCTAStrip";
+import { breadcrumbListJsonLd } from "../../../lib/jsonLd";
+
+const locale: Locale = "en";
+const siblings = industryHubSiblings();
+const path = sectionUrl("industries", locale);
+const contactHref = sectionUrl("contact", locale);
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Accounting by industry — ExpertCont",
+    url: `${siteUrl}${path}`,
+    inLanguage: locale,
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: INDUSTRIES.length,
+      itemListElement: INDUSTRIES.map((industry, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: industry.title[locale],
+        url: `${siteUrl}${industryDetailUrl(industry.slug, locale)}`,
+      })),
+    },
+  },
+  breadcrumbListJsonLd([
+    { name: "Home", url: homeUrl(locale) },
+    { name: "Industries", url: path },
+  ]),
+];
+---
+
+<Base
+  title="Accounting by industry — ExpertCont"
+  description="Specialised accounting by industry in Moldova: HoReCa, construction, e-commerce, IT, agriculture and more. Every industry has its own tax reality — we know it."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+  jsonLd={jsonLd}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <PageHeader
+      eyebrow="Industries"
+      title="Accounting built for your industry"
+      subtitle="A restaurant, a construction firm and an IT business have completely different tax realities. Pick your industry and see how we help."
+      breadcrumbs={[{ label: "Home", href: homeUrl(locale) }, { label: "Industries" }]}
+    />
+
+    <Section tone="default">
+      <Container>
+        <div class="mx-auto max-w-3xl mb-12 text-center">
+          <p class="text-lg leading-relaxed text-text-secondary">
+            Accounting isn't the same for everyone. VAT treatment, stock management, payroll and
+            sector-specific taxes differ from one industry to the next — and mistakes are costly. We
+            know the tax realities of each industry below and build your books around how your
+            business actually works, with a single account manager who understands how you earn.
+          </p>
+        </div>
+
+        <IndustryGrid locale={locale} />
+
+        <div class="mx-auto max-w-2xl mt-12 text-center">
+          <p class="text-base text-text-secondary mb-0">
+            Don't see your industry? We work with businesses from any sector —
+            <a href={contactHref} class="text-primary underline">get in touch</a> and let's talk.
+          </p>
+        </div>
+      </Container>
+    </Section>
+
+    <Section tone="default">
+      <Container>
+        <ServiceCTAStrip client:visible locale={locale} contactHref={contactHref} />
+      </Container>
+    </Section>
+  </PageShell>
+</Base>

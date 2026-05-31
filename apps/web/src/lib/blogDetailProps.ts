@@ -30,7 +30,7 @@ const LABELS: Record<Locale, DetailLabels> = {
     similarLabel: "Articole similare",
     continueReadingEyebrow: "Continuă lectura",
     continueReadingTitle: "Articole similare",
-    inlineCtaTitle: "Ai întrebări despre cum te afectează aceste modificări?",
+    inlineCtaTitle: "Vrei să afli mai multe? Hai să discutăm.",
     inlineCtaSubtitle:
       "Programează o consultație gratuită de 30 de minute cu un consultant fiscal ExpertCont.",
     inlineCtaButton: "Programează consultație",
@@ -42,7 +42,7 @@ const LABELS: Record<Locale, DetailLabels> = {
     similarLabel: "Похожие статьи",
     continueReadingEyebrow: "Продолжить чтение",
     continueReadingTitle: "Похожие статьи",
-    inlineCtaTitle: "Есть вопросы о том, как эти изменения повлияют на вас?",
+    inlineCtaTitle: "Хотите узнать больше? Давайте обсудим.",
     inlineCtaSubtitle:
       "Запишитесь на бесплатную 30-минутную консультацию с налоговым консультантом ExpertCont.",
     inlineCtaButton: "Записаться на консультацию",
@@ -54,7 +54,7 @@ const LABELS: Record<Locale, DetailLabels> = {
     similarLabel: "Related articles",
     continueReadingEyebrow: "Continue reading",
     continueReadingTitle: "Related articles",
-    inlineCtaTitle: "Questions about how these changes affect you?",
+    inlineCtaTitle: "Want to know more? Let's talk.",
     inlineCtaSubtitle: "Book a free 30-minute consultation with an ExpertCont tax advisor.",
     inlineCtaButton: "Book a consultation",
   },

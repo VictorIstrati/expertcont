@@ -304,6 +304,10 @@ msgstr "Back"
 msgid "Închide"
 msgstr "Close"
 
+#: ../ui/src/Footer/Footer.tsx
+msgid "Industries"
+msgstr "Industries"
+
 #: ../../apps/web/src/components/faq/FaqPageIsland.tsx
 msgid "Întrebarea ta"
 msgstr "Your question"

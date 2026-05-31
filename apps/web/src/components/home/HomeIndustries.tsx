@@ -1,6 +1,6 @@
 import { Container } from "@expertcont/ui";
 import type { Locale } from "@expertcont/i18n";
-import { sectionUrl } from "@expertcont/i18n";
+import { INDUSTRIES, industryDetailUrl } from "../industry/industries";
 
 interface Props {
   locale: Locale;
@@ -9,82 +9,28 @@ interface Props {
 interface LocaleStrings {
   eyebrow: string;
   title: string;
-  items: string[];
 }
 
 const COPY: Record<Locale, LocaleStrings> = {
   ro: {
     eyebrow: "DOMENII",
     title: "Lucrăm cu afaceri din...",
-    items: [
-      "Tech & SaaS",
-      "E-commerce",
-      "Retail",
-      "HoReCa",
-      "Construcții",
-      "Producție",
-      "Servicii profesionale",
-      "ONG",
-      "Logistică & transport",
-      "Sănătate",
-      "Agricultură",
-      "Imobiliare",
-    ],
   },
   ru: {
     eyebrow: "ОТРАСЛИ",
     title: "Мы работаем с бизнесом из...",
-    items: [
-      "Tech & SaaS",
-      "E-commerce",
-      "Retail",
-      "HoReCa",
-      "Строительство",
-      "Производство",
-      "Профессиональные услуги",
-      "НКО",
-      "Логистика и транспорт",
-      "Здравоохранение",
-      "Сельское хозяйство",
-      "Недвижимость",
-    ],
   },
   en: {
     eyebrow: "INDUSTRIES",
     title: "We work with businesses from...",
-    items: [
-      "Tech & SaaS",
-      "E-commerce",
-      "Retail",
-      "HoReCa",
-      "Construction",
-      "Manufacturing",
-      "Professional services",
-      "NGO",
-      "Logistics & transport",
-      "Healthcare",
-      "Agriculture",
-      "Real estate",
-    ],
   },
 };
 
-function slugify(s: string): string {
-  return s
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .replace(/&/g, "and")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
-
 export default function HomeIndustries({ locale }: Props) {
   const c = COPY[locale];
-  const roItems = COPY.ro.items;
-  const items = c.items.map((label, i) => ({
-    label,
-    href: `${sectionUrl("services", locale)}?industry=${slugify(roItems[i] ?? label)}`,
+  const items = INDUSTRIES.map((industry) => ({
+    label: industry.title[locale],
+    href: industryDetailUrl(industry.slug, locale),
   }));
   const row = [...items, ...items];
   return (

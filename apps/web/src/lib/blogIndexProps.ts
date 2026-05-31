@@ -73,21 +73,24 @@ export async function blogIndexProps(locale: Locale) {
   const metas = await getCollection("blog-meta");
   const labels = LABELS[locale];
 
-  const posts = metas.map((entry) => {
-    const m = entry.data;
-    return {
-      slug: m.slugs[locale],
-      href: detailUrl("blog", m, locale),
-      category: m.category[locale],
-      title: m.titles[locale],
-      excerpt: m.summaries[locale],
-      date: m.publishedAt,
-      readTime: m.readTime,
-      featured: m.featured,
-      author: m.author ?? "",
-      cover: m.cover,
-    };
-  });
+  const posts = metas
+    .map((entry) => {
+      const m = entry.data;
+      return {
+        slug: m.slugs[locale],
+        href: detailUrl("blog", m, locale),
+        category: m.category[locale],
+        title: m.titles[locale],
+        excerpt: m.summaries[locale],
+        date: m.publishedAt,
+        readTime: m.readTime,
+        featured: m.featured,
+        author: m.author ?? "",
+        cover: m.cover,
+      };
+    })
+    // Newest first (publishedAt is an ISO yyyy-mm-dd string, so string compare is correct).
+    .sort((a, b) => b.date.localeCompare(a.date));
 
   const categorySet = new Set<string>([labels.categories[0] ?? "All"]);
   for (const p of posts) categorySet.add(p.category);

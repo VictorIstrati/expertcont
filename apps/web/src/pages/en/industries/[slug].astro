@@ -1,0 +1,189 @@
+---
+import type { GetStaticPaths } from "astro";
+import Base from "../../../layouts/Base.astro";
+import PageShell from "../../../components/PageShell.astro";
+import { Container, Icon, PageHeader, Section } from "@expertcont/ui";
+import {
+  homeUrl,
+  sectionUrl,
+  serviceDetailUrl,
+  type Locale,
+  type ServiceId,
+} from "@expertcont/i18n";
+import {
+  INDUSTRIES,
+  getIndustrySeo,
+  industryDetailUrl,
+  industryDetailSiblings,
+  type Industry,
+} from "../../../components/industry/industries";
+import { serviceJsonLd, breadcrumbListJsonLd, faqPageJsonLd } from "../../../lib/jsonLd";
+
+export const getStaticPaths = (() =>
+  INDUSTRIES.map((industry) => ({
+    params: { slug: industry.slug },
+    props: { industry },
+  }))) satisfies GetStaticPaths;
+
+const locale: Locale = "en";
+const { industry } = Astro.props as { industry: Industry };
+const detail = industry.detail?.[locale];
+const title = industry.title[locale];
+const seo = getIndustrySeo(industry.id, locale);
+const h1 = seo.metaTitle;
+const path = industryDetailUrl(industry.slug, locale);
+const siblings = industryDetailSiblings(industry.slug);
+const pricingHref = sectionUrl("pricing", locale);
+const contactHref = sectionUrl("contact", locale);
+const metaDescription = seo.metaDescription;
+
+const serviceLabels: Record<ServiceId, string> = {
+  accounting: "Accounting",
+  audit: "Audit",
+  legal: "Legal services",
+  consulting: "Consulting",
+  hr: "Payroll & HR",
+  it: "IT services",
+};
+
+/** Splits text on `**bold**` markers; odd segments are emphasized. */
+function boldSegments(text: string): { text: string; bold: boolean }[] {
+  return text.split(/\*\*(.+?)\*\*/g).map((seg, i) => ({ text: seg, bold: i % 2 === 1 }));
+}
+
+const jsonLd = [
+  serviceJsonLd({
+    url: path,
+    name: h1,
+    description: metaDescription,
+    locale,
+  }),
+  breadcrumbListJsonLd([
+    { name: "Home", url: homeUrl(locale) },
+    { name: "Industries", url: sectionUrl("industries", locale) },
+    { name: title, url: path },
+  ]),
+  ...(detail ? [faqPageJsonLd(detail.faq)] : []),
+];
+---
+
+<Base
+  title={`${h1} — ExpertCont`}
+  description={metaDescription}
+  locale={locale}
+  path={path}
+  siblings={siblings}
+  jsonLd={jsonLd}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <PageHeader
+      eyebrow="Industry"
+      title={h1}
+      breadcrumbs={[
+        { label: "Home", href: homeUrl(locale) },
+        { label: "Industries", href: sectionUrl("industries", locale) },
+        { label: title },
+      ]}
+    />
+
+    {
+      detail ? (
+        <>
+          <Section tone="default">
+            <Container>
+              <div class="mx-auto max-w-3xl">
+                <p class="text-lg leading-relaxed mb-6">
+                  {boldSegments(detail.intro).map((s) =>
+                    s.bold ? <strong>{s.text}</strong> : s.text,
+                  )}
+                </p>
+                {detail.overview && (
+                  <p class="text-base leading-relaxed text-text-secondary mb-0">
+                    {detail.overview}
+                  </p>
+                )}
+              </div>
+            </Container>
+          </Section>
+
+          <Section tone="alt" id="challenges">
+            <Container>
+              <div class="mx-auto max-w-3xl">
+                <h2 class="text-3xl mb-10">What we handle and how</h2>
+                <div class="flex flex-col gap-10">
+                  {detail.challenges.map((c) => (
+                    <article>
+                      <h3 class="text-xl mb-3">{c.title}</h3>
+                      <p class="text-text-secondary leading-relaxed mb-3">{c.problem}</p>
+                      <p class="leading-relaxed mb-4">{c.solution}</p>
+                      <a
+                        href={serviceDetailUrl(c.service, locale)}
+                        class="inline-flex items-center gap-1.5 text-sm font-semibold text-primary no-underline"
+                      >
+                        {serviceLabels[c.service]}
+                        <Icon name="arrow-right" size={16} />
+                      </a>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </Container>
+          </Section>
+
+          <Section tone="default" id="faq">
+            <Container>
+              <div class="mx-auto max-w-3xl">
+                <h2 class="text-3xl mb-10">Frequently asked questions</h2>
+                <div class="flex flex-col gap-6">
+                  {detail.faq.map((f) => (
+                    <div>
+                      <h3 class="text-lg mb-2">{f.q}</h3>
+                      <p class="text-text-secondary leading-relaxed mb-0">{f.a}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Container>
+          </Section>
+
+          <Section tone="alt">
+            <Container>
+              <div class="mx-auto max-w-3xl text-center">
+                <h2 class="text-2xl mb-4">Hand your books to people who know your industry</h2>
+                <p class="text-text-secondary mb-8">
+                  Start with a free consultation and a dedicated account manager.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                  <a href={pricingHref} class="btn btn-primary">
+                    See pricing
+                  </a>
+                  <a href={contactHref} class="btn btn-secondary">
+                    Book a consultation
+                  </a>
+                </div>
+              </div>
+            </Container>
+          </Section>
+        </>
+      ) : (
+        <Section tone="default">
+          <Container>
+            <div class="mx-auto max-w-3xl">
+              <p class="text-lg leading-relaxed text-text-secondary mb-10">
+                {industry.description[locale]}
+              </p>
+              <div class="flex flex-wrap gap-4">
+                <a href={pricingHref} class="btn btn-primary">
+                  See pricing
+                </a>
+                <a href={contactHref} class="btn btn-secondary">
+                  Book a consultation
+                </a>
+              </div>
+            </div>
+          </Container>
+        </Section>
+      )
+    }
+  </PageShell>
+</Base>
