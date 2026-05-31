@@ -12,6 +12,7 @@ import {
 } from "@expertcont/i18n";
 import {
   INDUSTRIES,
+  getIndustrySeo,
   industryDetailUrl,
   industryDetailSiblings,
   type Industry,
@@ -28,11 +29,13 @@ const locale: Locale = "ro";
 const { industry } = Astro.props as { industry: Industry };
 const detail = industry.detail?.[locale];
 const title = industry.title[locale];
+const seo = getIndustrySeo(industry.id, locale);
+const h1 = seo.metaTitle;
 const path = industryDetailUrl(industry.slug, locale);
 const siblings = industryDetailSiblings(industry.slug);
 const pricingHref = sectionUrl("pricing", locale);
 const contactHref = sectionUrl("contact", locale);
-const metaDescription = `Contabilitate specializată pentru ${title} în Moldova. Înțelegem realitățile fiscale ale domeniului tău — manager de cont dedicat și răspuns rapid.`;
+const metaDescription = seo.metaDescription;
 
 const serviceLabels: Record<ServiceId, string> = {
   accounting: "Contabilitate",
@@ -51,7 +54,7 @@ function boldSegments(text: string): { text: string; bold: boolean }[] {
 const jsonLd = [
   serviceJsonLd({
     url: path,
-    name: `Contabilitate pentru ${title}`,
+    name: h1,
     description: metaDescription,
     locale,
   }),
@@ -65,7 +68,7 @@ const jsonLd = [
 ---
 
 <Base
-  title={`Contabilitate pentru ${title} — ExpertCont`}
+  title={`${h1} — ExpertCont`}
   description={metaDescription}
   locale={locale}
   path={path}
@@ -75,7 +78,7 @@ const jsonLd = [
   <PageShell locale={locale} siblings={siblings}>
     <PageHeader
       eyebrow="Domeniu"
-      title={`Contabilitate pentru ${title}`}
+      title={h1}
       breadcrumbs={[
         { label: "Acasă", href: homeUrl(locale) },
         { label: "Domenii", href: sectionUrl("industries", locale) },
@@ -150,13 +153,19 @@ const jsonLd = [
           <Section tone="alt">
             <Container>
               <div class="mx-auto max-w-3xl text-center">
-                <h2 class="text-2xl mb-4">Predă contabilitatea pe mâini care îți cunosc domeniul</h2>
+                <h2 class="text-2xl mb-4">
+                  Predă contabilitatea pe mâini care îți cunosc domeniul
+                </h2>
                 <p class="text-text-secondary mb-8">
                   Pornește de la o consultație gratuită și un manager de cont dedicat.
                 </p>
                 <div class="flex flex-wrap justify-center gap-4">
-                  <a href={pricingHref} class="btn btn-primary">Vezi prețuri</a>
-                  <a href={contactHref} class="btn btn-secondary">Programează o consultație</a>
+                  <a href={pricingHref} class="btn btn-primary">
+                    Vezi prețuri
+                  </a>
+                  <a href={contactHref} class="btn btn-secondary">
+                    Programează o consultație
+                  </a>
                 </div>
               </div>
             </Container>
@@ -170,8 +179,12 @@ const jsonLd = [
                 {industry.description[locale]}
               </p>
               <div class="flex flex-wrap gap-4">
-                <a href={pricingHref} class="btn btn-primary">Vezi prețuri</a>
-                <a href={contactHref} class="btn btn-secondary">Programează o consultație</a>
+                <a href={pricingHref} class="btn btn-primary">
+                  Vezi prețuri
+                </a>
+                <a href={contactHref} class="btn btn-secondary">
+                  Programează o consultație
+                </a>
               </div>
             </div>
           </Container>

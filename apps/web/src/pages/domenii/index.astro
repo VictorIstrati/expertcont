@@ -4,7 +4,11 @@ import PageShell from "../../components/PageShell.astro";
 import { Container, PageHeader, Section } from "@expertcont/ui";
 import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
 import IndustryGrid from "../../components/industry/IndustryGrid.astro";
-import { INDUSTRIES, industryDetailUrl, industryHubSiblings } from "../../components/industry/industries";
+import {
+  INDUSTRIES,
+  industryDetailUrl,
+  industryHubSiblings,
+} from "../../components/industry/industries";
 import { ServiceCTAStrip } from "../../components/service/ServiceCTAStrip";
 import { breadcrumbListJsonLd } from "../../lib/jsonLd";
 
@@ -41,7 +45,7 @@ const jsonLd = [
 
 <Base
   title="Contabilitate pe domenii de activitate — ExpertCont"
-  description="Contabilitate specializată pe industrii în Moldova: HoReCa, construcții, e-commerce, IT, agricultură și altele. Fiecare domeniu are realitățile lui fiscale — noi le cunoaștem."
+  description="Contabilitate specializată pe industrii în Moldova: HoReCa, construcții, e-commerce, IT, agricultură și altele. Fiecare domeniu are regulile lui fiscale."
   locale={locale}
   path={path}
   siblings={siblings}

@@ -3084,3 +3084,227 @@ export function industryDetailSiblings(slug: string): Record<Locale, string> {
     string
   >;
 }
+
+export interface IndustrySeo {
+  /** Keyword-led title — used as the <title> core (brand appended) and the page H1. */
+  metaTitle: string;
+  /** Unique, keyword-rich meta description (~150–160 chars). */
+  metaDescription: string;
+}
+
+/**
+ * Hand-tuned SEO title + description per industry/locale. Keyword-led (targets the
+ * terms people actually search, e.g. "contabilitate magazin online", "IT Park"),
+ * not just the display name. Detail pages fall back to a generic template if missing.
+ */
+export const INDUSTRY_SEO: Record<IndustryId, Record<Locale, IndustrySeo>> = {
+  "tech-and-saas": {
+    ro: {
+      metaTitle: "Contabilitate pentru firme IT și IT Park",
+      metaDescription:
+        "Contabilitate pentru firme IT și SaaS din Moldova: regim IT Park (impozit unic 7%), TVA pe serviciile prestate clienților externi, venituri recurente. Consultație gratuită.",
+    },
+    ru: {
+      metaTitle: "Бухгалтерия для IT-компаний и IT Park",
+      metaDescription:
+        "Бухгалтерия для IT- и SaaS-компаний в Молдове: режим IT Park (единый налог 7%), НДС по услугам зарубежным клиентам, регулярная выручка. Бесплатная консультация.",
+    },
+    en: {
+      metaTitle: "Accounting for IT & SaaS companies",
+      metaDescription:
+        "Accounting for IT and SaaS companies in Moldova: IT Park regime (7% single tax), VAT on services to foreign clients, recurring revenue. Free consultation.",
+    },
+  },
+  "e-commerce": {
+    ro: {
+      metaTitle: "Contabilitate pentru magazine online",
+      metaDescription:
+        "Contabilitate pentru magazine online din Moldova: TVA pe canale de vânzare, plăți prin card și mobile banking, retururi, e-Factura. Consultație gratuită.",
+    },
+    ru: {
+      metaTitle: "Бухгалтерия для интернет-магазинов",
+      metaDescription:
+        "Бухгалтерия для интернет-магазинов в Молдове: НДС по каналам продаж, оплата картой и мобильным банкингом, возвраты, e-Factura. Бесплатная консультация.",
+    },
+    en: {
+      metaTitle: "Accounting for online stores",
+      metaDescription:
+        "Accounting for online stores in Moldova: VAT by sales channel, card and mobile-banking payments, returns, e-Factura. Free consultation.",
+    },
+  },
+  retail: {
+    ro: {
+      metaTitle: "Contabilitate pentru magazine și retail",
+      metaDescription:
+        "Contabilitate pentru magazine din Moldova: TVA pe categorii de produse (8% și 20%), evidența stocurilor, rapoarte Z, salarizare. Consultație gratuită.",
+    },
+    ru: {
+      metaTitle: "Бухгалтерия для розничной торговли",
+      metaDescription:
+        "Бухгалтерия для магазинов в Молдове: НДС по категориям товаров (8% и 20%), учёт запасов, Z-отчёты, расчёт зарплаты. Бесплатная консультация.",
+    },
+    en: {
+      metaTitle: "Accounting for shops & retail",
+      metaDescription:
+        "Accounting for shops in Moldova: VAT by product category (8% and 20%), stock records, Z-reports, payroll. Free consultation.",
+    },
+  },
+  horeca: {
+    ro: {
+      metaTitle: "Contabilitate pentru restaurante și HoReCa",
+      metaDescription:
+        "Contabilitate pentru restaurante, cafenele și hoteluri din Moldova: TVA HoReCa, salarizarea sezonierilor, evidența pierderilor din bucătărie. Consultație gratuită.",
+    },
+    ru: {
+      metaTitle: "Бухгалтерия для ресторанов и гостиниц",
+      metaDescription:
+        "Бухгалтерия для ресторанов, кафе и гостиниц в Молдове: НДС HoReCa, расчёт зарплаты сезонного персонала, учёт потерь на кухне. Бесплатная консультация.",
+    },
+    en: {
+      metaTitle: "Accounting for restaurants & hotels",
+      metaDescription:
+        "Accounting for restaurants, cafés and hotels in Moldova: HoReCa VAT, seasonal-staff payroll, kitchen-loss records. Free consultation.",
+    },
+  },
+  constructii: {
+    ro: {
+      metaTitle: "Contabilitate pentru firme de construcții",
+      metaDescription:
+        "Contabilitate pentru firme de construcții din Moldova: venituri pe stadiul de execuție, avansuri, rețineri de garanție, TVA, contracte. Consultație gratuită.",
+    },
+    ru: {
+      metaTitle: "Бухгалтерия для строительных компаний",
+      metaDescription:
+        "Бухгалтерия для строительных компаний в Молдове: выручка по стадиям выполнения, авансы, гарантийные удержания, НДС, договоры. Бесплатная консультация.",
+    },
+    en: {
+      metaTitle: "Accounting for construction firms",
+      metaDescription:
+        "Accounting for construction firms in Moldova: revenue by stage of completion, advances, retention holdbacks, VAT, contracts. Free consultation.",
+    },
+  },
+  productie: {
+    ro: {
+      metaTitle: "Contabilitate pentru firme de producție",
+      metaDescription:
+        "Contabilitate pentru producție din Moldova: cost pe produs, stocuri, producție în curs, amortizarea utilajelor, accize. Consultație gratuită.",
+    },
+    ru: {
+      metaTitle: "Бухгалтерия для производства",
+      metaDescription:
+        "Бухгалтерия для производства в Молдове: себестоимость продукта, запасы, незавершённое производство, амортизация, акцизы. Бесплатная консультация.",
+    },
+    en: {
+      metaTitle: "Accounting for manufacturing",
+      metaDescription:
+        "Accounting for manufacturing in Moldova: cost per product, stock, work in progress, equipment depreciation, excise. Free consultation.",
+    },
+  },
+  "servicii-profesionale": {
+    ro: {
+      metaTitle: "Contabilitate pentru firme de servicii",
+      metaDescription:
+        "Contabilitate pentru firme de servicii din Moldova: venituri pe proiect, retainere, salarizare, contracte și GDPR. Consultație gratuită.",
+    },
+    ru: {
+      metaTitle: "Бухгалтерия для сферы услуг",
+      metaDescription:
+        "Бухгалтерия для сервисных компаний в Молдове: выручка по проектам, ретейнеры, расчёт зарплаты, договоры и GDPR. Бесплатная консультация.",
+    },
+    en: {
+      metaTitle: "Accounting for service firms",
+      metaDescription:
+        "Accounting for service firms in Moldova: revenue by project, retainers, payroll, contracts and GDPR. Free consultation.",
+    },
+  },
+  ong: {
+    ro: {
+      metaTitle: "Contabilitate pentru ONG și asociații",
+      metaDescription:
+        "Contabilitate pentru ONG-uri din Moldova: evidență pe granturi, fonduri cu destinație, raportare către donatori, Legea 86/2020. Consultație gratuită.",
+    },
+    ru: {
+      metaTitle: "Бухгалтерия для НКО и ассоциаций",
+      metaDescription:
+        "Бухгалтерия для НКО в Молдове: учёт по грантам, целевые фонды, отчётность донорам, Закон 86/2020. Бесплатная консультация.",
+    },
+    en: {
+      metaTitle: "Accounting for NGOs & associations",
+      metaDescription:
+        "Accounting for NGOs in Moldova: grant accounting, restricted funds, donor reporting, Law 86/2020. Free consultation.",
+    },
+  },
+  "logistica-si-transport": {
+    ro: {
+      metaTitle: "Contabilitate pentru transport și logistică",
+      metaDescription:
+        "Contabilitate pentru firme de transport din Moldova: TVA 0% la transportul internațional, CMR, diurnele șoferilor, parc auto. Consultație gratuită.",
+    },
+    ru: {
+      metaTitle: "Бухгалтерия для транспорта и логистики",
+      metaDescription:
+        "Бухгалтерия для транспортных компаний в Молдове: НДС 0% на международные перевозки, CMR, суточные водителей, автопарк. Бесплатная консультация.",
+    },
+    en: {
+      metaTitle: "Accounting for transport & logistics",
+      metaDescription:
+        "Accounting for transport companies in Moldova: 0% VAT on international transport, CMR, driver per-diems, fleet. Free consultation.",
+    },
+  },
+  sanatate: {
+    ro: {
+      metaTitle: "Contabilitate pentru clinici și farmacii",
+      metaDescription:
+        "Contabilitate pentru clinici și farmacii din Moldova: scutirea de TVA la serviciile medicale, decontări CNAM, stocuri de medicamente. Consultație gratuită.",
+    },
+    ru: {
+      metaTitle: "Бухгалтерия для клиник и аптек",
+      metaDescription:
+        "Бухгалтерия для клиник и аптек в Молдове: освобождение медуслуг от НДС, расчёты с CNAM, учёт запасов лекарств. Бесплатная консультация.",
+    },
+    en: {
+      metaTitle: "Accounting for clinics & pharmacies",
+      metaDescription:
+        "Accounting for clinics and pharmacies in Moldova: medical-services VAT exemption, CNAM settlements, medicine stock. Free consultation.",
+    },
+  },
+  agricultura: {
+    ro: {
+      metaTitle: "Contabilitate pentru agricultură și ferme",
+      metaDescription:
+        "Contabilitate pentru ferme și firme agricole din Moldova: subvenții AIPA, TVA 8%, impozit pe teren, muncă sezonieră. Consultație gratuită.",
+    },
+    ru: {
+      metaTitle: "Бухгалтерия для сельского хозяйства",
+      metaDescription:
+        "Бухгалтерия для ферм и агрофирм в Молдове: субсидии AIPA, НДС 8%, земельный налог, сезонный труд. Бесплатная консультация.",
+    },
+    en: {
+      metaTitle: "Accounting for farms & agriculture",
+      metaDescription:
+        "Accounting for farms and agri-businesses in Moldova: AIPA subsidies, 8% VAT, land tax, seasonal labour. Free consultation.",
+    },
+  },
+  imobiliare: {
+    ro: {
+      metaTitle: "Contabilitate pentru imobiliare și dezvoltatori",
+      metaDescription:
+        "Contabilitate pentru imobiliare și dezvoltatori din Moldova: TVA la vânzare și la chirie, venituri în avans, contracte. Consultație gratuită.",
+    },
+    ru: {
+      metaTitle: "Бухгалтерия для недвижимости и девелопмента",
+      metaDescription:
+        "Бухгалтерия для недвижимости и девелоперов в Молдове: НДС при продаже и аренде, доходы будущих периодов, договоры. Бесплатная консультация.",
+    },
+    en: {
+      metaTitle: "Accounting for real estate & developers",
+      metaDescription:
+        "Accounting for real estate and developers in Moldova: VAT on sales and rent, deferred revenue, contracts. Free consultation.",
+    },
+  },
+};
+
+/** Returns the tuned SEO title + description for an industry/locale. */
+export function getIndustrySeo(id: IndustryId, locale: Locale): IndustrySeo {
+  return INDUSTRY_SEO[id][locale];
+}
