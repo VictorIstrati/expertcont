@@ -7,6 +7,7 @@ import {
   type ContentMeta,
   type SectionKey,
 } from "@expertcont/i18n";
+import { INDUSTRIES, industryDetailUrl } from "../components/industry/industries";
 
 export interface SitemapLink {
   href: string;
@@ -95,11 +96,20 @@ export async function buildSitemapGroups(locale: Locale): Promise<SitemapGroup[]
     label: m.titles[locale],
   }));
 
+  const industryLinks: SitemapLink[] = INDUSTRIES.map((industry) => ({
+    href: industryDetailUrl(industry.slug, locale),
+    label: industry.title[locale],
+  }));
+
   return [
     { heading: groupHeadings.main[locale], links: main },
     {
       heading: sectionLabels.services[locale],
       links: [sectionLink("services", locale), ...serviceLinks],
+    },
+    {
+      heading: sectionLabels.industries[locale],
+      links: [sectionLink("industries", locale), ...industryLinks],
     },
     {
       heading: groupHeadings.company[locale],

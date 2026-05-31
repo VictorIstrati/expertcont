@@ -1,0 +1,29 @@
+{
+  "id": "promo-1-iunie-2026",
+  "slugs": {
+    "ro": "1-iunie-2026-reducere-20-servicii-copil20",
+    "ru": "1-iyunya-2026-skidka-20-uslugi-copil20",
+    "en": "june-1-2026-20-off-services-copil20"
+  },
+  "titles": {
+    "ro": "1 iunie: 20% reducere la servicii de contabilitate, juridice și resurse umane (COPIL20)",
+    "ru": "1 июня: скидка 20% на бухгалтерские, юридические и кадровые услуги (COPIL20)",
+    "en": "June 1: 20% off accounting, legal and HR services (code COPIL20)"
+  },
+  "summaries": {
+    "ro": "De Ziua Copilului, ExpertCont oferă 20% reducere la servicii contabile, juridice și resurse umane. Cod COPIL20, valabil 1–10 iunie 2026.",
+    "ru": "В честь Дня защиты детей ExpertCont даёт скидку 20% на бухгалтерские, юридические и кадровые услуги. Код COPIL20, действует 1–10 июня 2026.",
+    "en": "For Children's Day, ExpertCont gives 20% off accounting, legal and HR services. Code COPIL20, valid 1–10 June 2026."
+  },
+  "category": {
+    "ro": "Promoții",
+    "ru": "Акции",
+    "en": "Promotions"
+  },
+  "readTime": 3,
+  "featured": false,
+  "author": "Echipa ExpertCont",
+  "cover": "/blog-first-of-june.webp",
+  "updated": "2026-06-01",
+  "publishedAt": "2026-06-01"
+}
