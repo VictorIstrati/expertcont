@@ -16,6 +16,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const routeSegments = {
   solutions: { ro: "solutii", ru: "resheniya", en: "solutions" },
   services: { ro: "servicii", ru: "uslugi", en: "services" },
+  industries: { ro: "domenii", ru: "otrasli", en: "industries" },
   pricing: { ro: "preturi", ru: "tseny", en: "pricing" },
   contact: { ro: "contact", ru: "kontakty", en: "contact" },
   faq: { ro: "intrebari-frecvente", ru: "voprosy", en: "faq" },
@@ -32,6 +33,24 @@ const routeSegments = {
 };
 
 const LOCALES = ["ro", "ru", "en"];
+
+// Industry detail slugs, shared across locales. Mirrored from
+// src/components/industry/industries.ts because that module pulls in
+// @expertcont/i18n (Lingui macros) and can't be imported here.
+const INDUSTRY_SLUGS = [
+  "tech-saas",
+  "e-commerce",
+  "retail",
+  "horeca",
+  "constructii",
+  "productie",
+  "servicii-profesionale",
+  "ong",
+  "logistica-transport",
+  "sanatate",
+  "agricultura",
+  "imobiliare",
+];
 
 function localePrefix(locale) {
   return locale === "ro" ? "" : `/${locale}`;
@@ -83,6 +102,16 @@ function buildAlternateIndex() {
       }
       add(siblings, updated);
     }
+  }
+
+  // Industry detail pages share one slug across locales; only the section
+  // segment differs (domenii / otrasli / industries).
+  for (const slug of INDUSTRY_SLUGS) {
+    const siblings = {};
+    for (const locale of LOCALES) {
+      siblings[locale] = `${localePrefix(locale)}/${routeSegments.industries[locale]}/${slug}`;
+    }
+    add(siblings);
   }
 
   return index;
