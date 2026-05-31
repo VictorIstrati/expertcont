@@ -10,8 +10,7 @@ interface Props {
 
 const { locale } = Astro.props;
 
-const moreLabel =
-  locale === "ru" ? "Подробнее" : locale === "en" ? "Learn more" : "Află mai mult";
+const moreLabel = locale === "ru" ? "Подробнее" : locale === "en" ? "Learn more" : "Află mai mult";
 ---
 
 <div class="flex flex-col gap-4">
