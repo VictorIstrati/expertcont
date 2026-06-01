@@ -224,23 +224,28 @@ const organizationJsonLd = {
       ga4Id && (
         <>
           <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`} />
-          <script is:inline define:vars={{ ga4Id }}>{`
-            gtag('js', new Date());
-            gtag('config', ga4Id, { send_page_view: true });
-          `}</script>
+          <script define:vars={{ ga4Id }}>
+            gtag("js", new Date());
+            gtag("config", ga4Id, { send_page_view: true });
+          </script>
         </>
       )
     }
 
     {
       gtmId && (
-        <script is:inline define:vars={{ gtmId }}>{`
-        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','${gtmId}');
-      `}</script>
+        <script define:vars={{ gtmId }}>
+          (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+            var f = d.getElementsByTagName(s)[0],
+              j = d.createElement(s),
+              dl = l != "dataLayer" ? "&l=" + l : "";
+            j.async = true;
+            j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+            f.parentNode.insertBefore(j, f);
+          })(window, document, "script", "dataLayer", gtmId);
+        </script>
       )
     }
 
