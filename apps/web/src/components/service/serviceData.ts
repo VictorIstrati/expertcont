@@ -9,6 +9,7 @@ const SITE_PHONE = site.business.phone;
  * the main office number.
  */
 const UA_PHONE = "+373 62 060 851";
+const UA_TELEGRAM = "+37362060851";
 
 export interface IncludedItem {
   icon: IconName;
@@ -37,6 +38,8 @@ export interface ServicePageData {
     allPricingLabel: string;
     /** Service-specific phone line. Omit to use the main office number. */
     phone?: string;
+    /** Telegram username or phone for this service. Omit to use the company handle. */
+    telegramHandle?: string;
   };
   offerEyebrow: string;
   offerHeading: string;
@@ -1803,6 +1806,7 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
         callLabel: `Sună-ne · ${UA_PHONE}`,
         allPricingLabel: "Vezi toate prețurile",
         phone: UA_PHONE,
+        telegramHandle: UA_TELEGRAM,
       },
       offerEyebrow: "OFERTĂ PERSONALIZATĂ",
       offerHeading: "Evaluare gratuită a cazului",
@@ -1909,6 +1913,7 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
         callLabel: `Позвоните нам · ${UA_PHONE}`,
         allPricingLabel: "Все цены",
         phone: UA_PHONE,
+        telegramHandle: UA_TELEGRAM,
       },
       offerEyebrow: "ИНДИВИДУАЛЬНОЕ ПРЕДЛОЖЕНИЕ",
       offerHeading: "Бесплатная оценка ситуации",
@@ -2015,6 +2020,7 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
         callLabel: `Call us · ${UA_PHONE}`,
         allPricingLabel: "View all pricing",
         phone: UA_PHONE,
+        telegramHandle: UA_TELEGRAM,
       },
       offerEyebrow: "PERSONALISED OFFER",
       offerHeading: "Free case assessment",
