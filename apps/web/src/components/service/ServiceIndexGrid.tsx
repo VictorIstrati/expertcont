@@ -2,19 +2,7 @@ import { Icon, ArrowLink } from "@expertcont/ui";
 import type { ContentMeta, Locale } from "@expertcont/i18n";
 import { serviceIcon, servicePricingHint } from "../../lib/serviceIcons";
 import { openModal } from "../../lib/modalBus";
-
-// Map services-meta.id to the booking modal's service slug. The modal uses
-// Romanian slugs (e.g. "juridic"); our content collection uses English IDs
-// (e.g. "legal"). Keep in sync with booking/strings.ts services list.
-const SERVICE_ID_TO_BOOKING_SLUG: Record<string, string> = {
-  accounting: "contabilitate",
-  audit: "audit",
-  legal: "juridic",
-  consulting: "consultanta",
-  hr: "hr",
-  it: "it",
-  ukrainians: "ucraina",
-};
+import { bookingSlugFor } from "../../lib/bookingSlugs";
 
 interface ServiceItem {
   meta: ContentMeta;
@@ -159,7 +147,7 @@ function serviceFeatures(id: string, locale: string): string[] {
       ],
       ru: [
         "Команда говорит по-украински и по-русски",
-        "Запись в Посольство Украины",
+        "Запись на приём в Посольство Украины",
         "Паспорта, пенсии, акты гражданского состояния",
         "Временная защита — помощь бесплатно",
         "Представительство в судах Украины",
@@ -195,7 +183,7 @@ export function ServiceIndexGrid({ services, locale }: ServiceIndexGridProps) {
         {services.map(({ meta, href }) => {
           const features = serviceFeatures(meta.id, locale);
           const hint = servicePricingHint(meta.id, locale as Locale);
-          const bookingSlug = SERVICE_ID_TO_BOOKING_SLUG[meta.id] ?? meta.id;
+          const bookingSlug = bookingSlugFor(meta.id);
           return (
             <div key={meta.id} className="card card-hover p-8 flex flex-col">
               <div className="w-14 h-14 rounded-md bg-primary-50 text-primary flex items-center justify-center mb-5 shrink-0">

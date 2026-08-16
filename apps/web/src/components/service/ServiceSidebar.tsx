@@ -11,6 +11,9 @@ interface SidebarPricing {
   callLabel: string;
   pricingHref: string;
   allPricingLabel: string;
+  /** Service-specific phone number, when this service is answered on its own
+   * line rather than the main office number. Falls back to the site phone. */
+  phone?: string;
 }
 
 interface RelatedService {
@@ -22,6 +25,8 @@ interface RelatedService {
 interface ServiceSidebarProps {
   locale: string;
   contactHref: string;
+  /** Booking-modal slug so the CTA opens with this service already selected. */
+  bookingSlug: string;
   pricing: SidebarPricing;
   related: RelatedService[];
   offerEyebrow: string;
@@ -32,6 +37,7 @@ interface ServiceSidebarProps {
 
 export function ServiceSidebar({
   locale,
+  bookingSlug,
   pricing,
   related,
   offerEyebrow,
@@ -40,6 +46,7 @@ export function ServiceSidebar({
   relatedHeading,
 }: ServiceSidebarProps) {
   const priceLabel = locale === "ru" ? "Стоимость" : locale === "en" ? "Pricing" : "Preț";
+  const callHref = (pricing.phone ?? phoneTel).replace(/[^+\d]/g, "");
   return (
     <aside className="svc-detail-side flex flex-col gap-5 lg:sticky lg:top-nav-h">
       {/* CTA box */}
@@ -54,13 +61,13 @@ export function ServiceSidebar({
           <Button
             variant="primary"
             icon="calendar"
-            onClick={() => openModal("booking")}
+            onClick={() => openModal("booking", { service: bookingSlug })}
             className="w-full justify-center mb-3"
           >
             {pricing.ctaLabel}
           </Button>
           <Button
-            href={`tel:${phoneTel}`}
+            href={`tel:${callHref}`}
             variant="ghost"
             size="sm"
             icon="phone"

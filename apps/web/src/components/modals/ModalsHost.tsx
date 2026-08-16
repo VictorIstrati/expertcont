@@ -26,6 +26,8 @@ const isQuotePayload = (p: unknown): p is QuotePayload =>
 
 interface BookingPayload {
   service: string;
+  /** Optional second-level selection for services with a sub-catalogue. */
+  subservice?: string;
 }
 
 const isBookingPayload = (p: unknown): p is BookingPayload =>
@@ -46,6 +48,9 @@ export default function ModalsHost({ locale }: Props) {
   const [openKey, setOpenKey] = useState<ModalKey | null>(null);
   const [quotePayload, setQuotePayload] = useState<QuotePayload>({ items: [], total: 0 });
   const [bookingInitialService, setBookingInitialService] = useState<string | undefined>(undefined);
+  const [bookingInitialSubservice, setBookingInitialSubservice] = useState<string | undefined>(
+    undefined,
+  );
   const [tierSelection, setTierSelection] = useState<TierBookingSelection | null>(null);
 
   useEffect(() => {
@@ -55,7 +60,9 @@ export default function ModalsHost({ locale }: Props) {
         if (d.key === "quote" && isQuotePayload(d.payload)) {
           setQuotePayload(d.payload);
         } else if (d.key === "booking") {
-          setBookingInitialService(isBookingPayload(d.payload) ? d.payload.service : undefined);
+          const payload = isBookingPayload(d.payload) ? d.payload : undefined;
+          setBookingInitialService(payload?.service);
+          setBookingInitialSubservice(payload?.subservice);
         } else if (d.key === "tier-booking" && isTierSelection(d.payload)) {
           setTierSelection(d.payload);
         }
@@ -74,6 +81,7 @@ export default function ModalsHost({ locale }: Props) {
         onClose={close}
         locale={locale}
         initialService={bookingInitialService}
+        initialSubservice={bookingInitialSubservice}
       />
       <ReviewModal open={openKey === "review"} onClose={close} locale={locale} />
       <AskQuestionModal open={openKey === "ask-question"} onClose={close} locale={locale} />

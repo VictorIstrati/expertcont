@@ -1,6 +1,7 @@
 import { Icon } from "@expertcont/ui";
 import { localeTag, type Locale } from "@expertcont/i18n";
 import type { BookingData, Strings } from "./types";
+import { ukraineItemLabel, UKRAINE_OTHER_ID } from "../../service/ukraineCatalogue";
 
 interface Props {
   data: BookingData;
@@ -9,6 +10,15 @@ interface Props {
 }
 
 export function ConfirmationStep({ data, t, locale }: Props) {
+  // Echo the specific case back, so the visitor can see we recorded the thing
+  // they actually clicked rather than just "Ukraine".
+  const chosenSubservice =
+    data.subservice === UKRAINE_OTHER_ID
+      ? data.subserviceOther.trim() || null
+      : data.subservice
+        ? (ukraineItemLabel(data.subservice, locale) ?? null)
+        : null;
+
   return (
     <div className="text-center py-8 px-4">
       <div className="w-20 h-20 rounded-full bg-primary-50 text-primary flex items-center justify-center mx-auto mb-5">
@@ -33,6 +43,11 @@ export function ConfirmationStep({ data, t, locale }: Props) {
             {t.services.find((s) => s.slug === data.service)?.name} ·{" "}
             {data.mode === "online" ? t.modeOnline : t.modeOffice}
           </div>
+          {chosenSubservice && (
+            <div className="max-w-[380px] border-t border-border pt-2 text-sm leading-relaxed">
+              {chosenSubservice}
+            </div>
+          )}
         </div>
       )}
     </div>

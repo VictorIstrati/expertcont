@@ -4,6 +4,12 @@ import { site } from "../../site";
 
 const SITE_PHONE = site.business.phone;
 
+/**
+ * Dedicated line for the Ukrainian consular service, answered separately from
+ * the main office number.
+ */
+const UA_PHONE = "+373 62 060 851";
+
 export interface IncludedItem {
   icon: IconName;
   title: string;
@@ -29,6 +35,8 @@ export interface ServicePageData {
     ctaLabel: string;
     callLabel: string;
     allPricingLabel: string;
+    /** Service-specific phone line. Omit to use the main office number. */
+    phone?: string;
   };
   offerEyebrow: string;
   offerHeading: string;
@@ -1704,22 +1712,22 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
         {
           icon: "calendar",
           title: "Programări la Ambasadă",
-          text: "Înscriere în coada electronică prin BankID, Diia sau email, inclusiv acces pentru bărbați de 18–60 de ani.",
+          text: "Înscriere în coada electronică prin BankID, Дія sau email, inclusiv acces pentru bărbați de 18–60 de ani.",
         },
         {
           icon: "file-text",
           title: "Pașapoarte și acte de identitate",
-          text: "Buletin (ID-card), pașaport pentru străinătate, înlocuiri și certificatul de întoarcere în Ucraina.",
+          text: "Act de identitate (ID-card), pașaport pentru străinătate, înlocuiri și certificatul de întoarcere în Ucraina.",
         },
         {
           icon: "globe",
           title: "Servicii digitale ucrainene",
-          text: "Înregistrare în Diia și semnătura Diia, Rezerv+, cod fiscal RNOKPP și registrele de stat.",
+          text: "Înregistrare în Дія și semnătura electronică Дія, Rezerv+, cod fiscal RNOKPP și registrele de stat.",
         },
         {
           icon: "shield",
           title: "Pensii și plăți sociale",
-          text: "Reluarea plăților din Ucraina, identificarea pensionarilor, recalculări și executarea hotărârilor.",
+          text: "Reluarea plăților din Ucraina, identificarea pensionarilor, recalculări și executarea hotărârilor judecătorești.",
         },
         {
           icon: "users",
@@ -1758,16 +1766,28 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
       faqHeading: "Întrebări frecvente",
       faqItems: [
         {
-          q: "Sunt bărbat între 18 și 60 de ani. Pot fi deservit la Ambasadă?",
+          q: "Sunt bărbat între 18 și 60 de ani. Pot beneficia de servicii consulare?",
           a: "Da. Serviciile consulare rămân disponibile, însă accesul depinde de actualizarea datelor de evidență militară. Vă ajutăm cu Rezerv+, corectarea registrului și contestarea refuzurilor.",
         },
         {
           q: "Trebuie să merg în Ucraina pentru aceste proceduri?",
-          a: "În majoritatea cazurilor, nu. Pașapoartele, pensiile, procurile, divorțul și pensia de întreținere se rezolvă din Moldova, prin Ambasadă, prin Diia sau prin instanțele ucrainene.",
+          a: "În majoritatea cazurilor, nu. Pașapoartele, pensiile, procurile, divorțul și pensia de întreținere se rezolvă din Moldova, prin Ambasadă, prin Дія sau prin instanțele ucrainene.",
         },
         {
           q: "Lucrați cu persoane care au doar certificat de naștere?",
           a: "Da. Documentarea persoanelor fără alte acte de identitate, inclusiv a copiilor sub tutelă și a cazurilor de apatridie, face parte din activitatea noastră.",
+        },
+        {
+          q: "Cât costă asistența pentru protecția temporară?",
+          a: "Nimic. Înregistrarea, programarea interviului, prelungirea și consultanța privind drepturile beneficiarilor sunt gratuite, indiferent de caz. Plătiți doar pentru celelalte proceduri, iar onorariul se agreează înainte de a începe.",
+        },
+        {
+          q: "Pensia din Ucraina mi s-a oprit acum doi ani. Mai poate fi recuperată?",
+          a: "De regulă, da. Plățile se suspendă cel mai des din cauza unui termen de identificare ratat, nu a plecării din țară. Restabilim identificarea și solicităm sumele restante pentru perioada în care ați avut dreptul la pensie.",
+        },
+        {
+          q: "În ce limbă discutăm?",
+          a: "În ucraineană sau rusă, la alegerea dumneavoastră. Echipa noastră vorbește ambele limbi, iar documentele vi le explicăm în limba în care ne-ați scris. Numărul dedicat pentru acest serviciu este +373 62 060 851.",
         },
       ],
       pricing: {
@@ -1780,8 +1800,9 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
           "Onorariu fix, agreat din start",
         ],
         ctaLabel: "Programează consultație",
-        callLabel: `Sună-ne · ${SITE_PHONE}`,
+        callLabel: `Sună-ne · ${UA_PHONE}`,
         allPricingLabel: "Vezi toate prețurile",
+        phone: UA_PHONE,
       },
       offerEyebrow: "OFERTĂ PERSONALIZATĂ",
       offerHeading: "Evaluare gratuită a cazului",
@@ -1797,7 +1818,7 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
         {
           icon: "calendar",
           title: "Запись в Посольство",
-          text: "Электронная очередь через BankID, Дію или email, включая доступ для мужчин 18–60 лет.",
+          text: "Электронная очередь через BankID, Дія или email, включая доступ для мужчин 18–60 лет.",
         },
         {
           icon: "file-text",
@@ -1807,12 +1828,12 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
         {
           icon: "globe",
           title: "Цифровые сервисы Украины",
-          text: "Регистрация в Дії и Дія-подпись, Резерв+, РНОКПП и государственные реестры.",
+          text: "Регистрация в приложении Дія и подпись Дія, Резерв+, РНОКПП и государственные реестры.",
         },
         {
           icon: "shield",
           title: "Пенсии и социальные выплаты",
-          text: "Возобновление выплат из Украины, идентификация пенсионеров, перерасчёт и исполнение решений.",
+          text: "Возобновление выплат из Украины, идентификация пенсионеров, перерасчёт и исполнение судебных решений.",
         },
         {
           icon: "users",
@@ -1852,15 +1873,27 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
       faqItems: [
         {
           q: "Я мужчина 18–60 лет. Обслужат ли меня в Посольстве?",
-          a: "Да. Консульские услуги остаются доступными, но доступ зависит от актуальности военно-учётных данных. Помогаем с Резерв+, обновлением данных и разбором отказов.",
+          a: "Да. Консульские услуги остаются доступными, но доступ зависит от актуальности военно-учётных данных. Помогаем с Резерв+, обновлением данных и обжалованием отказов.",
         },
         {
           q: "Нужно ли выезжать в Украину?",
-          a: "В большинстве случаев нет. Паспорта, пенсии, доверенности, расторжение брака и алименты решаются из Молдовы — через Посольство, Дію или украинские суды.",
+          a: "В большинстве случаев нет. Паспорта, пенсии, доверенности, расторжение брака и алименты решаются из Молдовы — через Посольство, Дія или украинские суды.",
         },
         {
           q: "Работаете ли вы с людьми, у которых есть только свидетельство о рождении?",
           a: "Да. Документирование лиц без других удостоверяющих документов, включая детей под опекой и случаи безгражданства, входит в нашу работу.",
+        },
+        {
+          q: "Сколько стоит помощь по временной защите?",
+          a: "Нисколько. Регистрация, запись на интервью, продление и консультации по правам бенефициаров — бесплатно, независимо от случая. Платите только за остальные процедуры, и гонорар согласовывается до начала работы.",
+        },
+        {
+          q: "Пенсия из Украины перестала приходить два года назад. Её ещё можно вернуть?",
+          a: "Как правило, да. Выплаты чаще всего приостанавливают из-за пропущенного срока идентификации, а не из-за выезда. Мы восстанавливаем идентификацию и добиваемся выплаты задолженности за период, когда право на пенсию сохранялось.",
+        },
+        {
+          q: "На каком языке мы будем общаться?",
+          a: "На украинском или русском — как вам удобнее. Наша команда говорит на обоих, и документы мы разъясняем на том языке, на котором вы к нам обратились. Отдельный номер для этой услуги: +373 62 060 851.",
         },
       ],
       pricing: {
@@ -1873,8 +1906,9 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
           "Фиксированный гонорар, согласованный заранее",
         ],
         ctaLabel: "Записаться на консультацию",
-        callLabel: `Позвоните нам · ${SITE_PHONE}`,
+        callLabel: `Позвоните нам · ${UA_PHONE}`,
         allPricingLabel: "Все цены",
+        phone: UA_PHONE,
       },
       offerEyebrow: "ИНДИВИДУАЛЬНОЕ ПРЕДЛОЖЕНИЕ",
       offerHeading: "Бесплатная оценка ситуации",
@@ -1890,7 +1924,7 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
         {
           icon: "calendar",
           title: "Embassy appointments",
-          text: "Booking the consular electronic queue by BankID, Diia or email, including access for men aged 18 to 60.",
+          text: "Booking the consular electronic queue by BankID, Дія or email, including access for men aged 18 to 60.",
         },
         {
           icon: "file-text",
@@ -1900,7 +1934,7 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
         {
           icon: "globe",
           title: "Ukrainian digital services",
-          text: "Diia registration and Diia.Signature, Reserve+, the RNOKPP tax number, and the State Registers.",
+          text: "Дія registration and the Дія signature, Reserve+, the RNOKPP tax number, and the State Registers.",
         },
         {
           icon: "shield",
@@ -1949,11 +1983,23 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
         },
         {
           q: "Do I have to travel to Ukraine for any of this?",
-          a: "In most cases no. Passports, pensions, powers of attorney, divorce and maintenance proceedings can all be handled from Moldova through the Embassy, through Diia, or through the Ukrainian courts.",
+          a: "In most cases no. Passports, pensions, powers of attorney, divorce and maintenance proceedings can all be handled from Moldova through the Embassy, through Дія, or through the Ukrainian courts.",
         },
         {
           q: "Do you work with people who hold only a birth certificate?",
           a: "Yes. Documenting persons with no other identity papers, including children under guardianship and statelessness cases, is part of what we do.",
+        },
+        {
+          q: "What does help with temporary protection cost?",
+          a: "Nothing. Registration, the interview appointment, extensions and advice on beneficiaries' rights are free of charge, whatever your case. You pay only for the other procedures, and the fee is agreed before any work starts.",
+        },
+        {
+          q: "My Ukrainian pension stopped two years ago. Can it still be recovered?",
+          a: "Usually yes. Payments are most often suspended because an identification deadline was missed, not because you left the country. We restore the identification and claim the arrears for the period you remained entitled.",
+        },
+        {
+          q: "What language will we deal in?",
+          a: "Ukrainian or Russian, whichever you prefer. Our team speaks both, and we explain documents in the language you wrote to us in. The dedicated line for this service is +373 62 060 851.",
         },
       ],
       pricing: {
@@ -1966,8 +2012,9 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
           "Fixed fee agreed upfront",
         ],
         ctaLabel: "Schedule consultation",
-        callLabel: `Call us · ${SITE_PHONE}`,
+        callLabel: `Call us · ${UA_PHONE}`,
         allPricingLabel: "View all pricing",
+        phone: UA_PHONE,
       },
       offerEyebrow: "PERSONALISED OFFER",
       offerHeading: "Free case assessment",
