@@ -9,11 +9,17 @@ interface Props {
   locale: Locale;
   activeSection?: NavSection;
   siblings: Record<Locale, string>;
+  displayLang?: { label: string; full: string };
 }
 
 const THEME_STORAGE_KEY = "expertcont-theme";
 
-export default function NavWithSwitcher({ locale, activeSection, siblings }: Props) {
+export default function NavWithSwitcher({
+  locale,
+  activeSection,
+  siblings,
+  displayLang,
+}: Props) {
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
@@ -37,6 +43,7 @@ export default function NavWithSwitcher({ locale, activeSection, siblings }: Pro
       <Nav
         locale={locale}
         activeSection={activeSection}
+        displayLang={displayLang}
         theme={theme}
         onThemeChange={handleThemeChange}
         onLocaleChange={(next) => {

@@ -27,6 +27,12 @@ export interface NavProps {
   onThemeChange?: (next: "light" | "dark") => void;
   /** Called when the user picks a locale from the language dropdown. */
   onLocaleChange?: (next: Locale) => void;
+  /**
+   * Language to show as current when the page is in a language the switcher
+   * does not offer. The dropdown still lists only the routed locales, so the
+   * visitor can switch away but cannot switch in.
+   */
+  displayLang?: { label: string; full: string };
 }
 
 const langs: { code: Locale; label: string; full: string }[] = [
@@ -42,6 +48,7 @@ export function Nav({
   theme,
   onThemeChange,
   onLocaleChange,
+  displayLang,
 }: NavProps) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -82,7 +89,8 @@ export function Nav({
     }
   }
 
-  const currentLang = langs.find((l) => l.code === locale);
+  const currentLang = displayLang ?? langs.find((l) => l.code === locale);
+  const activeLangCode: Locale | null = displayLang ? null : locale;
 
   const headerClass = [styles.header, scrolled ? styles.headerScrolled : ""]
     .filter(Boolean)
@@ -140,7 +148,7 @@ export function Nav({
                     key={l.code}
                     className={[
                       styles.langMenuItem,
-                      l.code === locale ? styles.langMenuItemActive : "",
+                      l.code === activeLangCode ? styles.langMenuItemActive : "",
                     ]
                       .filter(Boolean)
                       .join(" ")}
@@ -224,7 +232,7 @@ export function Nav({
                     key={l.code}
                     className={[
                       styles.mobileLangBtn,
-                      l.code === locale ? styles.mobileLangBtnActive : "",
+                      l.code === activeLangCode ? styles.mobileLangBtnActive : "",
                     ]
                       .filter(Boolean)
                       .join(" ")}
