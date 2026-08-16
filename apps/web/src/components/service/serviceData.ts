@@ -39,7 +39,7 @@ export interface ServicePageData {
 }
 
 type Locale = "ro" | "ru" | "en";
-type ServiceId = "accounting" | "audit" | "legal" | "consulting" | "hr" | "it";
+type ServiceId = "accounting" | "audit" | "legal" | "consulting" | "hr" | "it" | "ukrainians";
 
 const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
   accounting: {
@@ -1695,6 +1695,287 @@ const data: Record<ServiceId, Record<Locale, ServicePageData>> = {
       bodyIntroHeading: "Technology at the service of your business",
       bodyIntro:
         "IT audit, security, process digitisation and automation, web design and maintenance — billed hourly (1500 MDL/hour) or via ongoing maintenance contracts with guaranteed SLA.",
+    },
+  },
+  ukrainians: {
+    ro: {
+      includedHeading: "Ce este inclus",
+      includedItems: [
+        {
+          icon: "calendar",
+          title: "Programări la Ambasadă",
+          text: "Înscriere în coada electronică prin BankID, Diia sau email, inclusiv acces pentru bărbați de 18–60 de ani.",
+        },
+        {
+          icon: "file-text",
+          title: "Pașapoarte și acte de identitate",
+          text: "Buletin (ID-card), pașaport pentru străinătate, înlocuiri și certificatul de întoarcere în Ucraina.",
+        },
+        {
+          icon: "globe",
+          title: "Servicii digitale ucrainene",
+          text: "Înregistrare în Diia și semnătura Diia, Rezerv+, cod fiscal RNOKPP și registrele de stat.",
+        },
+        {
+          icon: "shield",
+          title: "Pensii și plăți sociale",
+          text: "Reluarea plăților din Ucraina, identificarea pensionarilor, recalculări și executarea hotărârilor.",
+        },
+        {
+          icon: "users",
+          title: "Dreptul familiei",
+          text: "Divorț la distanță, pensie de întreținere, înregistrarea copilului, tutelă și succesiuni.",
+        },
+        {
+          icon: "scale",
+          title: "Statut în Moldova",
+          text: "Protecție temporară — gratuit — permis de ședere și reprezentare în fața instanțelor.",
+        },
+      ],
+      processHeading: "Cum lucrăm",
+      processSteps: [
+        {
+          n: "01",
+          t: "Evaluare gratuită a cazului",
+          d: "Stabilim ce acte aveți, ce lipsește și care autoritate decide.",
+        },
+        {
+          n: "02",
+          t: "Pregătirea documentelor",
+          d: "Colectăm, traducem, legalizăm și pregătim tot ce cere procedura.",
+        },
+        {
+          n: "03",
+          t: "Depunere și urmărire",
+          d: "Facem programările, depunem cererile și urmărim dosarul la autorități.",
+        },
+        {
+          n: "04",
+          t: "Rezultat și predare",
+          d: "Primiți documentul finalizat sau contestăm refuzul.",
+        },
+      ],
+      faqHeading: "Întrebări frecvente",
+      faqItems: [
+        {
+          q: "Sunt bărbat între 18 și 60 de ani. Pot fi deservit la Ambasadă?",
+          a: "Da. Serviciile consulare rămân disponibile, însă accesul depinde de actualizarea datelor de evidență militară. Vă ajutăm cu Rezerv+, corectarea registrului și contestarea refuzurilor.",
+        },
+        {
+          q: "Trebuie să merg în Ucraina pentru aceste proceduri?",
+          a: "În majoritatea cazurilor, nu. Pașapoartele, pensiile, procurile, divorțul și pensia de întreținere se rezolvă din Moldova, prin Ambasadă, prin Diia sau prin instanțele ucrainene.",
+        },
+        {
+          q: "Lucrați cu persoane care au doar certificat de naștere?",
+          a: "Da. Documentarea persoanelor fără alte acte de identitate, inclusiv a copiilor sub tutelă și a cazurilor de apatridie, face parte din activitatea noastră.",
+        },
+      ],
+      pricing: {
+        priceLabel: "Tarif personalizat, per caz",
+        features: [
+          "Echipă vorbitoare de ucraineană și rusă",
+          "Evaluare inițială gratuită",
+          "Protecția temporară — asistență gratuită",
+          "Proceduri rezolvate din Moldova",
+          "Onorariu fix, agreat din start",
+        ],
+        ctaLabel: "Programează consultație",
+        callLabel: `Sună-ne · ${SITE_PHONE}`,
+        allPricingLabel: "Vezi toate prețurile",
+      },
+      offerEyebrow: "OFERTĂ PERSONALIZATĂ",
+      offerHeading: "Evaluare gratuită a cazului",
+      offerSub: "30 de minute · în rusă sau ucraineană · confidențial.",
+      relatedHeading: "Servicii conexe",
+      bodyIntroHeading: "Sprijin din Moldova, fără deplasare în Ucraina",
+      bodyIntro:
+        "Ajutăm cetățenii ucraineni din Republica Moldova cu proceduri consulare, acte de identitate, pensii, statut de ședere și reprezentare juridică — de la programarea la Ambasadă până la reprezentarea în instanțele din Ucraina.",
+    },
+    ru: {
+      includedHeading: "Что входит",
+      includedItems: [
+        {
+          icon: "calendar",
+          title: "Запись в Посольство",
+          text: "Электронная очередь через BankID, Дію или email, включая доступ для мужчин 18–60 лет.",
+        },
+        {
+          icon: "file-text",
+          title: "Паспорта и удостоверения",
+          text: "Внутренний паспорт (ID-карта), загранпаспорт, замена и свидетельство о возвращении в Украину.",
+        },
+        {
+          icon: "globe",
+          title: "Цифровые сервисы Украины",
+          text: "Регистрация в Дії и Дія-подпись, Резерв+, РНОКПП и государственные реестры.",
+        },
+        {
+          icon: "shield",
+          title: "Пенсии и социальные выплаты",
+          text: "Возобновление выплат из Украины, идентификация пенсионеров, перерасчёт и исполнение решений.",
+        },
+        {
+          icon: "users",
+          title: "Семейное право",
+          text: "Дистанционный развод, алименты, регистрация ребёнка, опека и наследство.",
+        },
+        {
+          icon: "scale",
+          title: "Статус в Молдове",
+          text: "Временная защита — бесплатно — вид на жительство и представительство в судах.",
+        },
+      ],
+      processHeading: "Как мы работаем",
+      processSteps: [
+        {
+          n: "01",
+          t: "Бесплатная оценка ситуации",
+          d: "Определяем, какие документы есть, чего не хватает и какой орган принимает решение.",
+        },
+        {
+          n: "02",
+          t: "Подготовка документов",
+          d: "Собираем, переводим, легализуем и готовим всё, что требует процедура.",
+        },
+        {
+          n: "03",
+          t: "Подача и сопровождение",
+          d: "Записываем на приём, подаём заявления и отслеживаем дело в органах.",
+        },
+        {
+          n: "04",
+          t: "Результат и передача",
+          d: "Вы получаете готовый документ, либо мы обжалуем отказ.",
+        },
+      ],
+      faqHeading: "Частые вопросы",
+      faqItems: [
+        {
+          q: "Я мужчина 18–60 лет. Обслужат ли меня в Посольстве?",
+          a: "Да. Консульские услуги остаются доступными, но доступ зависит от актуальности военно-учётных данных. Помогаем с Резерв+, обновлением данных и разбором отказов.",
+        },
+        {
+          q: "Нужно ли выезжать в Украину?",
+          a: "В большинстве случаев нет. Паспорта, пенсии, доверенности, расторжение брака и алименты решаются из Молдовы — через Посольство, Дію или украинские суды.",
+        },
+        {
+          q: "Работаете ли вы с людьми, у которых есть только свидетельство о рождении?",
+          a: "Да. Документирование лиц без других удостоверяющих документов, включая детей под опекой и случаи безгражданства, входит в нашу работу.",
+        },
+      ],
+      pricing: {
+        priceLabel: "Индивидуальная цена за дело",
+        features: [
+          "Команда говорит по-украински и по-русски",
+          "Бесплатная первичная оценка",
+          "Временная защита — помощь бесплатно",
+          "Процедуры решаются из Молдовы",
+          "Фиксированный гонорар, согласованный заранее",
+        ],
+        ctaLabel: "Записаться на консультацию",
+        callLabel: `Позвоните нам · ${SITE_PHONE}`,
+        allPricingLabel: "Все цены",
+      },
+      offerEyebrow: "ИНДИВИДУАЛЬНОЕ ПРЕДЛОЖЕНИЕ",
+      offerHeading: "Бесплатная оценка ситуации",
+      offerSub: "30 минут · на русском или украинском · конфиденциально.",
+      relatedHeading: "Смежные услуги",
+      bodyIntroHeading: "Поддержка из Молдовы, без выезда в Украину",
+      bodyIntro:
+        "Помогаем гражданам Украины в Республике Молдова с консульскими процедурами, документами, пенсиями, статусом пребывания и юридическим представительством — от записи в Посольство до защиты интересов в украинских судах.",
+    },
+    en: {
+      includedHeading: "What's included",
+      includedItems: [
+        {
+          icon: "calendar",
+          title: "Embassy appointments",
+          text: "Booking the consular electronic queue by BankID, Diia or email, including access for men aged 18 to 60.",
+        },
+        {
+          icon: "file-text",
+          title: "Passports & ID documents",
+          text: "Internal ID card, passport for travel abroad, replacements, and the Certificate of Return to Ukraine.",
+        },
+        {
+          icon: "globe",
+          title: "Ukrainian digital services",
+          text: "Diia registration and Diia.Signature, Reserve+, the RNOKPP tax number, and the State Registers.",
+        },
+        {
+          icon: "shield",
+          title: "Pensions & social payments",
+          text: "Restoring Ukrainian pension payments, pensioner identification, recalculation and enforcement.",
+        },
+        {
+          icon: "users",
+          title: "Family law & civil status",
+          text: "Remote divorce, maintenance, birth registration, guardianship and succession.",
+        },
+        {
+          icon: "scale",
+          title: "Status in Moldova",
+          text: "Temporary protection — free of charge — residence permits, and representation before the courts.",
+        },
+      ],
+      processHeading: "How we work",
+      processSteps: [
+        {
+          n: "01",
+          t: "Free case assessment",
+          d: "We establish what documents you hold, what is missing, and which authority decides.",
+        },
+        {
+          n: "02",
+          t: "Document preparation",
+          d: "We collect, translate, legalise and prepare everything the procedure requires.",
+        },
+        {
+          n: "03",
+          t: "Filing & follow-up",
+          d: "We book the appointments, submit the applications and track them with the authorities.",
+        },
+        {
+          n: "04",
+          t: "Outcome & handover",
+          d: "You receive the finished document, or we appeal the refusal.",
+        },
+      ],
+      faqHeading: "Frequently asked questions",
+      faqItems: [
+        {
+          q: "I am a man aged 18 to 60. Can I still be served at the Embassy?",
+          a: "Yes. Consular services remain available, but access depends on your military registration data being up to date. We help with Reserve+, correcting the register and challenging refusals.",
+        },
+        {
+          q: "Do I have to travel to Ukraine for any of this?",
+          a: "In most cases no. Passports, pensions, powers of attorney, divorce and maintenance proceedings can all be handled from Moldova through the Embassy, through Diia, or through the Ukrainian courts.",
+        },
+        {
+          q: "Do you work with people who hold only a birth certificate?",
+          a: "Yes. Documenting persons with no other identity papers, including children under guardianship and statelessness cases, is part of what we do.",
+        },
+      ],
+      pricing: {
+        priceLabel: "Custom pricing per case",
+        features: [
+          "Ukrainian- and Russian-speaking team",
+          "Free initial assessment",
+          "Temporary protection support is free",
+          "Procedures handled from Moldova",
+          "Fixed fee agreed upfront",
+        ],
+        ctaLabel: "Schedule consultation",
+        callLabel: `Call us · ${SITE_PHONE}`,
+        allPricingLabel: "View all pricing",
+      },
+      offerEyebrow: "PERSONALISED OFFER",
+      offerHeading: "Free case assessment",
+      offerSub: "30 minutes · in Russian or Ukrainian · confidential.",
+      relatedHeading: "Related services",
+      bodyIntroHeading: "Support from Moldova, without travelling to Ukraine",
+      bodyIntro:
+        "We help Ukrainian citizens in the Republic of Moldova with consular procedures, identity documents, pensions, residence status and legal representation — from booking an Embassy appointment to representation before the Ukrainian courts.",
     },
   },
 };
