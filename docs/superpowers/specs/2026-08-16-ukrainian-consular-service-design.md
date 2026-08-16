@@ -184,10 +184,12 @@ names stay recognisable to the reader: Diia, Reserve+, BankID, the state enterpr
 
 ### Family law and civil status
 
-- Dissolution of marriage through the Ukrainian courts in absentia, without travelling
-  to Ukraine
-- Maintenance (child support): recovery proceedings in Ukraine conducted from abroad
-- Certificate of no impediment to marriage, for marrying in Moldova
+- Remote dissolution of marriage through the Ukrainian courts, conducted without
+  travelling to Ukraine
+- Maintenance (child and spousal support): recovery proceedings in Ukraine conducted
+  from abroad
+- Certificate of no impediment to marriage (single-status certificate), for marrying in
+  Moldova
 - Change of surname after marriage or divorce: the full document-replacement cycle,
   including transliteration of the name across Ukrainian and Moldovan passports
 - Registration of a child born in Moldova: legalisation of the Moldovan birth record so
@@ -210,6 +212,29 @@ For civil society organisations and the humanitarian sector.
 - Training on Ukrainian legislation
 - Development of information materials
 - Advocacy services
+
+## Terminology notes
+
+Settled after review; do not reintroduce the rejected forms when the RO and RU bodies
+are written.
+
+- **"In absentia" is rejected** for remote divorce. In common-law usage it denotes a
+  party who failed to appear and carries a default-judgment connotation. The source
+  («без в'їзду в Україну») means only that the client does not travel; the proceedings
+  themselves may be contested. Use "remote" / "without travelling to Ukraine".
+- **Maintenance covers child and spousal support.** The source places no restriction on
+  who the maintenance is for, so narrowing it to child support understates the scope.
+  "Maintenance" is the term of art; "support" is the search term — keep both.
+- **Certificate of no impediment to marriage** is the primary term, with
+  "single-status certificate" in brackets, since that is what the Ukrainian-issued
+  document is commonly called.
+- **"Verification of Ukrainian citizenship"** stays as-is. "Determination" and
+  "establishment" are acceptable equivalents, not corrections.
+- **"Attorney's request for information"** keeps the descriptive tail: the Ukrainian
+  *адвокатський запит* is a statutory power to compel disclosure from state bodies, and
+  common-law readers have no 1:1 equivalent to fall back on.
+- **Colloquial names stay alongside formal ones** where people search for them — the
+  "white passport" beside Certificate of Return to Ukraine.
 
 ## Placeholder bodies (RO, RU)
 
