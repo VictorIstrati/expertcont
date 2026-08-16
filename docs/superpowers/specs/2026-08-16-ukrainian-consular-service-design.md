@@ -167,9 +167,9 @@ names stay recognisable to the reader: Diia, Reserve+, BankID, the state enterpr
 
 ### Status and residence in Moldova
 
-- Temporary protection: registration, booking the interview, extension, advice on
-  beneficiaries' rights, and renunciation of Moldovan temporary protection from a third
-  country
+- **Temporary protection — provided free of charge:** registration, booking the
+  interview, extension, advice on beneficiaries' rights, and renunciation of Moldovan
+  temporary protection from a third country
 - Residence permits in the Republic of Moldova: applications and extensions
 - Related matters: tax deductions for foreign nationals, roadworthiness testing and the
   lawful stay of Ukrainian-registered vehicles, and acquisition of Moldovan citizenship
@@ -212,6 +212,36 @@ For civil society organisations and the humanitarian sector.
 - Training on Ukrainian legislation
 - Development of information materials
 - Advocacy services
+
+## Differentiators to keep visible
+
+The team speaks Ukrainian and Russian. For a displaced person choosing between
+providers this is the deciding factor, not a footnote, so it leads rather than trails:
+
+- First bullet on the services-index card, in all three locales.
+- First feature in the detail-page sidebar.
+- Opening line of the English body and of both placeholder bodies.
+- Already reflected in `offerSub` ("in Russian or Ukrainian").
+
+This one service's card carries five bullets rather than the usual four. The card
+component grows to fit, and the service already sits alone on its grid row.
+
+## Free-of-charge services
+
+Temporary protection support is provided free of charge. This must be visible, not
+buried in a bullet:
+
+- The bullet itself is bolded and leads with "provided free of charge".
+- The "Status in Moldova" card in the detail-page sidebar data says so.
+- One of the four sidebar pricing features reads "Temporary protection support is free".
+
+Nothing else in the catalogue is free, so no general mechanism is warranted — YAGNI. If
+more free services appear later, revisit with a data-driven flag.
+
+**Open:** the client asked for a link to a page explaining temporary protection. No such
+page exists on this site (checked `src/content` — nothing covers it). The link therefore
+has to point at an external authority or wait for an internal guide to be written. The
+target URL is unresolved and blocks nothing else; see "Outstanding".
 
 ## Terminology notes
 
