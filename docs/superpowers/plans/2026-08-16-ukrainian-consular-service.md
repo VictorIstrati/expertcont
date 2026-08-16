@@ -191,9 +191,9 @@ Create `apps/web/src/content/services-meta/ukrainians.json`:
     "en": "Ukrainian consular & legal support in Moldova"
   },
   "summaries": {
-    "ro": "Asistență pentru cetățenii ucraineni aflați în Moldova: programări și documente la Ambasada Ucrainei, pașapoarte, pensii, protecție temporară, dreptul familiei și reprezentare juridică.",
-    "ru": "Поддержка граждан Украины в Молдове: запись и документы в Посольстве Украины, паспорта, пенсии, временная защита, семейное право и юридическое представительство.",
-    "en": "Support for Ukrainian citizens in Moldova: embassy appointments and documents, passports, pensions, temporary protection, family law and legal representation."
+    "ro": "Asistență pentru cetățenii ucraineni în Moldova: programări la Ambasada Ucrainei, pașapoarte, pensii, dreptul familiei. Protecția temporară — gratuit.",
+    "ru": "Помощь гражданам Украины в Молдове: запись в Посольство Украины, паспорта, пенсии, семейное право. Временная защита — бесплатно.",
+    "en": "Help for Ukrainian citizens in Moldova: Embassy of Ukraine appointments, passports, pensions, Diia and family law. Temporary protection support is free."
   },
   "hideFromHome": true,
   "updated": "2026-08-16"
@@ -204,6 +204,11 @@ Create `apps/web/src/content/services-meta/ukrainians.json`:
 
 Create `apps/web/src/content/services/ukrainians.en.mdx`. The opening paragraph must not repeat `bodyIntro` from Task 5 — the detail page renders `bodyIntro` immediately above this content.
 
+Two rules this copy follows, both deliberate:
+
+- **Every `##` carries a search term, not a category label.** Nobody searches "Banking access" or "Pension matters"; people search "Ukrainian embassy Chisinau appointment", "Ukrainian pension abroad", "temporary protection Moldova". The headings are the page's main SEO surface — keep them phrased as the problem, not as the filing category.
+- **Every section opens with prose before the bullets.** A page that is nothing but bullet lists reads as generated and gives crawlers no context to rank. The one- or two-sentence lead-in is where the keyword-bearing sentence and the human voice both live. Do not delete these to "tighten" the page.
+
 ````mdx
 ---
 title: "Ukrainian consular & legal support"
@@ -211,23 +216,27 @@ locale: "en"
 contentId: "ukrainians"
 ---
 
-Our team speaks Ukrainian and Russian, so you can explain your situation in your own language and read every document we prepare in it.
+Your passport expires in four months and the Embassy's electronic queue shows no free slots. Or a pension from Ukraine stopped arriving and nobody will tell you why. Those are the two calls we take most often.
 
-Most of what follows can be done from Moldova. Passports, pensions, powers of attorney, divorce and maintenance proceedings are all handled through the Embassy of Ukraine, through Ukrainian e-services, or through the Ukrainian courts — without you travelling back. Where a matter genuinely requires presence in Ukraine, we say so at the first consultation rather than after you have paid.
+Our team in Moldova speaks Ukrainian and Russian. You can explain the problem in your own language, and read every document we prepare in it.
 
-Support with **temporary protection in Moldova is provided free of charge** — registration, the interview appointment, extensions and advice on your rights as a beneficiary.
+Almost everything below is done from Moldova. Passports, pensions, powers of attorney, divorce, child maintenance — all of it runs through the Embassy of Ukraine, through Ukrainian e-services such as Diia, or through the Ukrainian courts, without you crossing the border. Where a case genuinely requires presence in Ukraine, we tell you at the first consultation, not after you have paid.
 
-## Consular services at Ukrainian embassies and consulates abroad
+## Ukrainian Embassy and Consulate in Moldova: appointments, passports, certificates
+
+The queue is usually harder than the paperwork. We book the slot by every method the Embassy accepts and prepare the file so that one appointment is enough.
 
 - Booking a slot in the electronic queue of the Ukrainian Embassy or Consulate abroad by every available method — BankID, the Diia app, or email
 - Assistance with consular access for men aged 18 to 60: Reserve+, updating military registration records, and challenging refusals
-- Passport documents through the Embassy or Consulate and through the Passport Service of the state enterprise "Dokument" abroad: first-time issue of the internal passport (ID card) and of the passport for travel abroad, replacement of an expired or lost document, collection of the finished document, and delivery of a passport produced in Ukraine to the Embassy or Consulate abroad
+- Passport documents through the Embassy or Consulate and through the Passport Service of the state enterprise "Dokument" abroad — first-time issue of the internal passport (ID card) and of the passport for travel abroad, replacement of an expired or lost document, collection of the finished document, and delivery of a passport produced in Ukraine to the Embassy or Consulate
 - Issue of the Certificate of Return to Ukraine (the so-called "white passport"), including for children under guardianship and for persons with no registered place of residence
 - Verification of Ukrainian citizenship, including for children, and establishment of citizenship by birth
 - Powers of attorney and notarial acts performed at the Ukrainian Embassy or Consulate
-- Other documents issued through the Embassy or Consulate: criminal record certificates and civil status records — registration of a child born abroad, and marriage, death and birth certificates
+- Criminal record certificates and civil status records: registration of a child born abroad, and marriage, death and birth certificates
 
-## Ukrainian digital services
+## Diia, Reserve+ and Ukrainian state e-services from abroad
+
+Most Ukrainian state services now run through an app. When registration fails from abroad — and it often does — the cause is usually a missing tax number or a passport the register cannot verify.
 
 - The Diia app and portal: registration, including by biometric passport, digital documents, and creation of a Diia.Signature qualified electronic signature
 - Support with the Reserve+ military registration service
@@ -235,7 +244,9 @@ Support with **temporary protection in Moldova is provided free of charge** — 
 - Entering property rights into the State Registers of Ukraine
 - Applications for compensation for property in Ukraine damaged or destroyed as a result of the war
 
-## Pension matters
+## Ukrainian pensions paid abroad
+
+A pension from Ukraine does not stop because you left the country. It stops because an identification deadline passed. Both the identification and the arrears are fixable.
 
 - Restoration and resumption of pension payments from Ukraine
 - Identification of pensioners: video identification, through Diia, or through the web portal of the Pension Fund of Ukraine
@@ -244,32 +255,42 @@ Support with **temporary protection in Moldova is provided free of charge** — 
 - Social assistance for persons without a sufficient insurance record, and award of a pension based on insurance record with voluntary payment of additional contributions
 - Digitisation of the employment record book
 
-## Banking access
+## Access to Ukrainian bank accounts and cards
+
+A working Ukrainian card is not only about money. It is how you log in to Diia, to the Pension Fund portal, and to the consular queue.
 
 - Restoring access to Ukrainian banking services
 - Remote opening of Ukrainian bank cards — also as a means of authenticating into Ukrainian e-services and into the consular electronic queue
 
-## Civil status records and documentation
+## Birth certificates, residence registration and documents from Ukrainian archives
+
+These are also the records that Moldovan and Romanian citizenship applications are built on, and the ones that take longest to retrieve. Start them early.
 
 - Birth certificates: replacement under the new rules, and entry into Diia
 - Registration and de-registration of place of residence in Ukraine, and residence certificates
 - Documenting persons who hold only a birth certificate, and statelessness cases
 - Obtaining certificates, extracts and archival records from Ukrainian archives in support of applications for Moldovan or Romanian citizenship
 
-## Status and residence in Moldova
+## Temporary protection and residence permits in Moldova
+
+Support with temporary protection is free of charge, whatever your case. We do not charge Ukrainian citizens for the status that lets them stay lawfully.
 
 - **Temporary protection — provided free of charge:** registration, booking the interview, extension, advice on beneficiaries' rights, and renunciation of Moldovan temporary protection from a third country
 - Residence permits in the Republic of Moldova: applications and extensions
 - Related matters: tax deductions for foreign nationals, roadworthiness testing and the lawful stay of Ukrainian-registered vehicles, and acquisition of Moldovan citizenship
 
-## Border crossing and customs
+## Crossing the Ukraine–Moldova border: children, customs and visas
+
+Travelling with a child who is not yours on paper is where most border problems start. The paperwork is straightforward when it is prepared in advance.
 
 - Travel into and out of the country with minors, and powers of attorney authorising an accompanying adult
 - Customs regime on entry into Ukraine and into the Republic of Moldova
 - Visa processing — Ukrainian visas for foreign nationals
 - Residence permits in Ukraine
 
-## Family law and civil status
+## Divorce, child maintenance and family matters in Ukrainian courts
+
+You do not have to return to Ukraine to end a marriage, or to make an absent parent pay. Both proceedings run from Moldova.
 
 - Remote dissolution of marriage through the Ukrainian courts, conducted without travelling to Ukraine
 - Maintenance (child and spousal support): recovery proceedings in Ukraine conducted from abroad
@@ -280,23 +301,39 @@ Support with **temporary protection in Moldova is provided free of charge** — 
 - Steps to take on the death of a Ukrainian citizen in Moldova
 - Guardianship and custody: documents for children under guardianship
 
-## Representation and case support
+## Legal representation before Ukrainian authorities and courts
+
+When an authority has refused you, the answer is rarely to apply again. It is to find out on what grounds, in writing.
 
 - Drafting applications and correspondence to Ukrainian state authorities
 - Attorney's requests for information in Ukraine
 - Representation before the courts in matters arising from displacement from Ukraine to the Republic of Moldova as a result of the war, criminal and tax matters excluded
 
-## Training and information sessions
+## Training for NGOs and humanitarian organisations
 
-For civil society organisations and the humanitarian sector.
+For teams advising Ukrainian citizens who need the underlying law explained once, properly.
 
 - Training on Ukrainian legislation
 - Development of information materials
 - Advocacy services
 
+## Who this is for
+
+Ukrainian citizens living in the Republic of Moldova, whether you arrived in 2022 or last month, and whether you hold temporary protection, a residence permit or nothing yet. We also work with pensioners receiving payments from Ukraine, parents documenting children born in Moldova, and NGOs supporting displaced families.
+
+## Why ExpertCont
+
+- **Ukrainian and Russian spoken** — consultations, documents and correspondence in the language you actually use
+- **Temporary protection support free of charge** — no fee for the status itself
+- **Lawyers and accountants in one team** — pension, tax and residence questions rarely arrive one at a time
+- **A dedicated account manager**, with a reply guaranteed in under 4 hours on working days
+- **15+ years of combined experience** in Moldovan law, applied to cross-border Ukrainian cases
+
 ## Where to start
 
-Tell us what document you need or what has been refused, and we will tell you which authority decides it, what it costs and how long it takes. [Write to us](/en/contact) — we reply in under 4 hours on working days.
+Tell us which document you need, or what was refused and when. We will tell you which authority decides it, what it costs and how long it takes — before you commit to anything. [Write to us](/en/contact); we reply in under 4 hours on working days.
+
+Cases that turn out to be company matters rather than personal ones are handled by the same team through our [legal services](/en/services/legal).
 ````
 
 - [ ] **Step 4: Write the Romanian placeholder body**
@@ -1122,6 +1159,33 @@ git commit -m "chore: formatting"
 Otherwise the tree is clean and the branch is ready for review.
 
 ---
+
+## Copy and SEO notes
+
+**Target queries the English page is written for.** Each maps to a `##` heading, which is why the headings are phrased as problems rather than as categories:
+
+| Query cluster | Heading that targets it |
+| --- | --- |
+| ukrainian embassy moldova appointment · ukrainian consulate chisinau queue | Ukrainian Embassy and Consulate in Moldova: appointments, passports, certificates |
+| ukrainian passport abroad · certificate of return to ukraine · white passport | same section, carried by the bullets |
+| diia registration abroad · reserve+ from abroad · rnokpp tax number | Diia, Reserve+ and Ukrainian state e-services from abroad |
+| ukrainian pension abroad · pension fund of ukraine identification | Ukrainian pensions paid abroad |
+| temporary protection moldova · residence permit moldova ukrainian | Temporary protection and residence permits in Moldova |
+| divorce in ukraine from abroad · child maintenance ukraine abroad | Divorce, child maintenance and family matters in Ukrainian courts |
+| ukrainian archives documents · moldovan citizenship documents | Birth certificates, residence registration and documents from Ukrainian archives |
+
+**The English page will not carry this service commercially.** The people searching these queries type them in Russian and Ukrainian — «запис в посольство України», «пенсія з України за кордоном», «временная защита Молдова». English captures NGO staff, journalists and international caseworkers, which is worth having but is not the demand. The Russian body is the SEO asset on this page, and it is currently a placeholder. Treat the RU translation as the revenue-bearing task, not as cleanup.
+
+**Style rules applied, for whoever writes the RO and RU versions:**
+
+- Open on the reader's situation, not on the company. The first line is a passport expiring and a queue with no slots, because that is what the visitor arrived worried about.
+- One or two sentences of prose before every bullet list. Pure bullet lists read as machine-generated and give search engines no context.
+- Second person throughout. "You do not have to return to Ukraine", not "clients are not required to travel".
+- Vary the bullet rhythm. The original source list had every item as an identical-length noun phrase; that uniformity is itself a tell.
+- State limits plainly — "we tell you at the first consultation, not after you have paid" — and say what is excluded (criminal and tax matters).
+- No exclamation marks, no "streamline", "comprehensive", "seamless", "innovative".
+
+**Verified defect, out of scope for this plan.** `ServiceDetailBody` renders the FAQ through `Accordion` (`packages/ui/src/Accordion/Accordion.tsx`), which mounts the answer only when open (`{isOpen && ...}`, initial state `null`). FAQ answers are therefore absent from the server-rendered HTML on **every** service detail page, invisible to crawlers and to AI answer engines, and ineligible for FAQ rich results. `FaqAccordion` in the same package already solves this with native `<details>`, which keeps answers in the DOM. Switching `ServiceDetailBody` to it would recover the FAQ content across all seven services. Raise separately — it is a pre-existing bug, not something this service introduced.
 
 ## Outstanding after this plan
 
