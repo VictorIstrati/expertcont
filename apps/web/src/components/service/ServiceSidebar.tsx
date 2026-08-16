@@ -48,7 +48,14 @@ export function ServiceSidebar({
   offerSub,
   relatedHeading,
 }: ServiceSidebarProps) {
-  const priceLabel = locale === "ru" ? "Стоимость" : locale === "en" ? "Pricing" : "Preț";
+  const priceLabel =
+    locale === "ru"
+      ? "Стоимость"
+      : locale === "en"
+        ? "Pricing"
+        : locale === "uk"
+          ? "Вартість"
+          : "Preț";
   const callHref = (pricing.phone ?? phoneTel).replace(/[^+\d]/g, "");
   const messengerNumber = callHref.replace(/\D/g, "");
   const messengers = [

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Icon, type IconName } from "@expertcont/ui";
-import type { Locale } from "@expertcont/i18n";
+
 import type { BookingData, Strings } from "./types";
 import {
   ukraineCatalogue,
@@ -10,49 +10,56 @@ import {
   ukraineOtherPlaceholders,
   UKRAINE_BOOKING_SLUG,
   UKRAINE_OTHER_ID,
+  type PageLocale,
 } from "../../service/ukraineCatalogue";
 
 interface Props {
   data: BookingData;
   onChange: (next: BookingData) => void;
   t: Strings;
-  locale: Locale;
+  locale: PageLocale;
 }
 
-const SUB_HEADING: Record<Locale, string> = {
+const SUB_HEADING: Record<PageLocale, string> = {
   ro: "Cu ce vă putem ajuta?",
   ru: "С чем вам помочь?",
   en: "What do you need help with?",
+  uk: "З чим вам допомогти?",
 };
 
-const SUB_PICK_ITEM: Record<Locale, string> = {
+const SUB_PICK_ITEM: Record<PageLocale, string> = {
   ro: "Alegeți situația concretă",
   ru: "Выберите конкретный случай",
   en: "Choose the specific case",
+  uk: "Оберіть конкретний випадок",
 };
 
-const BACK_TO_CATEGORIES: Record<Locale, string> = {
+const BACK_TO_CATEGORIES: Record<PageLocale, string> = {
   ro: "Înapoi la categorii",
   ru: "Назад к категориям",
   en: "Back to categories",
+  uk: "Назад до категорій",
 };
 
-const OTHER_CATEGORY: Record<Locale, string> = {
+const OTHER_CATEGORY: Record<PageLocale, string> = {
   ro: "Altceva",
   ru: "Другое",
   en: "Something else",
+  uk: "Інше",
 };
 
-const CHOSEN_LABEL: Record<Locale, string> = {
+const CHOSEN_LABEL: Record<PageLocale, string> = {
   ro: "Ați ales",
   ru: "Вы выбрали",
   en: "You selected",
+  uk: "Ви обрали",
 };
 
-const CHANGE_LABEL: Record<Locale, string> = {
+const CHANGE_LABEL: Record<PageLocale, string> = {
   ro: "Schimbă",
   ru: "Изменить",
   en: "Change",
+  uk: "Змінити",
 };
 
 /** Category a stored `<categoryId>:<itemId>` key (or "other") belongs to. */

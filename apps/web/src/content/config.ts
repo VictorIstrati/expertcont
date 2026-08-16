@@ -19,7 +19,7 @@ const services = defineCollection({
   type: "content",
   schema: z.object({
     title: z.string(),
-    locale: z.enum(["ro", "ru", "en"]),
+    locale: z.enum(["ro", "ru", "en", "uk"]),
     /** The canonical id this MDX belongs to. */
     contentId: z.string(),
   }),

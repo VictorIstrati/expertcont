@@ -1,30 +1,37 @@
 import { Icon } from "@expertcont/ui";
-import type { Locale } from "@expertcont/i18n";
 import { openModal } from "../../lib/modalBus";
-import { ukraineCatalogue, ukraineItemKey, UKRAINE_BOOKING_SLUG } from "./ukraineCatalogue";
+import {
+  ukraineCatalogue,
+  ukraineItemKey,
+  UKRAINE_BOOKING_SLUG,
+  type PageLocale,
+} from "./ukraineCatalogue";
 
 interface Props {
-  locale: Locale;
+  locale: PageLocale;
 }
 
-const HEADING: Record<Locale, string> = {
+const HEADING: Record<PageLocale, string> = {
   ro: "Ce putem rezolva",
   ru: "Что мы решаем",
   en: "What we can handle",
+  uk: "Що ми вирішуємо",
 };
 
-const HINT: Record<Locale, string> = {
+const HINT: Record<PageLocale, string> = {
   ro: "Alegeți situația dumneavoastră — deschidem formularul de programare cu ea deja selectată.",
   ru: "Выберите вашу ситуацию — откроем форму записи с уже выбранным вопросом.",
   en: "Pick your situation — the booking form opens with it already selected.",
+  uk: "Оберіть свою ситуацію — форма запису відкриється вже з нею.",
 };
 
 /** Per-item call to action. Always visible: a hover-only affordance leaves the
  * rows looking like static bullets on touch devices, where there is no hover. */
-const ITEM_CTA: Record<Locale, string> = {
+const ITEM_CTA: Record<PageLocale, string> = {
   ro: "Programează",
   ru: "Записаться",
   en: "Book this",
+  uk: "Записатися",
 };
 
 /**
