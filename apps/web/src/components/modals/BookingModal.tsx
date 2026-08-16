@@ -8,6 +8,11 @@ import { ContactStep } from "./booking/ContactStep";
 import { ConfirmationStep } from "./booking/ConfirmationStep";
 import { useBookingStrings, buildDays } from "./booking/strings";
 import { INITIAL_DATA, type BookingData } from "./booking/types";
+import {
+  ukraineItemLabel,
+  UKRAINE_BOOKING_SLUG,
+  UKRAINE_OTHER_ID,
+} from "../service/ukraineCatalogue";
 import { track } from "../../lib/analytics";
 import { backendClient, detectLanguage } from "../../lib/backend";
 
@@ -18,30 +23,49 @@ interface Props {
   /** Service slug to pre-select when the modal opens (e.g. from a service
    * card's Schedule button). Must match a slug in booking/strings.ts. */
   initialService?: string;
+  /** Second-level selection for services with a sub-catalogue — the
+   * `<categoryId>:<itemId>` key from ukraineCatalogue.ts. */
+  initialSubservice?: string;
 }
 
-export function BookingModal({ open, onClose, locale, initialService }: Props) {
+export function BookingModal({ open, onClose, locale, initialService, initialSubservice }: Props) {
   const t = useBookingStrings();
   const [step, setStep] = useState(0);
   const [data, setData] = useState<BookingData>(INITIAL_DATA);
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  // When the modal opens with a preselected service, prefill the form and
-  // skip directly to step 1 (date/time). User can still go back via "Prev".
+  // When the modal opens with a preselected service, prefill the form. We only
+  // skip ahead to date/time when there is nothing left to choose on step 0 —
+  // a service with a sub-catalogue still needs its second-level answer, so
+  // opening it from the sidebar lands on step 0 with the service selected.
   useEffect(() => {
-    if (open && initialService) {
-      setData((d) => ({ ...d, service: initialService }));
-      setStep(1);
-    }
-  }, [open, initialService]);
+    if (!open || !initialService) return;
+    setData((d) => ({
+      ...d,
+      service: initialService,
+      subservice: initialSubservice ?? null,
+      subserviceOther: "",
+    }));
+    const needsSubservice = initialService === UKRAINE_BOOKING_SLUG && !initialSubservice;
+    setStep(needsSubservice ? 0 : 1);
+  }, [open, initialService, initialSubservice]);
 
   const days = buildDays();
   const STEPS = [t.step1, t.step2, t.step3, t.stepDone];
 
+  // Services with a sub-catalogue cannot advance on the service alone: the
+  // visitor must pick an item, and "other" must actually be described.
+  const serviceStepComplete =
+    !!data.service &&
+    (data.service !== UKRAINE_BOOKING_SLUG ||
+      (data.subservice === UKRAINE_OTHER_ID
+        ? data.subserviceOther.trim().length > 0
+        : !!data.subservice));
+
   const canNext =
     step === 0
-      ? !!data.service
+      ? serviceStepComplete
       : step === 1
         ? !!data.date && !!data.time
         : step === 2
@@ -77,7 +101,18 @@ export function BookingModal({ open, onClose, locale, initialService }: Props) {
 
     const serviceName = t.services.find((s) => s.slug === data.service)?.name ?? data.service;
     const modeLabel = data.mode === "online" ? t.modeOnline : t.modeOffice;
-    const notes = [`${t.serviceLabel} ${serviceName}`, `${t.modeLabel}: ${modeLabel}`, data.note]
+    const subserviceLine =
+      data.subservice === UKRAINE_OTHER_ID
+        ? data.subserviceOther.trim()
+        : data.subservice
+          ? (ukraineItemLabel(data.subservice, locale) ?? data.subservice)
+          : "";
+    const notes = [
+      `${t.serviceLabel} ${serviceName}`,
+      subserviceLine,
+      `${t.modeLabel}: ${modeLabel}`,
+      data.note,
+    ]
       .filter((s) => s && s.trim().length > 0)
       .join("\n");
 
@@ -146,7 +181,7 @@ export function BookingModal({ open, onClose, locale, initialService }: Props) {
     >
       <Stepper steps={STEPS} current={step} />
 
-      {step === 0 && <ServiceStep data={data} onChange={setData} t={t} />}
+      {step === 0 && <ServiceStep data={data} onChange={setData} t={t} locale={locale} />}
       {step === 1 && (
         <DateTimeStep data={data} onChange={setData} t={t} locale={locale} days={days} />
       )}

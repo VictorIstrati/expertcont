@@ -16,6 +16,7 @@ const ICON_BY_KEY: Record<string, IconName> = {
   consulting: "lightbulb",
   audit: "audit",
   it: "monitor",
+  ukrainians: "globe",
 
   // RO slugs.
   contabilitate: "calculator",
@@ -23,6 +24,7 @@ const ICON_BY_KEY: Record<string, IconName> = {
   "resurse-umane": "users",
   consultanta: "lightbulb",
   "servicii-it": "monitor",
+  "servicii-consulare-ucraina": "globe",
 
   // RU slugs.
   bukhgalteriya: "calculator",
@@ -30,9 +32,11 @@ const ICON_BY_KEY: Record<string, IconName> = {
   kadry: "users",
   konsalting: "lightbulb",
   "it-uslugi": "monitor",
+  "konsulskie-uslugi-ukraina": "globe",
 
   // EN slugs.
   "it-services": "monitor",
+  "ukrainian-consular-services": "globe",
 };
 
 export function serviceIcon(key: string): IconName {
@@ -42,7 +46,8 @@ export function serviceIcon(key: string): IconName {
 /**
  * Canonical display order for service grids (services index page, home grid).
  * Sorted by business priority: accounting first (anchor service), legal/hr/
- * consulting next (recurring B2B needs), then specialist work (audit, IT).
+ * consulting next (recurring B2B needs), then specialist work (audit, IT), and
+ * finally the B2C Ukrainian consular service.
  */
 export const SERVICE_ORDER: ReadonlyArray<string> = [
   "accounting",
@@ -51,6 +56,7 @@ export const SERVICE_ORDER: ReadonlyArray<string> = [
   "consulting",
   "audit",
   "it",
+  "ukrainians",
 ];
 
 /** Sort an array by canonical service order; unknown IDs go last (stable). */

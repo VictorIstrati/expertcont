@@ -8,7 +8,14 @@ import { sectionUrl } from "./urls";
  *
  * When adding/renaming a service, update both this map and the meta JSON.
  */
-export type ServiceId = "accounting" | "audit" | "legal" | "consulting" | "hr" | "it";
+export type ServiceId =
+  | "accounting"
+  | "audit"
+  | "legal"
+  | "consulting"
+  | "hr"
+  | "it"
+  | "ukrainians";
 
 export const SERVICE_IDS: readonly ServiceId[] = [
   "accounting",
@@ -17,6 +24,7 @@ export const SERVICE_IDS: readonly ServiceId[] = [
   "consulting",
   "hr",
   "it",
+  "ukrainians",
 ];
 
 export const serviceSlugs: Record<ServiceId, Record<Locale, string>> = {
@@ -26,6 +34,11 @@ export const serviceSlugs: Record<ServiceId, Record<Locale, string>> = {
   consulting: { ro: "consultanta", ru: "konsalting", en: "consulting" },
   hr: { ro: "resurse-umane", ru: "kadry", en: "hr" },
   it: { ro: "servicii-it", ru: "it-uslugi", en: "it-services" },
+  ukrainians: {
+    ro: "servicii-consulare-ucraina",
+    ru: "konsulskie-uslugi-ukraina",
+    en: "ukrainian-consular-services",
+  },
 };
 
 export function serviceDetailUrl(id: ServiceId, locale: Locale): string {

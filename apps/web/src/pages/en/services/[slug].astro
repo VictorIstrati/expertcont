@@ -10,6 +10,8 @@ import { ServiceDetailBody } from "../../../components/service/ServiceDetailBody
 import { ServiceSidebar } from "../../../components/service/ServiceSidebar";
 import { ServiceCTAStrip } from "../../../components/service/ServiceCTAStrip";
 import { getServiceData } from "../../../components/service/serviceData";
+import { UkraineCatalogueSection } from "../../../components/service/UkraineCatalogueSection";
+import { bookingSlugFor } from "../../../lib/bookingSlugs";
 import type { IconName } from "@expertcont/ui";
 
 export const getStaticPaths = (async () => {
@@ -55,6 +57,7 @@ const relatedServices = allServicesMeta
   }));
 
 const pageData = getServiceData(meta.id, locale);
+const bookingSlug = bookingSlugFor(meta.id);
 const contactHref = sectionUrl("contact", locale);
 const pricingHref = sectionUrl("pricing", locale);
 const servicePath = detailUrl("services", meta, locale);
@@ -124,9 +127,23 @@ const jsonLd = [
           <span class="inline-block w-6 h-1 bg-current rounded-xs"></span>
           Core service
         </div>
-        <h1 class="mb-5 text-[clamp(32px,4.6vw,56px)]">
-          {meta.titles[locale]}
-        </h1>
+        <div class="mb-5 flex flex-wrap items-start justify-between gap-6">
+          <h1 class="mb-0 text-[clamp(32px,4.6vw,56px)]">
+            {meta.titles[locale]}
+          </h1>
+          {
+            meta.id === "ukrainians" && (
+              <a
+                href="/ua/konsulski-posluhy"
+                lang="uk"
+                hreflang="uk"
+                class="shrink-0 self-center inline-flex items-center gap-2 rounded-sm border-[1.5px] border-primary bg-primary-50 px-[18px] py-2.5 text-sm font-bold text-primary no-underline transition hover:bg-primary hover:text-white"
+              >
+                Українською
+              </a>
+            )
+          }
+        </div>
         <p class="text-base sm:text-lg text-text-secondary max-w-3xl">
           {meta.summaries[locale]}
         </p>
@@ -162,6 +179,8 @@ const jsonLd = [
               <Content />
             </article>
 
+            {meta.id === "ukrainians" && <UkraineCatalogueSection client:visible locale={locale} />}
+
             {
               pageData && (
                 <ServiceDetailBody
@@ -183,6 +202,7 @@ const jsonLd = [
               <ServiceSidebar
                 client:visible
                 locale={locale}
+                bookingSlug={bookingSlug}
                 contactHref={contactHref}
                 pricing={{
                   ...pageData.pricing,

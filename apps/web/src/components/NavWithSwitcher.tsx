@@ -9,23 +9,18 @@ interface Props {
   locale: Locale;
   activeSection?: NavSection;
   siblings: Record<Locale, string>;
+  displayLang?: { label: string; full: string };
 }
 
 const THEME_STORAGE_KEY = "expertcont-theme";
 
-export default function NavWithSwitcher({ locale, activeSection, siblings }: Props) {
+export default function NavWithSwitcher({ locale, activeSection, siblings, displayLang }: Props) {
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
-  // Initialize theme from localStorage on mount; fall back to system preference.
   useEffect(() => {
     if (typeof window === "undefined") return;
     const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
-    const initial: "light" | "dark" =
-      stored === "dark" || stored === "light"
-        ? stored
-        : window.matchMedia?.("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "light";
+    const initial: "light" | "dark" = stored === "dark" ? "dark" : "light";
     setTheme(initial);
     document.documentElement.setAttribute("data-theme", initial);
   }, []);
@@ -43,6 +38,7 @@ export default function NavWithSwitcher({ locale, activeSection, siblings }: Pro
       <Nav
         locale={locale}
         activeSection={activeSection}
+        displayLang={displayLang}
         theme={theme}
         onThemeChange={handleThemeChange}
         onLocaleChange={(next) => {

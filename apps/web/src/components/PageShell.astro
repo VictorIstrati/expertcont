@@ -12,13 +12,21 @@ interface Props {
   activeSection?: NavSection;
   /** Sibling URLs per locale for the locale switcher. */
   siblings: Record<Locale, string>;
+  /** Shows a language as current that the switcher does not offer, e.g. Ukrainian. */
+  displayLang?: { label: string; full: string };
 }
 
-const { locale, activeSection, siblings } = Astro.props;
+const { locale, activeSection, siblings, displayLang } = Astro.props;
 const cookiePolicyHref = sectionUrl("cookies", locale);
 ---
 
-<NavWithSwitcher client:load locale={locale} activeSection={activeSection} siblings={siblings} />
+<NavWithSwitcher
+  client:load
+  locale={locale}
+  activeSection={activeSection}
+  siblings={siblings}
+  displayLang={displayLang}
+/>
 <main id="page-content">
   <slot />
 </main>

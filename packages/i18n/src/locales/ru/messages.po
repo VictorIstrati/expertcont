@@ -636,6 +636,11 @@ msgstr "Отправить вопрос"
 msgid "Trimite mesajul"
 msgstr "Отправить сообщение"
 
+#. Booking modal — service category: consular and legal support for Ukrainian citizens. Country name used as a short category label.
+#: ../../apps/web/src/components/modals/booking/strings.ts
+msgid "Ucraina"
+msgstr "Украина"
+
 #: ../../apps/web/src/components/modals/booking/strings.ts
 msgid "Vă vom contacta în mai puțin de 4 ore în zile lucrătoare pentru confirmare."
 msgstr "Мы свяжемся с вами в течение 4 часов в рабочие дни для подтверждения."

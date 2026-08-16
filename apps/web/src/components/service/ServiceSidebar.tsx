@@ -2,7 +2,7 @@ import { Icon, Button } from "@expertcont/ui";
 import type { IconName } from "@expertcont/ui";
 import type { ContentMeta } from "@expertcont/i18n";
 import { openModal } from "../../lib/modalBus";
-import { phoneTel } from "../../site";
+import { phoneTel, site } from "../../site";
 
 interface SidebarPricing {
   priceLabel: string;
@@ -11,6 +11,12 @@ interface SidebarPricing {
   callLabel: string;
   pricingHref: string;
   allPricingLabel: string;
+  /** Service-specific phone number, when this service is answered on its own
+   * line rather than the main office number. Falls back to the site phone. */
+  phone?: string;
+  /** Telegram target for this service: a username, or a phone in +373… form.
+   * Falls back to the company handle. */
+  telegramHandle?: string;
 }
 
 interface RelatedService {
@@ -22,6 +28,8 @@ interface RelatedService {
 interface ServiceSidebarProps {
   locale: string;
   contactHref: string;
+  /** Booking-modal slug so the CTA opens with this service already selected. */
+  bookingSlug: string;
   pricing: SidebarPricing;
   related: RelatedService[];
   offerEyebrow: string;
@@ -32,6 +40,7 @@ interface ServiceSidebarProps {
 
 export function ServiceSidebar({
   locale,
+  bookingSlug,
   pricing,
   related,
   offerEyebrow,
@@ -39,7 +48,41 @@ export function ServiceSidebar({
   offerSub,
   relatedHeading,
 }: ServiceSidebarProps) {
-  const priceLabel = locale === "ru" ? "Стоимость" : locale === "en" ? "Pricing" : "Preț";
+  const priceLabel =
+    locale === "ru"
+      ? "Стоимость"
+      : locale === "en"
+        ? "Pricing"
+        : locale === "uk"
+          ? "Вартість"
+          : "Preț";
+  const callHref = (pricing.phone ?? phoneTel).replace(/[^+\d]/g, "");
+  const messengerNumber = callHref.replace(/\D/g, "");
+  const messengers = [
+    {
+      name: "WhatsApp",
+      icon: "whatsapp" as IconName,
+      href: `https://wa.me/${messengerNumber}`,
+      className: "msg-wa",
+      external: true,
+    },
+    {
+      name: "Viber",
+      icon: "viber" as IconName,
+      href: `viber://chat?number=%2B${messengerNumber}`,
+      className: "msg-viber",
+      external: false,
+    },
+    {
+      name: "Telegram",
+      icon: "telegram" as IconName,
+      href: `https://t.me/${pricing.telegramHandle ?? site.business.telegram}`,
+      className: "msg-tg",
+      external: true,
+    },
+  ];
+  const messengerLabel =
+    locale === "ru" ? "Или напишите нам" : locale === "en" ? "Or message us" : "Sau scrieți-ne";
   return (
     <aside className="svc-detail-side flex flex-col gap-5 lg:sticky lg:top-nav-h">
       {/* CTA box */}
@@ -54,13 +97,13 @@ export function ServiceSidebar({
           <Button
             variant="primary"
             icon="calendar"
-            onClick={() => openModal("booking")}
+            onClick={() => openModal("booking", { service: bookingSlug })}
             className="w-full justify-center mb-3"
           >
             {pricing.ctaLabel}
           </Button>
           <Button
-            href={`tel:${phoneTel}`}
+            href={`tel:${callHref}`}
             variant="ghost"
             size="sm"
             icon="phone"
@@ -68,6 +111,30 @@ export function ServiceSidebar({
           >
             {pricing.callLabel}
           </Button>
+
+          <div className="mt-5 border-t border-white/20 pt-4">
+            <div className="mb-3 text-xs font-semibold uppercase tracking-wider text-white/70">
+              {messengerLabel}
+            </div>
+            <div className="flex items-center gap-3">
+              {messengers.map((m) => (
+                <a
+                  key={m.name}
+                  href={m.href}
+                  aria-label={`${m.name} · ${pricing.phone ?? phoneTel}`}
+                  {...(m.external ? { target: "_blank", rel: "noreferrer noopener" } : {})}
+                  className={`svc-msg ${m.className} flex h-11 w-11 items-center justify-center rounded-full border border-white/40 bg-white/10 text-white no-underline transition hover:bg-white hover:border-white`}
+                >
+                  <Icon name={m.icon} size={20} />
+                </a>
+              ))}
+            </div>
+          </div>
+          <style>{`
+            .svc-msg:hover.msg-wa { color: #25D366; }
+            .svc-msg:hover.msg-viber { color: #7360F2; }
+            .svc-msg:hover.msg-tg { color: #229ED9; }
+          `}</style>
         </div>
       </div>
 

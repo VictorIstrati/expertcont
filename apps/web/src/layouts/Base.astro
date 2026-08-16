@@ -30,6 +30,10 @@ interface Props {
    * without the catalog. Defaults to false.
    */
   includeOfferCatalog?: boolean;
+  /** Overrides the <html lang> attribute for pages outside the routing locales. */
+  langOverride?: string;
+  /** Extra hreflang alternates beyond ro/ru/en, e.g. a one-off Ukrainian page. */
+  extraAlternates?: { hreflang: string; href: string }[];
 }
 
 const {
@@ -44,6 +48,8 @@ const {
   modifiedTime,
   author,
   includeOfferCatalog = false,
+  langOverride,
+  extraAlternates = [],
 } = Astro.props;
 const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
 const canonical = `${siteUrl}${path}`;
@@ -53,7 +59,7 @@ const ga4Id = import.meta.env.PUBLIC_GA4_ID as string | undefined;
 const gscVerify = import.meta.env.PUBLIC_GSC_VERIFY as string | undefined;
 const bingVerify = import.meta.env.PUBLIC_BING_VERIFY as string | undefined;
 const alts: Record<Locale, string> = siblings ?? { ro: path, ru: path, en: path };
-const langAttr = locale === "ro" ? "ro" : locale === "ru" ? "ru" : "en";
+const langAttr = langOverride ?? (locale === "ro" ? "ro" : locale === "ru" ? "ru" : "en");
 const ogLocaleByLocale: Record<Locale, string> = {
   ro: "ro_RO",
   ru: "ru_RU",
@@ -155,10 +161,19 @@ const organizationJsonLd = {
 ---
 
 <!doctype html>
-<html lang={langAttr}>
+<html lang={langAttr} data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>
+      try {
+        if (window.localStorage.getItem("expertcont-theme") === "dark") {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      } catch (e) {
+        /* localStorage blocked — keep the light default */
+      }
+    </script>
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     <meta name="robots" content="index, follow" />
@@ -252,6 +267,11 @@ const organizationJsonLd = {
     <link rel="alternate" hreflang="ro" href={`${siteUrl}${alts.ro}`} />
     <link rel="alternate" hreflang="ru" href={`${siteUrl}${alts.ru}`} />
     <link rel="alternate" hreflang="en" href={`${siteUrl}${alts.en}`} />
+    {
+      extraAlternates.map((a) => (
+        <link rel="alternate" hreflang={a.hreflang} href={`${siteUrl}${a.href}`} />
+      ))
+    }
     <link rel="alternate" hreflang="x-default" href={`${siteUrl}${alts.ro}`} />
 
     <!-- Open Graph -->
