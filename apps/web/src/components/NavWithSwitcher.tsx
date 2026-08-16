@@ -14,12 +14,7 @@ interface Props {
 
 const THEME_STORAGE_KEY = "expertcont-theme";
 
-export default function NavWithSwitcher({
-  locale,
-  activeSection,
-  siblings,
-  displayLang,
-}: Props) {
+export default function NavWithSwitcher({ locale, activeSection, siblings, displayLang }: Props) {
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {

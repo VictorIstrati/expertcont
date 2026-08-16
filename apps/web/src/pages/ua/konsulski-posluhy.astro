@@ -21,7 +21,9 @@ const allMetas = await getCollection("services-meta");
 const meta = allMetas.find((e) => e.data.id === "ukrainians")!.data as ContentMeta;
 
 const allServices = await getCollection("services");
-const mdxEntry = allServices.find((e) => e.data.contentId === "ukrainians" && e.data.locale === "uk");
+const mdxEntry = allServices.find(
+  (e) => e.data.contentId === "ukrainians" && e.data.locale === "uk",
+);
 const { Content } = await render(mdxEntry!);
 
 const siblings: Record<Locale, string> = {

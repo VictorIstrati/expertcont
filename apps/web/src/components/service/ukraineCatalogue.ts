@@ -321,7 +321,12 @@ const CATEGORIES: UkraineCategory[] = [
   {
     id: "records",
     icon: "file-text",
-    shortTitles: { ro: "Acte și arhive", ru: "Документы и архивы", en: "Records & archives", uk: "Документи та архіви" },
+    shortTitles: {
+      ro: "Acte și arhive",
+      ru: "Документы и архивы",
+      en: "Records & archives",
+      uk: "Документи та архіви",
+    },
     titles: {
       ro: "Certificate de naștere, înregistrarea domiciliului și documente din arhivele Ucrainei",
       ru: "Свидетельства о рождении, регистрация места жительства и документы из архивов Украины",
@@ -376,7 +381,12 @@ const CATEGORIES: UkraineCategory[] = [
   {
     id: "moldova",
     icon: "check-circle",
-    shortTitles: { ro: "Statut în Moldova", ru: "Статус в Молдове", en: "Status in Moldova", uk: "Статус у Молдові" },
+    shortTitles: {
+      ro: "Statut în Moldova",
+      ru: "Статус в Молдове",
+      en: "Status in Moldova",
+      uk: "Статус у Молдові",
+    },
     titles: {
       ro: "Protecție temporară și permis de ședere în Republica Moldova",
       ru: "Временная защита и вид на жительство в Республике Молдова",
@@ -422,7 +432,12 @@ const CATEGORIES: UkraineCategory[] = [
   {
     id: "border",
     icon: "map-pin",
-    shortTitles: { ro: "Frontieră și vamă", ru: "Граница и таможня", en: "Border & customs", uk: "Кордон і митниця" },
+    shortTitles: {
+      ro: "Frontieră și vamă",
+      ru: "Граница и таможня",
+      en: "Border & customs",
+      uk: "Кордон і митниця",
+    },
     titles: {
       ro: "Trecerea frontierei Ucraina–Moldova: copii, vamă și vize",
       ru: "Пересечение границы Украина–Молдова: дети, таможня и визы",
@@ -477,7 +492,12 @@ const CATEGORIES: UkraineCategory[] = [
   {
     id: "family",
     icon: "users",
-    shortTitles: { ro: "Dreptul familiei", ru: "Семейное право", en: "Family law", uk: "Сімейне право" },
+    shortTitles: {
+      ro: "Dreptul familiei",
+      ru: "Семейное право",
+      en: "Family law",
+      uk: "Сімейне право",
+    },
     titles: {
       ro: "Divorț, pensie de întreținere și dreptul familiei în instanțele din Ucraina",
       ru: "Развод, алименты и семейные дела в судах Украины",
@@ -568,7 +588,12 @@ const CATEGORIES: UkraineCategory[] = [
   {
     id: "representation",
     icon: "scale",
-    shortTitles: { ro: "Reprezentare", ru: "Представительство", en: "Representation", uk: "Представництво" },
+    shortTitles: {
+      ro: "Reprezentare",
+      ru: "Представительство",
+      en: "Representation",
+      uk: "Представництво",
+    },
     titles: {
       ro: "Reprezentare în fața autorităților și instanțelor din Ucraina",
       ru: "Представительство перед органами и судами Украины",
