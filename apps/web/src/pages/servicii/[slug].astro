@@ -94,6 +94,11 @@ const jsonLd = [
         { label: "Servicii", href: sectionUrl("services", locale) },
         { label: meta.titles[locale] },
       ]}
+      action={
+        meta.id === "ukrainians"
+          ? { href: "/ua/konsulski-posluhy", label: "Українською", lang: "uk" }
+          : undefined
+      }
     />
     <!-- 2-column body -->
     <Section tone="default" id="svc-body">
