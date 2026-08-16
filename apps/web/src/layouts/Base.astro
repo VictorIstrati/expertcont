@@ -155,10 +155,19 @@ const organizationJsonLd = {
 ---
 
 <!doctype html>
-<html lang={langAttr}>
+<html lang={langAttr} data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>
+      try {
+        if (window.localStorage.getItem("expertcont-theme") === "dark") {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      } catch (e) {
+        /* localStorage blocked — keep the light default */
+      }
+    </script>
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     <meta name="robots" content="index, follow" />
