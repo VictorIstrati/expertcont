@@ -51,7 +51,10 @@ const guides = defineCollection({
 /** Per-entry meta (slugs map etc.). One meta JSON per content folder. */
 const servicesMeta = defineCollection({
   type: "data",
-  schema: baseMeta,
+  schema: baseMeta.extend({
+    /** Omit this service from the home-page services grid (services index only). */
+    hideFromHome: z.boolean().optional(),
+  }),
 });
 const blogMeta = defineCollection({
   type: "data",
