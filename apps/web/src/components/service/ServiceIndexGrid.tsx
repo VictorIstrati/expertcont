@@ -13,6 +13,7 @@ const SERVICE_ID_TO_BOOKING_SLUG: Record<string, string> = {
   consulting: "consultanta",
   hr: "hr",
   it: "it",
+  ukrainians: "ucraina",
 };
 
 interface ServiceItem {
@@ -146,6 +147,29 @@ function serviceFeatures(id: string, locale: string): string[] {
         "Process automation",
         "Web design and websites",
         "Ongoing maintenance (SLA < 4h)",
+      ],
+    },
+    ukrainians: {
+      ro: [
+        "Echipă vorbitoare de ucraineană și rusă",
+        "Programări la Ambasada Ucrainei",
+        "Pașapoarte, pensii, acte de stare civilă",
+        "Protecție temporară — asistență gratuită",
+        "Reprezentare în instanțele din Ucraina",
+      ],
+      ru: [
+        "Команда говорит по-украински и по-русски",
+        "Запись в Посольство Украины",
+        "Паспорта, пенсии, акты гражданского состояния",
+        "Временная защита — помощь бесплатно",
+        "Представительство в судах Украины",
+      ],
+      en: [
+        "Ukrainian- and Russian-speaking team",
+        "Ukrainian Embassy appointments",
+        "Passports, pensions, civil status records",
+        "Temporary protection — free of charge",
+        "Representation before Ukrainian courts",
       ],
     },
   };
