@@ -10,7 +10,7 @@ import { ServiceSidebar } from "../../components/service/ServiceSidebar";
 import { ServiceCTAStrip } from "../../components/service/ServiceCTAStrip";
 import { getServiceData } from "../../components/service/serviceData";
 import { UkraineCatalogueSection } from "../../components/service/UkraineCatalogueSection";
-import { UkraineExpertSection } from "../../components/service/UkraineExpertSection";
+import { UkraineExpertSection, ukraineExpertJsonLd } from "../../components/service/UkraineExpertSection";
 import { bookingSlugFor } from "../../lib/bookingSlugs";
 import type { IconName } from "@expertcont/ui";
 import { serviceJsonLd, breadcrumbListJsonLd } from "../../lib/jsonLd";
@@ -74,6 +74,7 @@ const jsonLd = [
     { name: "Servicii", url: sectionUrl("services", locale) },
     { name: meta.titles[locale], url: servicePath },
   ]),
+  ...(meta.id === "ukrainians" ? [ukraineExpertJsonLd(locale, servicePath)] : []),
 ];
 ---
 

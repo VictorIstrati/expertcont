@@ -78,6 +78,31 @@ export function faqPageJsonLd(entries: FaqEntry[]) {
   };
 }
 
+export interface PersonInput {
+  name: string;
+  jobTitle: string;
+  description: string;
+  alumniOf: string;
+  knowsLanguage: string[];
+  knowsAbout: string[];
+  url: string;
+}
+
+export function personJsonLd(p: PersonInput) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: p.name,
+    jobTitle: p.jobTitle,
+    description: p.description,
+    alumniOf: { "@type": "CollegeOrUniversity", name: p.alumniOf },
+    knowsLanguage: p.knowsLanguage,
+    knowsAbout: p.knowsAbout,
+    worksFor: { "@type": "Organization", name: "ExpertCont", url: SITE_URL },
+    mainEntityOfPage: `${SITE_URL}${p.url}`,
+  };
+}
+
 export interface ServiceInput {
   url: string;
   name: string;
