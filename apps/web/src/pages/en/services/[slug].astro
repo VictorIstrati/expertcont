@@ -84,6 +84,9 @@ const jsonLd = [
   path={servicePath}
   siblings={siblings}
   jsonLd={jsonLd}
+  extraAlternates={
+    meta.id === "ukrainians" ? [{ hreflang: "uk", href: "/ua/konsulski-posluhy" }] : []
+  }
 >
   <PageShell locale={locale} activeSection="services" siblings={siblings}>
     <!-- Page Header -->

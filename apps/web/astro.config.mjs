@@ -63,10 +63,12 @@ function loadMetaSlugs(dir) {
   for (const file of readdirSync(fullDir)) {
     if (!file.endsWith(".json")) continue;
     const data = JSON.parse(readFileSync(resolve(fullDir, file), "utf8"));
-    map[data.id] = { slugs: data.slugs, updated: data.updated };
+    map[data.id] = { slugs: data.slugs, updated: data.updated, ukSlug: data.uk?.slug };
   }
   return map;
 }
+
+const UA_SERVICE_PAGES = { ukrainians: "/ua/konsulski-posluhy" };
 
 const contentSlugs = {
   services: loadMetaSlugs("services-meta"),
@@ -77,9 +79,13 @@ const contentSlugs = {
 function buildAlternateIndex() {
   const index = new Map();
 
-  function add(siblings, lastmod) {
+  function add(siblings, lastmod, extras = []) {
+    const entry = { siblings, lastmod, extras };
     for (const locale of LOCALES) {
-      index.set(siblings[locale], { siblings, lastmod });
+      index.set(siblings[locale], entry);
+    }
+    for (const extra of extras) {
+      index.set(extra.path, entry);
     }
   }
 
@@ -95,13 +101,19 @@ function buildAlternateIndex() {
 
   for (const section of ["services", "blog", "guides"]) {
     for (const id of Object.keys(contentSlugs[section])) {
-      const { slugs, updated } = contentSlugs[section][id];
+      const { slugs, updated, ukSlug } = contentSlugs[section][id];
       const siblings = {};
       for (const locale of LOCALES) {
         siblings[locale] =
           `${localePrefix(locale)}/${routeSegments[section][locale]}/${slugs[locale]}`;
       }
-      add(siblings, updated);
+      const ukPath =
+        section === "blog" && ukSlug
+          ? `/ua/blog/${ukSlug}`
+          : section === "services"
+            ? UA_SERVICE_PAGES[id]
+            : undefined;
+      add(siblings, updated, ukPath ? [{ lang: "uk", path: ukPath }] : []);
     }
   }
 
@@ -157,6 +169,9 @@ export default defineConfig({
           lang: locale,
           url: `${SITE}${match.siblings[locale]}`,
         }));
+        for (const extra of match.extras ?? []) {
+          links.push({ lang: extra.lang, url: `${SITE}${extra.path}` });
+        }
         links.push({ lang: "x-default", url: `${SITE}${match.siblings.ro}` });
         return {
           ...item,
