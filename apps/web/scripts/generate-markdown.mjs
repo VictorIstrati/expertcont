@@ -110,6 +110,9 @@ function categorize(path) {
   } else if (path.startsWith("/en")) {
     locale = "en";
     rest = path.slice(3) || "/";
+  } else if (path.startsWith("/ua")) {
+    locale = "uk";
+    rest = path.slice(3) || "/";
   }
   if (rest === "/" || rest === "") return { section: "Home", locale, order: 0 };
 
@@ -141,6 +144,9 @@ function categorize(path) {
   };
 
   const [first, ...rest2] = r.split("/");
+  if (locale === "uk" && first === "konsulski-posluhy") {
+    return { section: "Services — articles", locale, order: 2, isDetail: true };
+  }
   for (const [section, slugs] of Object.entries(sections)) {
     if (slugs.includes(first)) {
       const isDetail = rest2.length > 0;
@@ -159,8 +165,8 @@ function categorize(path) {
   return { section: "Other", locale, order: 10, isDetail: false };
 }
 
-const LOCALE_LABEL = { ro: "RO", ru: "RU", en: "EN" };
-const LOCALE_ORDER = { ro: 0, ru: 1, en: 2 };
+const LOCALE_LABEL = { ro: "RO", ru: "RU", en: "EN", uk: "UK" };
+const LOCALE_ORDER = { ro: 0, ru: 1, en: 2, uk: 3 };
 
 function cleanTitle(title) {
   // Strip the " — ExpertCont" suffix that every page carries in its <title>.
@@ -206,11 +212,11 @@ function buildLlmsTxt(entries) {
   lines.push("# ExpertCont");
   lines.push("");
   lines.push(
-    "> Servicii de contabilitate, evidență contabilă, consultanță juridică, HR și IT pentru companii din Republica Moldova. Pachete transparente de la 2499 MDL/lună (Start, Standard, Premium). Site trilingv (română, rusă, engleză).",
+    "> Servicii de contabilitate, evidență contabilă, consultanță juridică, HR și IT pentru companii din Republica Moldova. Pachete transparente de la 2499 MDL/lună (Start, Standard, Premium). Servicii consulare și juridice pentru cetățenii Ucrainei din Moldova. Site în română, rusă și engleză, cu pagini în ucraineană pentru cetățenii Ucrainei.",
   );
   lines.push("");
   lines.push(
-    "ExpertCont is an accounting firm based in Chișinău, Moldova, serving SRL, SA, ÎI and NGO clients across the country. Every page on this site is also available as clean Markdown by appending `.md` to the URL (e.g. `/preturi` → `/preturi.md`). Links below point to those Markdown views.",
+    "ExpertCont is an accounting firm based in Chișinău, Moldova, serving SRL, SA, ÎI and NGO clients across the country. It also helps Ukrainian citizens living in Moldova with consular documents, Diia, pensions, family cases before Ukrainian courts and residence in Moldova; those pages are also published in Ukrainian under `/ua/`. Every page on this site is also available as clean Markdown by appending `.md` to the URL (e.g. `/preturi` → `/preturi.md`). Links below point to those Markdown views.",
   );
   lines.push("");
 

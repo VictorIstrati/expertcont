@@ -8,6 +8,7 @@ import { ServiceDetailBody } from "../../components/service/ServiceDetailBody";
 import { ServiceSidebar } from "../../components/service/ServiceSidebar";
 import { ServiceCTAStrip } from "../../components/service/ServiceCTAStrip";
 import { UkraineCatalogueSection } from "../../components/service/UkraineCatalogueSection";
+import { UkraineExpertSection } from "../../components/service/UkraineExpertSection";
 import { ukrainePageCopyUk } from "../../components/service/ukrainePageCopy.uk";
 import { UKRAINE_BOOKING_SLUG } from "../../components/service/ukraineCatalogue";
 import type { IconName } from "@expertcont/ui";
@@ -118,6 +119,8 @@ const jsonLd = [
             </article>
 
             <UkraineCatalogueSection client:visible locale="uk" />
+
+            <UkraineExpertSection client:visible locale="uk" />
 
             <ServiceDetailBody
               client:visible

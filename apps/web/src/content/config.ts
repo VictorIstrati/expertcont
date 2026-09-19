@@ -29,7 +29,7 @@ const blog = defineCollection({
   type: "content",
   schema: z.object({
     title: z.string(),
-    locale: z.enum(["ro", "ru", "en"]),
+    locale: z.enum(["ro", "ru", "en", "uk"]),
     contentId: z.string(),
     publishedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   }),
@@ -65,6 +65,14 @@ const blogMeta = defineCollection({
     featured: z.boolean().optional(),
     author: z.string().optional(),
     cover: z.string().optional(),
+    uk: z
+      .object({
+        slug: z.string(),
+        title: z.string(),
+        summary: z.string(),
+        category: z.string(),
+      })
+      .optional(),
   }),
 });
 const guidesMeta = defineCollection({

@@ -5,22 +5,22 @@ import Base from "../../../layouts/Base.astro";
 import PageShell from "../../../components/PageShell.astro";
 import { Container, Section, ImagePlaceholder, SectionHeader } from "@expertcont/ui";
 import { detailUrl, homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
-import { blogDetailProps, ukBlogPath, type BlogMeta } from "../../../lib/blogDetailProps";
+import { blogDetailProps, type BlogMeta } from "../../../lib/blogDetailProps";
 import { articleJsonLd, breadcrumbListJsonLd } from "../../../lib/jsonLd";
 
 export const getStaticPaths = (async () => {
   const metas = await getCollection("blog-meta");
-  return metas.map((m) => ({
-    params: { slug: m.data.slugs.ru },
-    props: { meta: m.data as BlogMeta },
-  }));
+  return metas.flatMap((m) =>
+    m.data.uk ? [{ params: { slug: m.data.uk.slug }, props: { meta: m.data as BlogMeta } }] : [],
+  );
 }) satisfies GetStaticPaths;
 
 const { meta } = Astro.props;
-const locale: Locale = "ru";
+const uk = meta.uk!;
+const chromeLocale: Locale = "ru";
 
 const allPosts = await getCollection("blog");
-const mdxEntry = allPosts.find((e) => e.data.contentId === meta.id && e.data.locale === "ru");
+const mdxEntry = allPosts.find((e) => e.data.contentId === meta.id && e.data.locale === "uk");
 const { Content } = await render(mdxEntry!);
 
 const siblings: Record<Locale, string> = {
@@ -29,39 +29,57 @@ const siblings: Record<Locale, string> = {
   en: detailUrl("blog", meta, "en"),
 };
 
-const { labels, related, indexHref, contactHref } = await blogDetailProps(meta, locale);
-const category = meta.category[locale];
-const articlePath = detailUrl("blog", meta, locale);
-const ukPath = ukBlogPath(meta);
+const labels = {
+  backToAll: "← Усі статті",
+  readTimeLabel: "хв читання",
+  tocLabel: "Зміст",
+  similarLabel: "Схожі статті",
+  continueReadingEyebrow: "Читати далі",
+  continueReadingTitle: "Схожі статті",
+  inlineCtaTitle: "Потрібна допомога з вашою ситуацією?",
+  inlineCtaSubtitle:
+    "Запишіться на консультацію з юристом ExpertCont. Консультуємо українською та російською.",
+  inlineCtaButton: "Записатися на консультацію",
+};
+
+const { related, indexHref } = await blogDetailProps(meta, chromeLocale);
+const serviceHref = "/ua/konsulski-posluhy";
+const articlePath = `/ua/blog/${uk.slug}`;
 const jsonLd = [
   articleJsonLd({
     url: articlePath,
-    title: meta.titles[locale],
-    description: meta.summaries[locale],
+    title: uk.title,
+    description: uk.summary,
     datePublished: meta.publishedAt,
     dateModified: meta.updated,
     author: meta.author,
-    locale,
-    section: category,
+    locale: "uk",
+    section: uk.category,
   }),
   breadcrumbListJsonLd([
-    { name: "Главная", url: homeUrl(locale) },
-    { name: "Блог", url: sectionUrl("blog", locale) },
-    { name: meta.titles[locale], url: articlePath },
+    { name: "Головна", url: homeUrl(chromeLocale) },
+    { name: "Блог", url: sectionUrl("blog", chromeLocale) },
+    { name: uk.title, url: articlePath },
   ]),
 ];
 ---
 
 <Base
-  title={`${meta.titles[locale]} — ExpertCont`}
-  description={meta.summaries[locale]}
-  locale={locale}
+  title={`${uk.title} — ExpertCont`}
+  description={uk.summary}
+  locale={chromeLocale}
   path={articlePath}
   siblings={siblings}
   jsonLd={jsonLd}
-  extraAlternates={ukPath ? [{ hreflang: "uk", href: ukPath }] : []}
+  langOverride="uk"
+  extraAlternates={[{ hreflang: "uk", href: articlePath }]}
 >
-  <PageShell locale={locale} activeSection="blog" siblings={siblings}>
+  <PageShell
+    locale={chromeLocale}
+    activeSection="blog"
+    siblings={siblings}
+    displayLang={{ label: "UK", full: "Українська" }}
+  >
     <Section tone="default" spacing="tight">
       <Container>
         <a
@@ -71,10 +89,10 @@ const jsonLd = [
           {labels.backToAll}
         </a>
         <div class="mb-5 flex gap-2">
-          <span class="pill">{category}</span>
+          <span class="pill">{uk.category}</span>
         </div>
         <h1 class="mb-6 max-w-3xl text-[clamp(30px,4vw,48px)] leading-tight">
-          {meta.titles[locale]}
+          {uk.title}
         </h1>
         <div class="mb-8 flex flex-wrap items-center gap-4 text-sm text-text-secondary">
           <span>{meta.publishedAt}</span>
@@ -93,7 +111,7 @@ const jsonLd = [
           meta.cover ? (
             <img
               src={meta.cover}
-              alt={meta.titles[locale]}
+              alt={uk.title}
               width="2100"
               height="900"
               loading="eager"
@@ -116,7 +134,7 @@ const jsonLd = [
               <h3 class="mb-3 text-white">{labels.inlineCtaTitle}</h3>
               <p class="mb-5 text-white/80">{labels.inlineCtaSubtitle}</p>
               <a
-                href={contactHref}
+                href={serviceHref}
                 class="btn btn-primary inline-flex items-center gap-2 no-underline"
               >
                 {labels.inlineCtaButton}
@@ -125,35 +143,9 @@ const jsonLd = [
           </article>
 
           <aside class="hidden flex-col gap-6 lg:flex">
-            <div class="card sticky top-nav-h p-6">
-              <div class="mb-4 text-xs font-bold uppercase tracking-widest text-text-secondary">
-                {labels.tocLabel}
-              </div>
-              {
-                [1, 2, 3].map((n) => (
-                  <div
-                    class:list={[
-                      "flex items-center gap-3 py-2 text-sm",
-                      n < 3 && "border-b border-border",
-                    ]}
-                  >
-                    <span
-                      class:list={[
-                        "flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold",
-                        n === 1 ? "bg-primary text-white" : "bg-border text-text-secondary",
-                      ]}
-                    >
-                      {n}
-                    </span>
-                    <span class="h-3 flex-1 rounded bg-border opacity-60" />
-                  </div>
-                ))
-              }
-            </div>
-
             {
               related.length > 0 && (
-                <div class="card p-6">
+                <div class="card sticky top-nav-h p-6">
                   <div class="mb-4 text-xs font-bold uppercase tracking-widest text-text-secondary">
                     {labels.similarLabel}
                   </div>

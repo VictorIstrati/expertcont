@@ -11,6 +11,7 @@ import { ServiceSidebar } from "../../../components/service/ServiceSidebar";
 import { ServiceCTAStrip } from "../../../components/service/ServiceCTAStrip";
 import { getServiceData } from "../../../components/service/serviceData";
 import { UkraineCatalogueSection } from "../../../components/service/UkraineCatalogueSection";
+import { UkraineExpertSection } from "../../../components/service/UkraineExpertSection";
 import { bookingSlugFor } from "../../../lib/bookingSlugs";
 import type { IconName } from "@expertcont/ui";
 
@@ -83,6 +84,9 @@ const jsonLd = [
   path={servicePath}
   siblings={siblings}
   jsonLd={jsonLd}
+  extraAlternates={
+    meta.id === "ukrainians" ? [{ hreflang: "uk", href: "/ua/konsulski-posluhy" }] : []
+  }
 >
   <PageShell locale={locale} activeSection="services" siblings={siblings}>
     <!-- Page Header -->
@@ -180,6 +184,7 @@ const jsonLd = [
             </article>
 
             {meta.id === "ukrainians" && <UkraineCatalogueSection client:visible locale={locale} />}
+            {meta.id === "ukrainians" && <UkraineExpertSection client:visible locale={locale} />}
 
             {
               pageData && (

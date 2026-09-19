@@ -27,7 +27,7 @@ export interface ArticleInput {
   datePublished: string;
   dateModified?: string;
   author?: string;
-  locale: Locale;
+  locale: Locale | "uk";
   imageUrl?: string;
   section?: string;
 }

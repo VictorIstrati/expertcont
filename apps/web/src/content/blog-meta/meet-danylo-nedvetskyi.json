@@ -1,0 +1,35 @@
+{
+  "id": "meet-danylo-nedvetskyi",
+  "slugs": {
+    "ro": "danylo-nedvetskyi-jurist-cetateni-ucraina-moldova",
+    "ru": "danylo-nedvetskyi-yurist-dlya-grazhdan-ukrainy-v-moldove",
+    "en": "danylo-nedvetskyi-lawyer-ukrainian-citizens-moldova"
+  },
+  "titles": {
+    "ro": "Danylo Nedvetskyi: juristul ExpertCont pentru cetățenii Ucrainei din Moldova",
+    "ru": "Danylo Nedvetskyi: юрист ExpertCont для граждан Украины в Молдове",
+    "en": "Meet Danylo Nedvetskyi, ExpertCont's lawyer for Ukrainian citizens in Moldova"
+  },
+  "summaries": {
+    "ro": "Danylo Nedvetskyi, jurist cu LL.M. la Leiden și peste 2.500 de consultații pentru ucraineni din străinătate, se ocupă la ExpertCont de documente, pensii, Diia, dosare de familie și ședere în Moldova.",
+    "ru": "Danylo Nedvetskyi, юрист с LL.M. Лейденского университета и более 2 500 консультаций для украинцев за границей, ведёт в ExpertCont документы, пенсии, Дію, семейные дела и проживание в Молдове.",
+    "en": "Danylo Nedvetskyi, a Leiden LL.M. lawyer with 2,500+ consultations for Ukrainians abroad, now handles documents, pensions, Diia, family cases and residence in Moldova at ExpertCont."
+  },
+  "category": {
+    "ro": "Cetățenii Ucrainei",
+    "ru": "Граждане Украины",
+    "en": "Ukrainian citizens"
+  },
+  "readTime": 5,
+  "featured": false,
+  "author": "Echipa ExpertCont",
+  "cover": "/blog-meet-danylo-nedvetskyi.webp",
+  "updated": "2026-09-18",
+  "publishedAt": "2026-09-18",
+  "uk": {
+    "slug": "danylo-nedvetskyi-yurist-dlia-hromadian-ukrainy-v-moldovi",
+    "title": "Danylo Nedvetskyi: юрист ExpertCont для громадян України в Молдові",
+    "summary": "Danylo Nedvetskyi, юрист з LL.M. Лейденського університету та понад 2 500 консультаціями для українців за кордоном, веде в ExpertCont документи, пенсії, Дію, сімейні справи та проживання в Молдові.",
+    "category": "Громадяни України"
+  }
+}
