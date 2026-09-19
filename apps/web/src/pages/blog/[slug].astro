@@ -5,7 +5,7 @@ import Base from "../../layouts/Base.astro";
 import PageShell from "../../components/PageShell.astro";
 import { Container, Section, ImagePlaceholder, SectionHeader } from "@expertcont/ui";
 import { detailUrl, homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
-import { blogDetailProps, type BlogMeta } from "../../lib/blogDetailProps";
+import { blogDetailProps, ukBlogPath, type BlogMeta } from "../../lib/blogDetailProps";
 import { articleJsonLd, breadcrumbListJsonLd } from "../../lib/jsonLd";
 
 export const getStaticPaths = (async () => {
@@ -32,6 +32,7 @@ const siblings: Record<Locale, string> = {
 const { labels, related, indexHref, contactHref } = await blogDetailProps(meta, locale);
 const category = meta.category[locale];
 const articlePath = detailUrl("blog", meta, locale);
+const ukPath = ukBlogPath(meta);
 const jsonLd = [
   articleJsonLd({
     url: articlePath,
@@ -58,6 +59,7 @@ const jsonLd = [
   path={articlePath}
   siblings={siblings}
   jsonLd={jsonLd}
+  extraAlternates={ukPath ? [{ hreflang: "uk", href: ukPath }] : []}
 >
   <PageShell locale={locale} activeSection="blog" siblings={siblings}>
     <Section tone="default" spacing="tight">

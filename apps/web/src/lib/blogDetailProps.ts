@@ -8,6 +8,11 @@ export interface BlogMeta extends ContentMeta {
   featured?: boolean;
   author?: string;
   cover?: string;
+  uk?: { slug: string; title: string; summary: string; category: string };
+}
+
+export function ukBlogPath(meta: BlogMeta): string | undefined {
+  return meta.uk ? `/ua/blog/${meta.uk.slug}` : undefined;
 }
 
 interface DetailLabels {
