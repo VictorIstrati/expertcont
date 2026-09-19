@@ -61,7 +61,7 @@ export function Footer({ locale, address, phone, email, onNewsletterSubscribe }:
                 <Trans>Monthly newsletter — no spam, unsubscribe any time.</Trans>
               </div>
             </div>
-            <form className={styles.newsletterForm} onSubmit={handleSubmit}>
+            <form className={styles.newsletterForm} onSubmit={handleSubmit} data-clarity-mask="true">
               <input
                 type="email"
                 required

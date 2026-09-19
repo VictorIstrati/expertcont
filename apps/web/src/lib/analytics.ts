@@ -6,7 +6,7 @@
  * inline bootstrap in Base.astro before GTM loads.
  */
 
-import type { Locale } from "@expertcont/i18n";
+import { sectionUrl, type Locale } from "@expertcont/i18n";
 
 declare global {
   interface Window {
@@ -175,8 +175,18 @@ export function clearTrackingCookies(): void {
  *
  * Should only be invoked once consent has been granted.
  */
+const CLARITY_EXCLUDED_SECTIONS = ["contact", "faq"] as const;
+
+function isClarityExcludedPage(pathname: string): boolean {
+  const path = pathname.replace(/\.html$/, "").replace(/\/$/, "") || "/";
+  return CLARITY_EXCLUDED_SECTIONS.some((section) =>
+    (["ro", "ru", "en"] as const).some((locale) => path === sectionUrl(section, locale)),
+  );
+}
+
 export async function initClarity(): Promise<void> {
   if (typeof window === "undefined") return;
+  if (isClarityExcludedPage(window.location.pathname)) return;
   const projectId = import.meta.env.PUBLIC_CLARITY_PROJECT_ID as string | undefined;
   if (!projectId) return;
   const Clarity = (await import("@microsoft/clarity")).default;
