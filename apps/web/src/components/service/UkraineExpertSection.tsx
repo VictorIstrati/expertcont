@@ -1,5 +1,6 @@
 import { Button, Icon } from "@expertcont/ui";
 import { openModal } from "../../lib/modalBus";
+import { personJsonLd } from "../../lib/jsonLd";
 import { UKRAINE_BOOKING_SLUG, type PageLocale } from "./ukraineCatalogue";
 
 interface Props {
@@ -111,6 +112,19 @@ const COPY: Record<PageLocale, ExpertCopy> = {
     cta: "Записатися на консультацію",
   },
 };
+
+export function ukraineExpertJsonLd(locale: PageLocale, url: string) {
+  const t = COPY[locale];
+  return personJsonLd({
+    name: NAME,
+    jobTitle: t.role,
+    description: t.bio,
+    alumniOf: "Leiden University",
+    knowsLanguage: ["uk", "en", "ru"],
+    knowsAbout: t.areas,
+    url,
+  });
+}
 
 export function UkraineExpertSection({ locale }: Props) {
   const t = COPY[locale];

@@ -170,7 +170,7 @@ export function FaqQuestionForm({
             </Button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4" data-clarity-mask="true">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="field">
                 <label htmlFor={nameId}>{formNameLabel} *</label>

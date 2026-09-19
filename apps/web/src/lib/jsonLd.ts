@@ -36,7 +36,11 @@ export function articleJsonLd(a: ArticleInput) {
   // Google's Article rich result requires `image`; fall back to the sitewide
   // OG image so the rule is always satisfied even when the article doesn't
   // provide a custom hero yet.
-  const image = a.imageUrl ?? `${SITE_URL}/og.png`;
+  const image = a.imageUrl
+    ? a.imageUrl.startsWith("/")
+      ? `${SITE_URL}${a.imageUrl}`
+      : a.imageUrl
+    : `${SITE_URL}/og.png`;
   return {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -71,6 +75,31 @@ export function faqPageJsonLd(entries: FaqEntry[]) {
       name: e.q,
       acceptedAnswer: { "@type": "Answer", text: e.a },
     })),
+  };
+}
+
+export interface PersonInput {
+  name: string;
+  jobTitle: string;
+  description: string;
+  alumniOf: string;
+  knowsLanguage: string[];
+  knowsAbout: string[];
+  url: string;
+}
+
+export function personJsonLd(p: PersonInput) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: p.name,
+    jobTitle: p.jobTitle,
+    description: p.description,
+    alumniOf: { "@type": "CollegeOrUniversity", name: p.alumniOf },
+    knowsLanguage: p.knowsLanguage,
+    knowsAbout: p.knowsAbout,
+    worksFor: { "@type": "Organization", name: "ExpertCont", url: SITE_URL },
+    mainEntityOfPage: `${SITE_URL}${p.url}`,
   };
 }
 

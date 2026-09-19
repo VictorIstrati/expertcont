@@ -2,6 +2,7 @@ import { useId } from "react";
 import { Icon } from "@expertcont/ui";
 import { localeTag, type Locale } from "@expertcont/i18n";
 import type { BookingData, Strings } from "./types";
+import { PrivacyNotice } from "../../PrivacyNotice";
 
 interface Props {
   data: BookingData;
@@ -63,6 +64,7 @@ export function ContactStep({ data, onChange, t, locale }: Props) {
           placeholder="Ce te interesează în mod special..."
         />
       </div>
+      <PrivacyNotice locale={locale} sensitiveHint />
       {data.date && (
         <div className="p-4 bg-bg-section-alt rounded-sm text-sm text-text-secondary">
           <div className="flex items-center gap-2 mb-2 font-semibold text-text-primary">

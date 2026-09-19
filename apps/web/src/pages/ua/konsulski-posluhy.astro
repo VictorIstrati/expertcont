@@ -8,7 +8,10 @@ import { ServiceDetailBody } from "../../components/service/ServiceDetailBody";
 import { ServiceSidebar } from "../../components/service/ServiceSidebar";
 import { ServiceCTAStrip } from "../../components/service/ServiceCTAStrip";
 import { UkraineCatalogueSection } from "../../components/service/UkraineCatalogueSection";
-import { UkraineExpertSection } from "../../components/service/UkraineExpertSection";
+import {
+  UkraineExpertSection,
+  ukraineExpertJsonLd,
+} from "../../components/service/UkraineExpertSection";
 import { ukrainePageCopyUk } from "../../components/service/ukrainePageCopy.uk";
 import { UKRAINE_BOOKING_SLUG } from "../../components/service/ukraineCatalogue";
 import type { IconName } from "@expertcont/ui";
@@ -66,6 +69,7 @@ const jsonLd = [
     { name: "Послуги", url: sectionUrl("services", chromeLocale) },
     { name: title, url: UA_PATH },
   ]),
+  ukraineExpertJsonLd("uk", UA_PATH),
 ];
 ---
 

@@ -48,6 +48,7 @@ export function Modal({
       onClick={onBackdrop}
       role="dialog"
       aria-modal="true"
+      data-clarity-mask="true"
       aria-label={title}
     >
       <div

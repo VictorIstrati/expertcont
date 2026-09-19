@@ -1,12 +1,13 @@
 import { useId, useState } from "react";
 import { Trans, useLingui } from "@lingui/react/macro";
 import { Button, Container, Icon, PageHeader } from "@expertcont/ui";
-import { I18nRoot, sectionUrl } from "@expertcont/i18n";
+import { I18nRoot } from "@expertcont/i18n";
 import type { Locale } from "@expertcont/i18n";
 import { openModal } from "../../lib/modalBus";
 import { backendClient, detectLanguage } from "../../lib/backend";
 import { track } from "../../lib/analytics";
 import { OfficeMap } from "./OfficeMap";
+import { PrivacyNotice } from "../PrivacyNotice";
 
 export interface ContactIslandProps {
   locale: Locale;
@@ -52,7 +53,6 @@ function ContactInner({ locale, address, phone, email, hours, geo }: ContactIsla
   const { t } = useLingui();
   const homeHref = locale === "ro" ? "/" : `/${locale}`;
   const services = useServiceOptions();
-  const privacyHref = sectionUrl("privacy", locale);
 
   const nameId = useId();
   const emailId = useId();
@@ -133,7 +133,11 @@ function ContactInner({ locale, address, phone, email, hours, geo }: ContactIsla
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                <form
+                  onSubmit={handleSubmit}
+                  className="flex flex-col gap-5"
+                  data-clarity-mask="true"
+                >
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="field">
                       <label htmlFor={nameId} className="block text-sm font-semibold mb-2">
@@ -237,16 +241,7 @@ function ContactInner({ locale, address, phone, email, hours, geo }: ContactIsla
                       placeholder={t`Spune-ne pe scurt despre afacerea ta...`}
                     />
                   </div>
-                  <p className="text-xs text-text-secondary leading-relaxed">
-                    <Trans>
-                      Prin trimiterea formularului ești de acord cu prelucrarea datelor conform GDPR
-                      și{" "}
-                      <a href={privacyHref} className="text-primary underline">
-                        Politica de confidențialitate
-                      </a>
-                      .
-                    </Trans>
-                  </p>
+                  <PrivacyNotice locale={locale} />
                   {errorMsg ? (
                     <p role="alert" className="text-sm text-[#B91C1C]">
                       {errorMsg}

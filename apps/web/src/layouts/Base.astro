@@ -3,6 +3,12 @@ import "../styles/global.css";
 import { getCollection } from "astro:content";
 import { detailUrl, type Locale, type ContentMeta } from "@expertcont/i18n";
 import { site } from "../site";
+import {
+  CONSENT_MAX_AGE_DAYS,
+  CONSENT_STORAGE_KEY,
+  CONSENT_VERSION,
+  type AnalyticsConfig,
+} from "../lib/analytics";
 
 interface Props {
   title: string;
@@ -34,6 +40,7 @@ interface Props {
   langOverride?: string;
   /** Extra hreflang alternates beyond ro/ru/en, e.g. a one-off Ukrainian page. */
   extraAlternates?: { hreflang: string; href: string }[];
+  image?: string;
 }
 
 const {
@@ -50,12 +57,20 @@ const {
   includeOfferCatalog = false,
   langOverride,
   extraAlternates = [],
+  image,
 } = Astro.props;
 const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
 const canonical = `${siteUrl}${path}`;
 
 const gtmId = import.meta.env.PUBLIC_GTM_ID as string | undefined;
 const ga4Id = import.meta.env.PUBLIC_GA4_ID as string | undefined;
+const analyticsConfig: AnalyticsConfig = {
+  consentKey: CONSENT_STORAGE_KEY,
+  consentVersion: CONSENT_VERSION,
+  consentMaxAgeDays: CONSENT_MAX_AGE_DAYS,
+  ga4Id: ga4Id ?? "",
+  gtmId: gtmId ?? "",
+};
 const gscVerify = import.meta.env.PUBLIC_GSC_VERIFY as string | undefined;
 const bingVerify = import.meta.env.PUBLIC_BING_VERIFY as string | undefined;
 const alts: Record<Locale, string> = siblings ?? { ro: path, ru: path, en: path };
@@ -67,7 +82,7 @@ const ogLocaleByLocale: Record<Locale, string> = {
 };
 const ogLocale = langOverride === "uk" ? "uk_UA" : ogLocaleByLocale[locale];
 const ogLocaleAlternates = Object.values(ogLocaleByLocale).filter((l) => l !== ogLocale);
-const ogImage = `${siteUrl}/og.png`;
+const ogImage = image ? `${siteUrl}${image}` : `${siteUrl}/og.png`;
 const ogImageAlt = title;
 
 // Build a Service catalog from the services-meta collection so the schema
@@ -187,32 +202,47 @@ const organizationJsonLd = {
         users who previously accepted get an immediate inline upgrade so we
         don't lose a pageview waiting for React hydration. */
     }
+    <script
+      is:inline
+      set:html={`window.expertcontAnalyticsConfig = ${JSON.stringify(analyticsConfig)};`}
+    />
     <script is:inline>
       (function () {
+        var config = window.expertcontAnalyticsConfig;
         window.dataLayer = window.dataLayer || [];
         function gtag() {
           window.dataLayer.push(arguments);
         }
         window.gtag = gtag;
-        var granted = {
-          ad_storage: "granted",
-          ad_user_data: "granted",
-          ad_personalization: "granted",
-          analytics_storage: "granted",
-        };
-        var denied = {
+        gtag("consent", "default", {
           ad_storage: "denied",
           ad_user_data: "denied",
           ad_personalization: "denied",
           analytics_storage: "denied",
-        };
-        gtag("consent", "default", denied);
+        });
+        var consent = null;
         try {
-          if (window.localStorage.getItem("expertcont-cookie-consent") === "accepted") {
-            gtag("consent", "update", granted);
+          var record = JSON.parse(window.localStorage.getItem(config.consentKey) || "null");
+          var ageDays = record ? (Date.now() - Date.parse(record.date)) / 86400000 : Infinity;
+          if (
+            record &&
+            record.version === config.consentVersion &&
+            ageDays <= config.consentMaxAgeDays
+          ) {
+            consent = record;
           }
         } catch (e) {
-          /* localStorage blocked — leave defaults */
+          /* localStorage blocked or unreadable — no consent */
+        }
+        window.expertcontStoredConsent = consent;
+        if (consent) {
+          var marketing = consent.marketing ? "granted" : "denied";
+          gtag("consent", "update", {
+            analytics_storage: consent.analytics ? "granted" : "denied",
+            ad_storage: marketing,
+            ad_user_data: marketing,
+            ad_personalization: marketing,
+          });
         }
 
         // Track tel: link clicks via event delegation (covers all components).
@@ -233,26 +263,32 @@ const organizationJsonLd = {
       })();
     </script>
 
-    {
-      ga4Id && (
-        <>
-          <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`} />
-          <script
-            is:inline
-            set:html={`gtag('js', new Date()); gtag('config', '${ga4Id}', { send_page_view: true });`}
-          />
-        </>
-      )
-    }
-
-    {
-      gtmId && (
-        <script
-          is:inline
-          set:html={`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${gtmId}');`}
-        />
-      )
-    }
+    <script is:inline>
+      window.expertcontLoadAnalytics = function (choices) {
+        var ga4Id = window.expertcontAnalyticsConfig.ga4Id;
+        var gtmId = window.expertcontAnalyticsConfig.gtmId;
+        if (choices.analytics && ga4Id && !window.expertcontGa4Loaded) {
+          window.expertcontGa4Loaded = true;
+          var ga = document.createElement("script");
+          ga.async = true;
+          ga.src = "https://www.googletagmanager.com/gtag/js?id=" + ga4Id;
+          document.head.appendChild(ga);
+          window.gtag("js", new Date());
+          window.gtag("config", ga4Id, { send_page_view: true });
+        }
+        if (choices.marketing && gtmId && !window.expertcontGtmLoaded) {
+          window.expertcontGtmLoaded = true;
+          window.dataLayer.push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+          var gtm = document.createElement("script");
+          gtm.async = true;
+          gtm.src = "https://www.googletagmanager.com/gtm.js?id=" + gtmId;
+          document.head.appendChild(gtm);
+        }
+      };
+      if (window.expertcontStoredConsent) {
+        window.expertcontLoadAnalytics(window.expertcontStoredConsent);
+      }
+    </script>
 
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
@@ -278,9 +314,15 @@ const organizationJsonLd = {
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1640" />
-    <meta property="og:image:height" content="856" />
+    {
+      !image && (
+        <>
+          <meta property="og:image:type" content="image/png" />
+          <meta property="og:image:width" content="1640" />
+          <meta property="og:image:height" content="856" />
+        </>
+      )
+    }
     <meta property="og:image:alt" content={ogImageAlt} />
     <meta property="og:locale" content={ogLocale} />
     {ogLocaleAlternates.map((l) => <meta property="og:locale:alternate" content={l} />)}
@@ -312,33 +354,15 @@ const organizationJsonLd = {
         ))
     }
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
+      as="font"
+      type="font/woff2"
+      href="/fonts/montserrat-latin.woff2"
+      crossorigin
     />
   </head>
   <body>
-    {
-      gtmId && (
-        <noscript>
-          <iframe
-            src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
-            height="0"
-            width="0"
-            class="hidden"
-            aria-hidden="true"
-            title="gtm"
-          />
-        </noscript>
-      )
-    }
     <slot />
   </body>
 </html>

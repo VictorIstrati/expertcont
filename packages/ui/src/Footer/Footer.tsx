@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
 import { Trans, useLingui } from "@lingui/react/macro";
 import type { Locale } from "@expertcont/i18n";
 import { sectionUrl, serviceDetailUrl } from "@expertcont/i18n";
@@ -21,9 +21,17 @@ export interface FooterProps {
    * flips to success on submit.
    */
   onNewsletterSubscribe?: (email: string) => boolean | Promise<boolean>;
+  newsletterNote?: ReactNode;
 }
 
-export function Footer({ locale, address, phone, email, onNewsletterSubscribe }: FooterProps) {
+export function Footer({
+  locale,
+  address,
+  phone,
+  email,
+  onNewsletterSubscribe,
+  newsletterNote,
+}: FooterProps) {
   const { t } = useLingui();
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
@@ -60,8 +68,13 @@ export function Footer({ locale, address, phone, email, onNewsletterSubscribe }:
               <div className={styles.newsletterSub}>
                 <Trans>Monthly newsletter — no spam, unsubscribe any time.</Trans>
               </div>
+              {newsletterNote && <div className={styles.newsletterNote}>{newsletterNote}</div>}
             </div>
-            <form className={styles.newsletterForm} onSubmit={handleSubmit}>
+            <form
+              className={styles.newsletterForm}
+              onSubmit={handleSubmit}
+              data-clarity-mask="true"
+            >
               <input
                 type="email"
                 required

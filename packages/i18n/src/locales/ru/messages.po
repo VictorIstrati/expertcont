@@ -36,6 +36,7 @@ msgid "Acasă"
 msgstr "Главная"
 
 #: ../../apps/web/src/components/CookieBanner.tsx
+#: ../../apps/web/src/components/CookieBanner.tsx
 msgid "Accept all"
 msgstr "Принять все"
 
@@ -415,6 +416,7 @@ msgid "Online"
 msgstr "Онлайн"
 
 #: ../../apps/web/src/components/CookieBanner.tsx
+#: ../../apps/web/src/components/CookieBanner.tsx
 msgid "Only necessary"
 msgstr "Только необходимые"
 
@@ -446,10 +448,6 @@ msgstr "Цены и договор"
 #: ../ui/src/Nav/Nav.tsx
 msgid "Pricing"
 msgstr "Цены"
-
-#: ../../apps/web/src/components/contact/ContactIsland.tsx
-msgid "Prin trimiterea formularului ești de acord cu prelucrarea datelor conform GDPR și <0>Politica de confidențialitate</0>."
-msgstr "Отправляя форму, вы соглашаетесь на обработку данных согласно GDPR и <0>Политикой конфиденциальности</0>."
 
 #: ../ui/src/Footer/Footer.tsx
 msgid "Privacy"
@@ -660,7 +658,3 @@ msgstr "Мы вернёмся к вам в течение 4 часов в раб
 #: ../../apps/web/src/components/CookieBanner.tsx
 msgid "We use cookies"
 msgstr "Мы используем cookies"
-
-#: ../../apps/web/src/components/CookieBanner.tsx
-msgid "We use cookies to improve your experience and for anonymous analytics. Accept all or customize your preferences."
-msgstr "Мы используем cookies, чтобы улучшить ваш опыт, и для анонимной аналитики. Примите все или настройте предпочтения."
