@@ -70,7 +70,11 @@ export function Footer({
               </div>
               {newsletterNote && <div className={styles.newsletterNote}>{newsletterNote}</div>}
             </div>
-            <form className={styles.newsletterForm} onSubmit={handleSubmit} data-clarity-mask="true">
+            <form
+              className={styles.newsletterForm}
+              onSubmit={handleSubmit}
+              data-clarity-mask="true"
+            >
               <input
                 type="email"
                 required
