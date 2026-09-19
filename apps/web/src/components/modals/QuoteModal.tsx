@@ -5,6 +5,7 @@ import { Modal } from "./Modal";
 import type { BreakdownItem } from "../pricing/calcMath";
 import { backendClient, detectLanguage } from "../../lib/backend";
 import { track } from "../../lib/analytics";
+import { PrivacyNotice } from "../PrivacyNotice";
 
 interface Props {
   open: boolean;
@@ -30,7 +31,6 @@ interface Strings {
   phonePlaceholder: string;
   messageLabel: string;
   messagePlaceholder: string;
-  consentNote: string;
   cancel: string;
   submit: string;
   sending: string;
@@ -54,7 +54,6 @@ const strings: Record<Locale, Strings> = {
     phonePlaceholder: "+373 ...",
     messageLabel: "Mesaj (opțional)",
     messagePlaceholder: "Detalii suplimentare despre afacerea ta...",
-    consentNote: "Prin trimitere ești de acord cu prelucrarea datelor conform GDPR.",
     cancel: "Anulează",
     submit: "Trimite cererea",
     sending: "Se trimite…",
@@ -77,7 +76,6 @@ const strings: Record<Locale, Strings> = {
     phonePlaceholder: "+373 ...",
     messageLabel: "Сообщение (необязательно)",
     messagePlaceholder: "Дополнительные сведения о вашем бизнесе...",
-    consentNote: "Отправляя форму, вы соглашаетесь на обработку данных согласно GDPR.",
     cancel: "Отмена",
     submit: "Отправить запрос",
     sending: "Отправка…",
@@ -100,7 +98,6 @@ const strings: Record<Locale, Strings> = {
     phonePlaceholder: "+373 ...",
     messageLabel: "Message (optional)",
     messagePlaceholder: "Additional details about your business...",
-    consentNote: "By submitting you agree to data processing per GDPR.",
     cancel: "Cancel",
     submit: "Send request",
     sending: "Sending…",
@@ -289,7 +286,7 @@ export function QuoteModal({ open, onClose, locale, quote }: Props) {
             />
           </div>
 
-          <p className="text-xs text-text-secondary m-0">{t.consentNote}</p>
+          <PrivacyNotice locale={locale} />
 
           {errorMsg ? (
             <p role="alert" className="text-sm text-[#B91C1C] m-0">

@@ -4,6 +4,7 @@ import { localeTag, type Locale } from "@expertcont/i18n";
 import { Modal } from "./Modal";
 import { backendClient, detectLanguage } from "../../lib/backend";
 import { track } from "../../lib/analytics";
+import { PrivacyNotice } from "../PrivacyNotice";
 
 export interface TierBookingSelection {
   tierName: string;
@@ -38,7 +39,6 @@ interface Strings {
   namePlaceholder: string;
   phoneLabel: string;
   phonePlaceholder: string;
-  consentNote: string;
   cancel: string;
   submit: string;
   sending: string;
@@ -64,7 +64,6 @@ const strings: Record<Locale, Strings> = {
     namePlaceholder: "Ion Popescu",
     phoneLabel: "Telefon",
     phonePlaceholder: "+373 ...",
-    consentNote: "Prin trimitere ești de acord cu prelucrarea datelor conform GDPR.",
     cancel: "Anulează",
     submit: "Trimite cererea",
     sending: "Se trimite…",
@@ -88,7 +87,6 @@ const strings: Record<Locale, Strings> = {
     namePlaceholder: "Ион Попеску",
     phoneLabel: "Телефон",
     phonePlaceholder: "+373 ...",
-    consentNote: "Отправляя форму, вы соглашаетесь на обработку данных согласно GDPR.",
     cancel: "Отмена",
     submit: "Отправить запрос",
     sending: "Отправка…",
@@ -112,7 +110,6 @@ const strings: Record<Locale, Strings> = {
     namePlaceholder: "Ion Popescu",
     phoneLabel: "Phone",
     phonePlaceholder: "+373 ...",
-    consentNote: "By submitting you agree to data processing per GDPR.",
     cancel: "Cancel",
     submit: "Send request",
     sending: "Sending…",
@@ -256,7 +253,7 @@ export function TierBookingModal({ open, onClose, locale, selection }: Props) {
             />
           </div>
 
-          <p className="text-xs text-text-secondary m-0">{t.consentNote}</p>
+          <PrivacyNotice locale={locale} />
 
           {errorMsg ? (
             <p role="alert" className="text-sm text-[#B91C1C] m-0">
