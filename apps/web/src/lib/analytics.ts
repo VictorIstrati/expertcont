@@ -13,6 +13,7 @@ declare global {
     dataLayer?: Array<Record<string, unknown> | IArguments | unknown[]>;
     gtag?: (...args: unknown[]) => void;
     expertcontLoadAnalytics?: (choices: ConsentChoices) => void;
+    expertcontAnalyticsConfig: AnalyticsConfig;
     expertcontCookieSettingsRequested?: boolean;
   }
 }
@@ -78,6 +79,14 @@ export const CONSENT_STORAGE_KEY = "expertcont-cookie-consent";
 export const CONSENT_VERSION = 2;
 export const CONSENT_MAX_AGE_DAYS = 365;
 export const COOKIE_SETTINGS_EVENT = "expertcont:cookie-settings";
+
+export interface AnalyticsConfig {
+  consentKey: string;
+  consentVersion: number;
+  consentMaxAgeDays: number;
+  ga4Id: string;
+  gtmId: string;
+}
 
 export interface ConsentChoices {
   analytics: boolean;
