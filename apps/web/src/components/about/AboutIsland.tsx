@@ -153,6 +153,7 @@ const strings: Record<Locale, LocaleStrings> = {
       { name: "Constanța Tulgara", role: "Head of Accounting" },
       { name: "Vasile Secrieru", role: "Senior Legal Counsel" },
       { name: "Iuliana Oboroceanu", role: "Human Resources Consultant" },
+      { name: "Danylo Nedvetskyi", role: "Jurist, servicii pentru cetățenii Ucrainei" },
     ],
 
     ctaEyebrow: "HAI SĂ ÎNCEPEM",
@@ -263,6 +264,7 @@ const strings: Record<Locale, LocaleStrings> = {
       { name: "Constanța Tulgara", role: "Руководитель отдела бухгалтерии" },
       { name: "Vasile Secrieru", role: "Старший юридический советник" },
       { name: "Iuliana Oboroceanu", role: "Консультант по управлению персоналом" },
+      { name: "Danylo Nedvetskyi", role: "Юрист, услуги для граждан Украины" },
     ],
 
     ctaEyebrow: "НАЧНЁМ",
@@ -373,6 +375,7 @@ const strings: Record<Locale, LocaleStrings> = {
       { name: "Constanța Tulgara", role: "Head of Accounting" },
       { name: "Vasile Secrieru", role: "Senior Legal Counsel" },
       { name: "Iuliana Oboroceanu", role: "Human Resources Consultant" },
+      { name: "Danylo Nedvetskyi", role: "Lawyer, services for Ukrainian citizens" },
     ],
 
     ctaEyebrow: "LET'S GET STARTED",
@@ -525,7 +528,7 @@ export default function AboutIsland({ locale, bookHref: _bookHref }: AboutIsland
             title={t.teamTitle}
             maxWidth={580}
           />
-          <div className="grid grid-cols-2 gap-5 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
             {t.team.map((m) => (
               <div key={m.name}>
                 <div className="mb-4 flex aspect-4/5 items-center justify-center rounded-md bg-gradient-to-br from-primary to-primary dark:to-primary-deep text-5xl font-bold text-white">
