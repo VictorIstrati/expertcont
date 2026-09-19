@@ -8,6 +8,13 @@ export interface BreadcrumbItem {
   href?: string;
 }
 
+export interface PageHeaderAction {
+  href: string;
+  label: string;
+  /** BCP-47 tag for the destination, e.g. "uk". Sets lang + hreflang on the link. */
+  lang?: string;
+}
+
 export interface PageHeaderProps {
   eyebrow?: ReactNode;
   title: ReactNode;
@@ -15,9 +22,18 @@ export interface PageHeaderProps {
   breadcrumbs?: BreadcrumbItem[];
   /** Optional content (search inputs, filter chips, etc.) rendered inside the hero band, below the subtitle. */
   filters?: ReactNode;
+  /** Optional link rendered opposite the title, e.g. a language switch. */
+  action?: PageHeaderAction;
 }
 
-export function PageHeader({ eyebrow, title, subtitle, breadcrumbs, filters }: PageHeaderProps) {
+export function PageHeader({
+  eyebrow,
+  title,
+  subtitle,
+  breadcrumbs,
+  filters,
+  action,
+}: PageHeaderProps) {
   return (
     <section className={styles.section}>
       <Container>
@@ -41,7 +57,19 @@ export function PageHeader({ eyebrow, title, subtitle, breadcrumbs, filters }: P
           </nav>
         )}
         {eyebrow && <div className={`eyebrow ${styles.eyebrow}`}>{eyebrow}</div>}
-        <h1 className={styles.title}>{title}</h1>
+        <div className={styles.titleRow}>
+          <h1 className={styles.title}>{title}</h1>
+          {action && (
+            <a
+              href={action.href}
+              lang={action.lang}
+              hrefLang={action.lang}
+              className={styles.action}
+            >
+              {action.label}
+            </a>
+          )}
+        </div>
         {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
         {filters && <div className="mt-6">{filters}</div>}
       </Container>

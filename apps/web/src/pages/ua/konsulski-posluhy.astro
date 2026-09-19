@@ -1,0 +1,155 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import PageShell from "../../components/PageShell.astro";
+import { Container, PageHeader, Section } from "@expertcont/ui";
+import { homeUrl, sectionUrl, detailUrl, type Locale, type ContentMeta } from "@expertcont/i18n";
+import { ServiceDetailBody } from "../../components/service/ServiceDetailBody";
+import { ServiceSidebar } from "../../components/service/ServiceSidebar";
+import { ServiceCTAStrip } from "../../components/service/ServiceCTAStrip";
+import { UkraineCatalogueSection } from "../../components/service/UkraineCatalogueSection";
+import { ukrainePageCopyUk } from "../../components/service/ukrainePageCopy.uk";
+import { UKRAINE_BOOKING_SLUG } from "../../components/service/ukraineCatalogue";
+import type { IconName } from "@expertcont/ui";
+import { serviceJsonLd, breadcrumbListJsonLd } from "../../lib/jsonLd";
+
+const UA_PATH = "/ua/konsulski-posluhy";
+
+const chromeLocale: Locale = "ru";
+
+const allMetas = await getCollection("services-meta");
+const meta = allMetas.find((e) => e.data.id === "ukrainians")!.data as ContentMeta;
+
+const allServices = await getCollection("services");
+const mdxEntry = allServices.find(
+  (e) => e.data.contentId === "ukrainians" && e.data.locale === "uk",
+);
+const { Content } = await render(mdxEntry!);
+
+const siblings: Record<Locale, string> = {
+  ro: detailUrl("services", meta, "ro"),
+  ru: detailUrl("services", meta, "ru"),
+  en: detailUrl("services", meta, "en"),
+};
+
+const serviceIconMap: Record<string, IconName> = {
+  accounting: "briefcase",
+  audit: "shield",
+  legal: "scale",
+  consulting: "lightbulb",
+  hr: "users",
+  it: "zap",
+};
+
+const relatedServices = allMetas
+  .map((e) => e.data as ContentMeta)
+  .filter((s) => s.id !== "ukrainians")
+  .slice(0, 3)
+  .map((s) => ({
+    meta: s,
+    href: detailUrl("services", s, chromeLocale),
+    icon: serviceIconMap[s.id] ?? ("briefcase" as IconName),
+  }));
+
+const title = "Консульські та юридичні послуги для громадян України в Молдові";
+const description =
+  "Допомога громадянам України в Молдові: запис до Посольства України, паспорти, пенсії, Дія та сімейне право. Тимчасовий захист — безкоштовно.";
+
+const contactHref = sectionUrl("contact", chromeLocale);
+const pricingHref = sectionUrl("pricing", chromeLocale);
+
+const jsonLd = [
+  serviceJsonLd({ url: UA_PATH, name: title, description, locale: chromeLocale }),
+  breadcrumbListJsonLd([
+    { name: "Головна", url: homeUrl(chromeLocale) },
+    { name: "Послуги", url: sectionUrl("services", chromeLocale) },
+    { name: title, url: UA_PATH },
+  ]),
+];
+---
+
+<Base
+  title={`${title} — ExpertCont`}
+  description={description}
+  locale={chromeLocale}
+  path={UA_PATH}
+  siblings={siblings}
+  jsonLd={jsonLd}
+  langOverride="uk"
+  extraAlternates={[{ hreflang: "uk", href: UA_PATH }]}
+>
+  <PageShell
+    locale={chromeLocale}
+    activeSection="services"
+    siblings={siblings}
+    displayLang={{ label: "UK", full: "Українська" }}
+  >
+    <PageHeader
+      eyebrow="Основна послуга"
+      title={title}
+      subtitle={description}
+      breadcrumbs={[
+        { label: "Головна", href: homeUrl(chromeLocale) },
+        { label: "Послуги", href: sectionUrl("services", chromeLocale) },
+        { label: "Українською" },
+      ]}
+    />
+
+    <Section tone="default" id="svc-body">
+      <Container>
+        <div class="svc-detail-layout grid grid-cols-1 lg:grid-cols-[1.6fr_1fr] gap-14 items-start">
+          <div class="svc-detail-main">
+            <img
+              src="/service-ukrainians.webp"
+              alt={title}
+              width="1672"
+              height="941"
+              loading="lazy"
+              decoding="async"
+              class="mb-10 block h-auto w-full rounded-lg object-cover aspect-[16/9]"
+            />
+
+            <p class="text-lg text-text-secondary mb-10 leading-relaxed">
+              {ukrainePageCopyUk.bodyIntro}
+            </p>
+
+            <article class="text-lg leading-relaxed mb-10">
+              <Content />
+            </article>
+
+            <UkraineCatalogueSection client:visible locale="uk" />
+
+            <ServiceDetailBody
+              client:visible
+              includedHeading={ukrainePageCopyUk.includedHeading}
+              includedItems={ukrainePageCopyUk.includedItems}
+              processHeading={ukrainePageCopyUk.processHeading}
+              processSteps={ukrainePageCopyUk.processSteps}
+              faqHeading={ukrainePageCopyUk.faqHeading}
+              faqItems={ukrainePageCopyUk.faqItems}
+            />
+          </div>
+
+          <ServiceSidebar
+            client:visible
+            locale="uk"
+            contactHref={contactHref}
+            bookingSlug={UKRAINE_BOOKING_SLUG}
+            pricing={{ ...ukrainePageCopyUk.pricing, pricingHref }}
+            related={relatedServices}
+            offerEyebrow={ukrainePageCopyUk.offerEyebrow}
+            offerHeading={ukrainePageCopyUk.offerHeading}
+            offerSub={ukrainePageCopyUk.offerSub}
+            relatedHeading={ukrainePageCopyUk.relatedHeading}
+          />
+        </div>
+      </Container>
+    </Section>
+
+    <Section tone="default">
+      <Container>
+        <ServiceCTAStrip client:visible locale={chromeLocale} contactHref={contactHref} />
+      </Container>
+    </Section>
+  </PageShell>
+</Base>

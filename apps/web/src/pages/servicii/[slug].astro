@@ -9,6 +9,8 @@ import { ServiceDetailBody } from "../../components/service/ServiceDetailBody";
 import { ServiceSidebar } from "../../components/service/ServiceSidebar";
 import { ServiceCTAStrip } from "../../components/service/ServiceCTAStrip";
 import { getServiceData } from "../../components/service/serviceData";
+import { UkraineCatalogueSection } from "../../components/service/UkraineCatalogueSection";
+import { bookingSlugFor } from "../../lib/bookingSlugs";
 import type { IconName } from "@expertcont/ui";
 import { serviceJsonLd, breadcrumbListJsonLd } from "../../lib/jsonLd";
 
@@ -55,6 +57,7 @@ const relatedServices = allServicesMeta
   }));
 
 const pageData = getServiceData(meta.id, locale);
+const bookingSlug = bookingSlugFor(meta.id);
 const contactHref = sectionUrl("contact", locale);
 const pricingHref = sectionUrl("pricing", locale);
 const servicePath = detailUrl("services", meta, locale);
@@ -91,6 +94,9 @@ const jsonLd = [
         { label: "Servicii", href: sectionUrl("services", locale) },
         { label: meta.titles[locale] },
       ]}
+      action={meta.id === "ukrainians"
+        ? { href: "/ua/konsulski-posluhy", label: "Українською", lang: "uk" }
+        : undefined}
     />
     <!-- 2-column body -->
     <Section tone="default" id="svc-body">
@@ -121,6 +127,8 @@ const jsonLd = [
               <Content />
             </article>
 
+            {meta.id === "ukrainians" && <UkraineCatalogueSection client:visible locale={locale} />}
+
             {
               pageData && (
                 <ServiceDetailBody
@@ -142,6 +150,7 @@ const jsonLd = [
               <ServiceSidebar
                 client:visible
                 locale={locale}
+                bookingSlug={bookingSlug}
                 contactHref={contactHref}
                 pricing={{
                   ...pageData.pricing,

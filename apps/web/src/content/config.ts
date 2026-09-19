@@ -19,7 +19,7 @@ const services = defineCollection({
   type: "content",
   schema: z.object({
     title: z.string(),
-    locale: z.enum(["ro", "ru", "en"]),
+    locale: z.enum(["ro", "ru", "en", "uk"]),
     /** The canonical id this MDX belongs to. */
     contentId: z.string(),
   }),
@@ -51,7 +51,10 @@ const guides = defineCollection({
 /** Per-entry meta (slugs map etc.). One meta JSON per content folder. */
 const servicesMeta = defineCollection({
   type: "data",
-  schema: baseMeta,
+  schema: baseMeta.extend({
+    /** Omit this service from the home-page services grid (services index only). */
+    hideFromHome: z.boolean().optional(),
+  }),
 });
 const blogMeta = defineCollection({
   type: "data",

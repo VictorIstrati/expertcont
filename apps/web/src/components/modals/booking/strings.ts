@@ -34,6 +34,15 @@ export function useBookingStrings(): Strings {
       { slug: "consultanta", name: t`Consultanță`, icon: "lightbulb" },
       { slug: "hr", name: t`HR`, icon: "users" },
       { slug: "it", name: t`IT & Soft`, icon: "monitor" },
+      {
+        slug: "ucraina",
+        name: t({
+          message: `Ucraina`,
+          comment:
+            "Booking modal — service category: consular and legal support for Ukrainian citizens. Country name used as a short category label.",
+        }),
+        icon: "globe",
+      },
     ],
     dateLabel: t`Alege ziua`,
     timeLabel: t`Alege ora`,

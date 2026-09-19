@@ -1,5 +1,14 @@
 export interface BookingData {
   service: string;
+  /**
+   * Second-level selection, used only by services that have a sub-catalogue
+   * (currently the Ukrainian consular service). Stored as the
+   * `<categoryId>:<itemId>` key from ukraineCatalogue.ts, or the literal
+   * "other" when the visitor picks the free-text escape hatch.
+   */
+  subservice: string | null;
+  /** Free text captured when `subservice` is "other". */
+  subserviceOther: string;
   date: Date | null;
   time: string | null;
   mode: string;
@@ -44,6 +53,8 @@ export const TIMES = ["09:00", "10:00", "11:00", "13:00", "14:00", "15:00", "16:
 
 export const INITIAL_DATA: BookingData = {
   service: "contabilitate",
+  subservice: null,
+  subserviceOther: "",
   date: null,
   time: null,
   mode: "online",

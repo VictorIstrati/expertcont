@@ -39,4 +39,4 @@ export type { AccordionItem } from "./Accordion";
 export { ImagePlaceholder } from "./ImagePlaceholder";
 export type { ImagePlaceholderProps } from "./ImagePlaceholder";
 export { PageHeader } from "./PageHeader";
-export type { PageHeaderProps, BreadcrumbItem } from "./PageHeader";
+export type { PageHeaderProps, PageHeaderAction, BreadcrumbItem } from "./PageHeader";

@@ -20,7 +20,10 @@ const siblings: Record<Locale, string> = {
 };
 
 const metaEntries = await getCollection("services-meta");
-const services: ContentMeta[] = metaEntries.map((e) => e.data as ContentMeta);
+// The home grid stays B2B — services flagged hideFromHome live on the services index only.
+const services: ContentMeta[] = metaEntries
+  .filter((e) => !e.data.hideFromHome)
+  .map((e) => e.data as ContentMeta);
 
 const pageMeta = await getEntry("pages-meta", "home");
 const homeTitle = pageMeta!.data.titles[locale];
