@@ -80,6 +80,14 @@ const jsonLd = [
           <span>{meta.publishedAt}</span>
           <span>·</span>
           <span>{meta.readTime} {labels.readTimeLabel}</span>
+          {
+            meta.author && (
+              <>
+                <span>·</span>
+                <span>{meta.author}</span>
+              </>
+            )
+          }
         </div>
         {
           meta.cover ? (
