@@ -6,6 +6,7 @@ import react from "@astrojs/react";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
+import rehypeTableLabels from "./src/lib/rehypeTableLabels.mjs";
 
 const SITE = "https://expertcont.md";
 
@@ -134,6 +135,9 @@ export default defineConfig({
   site: SITE,
   trailingSlash: "never",
   build: { format: "file" },
+  markdown: {
+    rehypePlugins: [rehypeTableLabels],
+  },
   integrations: [
     mdx(),
     react({
