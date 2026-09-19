@@ -3,6 +3,7 @@ import "../styles/global.css";
 import { getCollection } from "astro:content";
 import { detailUrl, type Locale, type ContentMeta } from "@expertcont/i18n";
 import { site } from "../site";
+import { CONSENT_MAX_AGE_DAYS, CONSENT_STORAGE_KEY, CONSENT_VERSION } from "../lib/analytics";
 
 interface Props {
   title: string;
@@ -189,32 +190,45 @@ const organizationJsonLd = {
         users who previously accepted get an immediate inline upgrade so we
         don't lose a pageview waiting for React hydration. */
     }
-    <script is:inline>
+    <script
+      is:inline
+      define:vars={{
+        consentKey: CONSENT_STORAGE_KEY,
+        consentVersion: CONSENT_VERSION,
+        consentMaxAgeDays: CONSENT_MAX_AGE_DAYS,
+      }}
+    >
       (function () {
         window.dataLayer = window.dataLayer || [];
         function gtag() {
           window.dataLayer.push(arguments);
         }
         window.gtag = gtag;
-        var granted = {
-          ad_storage: "granted",
-          ad_user_data: "granted",
-          ad_personalization: "granted",
-          analytics_storage: "granted",
-        };
-        var denied = {
+        gtag("consent", "default", {
           ad_storage: "denied",
           ad_user_data: "denied",
           ad_personalization: "denied",
           analytics_storage: "denied",
-        };
-        gtag("consent", "default", denied);
+        });
+        var consent = null;
         try {
-          if (window.localStorage.getItem("expertcont-cookie-consent") === "accepted") {
-            gtag("consent", "update", granted);
+          var record = JSON.parse(window.localStorage.getItem(consentKey) || "null");
+          var ageDays = record ? (Date.now() - Date.parse(record.date)) / 86400000 : Infinity;
+          if (record && record.version === consentVersion && ageDays <= consentMaxAgeDays) {
+            consent = record;
           }
         } catch (e) {
-          /* localStorage blocked — leave defaults */
+          /* localStorage blocked or unreadable — no consent */
+        }
+        window.expertcontStoredConsent = consent;
+        if (consent) {
+          var marketing = consent.marketing ? "granted" : "denied";
+          gtag("consent", "update", {
+            analytics_storage: consent.analytics ? "granted" : "denied",
+            ad_storage: marketing,
+            ad_user_data: marketing,
+            ad_personalization: marketing,
+          });
         }
 
         // Track tel: link clicks via event delegation (covers all components).
@@ -235,26 +249,30 @@ const organizationJsonLd = {
       })();
     </script>
 
-    {
-      ga4Id && (
-        <>
-          <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`} />
-          <script
-            is:inline
-            set:html={`gtag('js', new Date()); gtag('config', '${ga4Id}', { send_page_view: true });`}
-          />
-        </>
-      )
-    }
-
-    {
-      gtmId && (
-        <script
-          is:inline
-          set:html={`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${gtmId}');`}
-        />
-      )
-    }
+    <script is:inline define:vars={{ ga4Id: ga4Id ?? "", gtmId: gtmId ?? "" }}>
+      window.expertcontLoadAnalytics = function (choices) {
+        if (choices.analytics && ga4Id && !window.expertcontGa4Loaded) {
+          window.expertcontGa4Loaded = true;
+          var ga = document.createElement("script");
+          ga.async = true;
+          ga.src = "https://www.googletagmanager.com/gtag/js?id=" + ga4Id;
+          document.head.appendChild(ga);
+          window.gtag("js", new Date());
+          window.gtag("config", ga4Id, { send_page_view: true });
+        }
+        if (choices.marketing && gtmId && !window.expertcontGtmLoaded) {
+          window.expertcontGtmLoaded = true;
+          window.dataLayer.push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+          var gtm = document.createElement("script");
+          gtm.async = true;
+          gtm.src = "https://www.googletagmanager.com/gtm.js?id=" + gtmId;
+          document.head.appendChild(gtm);
+        }
+      };
+      if (window.expertcontStoredConsent) {
+        window.expertcontLoadAnalytics(window.expertcontStoredConsent);
+      }
+    </script>
 
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
@@ -329,20 +347,6 @@ const organizationJsonLd = {
     />
   </head>
   <body>
-    {
-      gtmId && (
-        <noscript>
-          <iframe
-            src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
-            height="0"
-            width="0"
-            class="hidden"
-            aria-hidden="true"
-            title="gtm"
-          />
-        </noscript>
-      )
-    }
     <slot />
   </body>
 </html>

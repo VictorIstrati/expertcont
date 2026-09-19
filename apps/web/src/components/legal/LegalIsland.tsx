@@ -2,6 +2,7 @@ import { Icon, PageHeader } from "@expertcont/ui";
 import { I18nRoot, homeUrl } from "@expertcont/i18n";
 import type { Locale } from "@expertcont/i18n";
 import { site } from "../../site";
+import { openCookieSettings } from "../../lib/analytics";
 
 const EMAIL = site.business.email;
 const PHONE = site.business.phone;
@@ -14,6 +15,24 @@ const breadcrumbLabels: Record<Locale, { home: string; legal: string }> = {
   ro: { home: "Acasă", legal: "Legal" },
   ru: { home: "Главная", legal: "Правовая информация" },
   en: { home: "Home", legal: "Legal" },
+};
+
+const cookieSettingsLabels: Record<Locale, { title: string; body: string; button: string }> = {
+  ro: {
+    title: "Setări cookie-uri",
+    body: "Puteți schimba oricând alegerea făcută în bannerul de cookie-uri, inclusiv retragerea consimțământului.",
+    button: "Schimbă setările cookie",
+  },
+  ru: {
+    title: "Настройки cookie",
+    body: "Вы можете в любой момент изменить выбор, сделанный в баннере cookie, в том числе отозвать согласие.",
+    button: "Изменить настройки cookie",
+  },
+  en: {
+    title: "Cookie settings",
+    body: "You can change the choice you made in the cookie banner at any time, including withdrawing your consent.",
+    button: "Change cookie settings",
+  },
 };
 
 export type LegalKind = "privacy" | "terms" | "cookies";
@@ -388,6 +407,23 @@ export default function LegalIsland({ locale, kind, contactHref }: LegalIslandPr
                 </div>
               ))}
             </div>
+
+            {kind === "cookies" && (
+              <div className="mt-12 rounded-lg border border-primary/30 bg-primary-50 p-8">
+                <h4 className="mb-3 text-lg font-bold">{cookieSettingsLabels[locale].title}</h4>
+                <p className="mb-5 text-base leading-relaxed text-text-secondary">
+                  {cookieSettingsLabels[locale].body}
+                </p>
+                <button
+                  type="button"
+                  onClick={openCookieSettings}
+                  className="inline-flex items-center gap-2 rounded-sm bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary-dark"
+                >
+                  <Icon name="shield" size={16} />
+                  {cookieSettingsLabels[locale].button}
+                </button>
+              </div>
+            )}
 
             <div className="mt-16 rounded-lg border border-border bg-bg-section-alt p-8">
               <h4 className="mb-3 text-lg font-bold">{data.questionsTitle}</h4>
