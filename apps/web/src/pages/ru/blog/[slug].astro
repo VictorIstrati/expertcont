@@ -6,7 +6,8 @@ import PageShell from "../../../components/PageShell.astro";
 import { Container, Section, ImagePlaceholder, SectionHeader } from "@expertcont/ui";
 import { detailUrl, homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
 import { blogDetailProps, ukBlogPath, type BlogMeta } from "../../../lib/blogDetailProps";
-import { articleJsonLd, breadcrumbListJsonLd } from "../../../lib/jsonLd";
+import { articleJsonLd, breadcrumbListJsonLd, faqPageJsonLd } from "../../../lib/jsonLd";
+import { faqFromMarkdown } from "../../../lib/faqFromMarkdown";
 
 export const getStaticPaths = (async () => {
   const metas = await getCollection("blog-meta");
@@ -22,6 +23,7 @@ const locale: Locale = "ru";
 const allPosts = await getCollection("blog");
 const mdxEntry = allPosts.find((e) => e.data.contentId === meta.id && e.data.locale === "ru");
 const { Content } = await render(mdxEntry!);
+const faq = faqFromMarkdown(mdxEntry!.body);
 
 const siblings: Record<Locale, string> = {
   ro: detailUrl("blog", meta, "ro"),
@@ -43,12 +45,14 @@ const jsonLd = [
     author: meta.author,
     locale,
     section: category,
+    imageUrl: meta.cover,
   }),
   breadcrumbListJsonLd([
     { name: "Главная", url: homeUrl(locale) },
     { name: "Блог", url: sectionUrl("blog", locale) },
     { name: meta.titles[locale], url: articlePath },
   ]),
+  ...(faq.length > 0 ? [faqPageJsonLd(faq)] : []),
 ];
 ---
 
@@ -59,6 +63,11 @@ const jsonLd = [
   path={articlePath}
   siblings={siblings}
   jsonLd={jsonLd}
+  ogType="article"
+  publishedTime={meta.publishedAt}
+  modifiedTime={meta.updated}
+  author={meta.author}
+  image={meta.cover}
   extraAlternates={ukPath ? [{ hreflang: "uk", href: ukPath }] : []}
 >
   <PageShell locale={locale} activeSection="blog" siblings={siblings}>

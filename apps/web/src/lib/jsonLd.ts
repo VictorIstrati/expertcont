@@ -36,7 +36,11 @@ export function articleJsonLd(a: ArticleInput) {
   // Google's Article rich result requires `image`; fall back to the sitewide
   // OG image so the rule is always satisfied even when the article doesn't
   // provide a custom hero yet.
-  const image = a.imageUrl ?? `${SITE_URL}/og.png`;
+  const image = a.imageUrl
+    ? a.imageUrl.startsWith("/")
+      ? `${SITE_URL}${a.imageUrl}`
+      : a.imageUrl
+    : `${SITE_URL}/og.png`;
   return {
     "@context": "https://schema.org",
     "@type": "Article",
