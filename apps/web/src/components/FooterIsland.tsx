@@ -2,7 +2,7 @@ import { I18nRoot } from "@expertcont/i18n/I18nRoot";
 import { Footer } from "@expertcont/ui";
 import { sectionUrl, type Locale } from "@expertcont/i18n";
 import { backendClient } from "../lib/backend";
-import { track } from "../lib/analytics";
+import { openCookieSettings, track } from "../lib/analytics";
 
 const NEWSLETTER_NOTE: Record<Locale, { text: string; link: string }> = {
   ro: {
@@ -47,6 +47,7 @@ export default function FooterIsland({ locale, address, phone, email }: Props) {
         phone={phone}
         email={email}
         onNewsletterSubscribe={handleNewsletterSubscribe}
+        onCookieSettings={openCookieSettings}
         newsletterNote={
           <>
             {NEWSLETTER_NOTE[locale].text}{" "}

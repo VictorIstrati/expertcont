@@ -5,8 +5,8 @@ export const DEFAULT_LANGUAGE: Language = "ro";
 export type ContactInput = {
   language?: Language;
   name: string;
-  email: string;
-  phone?: string;
+  email?: string;
+  phone: string;
   company?: string;
   subject?: string;
   message: string;
@@ -26,8 +26,8 @@ export type ReviewInput = {
 export type BookACallInput = {
   language?: Language;
   name: string;
-  email: string;
-  phone?: string;
+  email?: string;
+  phone: string;
   company?: string;
   preferred_at?: string;
   notes?: string;

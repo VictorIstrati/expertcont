@@ -22,6 +22,7 @@ export interface FooterProps {
    */
   onNewsletterSubscribe?: (email: string) => boolean | Promise<boolean>;
   newsletterNote?: ReactNode;
+  onCookieSettings?: () => void;
 }
 
 export function Footer({
@@ -31,6 +32,7 @@ export function Footer({
   email,
   onNewsletterSubscribe,
   newsletterNote,
+  onCookieSettings,
 }: FooterProps) {
   const { t } = useLingui();
   const [newsletterEmail, setNewsletterEmail] = useState("");
@@ -260,6 +262,15 @@ export function Footer({
                   <Trans>Cookies</Trans>
                 </a>
               </li>
+              {onCookieSettings ? (
+                <li>
+                  <button type="button" className={styles.linkButton} onClick={onCookieSettings}>
+                    <Trans comment="Footer button that reopens the cookie consent banner so the visitor can change or withdraw consent.">
+                      Cookie settings
+                    </Trans>
+                  </button>
+                </li>
+              ) : null}
               <li>
                 <a href={sectionUrl("sitemap", locale)}>
                   <Trans>Sitemap</Trans>

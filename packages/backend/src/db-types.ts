@@ -33,7 +33,7 @@ export type Database = {
         Row: {
           company: string | null;
           created_at: string;
-          email: string;
+          email: string | null;
           id: string;
           ip_hash: string | null;
           language: Database["public"]["Enums"]["language"];
@@ -47,7 +47,7 @@ export type Database = {
         Insert: {
           company?: string | null;
           created_at?: string;
-          email: string;
+          email?: string | null;
           id?: string;
           ip_hash?: string | null;
           language: Database["public"]["Enums"]["language"];
@@ -61,7 +61,7 @@ export type Database = {
         Update: {
           company?: string | null;
           created_at?: string;
-          email?: string;
+          email?: string | null;
           id?: string;
           ip_hash?: string | null;
           language?: Database["public"]["Enums"]["language"];
@@ -107,7 +107,7 @@ export type Database = {
         Row: {
           company: string | null;
           created_at: string;
-          email: string;
+          email: string | null;
           id: string;
           ip_hash: string | null;
           language: Database["public"]["Enums"]["language"];
@@ -120,7 +120,7 @@ export type Database = {
         Insert: {
           company?: string | null;
           created_at?: string;
-          email: string;
+          email?: string | null;
           id?: string;
           ip_hash?: string | null;
           language: Database["public"]["Enums"]["language"];
@@ -133,7 +133,7 @@ export type Database = {
         Update: {
           company?: string | null;
           created_at?: string;
-          email?: string;
+          email?: string | null;
           id?: string;
           ip_hash?: string | null;
           language?: Database["public"]["Enums"]["language"];

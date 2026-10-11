@@ -52,6 +52,10 @@ msgstr "Бухгалтерские, юридические и консалтин
 msgid "Address"
 msgstr "Адрес"
 
+#: ../../apps/web/src/components/contact/ContactIsland.tsx
+msgid "Afișează harta"
+msgstr "Показать карту"
+
 #: ../../apps/web/src/components/modals/booking/strings.ts
 msgid "Alege ora"
 msgstr "Выберите время"
@@ -186,6 +190,11 @@ msgstr "Продолжить"
 msgid "Cookie policy"
 msgstr "Политика использования cookie"
 
+#. Footer button that reopens the cookie consent banner so the visitor can change or withdraw consent.
+#: ../ui/src/Footer/Footer.tsx
+msgid "Cookie settings"
+msgstr "Настройки cookie"
+
 #: ../ui/src/Footer/Footer.tsx
 msgid "Cookies"
 msgstr "Cookies"
@@ -277,6 +286,11 @@ msgstr "Давайте поговорим о вашем бизнесе"
 #: ../../apps/web/src/components/faq/FaqPageIsland.tsx
 msgid "Hai să începem"
 msgstr "Давайте начнём"
+
+#. Note under the 'Show map' button on the contact page. Explains that loading the map sends the visitor's IP address to the map provider CARTO.
+#: ../../apps/web/src/components/contact/ContactIsland.tsx
+msgid "Harta este furnizată de CARTO, care primește adresa ta IP la încărcare."
+msgstr "Карту предоставляет CARTO, который получает ваш IP-адрес при её загрузке."
 
 #: ../ui/src/ContactInfo/ContactInfo.tsx
 msgid "Hours"

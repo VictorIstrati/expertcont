@@ -128,6 +128,22 @@
   color: #fff;
 }
 
+.linkButton {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: left;
+  cursor: pointer;
+  transition: color 120ms ease;
+}
+
+.linkButton:hover {
+  color: #fff;
+}
+
 .bottomBar {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }

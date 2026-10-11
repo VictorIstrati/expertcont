@@ -1,6 +1,6 @@
 import { useId, useState } from "react";
 import { Button, Icon } from "@expertcont/ui";
-import type { Locale } from "@expertcont/i18n";
+import { sectionUrl, type Locale } from "@expertcont/i18n";
 import { useResponseLabels, useTopics } from "./types";
 import { backendClient, detectLanguage } from "../../lib/backend";
 import { track } from "../../lib/analytics";
@@ -240,7 +240,7 @@ export function FaqQuestionForm({
                 className="mt-1 accent-primary"
               />
               <span>
-                {formConsentLabel} <a className="text-primary underline">{formConsentLink}</a>. *
+                {formConsentLabel} <a href={sectionUrl("privacy", locale)} target="_blank" rel="noopener" className="text-primary underline">{formConsentLink}</a>. *
               </span>
             </label>
 
