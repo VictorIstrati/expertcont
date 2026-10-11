@@ -1,6 +1,6 @@
 import { useId, useState } from "react";
 import { Icon } from "@expertcont/ui";
-import type { Locale } from "@expertcont/i18n";
+import { sectionUrl, type Locale } from "@expertcont/i18n";
 import { Modal } from "./Modal";
 import { backendClient, detectLanguage } from "../../lib/backend";
 import { track } from "../../lib/analytics";
@@ -115,7 +115,8 @@ export function ReviewModal({ open, onClose, locale }: Props) {
   const roleId = useId();
   const quoteId = useId();
 
-  const canSubmit = form.name.trim() !== "" && form.quote.trim().length >= 20 && rating > 0;
+  const canSubmit =
+    form.name.trim() !== "" && form.quote.trim().length >= 20 && rating > 0 && form.consent;
 
   const handleClose = () => {
     setSent(false);
@@ -263,12 +264,13 @@ export function ReviewModal({ open, onClose, locale }: Props) {
           <label className="flex items-start gap-3 py-3 px-4 bg-bg-section-alt rounded-sm border border-border text-sm leading-normal cursor-pointer">
             <input
               type="checkbox"
+              required
               checked={form.consent}
               onChange={(e) => setForm({ ...form, consent: e.target.checked })}
               className="mt-1 accent-primary"
             />
             <span className="text-text-secondary">
-              {t.consentText} <a className="text-primary underline">{t.consentLink}</a>.
+              {t.consentText} <a href={sectionUrl("privacy", locale)} target="_blank" rel="noopener" className="text-primary underline">{t.consentLink}</a>. *
             </span>
           </label>
 

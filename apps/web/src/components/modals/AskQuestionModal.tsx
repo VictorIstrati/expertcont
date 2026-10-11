@@ -1,6 +1,6 @@
 import { useId, useState } from "react";
 import { Icon } from "@expertcont/ui";
-import type { Locale } from "@expertcont/i18n";
+import { sectionUrl, type Locale } from "@expertcont/i18n";
 import { Modal } from "./Modal";
 
 interface Props {
@@ -228,7 +228,7 @@ export function AskQuestionModal({ open, onClose, locale }: Props) {
               className="mt-1 accent-primary"
             />
             <span>
-              {t.consentText} <a className="text-primary underline">{t.consentLink}</a>. *
+              {t.consentText} <a href={sectionUrl("privacy", locale)} target="_blank" rel="noopener" className="text-primary underline">{t.consentLink}</a>. *
             </span>
           </label>
 
