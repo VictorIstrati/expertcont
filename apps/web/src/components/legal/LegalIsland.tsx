@@ -6,6 +6,7 @@ import { openCookieSettings } from "../../lib/analytics";
 
 const EMAIL = site.business.email;
 const PHONE = site.business.phone;
+const DPO_EMAIL = "dpo@expertcont.md";
 const LEGAL_NAME = site.business.name;
 const ADDR_RO = `${site.business.address.street.ro}, ${site.business.address.city.ro}, ${site.business.address.postalCode}`;
 const ADDR_RU = `${site.business.address.street.ru}, ${site.business.address.city.ru}, ${site.business.address.postalCode}`;
@@ -66,15 +67,15 @@ const content: ContentMap = {
     privacy: {
       title: "Politica de confidențialitate",
       lastUpdated: "Ultima actualizare",
-      updated: "19 septembrie 2026",
+      updated: "11 octombrie 2026",
       sections: [
         {
           h: "1. Cine suntem",
-          t: `${LEGAL_NAME} (S.R.L. „RIGHT CONSULT COMPANY”, IDNO 1022600002005), cu sediul în ${ADDR_RO}, este operatorul datelor personale descrise mai jos. Ne poți contacta pentru orice întrebare despre datele tale la ${EMAIL} sau la ${PHONE}.`,
+          t: `${LEGAL_NAME} (S.R.L. „RIGHT CONSULT COMPANY”, IDNO 1022600002005), cu sediul în ${ADDR_RO}, este operatorul datelor personale descrise mai jos. Ne poți contacta pentru orice întrebare despre datele tale la ${EMAIL} sau la ${PHONE}. Pentru protecția datelor personale și exercitarea drepturilor tale scrie-ne la ${DPO_EMAIL}.`,
         },
         {
           h: "2. Ce date colectăm",
-          t: "Prin formularele site-ului (contact, programare, ofertă, întrebări, recenzii și newsletter) colectăm numele, adresa de e-mail, telefonul și mesajul pe care ni-l trimiți. Pentru fiecare trimitere păstrăm și pagina de pe care a fost trimisă, tipul de browser și o amprentă criptată ireversibil (hash) a adresei IP, folosită doar pentru a preveni abuzurile; adresa IP propriu-zisă nu o stocăm. Pentru clienții cu contract prelucrăm datele companiei și documentele financiare și juridice transmise, inclusiv datele salariale ale angajaților lor. Nu cerem date sensibile prin site.",
+          t: "Prin formularele site-ului (contact, programare, ofertă, întrebări, recenzii și newsletter) colectăm numele, adresa de e-mail, telefonul și mesajul pe care ni-l trimiți. Pentru fiecare trimitere păstrăm și pagina de pe care a fost trimisă, tipul de browser și o amprentă criptată ireversibil (hash) a adresei IP, folosită doar pentru a preveni abuzurile; adresa IP propriu-zisă nu o stocăm. Pentru clienții cu contract prelucrăm datele companiei și documentele financiare și juridice transmise, inclusiv datele salariale ale angajaților lor. Nu cerem date sensibile prin site. Câmpurile marcate cu * sunt obligatorii: în formularele de contact, programare și ofertă avem nevoie de nume și telefon ca să te putem suna înapoi, iar adresa de e-mail este opțională; pentru întrebările din secțiunea de întrebări frecvente și pentru newsletter avem nevoie de e-mail, pentru că răspunsul și newsletterul se trimit pe e-mail. Fără datele obligatorii nu putem da curs solicitării; datele opționale ne ajută doar să te contactăm pe canalul preferat.",
         },
         {
           h: "3. Scopuri și temei legal",
@@ -82,11 +83,11 @@ const content: ContentMap = {
         },
         {
           h: "4. Cui transmitem datele",
-          t: "Lucrăm cu furnizori care prelucrează datele în numele nostru, doar pentru scopurile de mai sus: Supabase (baza de date și formularele site-ului), Cloudflare (găzduirea site-ului), Telegram (notificări interne către echipă despre solicitările noi), Google (Google Analytics și Google Tag Manager, doar cu acordul tău), Microsoft (Clarity, doar cu acordul tău) și CARTO (harta de pe pagina de contact, care primește adresa IP a vizitatorului pentru a afișa harta). Microsoft primește datele din Clarity ca operator independent: le folosește și în scopuri proprii, inclusiv pentru Microsoft Advertising. Detalii în declarația de confidențialitate Microsoft: privacy.microsoft.com/privacystatement. Nu vindem datele și nu le transmitem în scopuri comerciale. Le putem transmite autorităților doar atunci când legea o cere.",
+          t: "Lucrăm cu furnizori care prelucrează datele în numele nostru, doar pentru scopurile de mai sus: Supabase (baza de date și formularele site-ului), Cloudflare (găzduirea site-ului), Zoho Cliq (notificări interne către echipă despre solicitările noi), Google (Google Analytics și Google Tag Manager, doar cu acordul tău), Microsoft (Clarity, doar cu acordul tău) și CARTO (harta de pe pagina de contact, care primește adresa IP a vizitatorului pentru a afișa harta). Microsoft primește datele din Clarity ca operator independent: le folosește și în scopuri proprii, inclusiv pentru Microsoft Advertising. Detalii în declarația de confidențialitate Microsoft: privacy.microsoft.com/privacystatement. Nu vindem datele și nu le transmitem în scopuri comerciale. Le putem transmite autorităților doar atunci când legea o cere.",
         },
         {
           h: "5. Transferuri în afara Republicii Moldova și a UE",
-          t: "Unii furnizori (Google, Microsoft, Cloudflare, Telegram) pot prelucra date în afara Republicii Moldova și a Uniunii Europene, inclusiv în SUA. În aceste cazuri ne bazăm pe garanțiile oferite de furnizori, precum clauzele contractuale standard aprobate de Comisia Europeană sau certificarea EU-U.S. Data Privacy Framework. Pentru Microsoft Clarity, transferul în SUA are loc doar cu acordul tău explicit din bannerul de cookie-uri, dat după ce ai fost informat că în SUA datele pot fi mai puțin protejate decât în UE, inclusiv față de accesul autorităților (art. 49 alin. (1) lit. a) GDPR). Baza de date Supabase este găzduită în Frankfurt, Germania (Uniunea Europeană).",
+          t: "Unii furnizori (Google, Microsoft, Cloudflare) pot prelucra date în afara Republicii Moldova și a Uniunii Europene, inclusiv în SUA. În aceste cazuri ne bazăm pe garanțiile oferite de furnizori, precum clauzele contractuale standard aprobate de Comisia Europeană sau certificarea EU-U.S. Data Privacy Framework. Pentru Microsoft Clarity, transferul în SUA are loc doar cu acordul tău explicit din bannerul de cookie-uri, dat după ce ai fost informat că în SUA datele pot fi mai puțin protejate decât în UE, inclusiv față de accesul autorităților (art. 49 alin. (1) lit. a) din Legea nr. 195/2024 și din GDPR). Baza de date Supabase este găzduită în Frankfurt, Germania (Uniunea Europeană), iar notificările Zoho Cliq sunt găzduite în centrele de date Zoho din Uniunea Europeană.",
         },
         {
           h: "6. Stocare și securitate",
@@ -94,15 +95,19 @@ const content: ContentMap = {
         },
         {
           h: "7. Cât timp păstrăm datele",
-          t: "Solicitările trimise prin site care nu devin contract: 12 luni de la ultimul contact. Datele clienților și documentele contabile: pe durata contractului și 10 ani după încheierea lui, conform legislației contabile și fiscale din Republica Moldova. Abonații la newsletter: până la dezabonare. Datele de analiză: cel mult 14 luni în Google Analytics și 13 luni în Microsoft Clarity. La expirarea termenului, datele sunt șterse în siguranță.",
+          t: "Solicitările trimise prin site care nu devin contract: 12 luni de la ultimul contact. Datele clienților și documentele contabile: pe durata contractului și 10 ani după încheierea lui, conform legislației contabile și fiscale din Republica Moldova. Recenziile nepublicate: 12 luni; recenziile publicate: până când ne ceri să le retragem. Abonații la newsletter: până la dezabonare, iar adresele dezabonate se șterg după 30 de zile. Ștergerea solicitărilor expirate se face automat, zilnic. Datele de analiză: cel mult 14 luni în Google Analytics și 13 luni în Microsoft Clarity. La expirarea termenului, datele sunt șterse în siguranță.",
         },
         {
           h: "8. Drepturile tale",
-          t: `Ai dreptul de acces, rectificare, ștergere, restricționare a prelucrării, portabilitate și opoziție, precum și dreptul de a-ți retrage oricând consimțământul, fără a afecta prelucrarea anterioară. Pentru a le exercita, scrie-ne la ${EMAIL}; răspundem în cel mult o lună. Poți depune o plângere la Centrul Național pentru Protecția Datelor cu Caracter Personal al Republicii Moldova sau, dacă locuiești în Uniunea Europeană, la autoritatea de protecție a datelor din țara ta.`,
+          t: `Ai dreptul de acces, rectificare, ștergere, restricționare a prelucrării, portabilitate și opoziție, precum și dreptul de a-ți retrage oricând consimțământul, fără a afecta prelucrarea anterioară. Ai și dreptul de a nu face obiectul unei decizii bazate exclusiv pe prelucrare automată și de a cere intervenția unui specialist. Pentru a le exercita, scrie-ne la ${DPO_EMAIL}; răspundem în cel mult o lună, termen care poate fi prelungit cu încă două luni în cazurile complexe, cu informarea ta. Poți depune o plângere la Centrul Național pentru Protecția Datelor cu Caracter Personal al Republicii Moldova sau, dacă locuiești în Uniunea Europeană, la autoritatea de protecție a datelor din țara ta.`,
         },
         {
-          h: "9. Cadrul legal",
-          t: "Prelucrăm datele conform legislației Republicii Moldova privind protecția datelor cu caracter personal și, pentru persoanele din Uniunea Europeană, conform Regulamentului (UE) 2016/679 (GDPR).",
+          h: "9. Calculul estimativ al prețului",
+          t: "Calculatorul de prețuri de pe site estimează automat costul lunar al serviciilor pe baza datelor pe care le introduci: serviciile alese, domeniul de activitate, numărul de facturi pe lună, cifra de afaceri, statutul de plătitor de TVA, numărul de angajați sau numărul de ore. Logica este simplă: pornim de la tariful de bază al domeniului, adăugăm un supliment pentru facturile peste pragul inclus și pentru TVA, aplicăm un coeficient în funcție de cifra de afaceri, scădem reducerile promoționale active și rotunjim la 10 MDL; pentru juridic, financiar și IT înmulțim orele cu tariful orar, iar pentru resurse umane, numărul de angajați cu tariful per angajat. Calculul se face în browserul tău și nu folosește date personale. Rezultatul este doar o estimare orientativă, nu o ofertă fermă și nu are efecte juridice asupra ta: dacă ne trimiți estimarea, un specialist o verifică și îți confirmă oferta finală. Poți oricând să ceri ca prețul să fie stabilit direct de un specialist.",
+        },
+        {
+          h: "10. Cadrul legal",
+          t: "Prelucrăm datele conform Legii nr. 195/2024 privind protecția datelor cu caracter personal a Republicii Moldova și, pentru persoanele din Uniunea Europeană, conform Regulamentului (UE) 2016/679 (GDPR).",
         },
       ],
       questionsTitle: "Ai întrebări?",
@@ -113,7 +118,7 @@ const content: ContentMap = {
     cookies: {
       title: "Politica de cookie-uri",
       lastUpdated: "Ultima actualizare",
-      updated: "19 septembrie 2026",
+      updated: "11 octombrie 2026",
       sections: [
         {
           h: "1. Ce sunt cookie-urile",
@@ -129,7 +134,7 @@ const content: ContentMap = {
         },
         {
           h: "4. Înregistrarea sesiunii (doar cu acordul tău)",
-          t: "Microsoft Clarity arată cum este folosit site-ul (clicuri, derulare, hărți termice) prin înregistrări ale sesiunii. Nu rulează pe paginile cu formulare (contact și întrebări frecvente), iar în formularele din ferestrele de programare textul introdus este mascat. Microsoft primește datele ca operator independent, le transferă în SUA, unde protecția poate fi mai slabă decât în UE, și le folosește și pentru Microsoft Advertising; detalii la privacy.microsoft.com/privacystatement. Cookie-uri: _clck (1 an) și _clsk (1 zi). Se activează doar dacă accepți categoria „Înregistrarea sesiunii”.",
+          t: "Microsoft Clarity arată cum este folosit site-ul (clicuri, derulare, hărți termice) prin înregistrări ale sesiunii. Nu rulează pe paginile cu formulare (contact și întrebări frecvente), iar textul introdus în toate formularele din ferestrele pop-up este mascat. Microsoft primește datele ca operator independent, le transferă în SUA, unde protecția poate fi mai slabă decât în UE, și le folosește și pentru Microsoft Advertising; detalii la privacy.microsoft.com/privacystatement. Cookie-uri: _clck (1 an) și _clsk (1 zi). Se activează doar dacă accepți categoria „Înregistrarea sesiunii”.",
         },
         {
           h: "5. Marketing (doar cu acordul tău)",
@@ -137,11 +142,11 @@ const content: ContentMap = {
         },
         {
           h: "6. Conținut de la terți",
-          t: "Harta de pe pagina de contact folosește imagini de hartă de la CARTO, pe baza datelor OpenStreetMap. Pentru a le afișa, browserul tău trimite adresa IP către CARTO.",
+          t: "Harta de pe pagina de contact folosește imagini de hartă de la CARTO, pe baza datelor OpenStreetMap. Harta se încarcă doar după ce apeși „Afișează harta”; abia atunci browserul tău trimite adresa IP către CARTO.",
         },
         {
           h: "7. Cum îți gestionezi alegerea",
-          t: "La prima vizită îți cerem acordul prin banner, unde poți accepta tot, refuza tot sau alege pe categorii. Îți poți schimba alegerea oricând cu butonul „Schimbă setările cookie” de mai jos; ajungi aici din linkul „Cookies” din subsolul site-ului. Dacă îți retragi acordul, ștergem cookie-urile de analiză și de înregistrare setate de site. Îți cerem din nou acordul după 12 luni sau atunci când schimbăm instrumentele folosite. Retragerea acordului nu afectează legalitatea prelucrării anterioare.",
+          t: "La prima vizită îți cerem acordul prin banner, unde poți accepta tot, refuza tot sau alege pe categorii. Îți poți schimba alegerea oricând cu butonul „Schimbă setările cookie” de mai jos; același panou se deschide și din butonul „Setări cookie-uri” din subsolul fiecărei pagini. Dacă îți retragi acordul, ștergem cookie-urile de analiză și de înregistrare setate de site. Îți cerem din nou acordul după 12 luni sau atunci când schimbăm instrumentele folosite. Retragerea acordului nu afectează legalitatea prelucrării anterioare.",
         },
       ],
       questionsTitle: "Ai întrebări despre cookie-uri?",
@@ -189,15 +194,15 @@ const content: ContentMap = {
     privacy: {
       title: "Политика конфиденциальности",
       lastUpdated: "Последнее обновление",
-      updated: "19 сентября 2026",
+      updated: "11 октября 2026",
       sections: [
         {
           h: "1. Кто мы",
-          t: `${LEGAL_NAME} (S.R.L. «RIGHT CONSULT COMPANY», IDNO 1022600002005), расположенная по адресу ${ADDR_RU}, является оператором персональных данных, описанных ниже. По любым вопросам о ваших данных пишите на ${EMAIL} или звоните по номеру ${PHONE}.`,
+          t: `${LEGAL_NAME} (S.R.L. «RIGHT CONSULT COMPANY», IDNO 1022600002005), расположенная по адресу ${ADDR_RU}, является оператором персональных данных, описанных ниже. По любым вопросам о ваших данных пишите на ${EMAIL} или звоните по номеру ${PHONE}. По вопросам защиты персональных данных и для осуществления ваших прав пишите на ${DPO_EMAIL}.`,
         },
         {
           h: "2. Какие данные мы собираем",
-          t: "Через формы на сайте (контакт, запись, расчёт стоимости, вопросы, отзывы и рассылка) мы получаем имя, адрес электронной почты, телефон и ваше сообщение. Для каждой отправки мы также сохраняем страницу, с которой она отправлена, тип браузера и необратимо зашифрованный отпечаток (хеш) IP-адреса, который используется только для защиты от злоупотреблений; сам IP-адрес мы не храним. Для клиентов по договору мы обрабатываем данные компании и переданные финансовые и юридические документы, в том числе данные о зарплатах их сотрудников. Через сайт мы не запрашиваем чувствительные данные.",
+          t: "Через формы на сайте (контакт, запись, расчёт стоимости, вопросы, отзывы и рассылка) мы получаем имя, адрес электронной почты, телефон и ваше сообщение. Для каждой отправки мы также сохраняем страницу, с которой она отправлена, тип браузера и необратимо зашифрованный отпечаток (хеш) IP-адреса, который используется только для защиты от злоупотреблений; сам IP-адрес мы не храним. Для клиентов по договору мы обрабатываем данные компании и переданные финансовые и юридические документы, в том числе данные о зарплатах их сотрудников. Через сайт мы не запрашиваем чувствительные данные. Поля, отмеченные *, обязательны: в формах контакта, записи и расчёта стоимости нам нужны имя и телефон, чтобы перезвонить вам, а адрес электронной почты необязателен; для вопросов в разделе частых вопросов и для рассылки нужен e-mail, потому что ответ и рассылка приходят по почте. Без обязательных данных мы не сможем обработать запрос; необязательные данные лишь помогают связаться с вами удобным способом.",
         },
         {
           h: "3. Цели и правовые основания",
@@ -205,11 +210,11 @@ const content: ContentMap = {
         },
         {
           h: "4. Кому мы передаём данные",
-          t: "Мы работаем с поставщиками, которые обрабатывают данные от нашего имени и только для указанных целей: Supabase (база данных и формы сайта), Cloudflare (хостинг сайта), Telegram (внутренние уведомления команде о новых заявках), Google (Google Analytics и Google Tag Manager, только с вашего согласия), Microsoft (Clarity, только с вашего согласия) и CARTO (карта на странице контактов, которая получает IP-адрес посетителя, чтобы показать карту). Microsoft получает данные из Clarity как самостоятельный оператор: использует их и в собственных целях, в том числе для Microsoft Advertising. Подробнее — в заявлении о конфиденциальности Microsoft: privacy.microsoft.com/privacystatement. Мы не продаём данные и не передаём их в коммерческих целях. Мы можем передать их государственным органам только тогда, когда этого требует закон.",
+          t: "Мы работаем с поставщиками, которые обрабатывают данные от нашего имени и только для указанных целей: Supabase (база данных и формы сайта), Cloudflare (хостинг сайта), Zoho Cliq (внутренние уведомления команде о новых заявках), Google (Google Analytics и Google Tag Manager, только с вашего согласия), Microsoft (Clarity, только с вашего согласия) и CARTO (карта на странице контактов, которая получает IP-адрес посетителя, чтобы показать карту). Microsoft получает данные из Clarity как самостоятельный оператор: использует их и в собственных целях, в том числе для Microsoft Advertising. Подробнее — в заявлении о конфиденциальности Microsoft: privacy.microsoft.com/privacystatement. Мы не продаём данные и не передаём их в коммерческих целях. Мы можем передать их государственным органам только тогда, когда этого требует закон.",
         },
         {
           h: "5. Передача за пределы Республики Молдова и ЕС",
-          t: "Некоторые поставщики (Google, Microsoft, Cloudflare, Telegram) могут обрабатывать данные за пределами Республики Молдова и Европейского союза, в том числе в США. В таких случаях мы опираемся на гарантии поставщиков, например стандартные договорные положения, утверждённые Европейской комиссией, или сертификацию EU-U.S. Data Privacy Framework. Для Microsoft Clarity передача в США происходит только с вашего явного согласия в баннере cookie, данного после того, как вы узнали, что в США данные могут быть защищены хуже, чем в ЕС, в том числе от доступа государственных органов (ст. 49 ч. 1 п. а GDPR). База данных Supabase размещена во Франкфурте, Германия (Европейский союз).",
+          t: "Некоторые поставщики (Google, Microsoft, Cloudflare) могут обрабатывать данные за пределами Республики Молдова и Европейского союза, в том числе в США. В таких случаях мы опираемся на гарантии поставщиков, например стандартные договорные положения, утверждённые Европейской комиссией, или сертификацию EU-U.S. Data Privacy Framework. Для Microsoft Clarity передача в США происходит только с вашего явного согласия в баннере cookie, данного после того, как вы узнали, что в США данные могут быть защищены хуже, чем в ЕС, в том числе от доступа государственных органов (ст. 49 ч. (1) п. a) Закона № 195/2024 и GDPR). База данных Supabase размещена во Франкфурте, Германия (Европейский союз), а уведомления Zoho Cliq хранятся в центрах обработки данных Zoho в Европейском союзе.",
         },
         {
           h: "6. Хранение и безопасность",
@@ -217,15 +222,19 @@ const content: ContentMap = {
         },
         {
           h: "7. Сколько мы храним данные",
-          t: "Заявки с сайта, которые не привели к договору: 12 месяцев с момента последнего контакта. Данные клиентов и бухгалтерские документы: в течение срока договора и 10 лет после его окончания, как требует бухгалтерское и налоговое законодательство Республики Молдова. Подписчики рассылки: до отписки. Данные аналитики: не более 14 месяцев в Google Analytics и 13 месяцев в Microsoft Clarity. По истечении срока данные надёжно удаляются.",
+          t: "Заявки с сайта, которые не привели к договору: 12 месяцев с момента последнего контакта. Данные клиентов и бухгалтерские документы: в течение срока договора и 10 лет после его окончания, как требует бухгалтерское и налоговое законодательство Республики Молдова. Неопубликованные отзывы: 12 месяцев; опубликованные отзывы: пока вы не попросите их снять. Подписчики рассылки: до отписки, а адреса отписавшихся удаляются через 30 дней. Удаление просроченных заявок происходит автоматически, ежедневно. Данные аналитики: не более 14 месяцев в Google Analytics и 13 месяцев в Microsoft Clarity. По истечении срока данные надёжно удаляются.",
         },
         {
           h: "8. Ваши права",
-          t: `Вы имеете право на доступ, исправление, удаление, ограничение обработки, переносимость данных и возражение, а также право в любой момент отозвать согласие, что не влияет на законность обработки до отзыва. Чтобы воспользоваться этими правами, напишите на ${EMAIL}; мы отвечаем не позднее чем через месяц. Вы можете подать жалобу в Национальный центр по защите персональных данных Республики Молдова или, если вы живёте в Европейском союзе, в орган по защите данных вашей страны.`,
+          t: `Вы имеете право на доступ, исправление, удаление, ограничение обработки, переносимость данных и возражение, а также право в любой момент отозвать согласие, что не влияет на законность обработки до отзыва. Вы также имеете право не подвергаться решению, основанному исключительно на автоматизированной обработке, и потребовать участия специалиста. Чтобы воспользоваться этими правами, напишите на ${DPO_EMAIL}; мы отвечаем не позднее чем через месяц, а в сложных случаях срок может быть продлён ещё на два месяца с уведомлением вас. Вы можете подать жалобу в Национальный центр по защите персональных данных Республики Молдова или, если вы живёте в Европейском союзе, в орган по защите данных вашей страны.`,
         },
         {
-          h: "9. Правовая основа",
-          t: "Мы обрабатываем данные в соответствии с законодательством Республики Молдова о защите персональных данных, а для лиц из Европейского союза — в соответствии с Регламентом (ЕС) 2016/679 (GDPR).",
+          h: "9. Предварительный расчёт стоимости",
+          t: "Калькулятор на сайте автоматически оценивает ежемесячную стоимость услуг по данным, которые вы вводите: выбранные услуги, сфера деятельности, количество счетов в месяц, оборот, статус плательщика НДС, количество сотрудников или количество часов. Логика простая: берём базовый тариф для сферы деятельности, добавляем надбавку за счета сверх включённого лимита и за НДС, применяем коэффициент в зависимости от оборота, вычитаем действующие акционные скидки и округляем до 10 MDL; для юридических, финансовых и IT-услуг умножаем часы на почасовую ставку, а для кадровых — количество сотрудников на тариф за сотрудника. Расчёт выполняется в вашем браузере и не использует персональные данные. Результат — лишь ориентировочная оценка, а не твёрдое предложение, и он не порождает для вас юридических последствий: если вы отправите оценку нам, специалист проверит её и подтвердит окончательное предложение. Вы всегда можете попросить, чтобы цену определил специалист.",
+        },
+        {
+          h: "10. Правовая основа",
+          t: "Мы обрабатываем данные в соответствии с Законом Республики Молдова № 195/2024 о защите персональных данных, а для лиц из Европейского союза — в соответствии с Регламентом (ЕС) 2016/679 (GDPR).",
         },
       ],
       questionsTitle: "Есть вопросы?",
@@ -236,7 +245,7 @@ const content: ContentMap = {
     cookies: {
       title: "Политика использования cookie",
       lastUpdated: "Последнее обновление",
-      updated: "19 сентября 2026",
+      updated: "11 октября 2026",
       sections: [
         {
           h: "1. Что такое cookie",
@@ -252,7 +261,7 @@ const content: ContentMap = {
         },
         {
           h: "4. Запись сессий (только с вашего согласия)",
-          t: "Microsoft Clarity показывает, как используется сайт (клики, прокрутка, тепловые карты), с помощью записи сессий. Он не работает на страницах с формами (контакты и частые вопросы), а в формах записи во всплывающих окнах введённый текст скрыт. Microsoft получает данные как самостоятельный оператор, передаёт их в США, где защита может быть слабее, чем в ЕС, и использует их также для Microsoft Advertising; подробнее — privacy.microsoft.com/privacystatement. Cookie: _clck (1 год) и _clsk (1 день). Включается, только если вы разрешили категорию «Запись сессий».",
+          t: "Microsoft Clarity показывает, как используется сайт (клики, прокрутка, тепловые карты), с помощью записи сессий. Он не работает на страницах с формами (контакты и частые вопросы), а текст, введённый в формах во всплывающих окнах, скрыт. Microsoft получает данные как самостоятельный оператор, передаёт их в США, где защита может быть слабее, чем в ЕС, и использует их также для Microsoft Advertising; подробнее — privacy.microsoft.com/privacystatement. Cookie: _clck (1 год) и _clsk (1 день). Включается, только если вы разрешили категорию «Запись сессий».",
         },
         {
           h: "5. Маркетинг (только с вашего согласия)",
@@ -260,11 +269,11 @@ const content: ContentMap = {
         },
         {
           h: "6. Содержимое третьих сторон",
-          t: "Карта на странице контактов использует изображения карт от CARTO на основе данных OpenStreetMap. Чтобы показать их, ваш браузер передаёт CARTO свой IP-адрес.",
+          t: "Карта на странице контактов использует изображения карт от CARTO на основе данных OpenStreetMap. Карта загружается только после нажатия «Показать карту»; только тогда ваш браузер передаёт CARTO свой IP-адрес.",
         },
         {
           h: "7. Как управлять своим выбором",
-          t: "При первом посещении мы спрашиваем согласие в баннере: можно принять всё, отказаться от всего или выбрать по категориям. Изменить выбор можно в любой момент кнопкой «Изменить настройки cookie» ниже; сюда ведёт ссылка «Cookies» в нижней части сайта. Если вы отзываете согласие, мы удаляем cookie аналитики и записи сессий, установленные сайтом. Мы снова спросим согласие через 12 месяцев или когда изменим используемые инструменты. Отзыв согласия не влияет на законность обработки до отзыва.",
+          t: "При первом посещении мы спрашиваем согласие в баннере: можно принять всё, отказаться от всего или выбрать по категориям. Изменить выбор можно в любой момент кнопкой «Изменить настройки cookie» ниже; те же настройки открывает кнопка «Настройки cookie» внизу каждой страницы. Если вы отзываете согласие, мы удаляем cookie аналитики и записи сессий, установленные сайтом. Мы снова спросим согласие через 12 месяцев или когда изменим используемые инструменты. Отзыв согласия не влияет на законность обработки до отзыва.",
         },
       ],
       questionsTitle: "Вопросы о cookie-файлах?",
@@ -312,15 +321,15 @@ const content: ContentMap = {
     privacy: {
       title: "Privacy Policy",
       lastUpdated: "Last updated",
-      updated: "September 19, 2026",
+      updated: "October 11, 2026",
       sections: [
         {
           h: "1. Who we are",
-          t: `${LEGAL_NAME} (S.R.L. "RIGHT CONSULT COMPANY", IDNO 1022600002005), located at ${ADDR_EN}, is the controller of the personal data described below. For any question about your data, email ${EMAIL} or call ${PHONE}.`,
+          t: `${LEGAL_NAME} (S.R.L. "RIGHT CONSULT COMPANY", IDNO 1022600002005), located at ${ADDR_EN}, is the controller of the personal data described below. For any question about your data, email ${EMAIL} or call ${PHONE}. For data protection matters and to exercise your rights, write to ${DPO_EMAIL}.`,
         },
         {
           h: "2. What data we collect",
-          t: "Through the forms on this site (contact, booking, quote, questions, reviews and newsletter) we collect your name, email address, phone number and the message you send. For each submission we also keep the page it was sent from, your browser type and an irreversibly encrypted fingerprint (hash) of your IP address, used only to prevent abuse; we don't store the IP address itself. For clients under contract we process company data and the financial and legal documents they send, including their employees' payroll data. We don't ask for sensitive data through the site.",
+          t: "Through the forms on this site (contact, booking, quote, questions, reviews and newsletter) we collect your name, email address, phone number and the message you send. For each submission we also keep the page it was sent from, your browser type and an irreversibly encrypted fingerprint (hash) of your IP address, used only to prevent abuse; we don't store the IP address itself. For clients under contract we process company data and the financial and legal documents they send, including their employees' payroll data. We don't ask for sensitive data through the site. Fields marked * are required: in the contact, booking and quote forms we need your name and phone number so we can call you back, and your email address is optional; for FAQ questions and the newsletter we need your email, because the answer and the newsletter are sent by email. Without the required data we can't handle your request; optional data only helps us reach you on your preferred channel.",
         },
         {
           h: "3. Purposes and legal basis",
@@ -328,11 +337,11 @@ const content: ContentMap = {
         },
         {
           h: "4. Who we share data with",
-          t: "We work with providers who process data on our behalf, only for the purposes above: Supabase (database and site forms), Cloudflare (site hosting), Telegram (internal notifications to our team about new requests), Google (Google Analytics and Google Tag Manager, only with your consent), Microsoft (Clarity, only with your consent) and CARTO (the map on the contact page, which receives the visitor's IP address to show the map). Microsoft receives Clarity data as an independent controller: it also uses it for its own purposes, including Microsoft Advertising. See the Microsoft Privacy Statement: privacy.microsoft.com/privacystatement. We don't sell data or share it for commercial purposes. We may share it with authorities only when the law requires it.",
+          t: "We work with providers who process data on our behalf, only for the purposes above: Supabase (database and site forms), Cloudflare (site hosting), Zoho Cliq (internal notifications to our team about new requests), Google (Google Analytics and Google Tag Manager, only with your consent), Microsoft (Clarity, only with your consent) and CARTO (the map on the contact page, which receives the visitor's IP address to show the map). Microsoft receives Clarity data as an independent controller: it also uses it for its own purposes, including Microsoft Advertising. See the Microsoft Privacy Statement: privacy.microsoft.com/privacystatement. We don't sell data or share it for commercial purposes. We may share it with authorities only when the law requires it.",
         },
         {
           h: "5. Transfers outside Moldova and the EU",
-          t: "Some providers (Google, Microsoft, Cloudflare, Telegram) may process data outside the Republic of Moldova and the European Union, including in the United States. In these cases we rely on the providers' safeguards, such as the European Commission's standard contractual clauses or EU-U.S. Data Privacy Framework certification. For Microsoft Clarity, the transfer to the US happens only with your explicit consent in the cookie banner, given after being told that data in the US may be less protected than in the EU, including against access by authorities (GDPR Art. 49(1)(a)). The Supabase database is hosted in Frankfurt, Germany (European Union).",
+          t: "Some providers (Google, Microsoft, Cloudflare) may process data outside the Republic of Moldova and the European Union, including in the United States. In these cases we rely on the providers' safeguards, such as the European Commission's standard contractual clauses or EU-U.S. Data Privacy Framework certification. For Microsoft Clarity, the transfer to the US happens only with your explicit consent in the cookie banner, given after being told that data in the US may be less protected than in the EU, including against access by authorities (Art. 49(1)(a) of Law No. 195/2024 and of the GDPR). The Supabase database is hosted in Frankfurt, Germany (European Union), and Zoho Cliq notifications are hosted in Zoho's European Union data centres.",
         },
         {
           h: "6. Storage and security",
@@ -340,15 +349,19 @@ const content: ContentMap = {
         },
         {
           h: "7. How long we keep data",
-          t: "Requests sent through the site that don't lead to a contract: 12 months from the last contact. Client data and accounting documents: for the duration of the contract and 10 years after it ends, as Moldovan accounting and tax law requires. Newsletter subscribers: until they unsubscribe. Analytics data: at most 14 months in Google Analytics and 13 months in Microsoft Clarity. When the period ends, data is securely deleted.",
+          t: "Requests sent through the site that don't lead to a contract: 12 months from the last contact. Client data and accounting documents: for the duration of the contract and 10 years after it ends, as Moldovan accounting and tax law requires. Unpublished reviews: 12 months; published reviews: until you ask us to remove them. Newsletter subscribers: until they unsubscribe, and unsubscribed addresses are deleted after 30 days. Expired requests are deleted automatically every day. Analytics data: at most 14 months in Google Analytics and 13 months in Microsoft Clarity. When the period ends, data is securely deleted.",
         },
         {
           h: "8. Your rights",
-          t: `You have the right to access, rectify and erase your data, to restrict its processing, to data portability and to object, and the right to withdraw your consent at any time without affecting earlier processing. To exercise these rights, email ${EMAIL}; we reply within one month. You can lodge a complaint with the National Center for Personal Data Protection of the Republic of Moldova or, if you live in the European Union, with the data protection authority in your country.`,
+          t: `You have the right to access, rectify and erase your data, to restrict its processing, to data portability and to object, and the right to withdraw your consent at any time without affecting earlier processing. You also have the right not to be subject to a decision based solely on automated processing and to ask for a specialist to step in. To exercise these rights, email ${DPO_EMAIL}; we reply within one month, which may be extended by two more months for complex requests, in which case we'll tell you. You can lodge a complaint with the National Center for Personal Data Protection of the Republic of Moldova or, if you live in the European Union, with the data protection authority in your country.`,
         },
         {
-          h: "9. Legal framework",
-          t: "We process data under the personal data protection law of the Republic of Moldova and, for people in the European Union, under Regulation (EU) 2016/679 (GDPR).",
+          h: "9. Price estimates",
+          t: "The price calculator on this site automatically estimates the monthly cost of our services from the data you enter: the services you pick, your line of business, invoices per month, turnover, VAT status, number of employees or number of hours. The logic is simple: we start from the base rate for your line of business, add a surcharge for invoices above the included threshold and for VAT, apply a factor based on turnover, subtract any active promotional discount and round to 10 MDL; for legal, financial and IT services we multiply hours by the hourly rate, and for HR the number of employees by the per-employee rate. The calculation runs in your browser and uses no personal data. The result is only an indicative estimate, not a binding offer, and it has no legal effect on you: if you send us the estimate, a specialist checks it and confirms the final offer. You can always ask for the price to be set directly by a specialist.",
+        },
+        {
+          h: "10. Legal framework",
+          t: "We process data under the Republic of Moldova's Law No. 195/2024 on personal data protection and, for people in the European Union, under Regulation (EU) 2016/679 (GDPR).",
         },
       ],
       questionsTitle: "Have Questions?",
@@ -359,7 +372,7 @@ const content: ContentMap = {
     cookies: {
       title: "Cookie Policy",
       lastUpdated: "Last updated",
-      updated: "September 19, 2026",
+      updated: "October 11, 2026",
       sections: [
         {
           h: "1. What cookies are",
@@ -375,7 +388,7 @@ const content: ContentMap = {
         },
         {
           h: "4. Session recording (only with your consent)",
-          t: "Microsoft Clarity shows how the site is used (clicks, scrolling, heatmaps) through session recordings. It doesn't run on pages with forms (contact and FAQ), and text typed into the booking pop-up forms is masked. Microsoft receives the data as an independent controller, transfers it to the US, where protection may be weaker than in the EU, and also uses it for Microsoft Advertising; see privacy.microsoft.com/privacystatement. Cookies: _clck (1 year) and _clsk (1 day). Turned on only if you allow the “Session recording” category.",
+          t: "Microsoft Clarity shows how the site is used (clicks, scrolling, heatmaps) through session recordings. It doesn't run on pages with forms (contact and FAQ), and text typed into any pop-up form is masked. Microsoft receives the data as an independent controller, transfers it to the US, where protection may be weaker than in the EU, and also uses it for Microsoft Advertising; see privacy.microsoft.com/privacystatement. Cookies: _clck (1 year) and _clsk (1 day). Turned on only if you allow the “Session recording” category.",
         },
         {
           h: "5. Marketing (only with your consent)",
@@ -383,11 +396,11 @@ const content: ContentMap = {
         },
         {
           h: "6. Third-party content",
-          t: "The map on the contact page uses map images from CARTO, based on OpenStreetMap data. To show them, your browser sends its IP address to CARTO.",
+          t: "The map on the contact page uses map images from CARTO, based on OpenStreetMap data. The map loads only after you press “Show map”; only then does your browser send its IP address to CARTO.",
         },
         {
           h: "7. Managing your choice",
-          t: "On your first visit we ask for consent in the banner, where you can accept everything, refuse everything or choose by category. You can change your choice at any time with the “Change cookie settings” button below; the “Cookies” link at the bottom of every page brings you here. If you withdraw consent, we delete the analytics and session-recording cookies the site set. We ask again after 12 months or when we change the tools we use. Withdrawing consent doesn't affect the lawfulness of earlier processing.",
+          t: "On your first visit we ask for consent in the banner, where you can accept everything, refuse everything or choose by category. You can change your choice at any time with the “Change cookie settings” button below; the “Cookie settings” button at the bottom of every page opens the same panel. If you withdraw consent, we delete the analytics and session-recording cookies the site set. We ask again after 12 months or when we change the tools we use. Withdrawing consent doesn't affect the lawfulness of earlier processing.",
         },
       ],
       questionsTitle: "Questions About Cookies?",
