@@ -270,7 +270,16 @@ export function ReviewModal({ open, onClose, locale }: Props) {
               className="mt-1 accent-primary"
             />
             <span className="text-text-secondary">
-              {t.consentText} <a href={sectionUrl("privacy", locale)} target="_blank" rel="noopener" className="text-primary underline">{t.consentLink}</a>. *
+              {t.consentText}{" "}
+              <a
+                href={sectionUrl("privacy", locale)}
+                target="_blank"
+                rel="noopener"
+                className="text-primary underline"
+              >
+                {t.consentLink}
+              </a>
+              . *
             </span>
           </label>
 

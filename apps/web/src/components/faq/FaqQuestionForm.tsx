@@ -240,7 +240,16 @@ export function FaqQuestionForm({
                 className="mt-1 accent-primary"
               />
               <span>
-                {formConsentLabel} <a href={sectionUrl("privacy", locale)} target="_blank" rel="noopener" className="text-primary underline">{formConsentLink}</a>. *
+                {formConsentLabel}{" "}
+                <a
+                  href={sectionUrl("privacy", locale)}
+                  target="_blank"
+                  rel="noopener"
+                  className="text-primary underline"
+                >
+                  {formConsentLink}
+                </a>
+                . *
               </span>
             </label>
 
