@@ -246,7 +246,7 @@ function BannerContent({ locale, policyHref }: Props) {
             <Button variant="outline" size="sm" onClick={() => apply(FULL_CONSENT)}>
               <Trans>Accept all</Trans>
             </Button>
-            <Button variant="ghost" size="sm" onClick={() => apply(NO_CONSENT)}>
+            <Button variant="outline" size="sm" onClick={() => apply(NO_CONSENT)}>
               <Trans>Only necessary</Trans>
             </Button>
           </>
@@ -255,7 +255,7 @@ function BannerContent({ locale, policyHref }: Props) {
             <Button variant="primary" size="sm" onClick={() => apply(FULL_CONSENT)}>
               <Trans>Accept all</Trans>
             </Button>
-            <Button variant="outline" size="sm" onClick={() => apply(NO_CONSENT)}>
+            <Button variant="primary" size="sm" onClick={() => apply(NO_CONSENT)}>
               <Trans>Only necessary</Trans>
             </Button>
             <Button variant="ghost" size="sm" onClick={() => setShowPreferences(true)}>
