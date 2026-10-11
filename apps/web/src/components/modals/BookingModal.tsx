@@ -69,7 +69,7 @@ export function BookingModal({ open, onClose, locale, initialService, initialSub
       : step === 1
         ? !!data.date && !!data.time
         : step === 2
-          ? !!data.name.trim() && !!data.email.trim()
+          ? !!data.name.trim() && !!data.phone.trim()
           : false;
 
   const handleClose = () => {
@@ -119,8 +119,8 @@ export function BookingModal({ open, onClose, locale, initialService, initialSub
     const result = await backendClient.submitBookACall({
       language: detectLanguage(data.note || `${serviceName} ${modeLabel}`, locale),
       name: data.name,
-      email: data.email,
-      phone: data.phone || undefined,
+      phone: data.phone,
+      email: data.email || undefined,
       preferred_at: preferredAt,
       notes,
       source_url: typeof window !== "undefined" ? window.location.href : undefined,

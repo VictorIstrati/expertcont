@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "leaflet/dist/leaflet.css";
 
 interface Props {
@@ -8,13 +8,16 @@ interface Props {
   address: string;
   /** Bold heading line shown in the popup (e.g. "Biroul ExpertCont"). */
   label: string;
+  loadLabel: string;
+  loadNote: string;
 }
 
-export function OfficeMap({ latitude, longitude, address, label }: Props) {
+export function OfficeMap({ latitude, longitude, address, label, loadLabel, loadNote }: Props) {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const [active, setActive] = useState(false);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!active || !containerRef.current) return;
     let cancelled = false;
     let cleanup: (() => void) | undefined;
 
@@ -82,7 +85,18 @@ export function OfficeMap({ latitude, longitude, address, label }: Props) {
       cancelled = true;
       cleanup?.();
     };
-  }, [latitude, longitude, address, label]);
+  }, [active, latitude, longitude, address, label]);
+
+  if (!active) {
+    return (
+      <div className="aspect-4/3 w-full rounded-lg border border-border bg-bg-section-alt flex flex-col items-center justify-center gap-3 p-6 text-center">
+        <button type="button" className="btn btn-outline btn-md" onClick={() => setActive(true)}>
+          {loadLabel}
+        </button>
+        <p className="text-xs text-text-secondary max-w-xs">{loadNote}</p>
+      </div>
+    );
+  }
 
   return (
     <div

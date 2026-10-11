@@ -32,25 +32,26 @@ export function ContactStep({ data, onChange, t, locale }: Props) {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="field">
-          <label htmlFor={emailId}>{t.emailLabel} *</label>
+          <label htmlFor={phoneId}>{t.phoneLabel} *</label>
+          <input
+            id={phoneId}
+            className="input"
+            type="tel"
+            required
+            value={data.phone}
+            onChange={(e) => onChange({ ...data, phone: e.target.value })}
+            placeholder="+373 ..."
+          />
+        </div>
+        <div className="field">
+          <label htmlFor={emailId}>{t.emailLabel}</label>
           <input
             id={emailId}
             className="input"
             type="email"
-            required
             value={data.email}
             onChange={(e) => onChange({ ...data, email: e.target.value })}
             placeholder="ion@firma.md"
-          />
-        </div>
-        <div className="field">
-          <label htmlFor={phoneId}>{t.phoneLabel}</label>
-          <input
-            id={phoneId}
-            className="input"
-            value={data.phone}
-            onChange={(e) => onChange({ ...data, phone: e.target.value })}
-            placeholder="+373 ..."
           />
         </div>
       </div>

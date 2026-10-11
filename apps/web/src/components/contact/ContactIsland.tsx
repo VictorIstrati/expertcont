@@ -83,8 +83,8 @@ function ContactInner({ locale, address, phone, email, hours, geo }: ContactIsla
     const result = await backendClient.submitContact({
       language: detectLanguage(form.message, locale),
       name: form.name,
-      email: form.email,
-      phone: form.phone || undefined,
+      phone: form.phone,
+      email: form.email || undefined,
       company: form.company || undefined,
       subject: serviceLabel,
       message: form.message,
@@ -157,39 +157,39 @@ function ContactInner({ locale, address, phone, email, hours, geo }: ContactIsla
                       />
                     </div>
                     <div className="field">
-                      <label htmlFor={emailId} className="block text-sm font-semibold mb-2">
-                        <Trans>Email</Trans> *
-                      </label>
-                      <input
-                        id={emailId}
-                        className="input"
-                        type="email"
-                        required
-                        value={form.email}
-                        onChange={(e) => setForm({ ...form, email: e.target.value })}
-                        placeholder={t({
-                          message: `ion@firma.md`,
-                          comment:
-                            "Placeholder text inside the contact form 'Email' field. Sample address — use a locale-appropriate example domain.",
-                        })}
-                      />
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="field">
                       <label htmlFor={phoneId} className="block text-sm font-semibold mb-2">
-                        <Trans>Telefon</Trans>
+                        <Trans>Telefon</Trans> *
                       </label>
                       <input
                         id={phoneId}
                         className="input"
                         type="tel"
+                        required
                         value={form.phone}
                         onChange={(e) => setForm({ ...form, phone: e.target.value })}
                         placeholder={t({
                           message: `+373 ...`,
                           comment:
                             "Placeholder text inside the contact form 'Phone' field (Moldova country code +373). Keep as-is in every locale.",
+                        })}
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="field">
+                      <label htmlFor={emailId} className="block text-sm font-semibold mb-2">
+                        <Trans>Email</Trans>
+                      </label>
+                      <input
+                        id={emailId}
+                        className="input"
+                        type="email"
+                        value={form.email}
+                        onChange={(e) => setForm({ ...form, email: e.target.value })}
+                        placeholder={t({
+                          message: `ion@firma.md`,
+                          comment:
+                            "Placeholder text inside the contact form 'Email' field. Sample address — use a locale-appropriate example domain.",
                         })}
                       />
                     </div>
@@ -343,6 +343,12 @@ function ContactInner({ locale, address, phone, email, hours, geo }: ContactIsla
                 longitude={geo.longitude}
                 address={address}
                 label={t`Biroul ExpertCont`}
+                loadLabel={t`Afișează harta`}
+                loadNote={t({
+                  message: `Harta este furnizată de CARTO, care primește adresa ta IP la încărcare.`,
+                  comment:
+                    "Note under the 'Show map' button on the contact page. Explains that loading the map sends the visitor's IP address to the map provider CARTO.",
+                })}
               />
 
               <div className="card p-8 bg-primary dark:bg-primary-deep text-white relative overflow-hidden">

@@ -29,14 +29,14 @@ Deno.serve(async (req) => {
   }
 
   const name = requireString(body.name, 200);
-  const email = isEmail(body.email) ? (body.email as string) : null;
+  const phone = requireString(body.phone, 50);
   const message = requireString(body.message, 10_000);
   if (!name) return badRequest(req, "name is required");
-  if (!email) return badRequest(req, "valid email is required");
+  if (!phone) return badRequest(req, "phone is required");
   if (!message) return badRequest(req, "message is required");
 
   const language = normalizeLanguage(body.language);
-  const phone = clampString(body.phone, 50);
+  const email = isEmail(body.email) ? (body.email as string) : null;
   const company = clampString(body.company, 200);
   const subject = clampString(body.subject, 300);
 
@@ -66,7 +66,7 @@ Deno.serve(async (req) => {
     await notify({
       kind: "contact",
       language,
-      summary: { id: parent.id, name, email, phone, subject: subject ?? "(no subject)", message },
+      summary: { id: parent.id, name, phone, email, subject: subject ?? "(no subject)", message },
     });
 
     return json(req, { ok: true, id: parent.id }, 201);

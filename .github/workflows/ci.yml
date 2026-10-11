@@ -81,8 +81,7 @@ jobs:
           doppler run --project expertcont --config prd -- bash -c '
             set -euo pipefail
             supabase secrets set --project-ref "$SUPABASE_PROJECT_REF" \
-              "TELEGRAM_BOT_TOKEN=$TELEGRAM_BOT_TOKEN" \
-              "TELEGRAM_CHAT_ID=$TELEGRAM_CHAT_ID" \
+              "ZOHO_CLIQ_WEBHOOK_URL=$ZOHO_CLIQ_WEBHOOK_URL" \
               ${ALLOWED_ORIGINS:+ALLOWED_ORIGINS="$ALLOWED_ORIGINS"}
           '
 
