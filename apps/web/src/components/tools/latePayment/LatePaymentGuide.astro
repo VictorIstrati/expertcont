@@ -1,0 +1,419 @@
+---
+import { Container, Icon, Section } from "@expertcont/ui";
+import { localeTag, type Locale } from "@expertcont/i18n";
+import {
+  BASE_RATES_CHECKED,
+  LIMITATION_YEARS,
+  STATUTORY_MARGIN,
+  baseRateOn,
+} from "./baseRates";
+
+interface Props {
+  locale: Locale;
+  legalHref: string;
+}
+
+const { locale, legalHref } = Astro.props;
+const pf = new Intl.NumberFormat(localeTag(locale), {
+  style: "percent",
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+const df = new Intl.DateTimeFormat(localeTag(locale), {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+  timeZone: "UTC",
+});
+const checked = df.format(new Date(`${BASE_RATES_CHECKED}T00:00:00Z`));
+const b2b = Math.round(STATUTORY_MARGIN.business * 100);
+const b2c = Math.round(STATUTORY_MARGIN.consumer * 100);
+
+const semesters: { year: number; half: 1 | 2; base: number }[] = [];
+for (let year = 2020; ; year++) {
+  const h1 = `${year}-01-01`;
+  if (h1 > BASE_RATES_CHECKED) break;
+  semesters.push({ year, half: 1, base: baseRateOn(h1) });
+  const h2 = `${year}-07-01`;
+  if (h2 > BASE_RATES_CHECKED) break;
+  semesters.push({ year, half: 2, base: baseRateOn(h2) });
+}
+semesters.reverse();
+
+interface Copy {
+  basisEyebrow: string;
+  basisTitle: string;
+  statutoryTitle: string;
+  statutoryBody: string;
+  statutoryItems: string[];
+  contractualTitle: string;
+  contractualBody: string;
+  contractualItems: string[];
+  ratesEyebrow: string;
+  ratesTitle: string;
+  ratesBody: string;
+  semesterCol: string;
+  baseCol: string;
+  b2bCol: string;
+  b2cCol: string;
+  half: Record<1 | 2, string>;
+  ratesNote: string;
+  letterEyebrow: string;
+  letterTitle: string;
+  letterSteps: { title: string; body: string }[];
+  limitationTitle: string;
+  limitationBody: string;
+  ctaTitle: string;
+  ctaBody: string;
+  ctaLink: string;
+}
+
+const copy: Record<Locale, Copy> = {
+  ro: {
+    basisEyebrow: "Temeiul legal",
+    basisTitle: "Dobânda legală sau penalitatea din contract",
+    statutoryTitle: "Dobânda de întârziere (art. 942 Cod civil)",
+    statutoryBody:
+      "Se datorează automat pentru orice sumă de bani neplătită la scadență, chiar dacă contractul nu spune nimic despre întârziere.",
+    statutoryItems: [
+      `rata = rata de bază a BNM + ${b2b} puncte procentuale pe an, dacă debitorul nu este consumator (o companie, un profesionist sau o persoană fizică datoare altei persoane fizice)`,
+      `rata = rata de bază a BNM + ${b2c} puncte procentuale pe an, dacă debitorul este consumator`,
+      "rata de bază se ia pe semestre: cea în vigoare la 1 ianuarie pentru ianuarie–iunie și cea în vigoare la 1 iulie pentru iulie–decembrie (art. 874 alin. (2))",
+      "curge din ziua imediat următoare scadenței până în ziua plății inclusiv",
+      "dacă suma purta dobândă contractuală, creditorul poate folosi acea dobândă în locul ratei de bază",
+      "dacă neplata la scadență este justificată, se datorează doar rata de bază, iar consumatorul nu datorează dobândă de întârziere (art. 942 alin. (5))",
+      "între profesioniști, creditorul poate cere în plus o despăgubire minimă egală cu echivalentul în lei a 40 de euro pentru cheltuielile de recuperare (art. 945)",
+    ],
+    contractualTitle: "Penalitatea contractuală (clauza penală)",
+    contractualBody:
+      "Se aplică doar dacă părțile au convenit-o în contract — de obicei un procent pe zi de întârziere, uneori cu un plafon.",
+    contractualItems: [
+      "creditorul alege fie penalitatea, fie dobânda legală — nu le poate cere pe amândouă pentru aceeași întârziere (art. 942 alin. (4))",
+      "Codul civil nu fixează un plafon, dar instanța poate reduce, în cazuri excepționale și la cererea debitorului, o penalitate disproporționat de mare (art. 953)",
+      "penalitatea nu poate fi redusă dacă rata ei nu depășește rata dobânzii legale de întârziere (art. 953 alin. (3))",
+      "penalitatea plătită de bunăvoie nu mai poate fi redusă ulterior (art. 953 alin. (2))",
+      "dacă ai primit plata datoriei, poți cere penalitatea doar dacă ți-ai rezervat expres acest drept la primirea plății (art. 949 alin. (3))",
+      "față de consumatori, o penalitate disproporționată nenegociată poate fi declarată clauză abuzivă",
+    ],
+    ratesEyebrow: "Transparență",
+    ratesTitle: "Ratele folosite în calcul",
+    ratesBody:
+      "Rata de bază a Băncii Naționale a Moldovei aplicabilă pe fiecare semestru și rata dobânzii de întârziere care rezultă.",
+    semesterCol: "Semestrul",
+    baseCol: "Rata de bază BNM",
+    b2bCol: `Companii (+${b2b} p.p.)`,
+    b2cCol: `Consumatori (+${b2c} p.p.)`,
+    half: { 1: "ian.–iun.", 2: "iul.–dec." },
+    ratesNote: `Sursa: istoricul ratei de bază publicat pe bnm.md, verificat la ${checked}. Calculul folosește un an de 365 de zile.`,
+    letterEyebrow: "Pasul următor",
+    letterTitle: "Cum folosești calculul într-o somație",
+    letterSteps: [
+      {
+        title: "Separă datoria de dobândă",
+        body: "În somație indică distinct suma principală, perioada de întârziere, dobânda sau penalitatea calculată și temeiul ei — articolul din Codul civil sau punctul din contract.",
+      },
+      {
+        title: "Anexează calculul",
+        body: "Descarcă tabelul în PDF și atașează-l, împreună cu copiile contractului, facturilor și ale actelor de predare-primire.",
+      },
+      {
+        title: "Stabilește un termen de plată",
+        body: "Acordă debitorului un termen rezonabil și precizează că dobânda continuă să curgă până la plata efectivă.",
+      },
+      {
+        title: "Păstrează dovada expedierii",
+        body: "Trimite somația prin scrisoare recomandată cu aviz de recepție sau înmânează-o contra semnătură. Dacă ajungi în instanță, actualizează calculul la data depunerii cererii.",
+      },
+    ],
+    limitationTitle: "Termenul de prescripție",
+    limitationBody: `Termenul general de prescripție este de ${LIMITATION_YEARS} ani (art. 391). Prescripția se aplică doar dacă debitorul o invocă, iar odată cu datoria principală se prescrie și dobânda aferentă (art. 408). Dobânda pentru perioada mai veche de ${LIMITATION_YEARS} ani înainte de chemarea în judecată riscă să fie considerată prescrisă. Nu amâna recuperarea.`,
+    ctaTitle: "Vrei să recuperezi datoria fără bătăi de cap?",
+    ctaBody:
+      "Juriștii ExpertCont redactează somația, verifică clauzele din contract și te reprezintă în negocieri sau în instanță.",
+    ctaLink: "Vezi serviciile juridice",
+  },
+  ru: {
+    basisEyebrow: "Правовая основа",
+    basisTitle: "Законные проценты или договорная пеня",
+    statutoryTitle: "Проценты за просрочку (ст. 942 ГК)",
+    statutoryBody:
+      "Начисляются автоматически на любую сумму, не оплаченную в срок, даже если договор ничего не говорит о просрочке.",
+    statutoryItems: [
+      `ставка = базовая ставка НБМ + ${b2b} процентных пунктов годовых, если должник не потребитель (компания, профессионал или физическое лицо, задолжавшее другому физическому лицу)`,
+      `ставка = базовая ставка НБМ + ${b2c} процентных пунктов годовых, если должник — потребитель`,
+      "базовая ставка берётся по полугодиям: действующая на 1 января — для января–июня, действующая на 1 июля — для июля–декабря (ч. (2) ст. 874)",
+      "начисляются со дня, следующего за сроком оплаты, по день оплаты включительно",
+      "если на сумму начислялись договорные проценты, кредитор может применить их вместо базовой ставки",
+      "если неоплата в срок обоснована, начисляется только базовая ставка, а потребитель проценты за просрочку не платит (ч. (5) ст. 942)",
+      "между профессионалами кредитор может дополнительно потребовать минимальную компенсацию расходов на взыскание — эквивалент 40 евро в леях (ст. 945)",
+    ],
+    contractualTitle: "Договорная неустойка (пеня)",
+    contractualBody:
+      "Применяется, только если стороны согласовали её в договоре — обычно процент за каждый день просрочки, иногда с предельной суммой.",
+    contractualItems: [
+      "кредитор выбирает либо пеню, либо законные проценты — требовать и то, и другое за одну просрочку нельзя (ч. (4) ст. 942)",
+      "Гражданский кодекс не устанавливает предел, но суд в исключительных случаях по заявлению должника может уменьшить несоразмерно большую неустойку (ст. 953)",
+      "неустойку нельзя уменьшить, если её ставка не превышает ставку законных процентов за просрочку (ч. (3) ст. 953)",
+      "добровольно уплаченную неустойку впоследствии уменьшить нельзя (ч. (2) ст. 953)",
+      "если вы приняли оплату долга, пеню можно требовать, только если при её принятии вы прямо оговорили это право (ч. (3) ст. 949)",
+      "в отношениях с потребителями несогласованная несоразмерная неустойка может быть признана несправедливым условием",
+    ],
+    ratesEyebrow: "Прозрачность",
+    ratesTitle: "Ставки, используемые в расчёте",
+    ratesBody:
+      "Базовая ставка Национального банка Молдовы, применимая в каждом полугодии, и получаемая ставка процентов за просрочку.",
+    semesterCol: "Полугодие",
+    baseCol: "Базовая ставка НБМ",
+    b2bCol: `Компании (+${b2b} п.п.)`,
+    b2cCol: `Потребители (+${b2c} п.п.)`,
+    half: { 1: "янв.–июнь", 2: "июль–дек." },
+    ratesNote: `Источник: история базовой ставки на bnm.md, проверено ${checked}. В расчёте год принимается равным 365 дням.`,
+    letterEyebrow: "Следующий шаг",
+    letterTitle: "Как использовать расчёт в претензии",
+    letterSteps: [
+      {
+        title: "Отделите долг от процентов",
+        body: "В претензии укажите отдельно основной долг, период просрочки, начисленные проценты или пеню и их основание — статью Гражданского кодекса или пункт договора.",
+      },
+      {
+        title: "Приложите расчёт",
+        body: "Сохраните таблицу в PDF и приложите её вместе с копиями договора, счетов и актов приёма-передачи.",
+      },
+      {
+        title: "Установите срок оплаты",
+        body: "Дайте должнику разумный срок и укажите, что проценты продолжают начисляться до фактической оплаты.",
+      },
+      {
+        title: "Сохраните доказательство отправки",
+        body: "Отправьте претензию заказным письмом с уведомлением о вручении или вручите под подпись. Если дело дойдёт до суда, обновите расчёт на дату подачи иска.",
+      },
+    ],
+    limitationTitle: "Срок исковой давности",
+    limitationBody: `Общий срок исковой давности — ${LIMITATION_YEARS} года (ст. 391). Давность применяется, только если о ней заявит должник, а с истечением давности по основному долгу истекает и давность по процентам (ст. 408). Проценты за период старше ${LIMITATION_YEARS} лет до подачи иска рискуют быть признанными погашенными давностью. Не откладывайте взыскание.`,
+    ctaTitle: "Хотите взыскать долг без лишних хлопот?",
+    ctaBody:
+      "Юристы ExpertCont составят претензию, проверят условия договора и представят ваши интересы в переговорах или в суде.",
+    ctaLink: "Юридические услуги",
+  },
+  en: {
+    basisEyebrow: "Legal basis",
+    basisTitle: "Statutory interest or a contractual penalty",
+    statutoryTitle: "Late-payment interest (art. 942 Civil Code)",
+    statutoryBody:
+      "Due automatically on any sum of money not paid on time, even if the contract says nothing about late payment.",
+    statutoryItems: [
+      `rate = National Bank of Moldova base rate + ${b2b} percentage points per year when the debtor is not a consumer (a business, a professional, or an individual owing money to another individual)`,
+      `rate = National Bank of Moldova base rate + ${b2c} percentage points per year when the debtor is a consumer`,
+      "the base rate is fixed per half-year: the rate in force on 1 January for January–June and the rate in force on 1 July for July–December (art. 874(2))",
+      "runs from the day after the due date up to and including the payment date",
+      "if the debt carried contractual interest, the creditor may use that rate instead of the base rate",
+      "if non-payment on the due date is justified, only the base rate is owed, and a consumer owes no late-payment interest (art. 942(5))",
+      "between professionals, the creditor may also claim minimum compensation of the MDL equivalent of 40 euro for recovery costs (art. 945)",
+    ],
+    contractualTitle: "Contractual penalty (penalty clause)",
+    contractualBody:
+      "Applies only if the parties agreed it in the contract — usually a percentage per day of delay, sometimes with a cap.",
+    contractualItems: [
+      "the creditor chooses either the penalty or statutory interest — not both for the same delay (art. 942(4))",
+      "the Civil Code sets no cap, but in exceptional cases and at the debtor's request a court may reduce a disproportionately high penalty (art. 953)",
+      "a penalty cannot be reduced if its rate does not exceed the statutory late-payment rate (art. 953(3))",
+      "a penalty paid voluntarily cannot be reduced afterwards (art. 953(2))",
+      "once you accept payment of the debt, you can claim the penalty only if you expressly reserved that right when accepting it (art. 949(3))",
+      "against consumers, a non-negotiated disproportionate penalty may be struck down as an unfair term",
+    ],
+    ratesEyebrow: "Transparency",
+    ratesTitle: "Rates used in the calculation",
+    ratesBody:
+      "The National Bank of Moldova base rate that applies in each half-year and the resulting late-payment interest rate.",
+    semesterCol: "Half-year",
+    baseCol: "NBM base rate",
+    b2bCol: `Businesses (+${b2b} pp)`,
+    b2cCol: `Consumers (+${b2c} pp)`,
+    half: { 1: "Jan–Jun", 2: "Jul–Dec" },
+    ratesNote: `Source: base rate history published on bnm.md, checked on ${checked}. The calculation uses a 365-day year.`,
+    letterEyebrow: "Next step",
+    letterTitle: "Using the calculation in a demand letter",
+    letterSteps: [
+      {
+        title: "Separate the debt from the interest",
+        body: "In the demand letter, state the principal, the period of delay, the interest or penalty and its basis — the Civil Code article or the contract clause — separately.",
+      },
+      {
+        title: "Attach the calculation",
+        body: "Save the table as a PDF and attach it with copies of the contract, invoices and delivery or acceptance records.",
+      },
+      {
+        title: "Set a payment deadline",
+        body: "Give the debtor a reasonable deadline and state that interest keeps accruing until actual payment.",
+      },
+      {
+        title: "Keep proof of delivery",
+        body: "Send the letter by registered mail with acknowledgement of receipt, or hand it over against signature. If you go to court, update the calculation to the filing date.",
+      },
+    ],
+    limitationTitle: "Limitation period",
+    limitationBody: `The general limitation period is ${LIMITATION_YEARS} years (art. 391). Limitation applies only if the debtor raises it, and once the principal is time-barred so is the interest on it (art. 408). Interest for the period more than ${LIMITATION_YEARS} years before the claim is filed risks being held time-barred. Don't wait too long.`,
+    ctaTitle: "Want to recover the debt without the hassle?",
+    ctaBody:
+      "ExpertCont's lawyers draft the demand letter, review your contract terms and represent you in negotiations or in court.",
+    ctaLink: "See our legal services",
+  },
+};
+
+const t = copy[locale];
+---
+
+<Section tone="default">
+  <Container>
+    <div class="text-center mb-10">
+      <div class="eyebrow mb-4 justify-center">{t.basisEyebrow}</div>
+      <h2 class="mb-0">{t.basisTitle}</h2>
+    </div>
+    <div class="grid gap-5 md:grid-cols-2">
+      <div class="card p-6 sm:p-7 border-accent">
+        <div class="flex items-center gap-3 mb-4">
+          <div
+            class="w-12 h-12 rounded-lg bg-accent-50 text-accent-dark flex items-center justify-center shrink-0"
+          >
+            <Icon name="scale" size={24} />
+          </div>
+          <h3 class="text-lg mb-0">{t.statutoryTitle}</h3>
+        </div>
+        <p class="text-text-secondary leading-relaxed mb-4">{t.statutoryBody}</p>
+        <ul class="list-none p-0 m-0 flex flex-col gap-2">
+          {
+            t.statutoryItems.map((item) => (
+              <li class="flex items-start gap-2 text-sm sm:text-base">
+                <span class="text-accent-dark shrink-0 mt-0.5">
+                  <Icon name="check" size={18} />
+                </span>
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="card p-6 sm:p-7">
+        <div class="flex items-center gap-3 mb-4">
+          <div
+            class="w-12 h-12 rounded-lg bg-primary-50 text-primary flex items-center justify-center shrink-0"
+          >
+            <Icon name="file-text" size={24} />
+          </div>
+          <h3 class="text-lg mb-0">{t.contractualTitle}</h3>
+        </div>
+        <p class="text-text-secondary leading-relaxed mb-4">{t.contractualBody}</p>
+        <ul class="list-none p-0 m-0 flex flex-col gap-2">
+          {
+            t.contractualItems.map((item) => (
+              <li class="flex items-start gap-2 text-sm sm:text-base">
+                <span class="text-primary shrink-0 mt-0.5">
+                  <Icon name="chevron-right" size={18} />
+                </span>
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </Container>
+</Section>
+
+<Section tone="alt">
+  <Container>
+    <div class="grid gap-8 grid-cols-[minmax(0,1fr)] lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] items-start">
+      <div>
+        <div class="eyebrow mb-4">{t.ratesEyebrow}</div>
+        <h2 class="mb-3">{t.ratesTitle}</h2>
+        <p class="text-text-secondary leading-relaxed mb-6">{t.ratesBody}</p>
+        <div class="card p-0 overflow-x-auto">
+          <table class="w-full text-sm border-collapse">
+            <thead>
+              <tr class="text-[11px] font-bold tracking-widest uppercase text-text-secondary">
+                <th class="text-left px-5 py-3">{t.semesterCol}</th>
+                <th class="text-right px-3 py-3">{t.baseCol}</th>
+                <th class="text-right px-3 py-3">{t.b2bCol}</th>
+                <th class="text-right px-5 py-3">{t.b2cCol}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                semesters.map((s) => (
+                  <tr class="border-t border-border">
+                    <th scope="row" class="text-left font-semibold px-5 py-2.5 whitespace-nowrap">
+                      {s.year} · {t.half[s.half]}
+                    </th>
+                    <td class="text-right px-3 py-2.5 whitespace-nowrap">{pf.format(s.base)}</td>
+                    <td class="text-right px-3 py-2.5 font-bold whitespace-nowrap">
+                      {pf.format(s.base + STATUTORY_MARGIN.business)}
+                    </td>
+                    <td class="text-right px-5 py-2.5 whitespace-nowrap">
+                      {pf.format(s.base + STATUTORY_MARGIN.consumer)}
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+        <p class="text-sm text-text-secondary leading-relaxed mt-4 mb-0">{t.ratesNote}</p>
+      </div>
+      <div class="flex flex-col gap-5 lg:mt-[88px]">
+        <div class="card p-6 sm:p-7">
+          <div
+            class="w-12 h-12 rounded-lg bg-primary-50 text-primary flex items-center justify-center mb-4"
+          >
+            <Icon name="clock" size={24} />
+          </div>
+          <h3 class="text-lg mb-2">{t.limitationTitle}</h3>
+          <p class="text-text-secondary leading-relaxed mb-0">{t.limitationBody}</p>
+        </div>
+      </div>
+    </div>
+  </Container>
+</Section>
+
+<Section tone="default">
+  <Container>
+    <div class="text-center mb-10">
+      <div class="eyebrow mb-4 justify-center">{t.letterEyebrow}</div>
+      <h2 class="mb-0">{t.letterTitle}</h2>
+    </div>
+    <ol class="list-none p-0 m-0 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        t.letterSteps.map((step, i) => (
+          <li class="card p-6">
+            <div class="w-10 h-10 rounded-full bg-accent text-[#1A1A2E] font-extrabold flex items-center justify-center mb-4">
+              {i + 1}
+            </div>
+            <h3 class="text-base mb-2">{step.title}</h3>
+            <p class="text-sm text-text-secondary leading-relaxed mb-0">{step.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+    <div
+      class="card p-6 sm:p-8 mt-8 flex flex-col md:flex-row md:items-center justify-between gap-5 border-accent"
+    >
+      <div class="flex items-start gap-4">
+        <div
+          class="w-12 h-12 rounded-lg bg-accent-50 text-accent-dark flex items-center justify-center shrink-0"
+        >
+          <Icon name="shield" size={24} />
+        </div>
+        <div>
+          <h3 class="text-lg mb-1">{t.ctaTitle}</h3>
+          <p class="text-text-secondary leading-relaxed mb-0">{t.ctaBody}</p>
+        </div>
+      </div>
+      <a
+        href={legalHref}
+        class="inline-flex items-center gap-1.5 font-semibold text-primary no-underline whitespace-nowrap"
+      >
+        {t.ctaLink}
+        <Icon name="arrow-right" size={16} />
+      </a>
+    </div>
+  </Container>
+</Section>
