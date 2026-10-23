@@ -1,0 +1,360 @@
+---
+import { Container, Icon, Section } from "@expertcont/ui";
+import { localeTag, type Locale } from "@expertcont/i18n";
+import { computeVat, extractFraction } from "./vatMath";
+import {
+  VAT_HORECA_RATE_2027,
+  VAT_REDUCED_RATE,
+  VAT_STANDARD_RATE,
+  VAT_YEAR,
+  VAT_ZERO_RATE,
+} from "./rates";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const nf = new Intl.NumberFormat(localeTag(locale), { maximumFractionDigits: 2 });
+const pct = (rate: number) => `${Math.round(rate * 100)}%`;
+const pct2 = (rate: number) =>
+  new Intl.NumberFormat(localeTag(locale), {
+    style: "percent",
+    maximumFractionDigits: 2,
+  }).format(rate);
+
+const s = pct(VAT_STANDARD_RATE);
+const r = pct(VAT_REDUCED_RATE);
+const h = pct(VAT_HORECA_RATE_2027);
+const z = pct(VAT_ZERO_RATE);
+const base = 1000;
+const added = computeVat(base, VAT_STANDARD_RATE, "add");
+const extracted = computeVat(added.gross, VAT_STANDARD_RATE, "extract");
+const wrongVat = added.gross * VAT_STANDARD_RATE;
+const fraction = pct2(extractFraction(VAT_STANDARD_RATE));
+const multiplier = nf.format(1 + VAT_STANDARD_RATE);
+const sNum = Math.round(VAT_STANDARD_RATE * 100);
+const ratio = `${sNum}/${100 + sNum}`;
+
+interface RateCard {
+  rate: string;
+  title: string;
+  items: string[];
+  tone: "accent" | "primary" | "muted";
+}
+
+interface Copy {
+  ratesEyebrow: string;
+  ratesTitle: string;
+  ratesIntro: string;
+  cards: RateCard[];
+  exemptTitle: string;
+  exemptBody: string;
+  formulaEyebrow: string;
+  formulaTitle: string;
+  addTitle: string;
+  addLines: string[];
+  addExample: string;
+  extractTitle: string;
+  extractLines: string[];
+  extractExample: string;
+  mistakeTitle: string;
+  mistakeBody: string;
+}
+
+const copy: Record<Locale, Copy> = {
+  ro: {
+    ratesEyebrow: `Cotele TVA în Moldova (${VAT_YEAR})`,
+    ratesTitle: "Ce cotă se aplică?",
+    ratesIntro:
+      "Cota standard și cota redusă sunt stabilite de art. 96 din Codul fiscal: cota standard se aplică implicit, cea redusă doar livrărilor enumerate expres acolo. Exportul și celelalte livrări de la art. 104 sunt scutite de TVA cu drept de deducere, adică TVA 0%.",
+    cards: [
+      {
+        rate: s,
+        title: "Cota standard",
+        tone: "primary",
+        items: [
+          "majoritatea serviciilor: consultanță, IT pe piața internă, construcții, reparații, publicitate",
+          "mărfuri industriale: electronice, îmbrăcăminte, mobilă, materiale de construcție",
+          "importul de mărfuri și servicii care nu are o cotă redusă",
+        ],
+      },
+      {
+        rate: r,
+        title: "Cota redusă",
+        tone: "accent",
+        items: [
+          "pâine și produse de panificație, lapte și produse lactate (cu grăsime de până la 40%)",
+          "medicamente din Nomenclatorul de stat",
+          "gaze naturale și gaz lichefiat, inclusiv transportul și distribuția acestora",
+          "produse agricole în stare naturală: fitotehnie, horticultură, zootehnie; zahăr din sfeclă",
+          "cazare și alimentație publică (HoReCa), fără băuturi alcoolice",
+          "biocombustibil solid, produse de igienă feminină",
+        ],
+      },
+      {
+        rate: h,
+        title: "Din 1 ianuarie 2027",
+        tone: "muted",
+        items: [
+          `Politica fiscală pentru 2027, votată de Parlament la 22 octombrie 2026, majorează de la ${r} la ${h} cota pentru alimentația publică, cazare și o parte din produsele agricole.`,
+          `Pâinea, lactatele și medicamentele rămân la ${r}.`,
+          "Folosește această cotă doar pentru livrări efectuate din 1 ianuarie 2027.",
+        ],
+      },
+      {
+        rate: z,
+        title: "Scutire cu drept de deducere",
+        tone: "muted",
+        items: [
+          "exportul de mărfuri",
+          "exportul de servicii, dacă locul livrării (art. 111 din Codul fiscal) este în afara Moldovei",
+          "transportul internațional de mărfuri și pasageri",
+          "alte livrări enumerate la art. 104 din Codul fiscal",
+        ],
+      },
+    ],
+    exemptTitle: "Două feluri de scutire",
+    exemptBody:
+      "Livrările de la art. 104 (export, transport internațional) sunt scutite cu drept de deducere: TVA-ul plătit la achiziții se deduce. Livrările de la art. 103 (servicii financiare, medicale, educaționale, chiria locuințelor ș.a.) sunt scutite fără drept de deducere: TVA-ul plătit la achiziții nu se deduce.",
+    formulaEyebrow: "Formule",
+    formulaTitle: "Cum se adaugă și cum se extrage TVA",
+    addTitle: "Adaugă TVA (din suma fără TVA)",
+    addLines: ["TVA = suma fără TVA × cota", "Total = suma fără TVA × (1 + cota)"],
+    addExample: `Exemplu la ${s}: ${nf.format(base)} × ${multiplier} = ${nf.format(added.gross)} MDL, din care TVA ${nf.format(added.vat)} MDL.`,
+    extractTitle: "Extrage TVA (din suma cu TVA)",
+    extractLines: ["TVA = total × cota / (1 + cota)", "Suma fără TVA = total − TVA"],
+    extractExample: `Exemplu la ${s}: ${nf.format(added.gross)} × ${ratio} = ${nf.format(extracted.vat)} MDL TVA, adică ${fraction} din total; fără TVA rămân ${nf.format(extracted.net)} MDL.`,
+    mistakeTitle: "Greșeala cea mai frecventă",
+    mistakeBody: `TVA-ul inclus nu se calculează ca ${s} din total: ${nf.format(added.gross)} × ${s} = ${nf.format(wrongVat)} MDL, nu ${nf.format(added.vat)} MDL. Din suma cu TVA se extrage ${ratio}, nu ${s}.`,
+  },
+  ru: {
+    ratesEyebrow: `Ставки НДС в Молдове (${VAT_YEAR})`,
+    ratesTitle: "Какая ставка применяется?",
+    ratesIntro:
+      "Стандартная и сниженная ставки установлены ст. 96 Налогового кодекса: стандартная применяется по умолчанию, сниженная — только к поставкам, прямо перечисленным в этой статье. Экспорт и другие поставки из ст. 104 освобождены от НДС с правом на вычет, то есть НДС 0%.",
+    cards: [
+      {
+        rate: s,
+        title: "Стандартная ставка",
+        tone: "primary",
+        items: [
+          "большинство услуг: консалтинг, IT на внутреннем рынке, строительство, ремонт, реклама",
+          "промышленные товары: электроника, одежда, мебель, стройматериалы",
+          "импорт товаров и услуг, для которых не предусмотрена сниженная ставка",
+        ],
+      },
+      {
+        rate: r,
+        title: "Сниженная ставка",
+        tone: "accent",
+        items: [
+          "хлеб и хлебобулочные изделия, молоко и молочные продукты (жирностью до 40%)",
+          "лекарства из Государственной номенклатуры",
+          "природный и сжиженный газ, включая его транспортировку и распределение",
+          "сельхозпродукция в натуральном виде: растениеводство, садоводство, животноводство; свекловичный сахар",
+          "размещение и общественное питание (HoReCa), кроме алкогольных напитков",
+          "твёрдое биотопливо, средства женской гигиены",
+        ],
+      },
+      {
+        rate: h,
+        title: "С 1 января 2027 года",
+        tone: "muted",
+        items: [
+          `Налоговая политика на 2027 год, принятая Парламентом 22 октября 2026 года, повышает с ${r} до ${h} ставку для общественного питания, размещения и части сельхозпродукции.`,
+          `Хлеб, молочные продукты и лекарства остаются по ставке ${r}.`,
+          "Применяйте эту ставку только к поставкам начиная с 1 января 2027 года.",
+        ],
+      },
+      {
+        rate: z,
+        title: "Освобождение с правом на вычет",
+        tone: "muted",
+        items: [
+          "экспорт товаров",
+          "экспорт услуг, если место поставки (ст. 111 Налогового кодекса) находится за пределами Молдовы",
+          "международная перевозка грузов и пассажиров",
+          "другие поставки, перечисленные в ст. 104 Налогового кодекса",
+        ],
+      },
+    ],
+    exemptTitle: "Два вида освобождения",
+    exemptBody:
+      "Поставки из ст. 104 (экспорт, международные перевозки) освобождены с правом на вычет: НДС по покупкам принимается к вычету. Поставки из ст. 103 (финансовые, медицинские, образовательные услуги, аренда жилья и др.) освобождены без права на вычет: НДС по покупкам к вычету не принимается.",
+    formulaEyebrow: "Формулы",
+    formulaTitle: "Как начислить и как выделить НДС",
+    addTitle: "Начислить НДС (на сумму без НДС)",
+    addLines: ["НДС = сумма без НДС × ставка", "Итого = сумма без НДС × (1 + ставка)"],
+    addExample: `Пример при ${s}: ${nf.format(base)} × ${multiplier} = ${nf.format(added.gross)} MDL, из них НДС ${nf.format(added.vat)} MDL.`,
+    extractTitle: "Выделить НДС (из суммы с НДС)",
+    extractLines: ["НДС = итого × ставка / (1 + ставка)", "Сумма без НДС = итого − НДС"],
+    extractExample: `Пример при ${s}: ${nf.format(added.gross)} × ${ratio} = ${nf.format(extracted.vat)} MDL НДС, то есть ${fraction} от итога; без НДС остаётся ${nf.format(extracted.net)} MDL.`,
+    mistakeTitle: "Самая частая ошибка",
+    mistakeBody: `НДС в сумме не равен ${s} от итога: ${nf.format(added.gross)} × ${s} = ${nf.format(wrongVat)} MDL, а не ${nf.format(added.vat)} MDL. Из суммы с НДС выделяется ${ratio}, а не ${s}.`,
+  },
+  en: {
+    ratesEyebrow: `VAT rates in Moldova (${VAT_YEAR})`,
+    ratesTitle: "Which rate applies?",
+    ratesIntro:
+      "The standard and reduced rates are set by Article 96 of the Tax Code: the standard rate applies by default, the reduced rate only to supplies that article lists expressly. Exports and the other supplies in Article 104 are exempt from VAT with the right of deduction, i.e. 0% VAT.",
+    cards: [
+      {
+        rate: s,
+        title: "Standard rate",
+        tone: "primary",
+        items: [
+          "most services: consulting, domestic IT, construction, repairs, advertising",
+          "manufactured goods: electronics, clothing, furniture, building materials",
+          "imports of goods and services without a reduced rate",
+        ],
+      },
+      {
+        rate: r,
+        title: "Reduced rate",
+        tone: "accent",
+        items: [
+          "bread and bakery products, milk and dairy products (up to 40% fat)",
+          "medicines in the State Nomenclature",
+          "natural gas and liquefied gas, including transport and distribution",
+          "unprocessed farm produce: crops, horticulture, livestock; beet sugar",
+          "accommodation and catering (HoReCa), excluding alcoholic drinks",
+          "solid biofuel, feminine hygiene products",
+        ],
+      },
+      {
+        rate: h,
+        title: "From 1 January 2027",
+        tone: "muted",
+        items: [
+          `The 2027 fiscal policy, passed by Parliament on 22 October 2026, raises the rate for catering, accommodation and some farm produce from ${r} to ${h}.`,
+          `Bread, dairy products and medicines stay at ${r}.`,
+          "Use this rate only for supplies made from 1 January 2027 onwards.",
+        ],
+      },
+      {
+        rate: z,
+        title: "Exempt with the right of deduction",
+        tone: "muted",
+        items: [
+          "exports of goods",
+          "exports of services, where the place of supply (Article 111 of the Tax Code) is outside Moldova",
+          "international transport of goods and passengers",
+          "other supplies listed in Article 104 of the Tax Code",
+        ],
+      },
+    ],
+    exemptTitle: "Two kinds of exemption",
+    exemptBody:
+      "Supplies under Article 104 (exports, international transport) are exempt with the right of deduction: input VAT on purchases is deductible. Supplies under Article 103 (financial, medical and educational services, residential rent, etc.) are exempt without the right of deduction: input VAT on purchases is not deductible.",
+    formulaEyebrow: "Formulas",
+    formulaTitle: "How to add and how to extract VAT",
+    addTitle: "Add VAT (to a net amount)",
+    addLines: ["VAT = net × rate", "Total = net × (1 + rate)"],
+    addExample: `Example at ${s}: ${nf.format(base)} × ${multiplier} = ${nf.format(added.gross)} MDL, of which VAT is ${nf.format(added.vat)} MDL.`,
+    extractTitle: "Extract VAT (from a VAT-inclusive amount)",
+    extractLines: ["VAT = total × rate / (1 + rate)", "Net = total − VAT"],
+    extractExample: `Example at ${s}: ${nf.format(added.gross)} × ${ratio} = ${nf.format(extracted.vat)} MDL VAT, i.e. ${fraction} of the total; the net amount is ${nf.format(extracted.net)} MDL.`,
+    mistakeTitle: "The most common mistake",
+    mistakeBody: `Included VAT is not ${s} of the total: ${nf.format(added.gross)} × ${s} = ${nf.format(wrongVat)} MDL, not ${nf.format(added.vat)} MDL. From a VAT-inclusive amount you extract ${ratio}, not ${s}.`,
+  },
+};
+
+const t = copy[locale];
+const badge: Record<RateCard["tone"], string> = {
+  accent: "bg-accent-50 text-accent-dark",
+  primary: "bg-primary-50 text-primary",
+  muted: "bg-bg-section text-text-secondary",
+};
+---
+
+<Section tone="default">
+  <Container>
+    <div id="cote-tva" class="text-center mb-10 scroll-mt-24">
+      <div class="eyebrow mb-4 justify-center">{t.ratesEyebrow}</div>
+      <h2 class="mb-4">{t.ratesTitle}</h2>
+      <p class="text-text-secondary leading-relaxed max-w-2xl mx-auto mb-0">{t.ratesIntro}</p>
+    </div>
+    <div class="grid gap-5 md:grid-cols-2">
+      {
+        t.cards.map((card) => (
+          <div class={`card p-6 sm:p-7 ${card.tone === "accent" ? "border-accent" : ""}`}>
+            <div class="flex items-center gap-3 mb-4">
+              <div
+                class={`min-w-14 h-12 px-3 rounded-lg flex items-center justify-center shrink-0 text-lg font-extrabold ${badge[card.tone]}`}
+              >
+                {card.rate}
+              </div>
+              <h3 class="text-lg mb-0">{card.title}</h3>
+            </div>
+            <ul class="list-none p-0 m-0 flex flex-col gap-2">
+              {card.items.map((item) => (
+                <li class="flex items-start gap-2 text-sm sm:text-base">
+                  <span class="text-accent-dark shrink-0 mt-0.5">
+                    <Icon name="check" size={18} />
+                  </span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+    <div class="card p-6 sm:p-7 mt-5 flex items-start gap-4">
+      <div class="w-12 h-12 rounded-lg bg-primary-50 text-primary flex items-center justify-center shrink-0">
+        <Icon name="shield" size={24} />
+      </div>
+      <div>
+        <h3 class="text-lg mb-2">{t.exemptTitle}</h3>
+        <p class="text-text-secondary leading-relaxed mb-0">{t.exemptBody}</p>
+      </div>
+    </div>
+  </Container>
+</Section>
+
+<Section tone="alt">
+  <Container>
+    <div id="formule-tva" class="text-center mb-10 scroll-mt-24">
+      <div class="eyebrow mb-4 justify-center">{t.formulaEyebrow}</div>
+      <h2 class="mb-0">{t.formulaTitle}</h2>
+    </div>
+    <div class="grid gap-5 md:grid-cols-2">
+      {
+        [
+          { title: t.addTitle, lines: t.addLines, example: t.addExample, icon: "plus" as const },
+          {
+            title: t.extractTitle,
+            lines: t.extractLines,
+            example: t.extractExample,
+            icon: "minus" as const,
+          },
+        ].map((block) => (
+          <div class="card p-6 sm:p-7">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 rounded-lg bg-accent-50 text-accent-dark flex items-center justify-center shrink-0">
+                <Icon name={block.icon} size={24} />
+              </div>
+              <h3 class="text-lg mb-0">{block.title}</h3>
+            </div>
+            <div class="rounded-md bg-bg-section px-4 py-3 mb-4 flex flex-col gap-1 font-mono text-sm sm:text-base">
+              {block.lines.map((line) => (
+                <code>{line}</code>
+              ))}
+            </div>
+            <p class="text-text-secondary leading-relaxed mb-0">{block.example}</p>
+          </div>
+        ))
+      }
+    </div>
+    <div class="card p-6 sm:p-7 mt-5 flex items-start gap-4 border-accent">
+      <div class="w-12 h-12 rounded-lg bg-accent-50 text-accent-dark flex items-center justify-center shrink-0">
+        <Icon name="lightbulb" size={24} />
+      </div>
+      <div>
+        <h3 class="text-lg mb-2">{t.mistakeTitle}</h3>
+        <p class="text-text-secondary leading-relaxed mb-0">{t.mistakeBody}</p>
+      </div>
+    </div>
+  </Container>
+</Section>

@@ -1,0 +1,269 @@
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.legend {
+  display: block;
+  padding: 0;
+  margin-bottom: 0.625rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.segmented {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.segment {
+  flex: 1 1 0;
+  padding: 0.625rem 0.75rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.75);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.segment:hover {
+  color: #fff;
+}
+
+.segment[aria-pressed="true"] {
+  background: #dfb741;
+  color: #1a1a2e;
+}
+
+.segment:focus-visible,
+.rateButton:focus-visible,
+.langButton:focus-visible,
+.copyButton:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.amountWrap {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding-bottom: 0.375rem;
+  border-bottom: 1px dashed rgba(223, 183, 65, 0.5);
+}
+
+.amountWrap:focus-within {
+  border-bottom-style: solid;
+}
+
+.amountInput {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #dfb741;
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.amountInput:focus {
+  outline: none;
+}
+
+.amountUnit {
+  font-size: 1rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.rateGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+@media (max-width: 420px) {
+  .rateGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.rateButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.125rem;
+  padding: 0.625rem 0.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.rateButton:hover {
+  border-color: rgba(223, 183, 65, 0.6);
+}
+
+.rateButton[aria-pressed="true"] {
+  border-color: #dfb741;
+  background: rgba(223, 183, 65, 0.15);
+}
+
+.rateValue {
+  font-size: 1.125rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.rateButton[aria-pressed="true"] .rateValue {
+  color: #dfb741;
+}
+
+.rateKind {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+}
+
+.resultRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding: 0.875rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.resultRow:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.resultValue {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.figure,
+.figureStrong {
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  color: #fff;
+}
+
+.figure {
+  font-size: 1.25rem;
+}
+
+.figureStrong {
+  font-size: 1.75rem;
+  color: #dfb741;
+}
+
+.figureUnit {
+  margin-left: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.copyButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.85);
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.copyButton:hover {
+  border-color: #dfb741;
+  color: #fff;
+}
+
+.copyButtonDone {
+  border-color: #dfb741;
+  color: #dfb741;
+}
+
+.langSwitch {
+  display: inline-flex;
+  gap: 0.25rem;
+}
+
+.langButton {
+  padding: 0.25rem 0.625rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.65);
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.langButton[aria-pressed="true"] {
+  border-color: rgba(223, 183, 65, 0.6);
+  color: #dfb741;
+}
+
+.words {
+  margin: 0;
+  padding: 0.875rem 1rem;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.18);
+  color: #fff;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
