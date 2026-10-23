@@ -67,7 +67,10 @@ describe("amountInWords — en", () => {
     [21, "Twenty-one lei 00 bani"],
     [1000, "One thousand lei 00 bani"],
     [2500.5, "Two thousand five hundred lei 50 bani"],
-    [1_234_567, "One million two hundred thirty-four thousand five hundred sixty-seven lei 00 bani"],
+    [
+      1_234_567,
+      "One million two hundred thirty-four thousand five hundred sixty-seven lei 00 bani",
+    ],
   ])("%d MDL", (amount, expected) => {
     expect(amountInWords(amount, "MDL", "en")).toBe(expected);
   });

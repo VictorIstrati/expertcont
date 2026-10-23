@@ -221,16 +221,36 @@ export function DividendCalculator({ locale }: Props) {
 
   const salaryLines = (route: SalaryRoute) => [
     { label: t.grossSalary, value: route.gross },
-    { label: fill(t.employerSocial, { rate: rate(PAYROLL_RATES.employerSocialRate) }), value: route.employerSocial },
+    {
+      label: fill(t.employerSocial, { rate: rate(PAYROLL_RATES.employerSocialRate) }),
+      value: route.employerSocial,
+    },
     ...(route.employeeSocial > 0
-      ? [{ label: fill(t.employeeSocial, { rate: rate(PAYROLL_RATES.employeeSocialRate) }), value: route.employeeSocial }]
+      ? [
+          {
+            label: fill(t.employeeSocial, { rate: rate(PAYROLL_RATES.employeeSocialRate) }),
+            value: route.employeeSocial,
+          },
+        ]
       : []),
-    { label: fill(t.health, { rate: rate(PAYROLL_RATES.healthInsuranceRate) }), value: route.healthInsurance },
-    { label: fill(t.incomeTax, { rate: rate(PAYROLL_RATES.incomeTaxRate) }), value: route.incomeTax },
+    {
+      label: fill(t.health, { rate: rate(PAYROLL_RATES.healthInsuranceRate) }),
+      value: route.healthInsurance,
+    },
+    {
+      label: fill(t.incomeTax, { rate: rate(PAYROLL_RATES.incomeTaxRate) }),
+      value: route.incomeTax,
+    },
   ];
   const dividendLines = (route: DividendRoute) => [
-    { label: fill(t.profitTax, { rate: rate(DIVIDEND_RATES.profitTaxRate) }), value: route.profitTax },
-    { label: fill(t.dividendTax, { rate: rate(DIVIDEND_RATES.dividendTaxRate) }), value: route.dividendTax },
+    {
+      label: fill(t.profitTax, { rate: rate(DIVIDEND_RATES.profitTaxRate) }),
+      value: route.profitTax,
+    },
+    {
+      label: fill(t.dividendTax, { rate: rate(DIVIDEND_RATES.dividendTaxRate) }),
+      value: route.dividendTax,
+    },
   ];
   const breakdown: Record<PayoutOption, { label: string; value: number }[]> = {
     dividends: dividendLines(result.dividends),
@@ -319,7 +339,10 @@ export function DividendCalculator({ locale }: Props) {
             </div>
           </div>
 
-          <div ref={resultRef} className="lg:sticky lg:top-24 p-6 sm:p-8 bg-[linear-gradient(135deg,rgba(223,183,65,0.15)_0%,rgba(70,99,171,0.1)_100%)] rounded-lg border border-[rgba(223,183,65,0.25)]">
+          <div
+            ref={resultRef}
+            className="lg:sticky lg:top-24 p-6 sm:p-8 bg-[linear-gradient(135deg,rgba(223,183,65,0.15)_0%,rgba(70,99,171,0.1)_100%)] rounded-lg border border-[rgba(223,183,65,0.25)]"
+          >
             <div className="text-xs font-bold tracking-widest text-[#DFB741] uppercase mb-2">
               {t.bestLabel}
             </div>

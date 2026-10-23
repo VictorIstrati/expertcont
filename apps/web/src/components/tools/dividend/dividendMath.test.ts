@@ -1,7 +1,13 @@
 import { describe, expect, it } from "vitest";
 import type { PayrollRates } from "../payroll/rates";
 import { NO_EXEMPTIONS } from "../payroll/payrollMath";
-import { comparePayouts, dividendRoute, maxGrossForBudget, mixRoute, salaryRoute } from "./dividendMath";
+import {
+  comparePayouts,
+  dividendRoute,
+  maxGrossForBudget,
+  mixRoute,
+  salaryRoute,
+} from "./dividendMath";
 import type { DividendRates } from "./rates";
 
 const payroll: PayrollRates = {
@@ -71,7 +77,12 @@ describe("salaryRoute", () => {
 
 describe("mixRoute", () => {
   it("pays the chosen salary and distributes the rest as dividends", () => {
-    const r = mixRoute({ yearlyBudget: budget, mixGrossMonthly: 6300 }, NO_EXEMPTIONS, payroll, rates);
+    const r = mixRoute(
+      { yearlyBudget: budget, mixGrossMonthly: 6300 },
+      NO_EXEMPTIONS,
+      payroll,
+      rates,
+    );
     expect(r.salary.monthly.net).toBe(5_045.04);
     expect(r.salary.budget).toBe(93_744);
     expect(r.dividends.budget).toBe(1_394_256);
@@ -80,7 +91,12 @@ describe("mixRoute", () => {
   });
 
   it("caps the salary at what the budget can pay", () => {
-    const r = mixRoute({ yearlyBudget: 50_000, mixGrossMonthly: 6300 }, NO_EXEMPTIONS, payroll, rates);
+    const r = mixRoute(
+      { yearlyBudget: 50_000, mixGrossMonthly: 6300 },
+      NO_EXEMPTIONS,
+      payroll,
+      rates,
+    );
     expect(r.salary.monthly.gross).toBe(maxGrossForBudget(50_000 / 12, payroll));
     expect(r.dividends.budget).toBeLessThan(1);
   });
@@ -88,15 +104,30 @@ describe("mixRoute", () => {
 
 describe("comparePayouts", () => {
   it("ranks the options by net income to the owner", () => {
-    const r = comparePayouts({ yearlyBudget: budget, mixGrossMonthly: 6300 }, NO_EXEMPTIONS, payroll, rates);
+    const r = comparePayouts(
+      { yearlyBudget: budget, mixGrossMonthly: 6300 },
+      NO_EXEMPTIONS,
+      payroll,
+      rates,
+    );
     expect(r.best).toBe("dividends");
     expect(r.runnerUp).toBe("mix");
     expect(r.advantage).toBe(17_004.56);
   });
 
   it("lets salary win when payroll taxes are lower than profit plus dividend tax", () => {
-    const light: PayrollRates = { ...payroll, employerSocialRate: 0, healthInsuranceRate: 0, incomeTaxRate: 0.1 };
-    const r = comparePayouts({ yearlyBudget: budget, mixGrossMonthly: 6300 }, NO_EXEMPTIONS, light, rates);
+    const light: PayrollRates = {
+      ...payroll,
+      employerSocialRate: 0,
+      healthInsuranceRate: 0,
+      incomeTaxRate: 0.1,
+    };
+    const r = comparePayouts(
+      { yearlyBudget: budget, mixGrossMonthly: 6300 },
+      NO_EXEMPTIONS,
+      light,
+      rates,
+    );
     expect(r.best).toBe("salary");
   });
 });

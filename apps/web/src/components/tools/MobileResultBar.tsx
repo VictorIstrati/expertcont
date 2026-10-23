@@ -53,7 +53,9 @@ export function MobileResultBar({ locale, target, label, value }: Props) {
       onClick={() => {
         const el = target.current;
         if (!el) return;
-        const nav = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--nav-h"));
+        const nav = parseFloat(
+          getComputedStyle(document.documentElement).getPropertyValue("--nav-h"),
+        );
         const top = el.getBoundingClientRect().top + window.scrollY - (nav || 72) - 16;
         window.scrollTo({ top, behavior: "smooth" });
       }}

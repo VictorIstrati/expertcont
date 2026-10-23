@@ -297,7 +297,8 @@ const COPY: Record<Locale, Copy> = {
     basis: {
       statutory:
         "Legal basis: art. 942 and art. 874 of the Civil Code of the Republic of Moldova — the National Bank of Moldova base rate in force on 1 January or 1 July, plus {margin} percentage points per year; 365-day year.",
-      contractual: "Legal basis: the contract's penalty clause — {rate} per day on the unpaid amount{cap}.",
+      contractual:
+        "Legal basis: the contract's penalty clause — {rate} per day on the unpaid amount{cap}.",
     },
     capSuffix: ", capped at {cap} of the debt",
     generated: "Calculated on {date} with the free ExpertCont tool (expertcont.md).",

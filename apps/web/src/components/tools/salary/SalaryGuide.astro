@@ -17,7 +17,9 @@ const R = PAYROLL_RATES;
 const year = R.year;
 const ceiling = lei(R.personalExemptionIncomeCeiling);
 const monthlyCeiling = lei(
-  Math.floor(R.personalExemptionIncomeCeiling / (12 * (1 - R.healthInsuranceRate - R.employeeSocialRate))),
+  Math.floor(
+    R.personalExemptionIncomeCeiling / (12 * (1 - R.healthInsuranceRate - R.employeeSocialRate)),
+  ),
 );
 const health = pct(R.healthInsuranceRate);
 const incomeTax = pct(R.incomeTaxRate);
@@ -84,9 +86,15 @@ const copy: Record<Locale, Copy> = {
       { label: "Asigurare medicală (angajat)", value: health },
       { label: "Impozit pe venit", value: incomeTax },
       { label: "Scutire personală", value: `${lei(R.personalExemptionYearly)} / an` },
-      { label: "Scutire personală majoră", value: `${lei(R.increasedPersonalExemptionYearly)} / an` },
+      {
+        label: "Scutire personală majoră",
+        value: `${lei(R.increasedPersonalExemptionYearly)} / an`,
+      },
       { label: "Scutire pentru soț/soție", value: `${lei(R.spouseExemptionYearly)} / an` },
-      { label: "Scutire per persoană întreținută", value: `${lei(R.dependantExemptionYearly)} / an` },
+      {
+        label: "Scutire per persoană întreținută",
+        value: `${lei(R.dependantExemptionYearly)} / an`,
+      },
       {
         label: "Întreținut cu dizabilitate severă, accentuată sau din copilărie",
         value: `${lei(R.disabledDependantExemptionYearly)} / an`,
@@ -394,9 +402,13 @@ const t = copy[locale];
       }
     </div>
 
-    <div class="card p-6 sm:p-8 mt-8 border-accent grid gap-6 md:grid-cols-[1.3fr_1fr] items-center">
+    <div
+      class="card p-6 sm:p-8 mt-8 border-accent grid gap-6 md:grid-cols-[1.3fr_1fr] items-center"
+    >
       <div>
-        <div class="w-12 h-12 rounded-lg bg-accent-50 text-accent-dark flex items-center justify-center mb-4">
+        <div
+          class="w-12 h-12 rounded-lg bg-accent-50 text-accent-dark flex items-center justify-center mb-4"
+        >
           <Icon name="users" size={24} />
         </div>
         <h3 class="text-xl mb-2">{t.ctaTitle}</h3>

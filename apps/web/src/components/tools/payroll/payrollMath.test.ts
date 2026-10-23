@@ -34,7 +34,9 @@ describe("grossToNet", () => {
   it("tests the ceiling on taxable income: gross minus health insurance and other exemptions (CF art. 12, 33)", () => {
     expect(grossToNet(32_967, PERSONAL, PAYROLL_RATES).personalExemptionApplied).toBe(true);
     expect(grossToNet(32_968, PERSONAL, PAYROLL_RATES).personalExemptionApplied).toBe(false);
-    expect(grossToNet(34_780, { ...PERSONAL, dependants: 2 }, PAYROLL_RATES).personalExemptionApplied).toBe(true);
+    expect(
+      grossToNet(34_780, { ...PERSONAL, dependants: 2 }, PAYROLL_RATES).personalExemptionApplied,
+    ).toBe(true);
     const at = grossToNet(34_781, { ...PERSONAL, dependants: 2 }, PAYROLL_RATES);
     expect(at.personalExemptionApplied).toBe(false);
     expect(at.personalExemptionLost).toBe(true);

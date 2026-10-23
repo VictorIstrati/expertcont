@@ -77,7 +77,8 @@ const LABELS: Record<InvoiceLanguage, Labels> = {
     receivedBy: "Primit",
     signature: "semnătura",
     notVatPayer: "Furnizorul nu este înregistrat ca plătitor de TVA.",
-    zeroRated: "Livrările cu TVA 0% sunt scutite de TVA cu drept de deducere, conform art. 104 lit. a) din Codul fiscal al Republicii Moldova.",
+    zeroRated:
+      "Livrările cu TVA 0% sunt scutite de TVA cu drept de deducere, conform art. 104 lit. a) din Codul fiscal al Republicii Moldova.",
     branding: "Document generat gratuit cu ExpertCont.md",
   },
   ru: {
@@ -114,7 +115,8 @@ const LABELS: Record<InvoiceLanguage, Labels> = {
     receivedBy: "Получил",
     signature: "подпись",
     notVatPayer: "Поставщик не зарегистрирован как плательщик НДС.",
-    zeroRated: "Поставки с НДС 0% освобождены от НДС с правом на вычет согласно п. a) ст. 104 Налогового кодекса Республики Молдова.",
+    zeroRated:
+      "Поставки с НДС 0% освобождены от НДС с правом на вычет согласно п. a) ст. 104 Налогового кодекса Республики Молдова.",
     branding: "Документ создан бесплатно на ExpertCont.md",
   },
   en: {
@@ -151,7 +153,8 @@ const LABELS: Record<InvoiceLanguage, Labels> = {
     receivedBy: "Received by",
     signature: "signature",
     notVatPayer: "The supplier is not registered for VAT.",
-    zeroRated: "Supplies at 0% VAT are exempt with the right of deduction under Article 104(a) of the Tax Code of the Republic of Moldova.",
+    zeroRated:
+      "Supplies at 0% VAT are exempt with the right of deduction under Article 104(a) of the Tax Code of the Republic of Moldova.",
     branding: "Created for free with ExpertCont.md",
   },
 };
@@ -242,9 +245,7 @@ export function InvoiceDocument({ draft, branding }: Props) {
                 <td className={styles.right}>{qty.format(item.quantity)}</td>
                 <td className={styles.right}>{money.format(item.price)}</td>
                 {draft.vatPayer && <td className={styles.right}>{pct(item.vatRate)}</td>}
-                {draft.vatPayer && (
-                  <td className={styles.right}>{money.format(line?.vat ?? 0)}</td>
-                )}
+                {draft.vatPayer && <td className={styles.right}>{money.format(line?.vat ?? 0)}</td>}
                 <td className={styles.right}>{money.format(line?.gross ?? 0)}</td>
               </tr>
             );

@@ -112,7 +112,8 @@ export function calculateLatePayment(input: LatePaymentInput): LatePaymentResult
   const statutory = input.mode === "statutory";
   const firstDay = addDays(input.dueDate, 1);
   const lastDay = input.paymentDate;
-  const clippedFrom = statutory && firstDay < STATUTORY_REGIME_START ? STATUTORY_REGIME_START : null;
+  const clippedFrom =
+    statutory && firstDay < STATUTORY_REGIME_START ? STATUTORY_REGIME_START : null;
   const start = clippedFrom ?? firstDay;
 
   const payments = input.payments

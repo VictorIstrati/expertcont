@@ -112,7 +112,11 @@ const copy: Record<Locale, Copy> = {
 };
 
 const t = copy[locale];
-const eFacturaCta = { ro: "Te ajutăm cu e-Factura", ru: "Поможем с e-Factura", en: "We can help with e-Factura" }[locale];
+const eFacturaCta = {
+  ro: "Te ajutăm cu e-Factura",
+  ru: "Поможем с e-Factura",
+  en: "We can help with e-Factura",
+}[locale];
 ---
 
 <Section tone="default">
@@ -124,7 +128,9 @@ const eFacturaCta = { ro: "Te ajutăm cu e-Factura", ru: "Поможем с e-Fa
     <div class="grid gap-5 md:grid-cols-2">
       <div class="card p-6 sm:p-7">
         <div class="flex items-center gap-3 mb-4">
-          <div class="w-12 h-12 rounded-lg bg-primary-50 text-primary flex items-center justify-center shrink-0">
+          <div
+            class="w-12 h-12 rounded-lg bg-primary-50 text-primary flex items-center justify-center shrink-0"
+          >
             <Icon name="file-text" size={24} />
           </div>
           <h3 class="text-lg mb-0">{t.canTitle}</h3>
@@ -144,7 +150,9 @@ const eFacturaCta = { ro: "Te ajutăm cu e-Factura", ru: "Поможем с e-Fa
       </div>
       <div class="card p-6 sm:p-7 border-accent">
         <div class="flex items-center gap-3 mb-4">
-          <div class="w-12 h-12 rounded-lg bg-accent-50 text-accent-dark flex items-center justify-center shrink-0">
+          <div
+            class="w-12 h-12 rounded-lg bg-accent-50 text-accent-dark flex items-center justify-center shrink-0"
+          >
             <Icon name="shield" size={24} />
           </div>
           <h3 class="text-lg mb-0">{t.eFacturaTitle}</h3>
@@ -184,7 +192,9 @@ const eFacturaCta = { ro: "Te ajutăm cu e-Factura", ru: "Поможем с e-Fa
       <ol class="card p-0 m-0 list-none overflow-hidden">
         {
           t.checklist.map((item, i) => (
-            <li class={`flex items-center gap-4 px-6 py-4 ${i > 0 ? "border-t border-border" : ""}`}>
+            <li
+              class={`flex items-center gap-4 px-6 py-4 ${i > 0 ? "border-t border-border" : ""}`}
+            >
               <span class="w-8 h-8 rounded-full bg-primary-50 text-primary font-bold text-sm flex items-center justify-center shrink-0">
                 {i + 1}
               </span>

@@ -75,7 +75,8 @@ const COPY: Record<Locale, Copy> = {
     date: "Data emiterii",
     dueDate: "Scadența",
     vatPayer: "Sunt plătitor de TVA",
-    vatPayerHint: "Adaugă codul TVA și cota pe fiecare rând. Exportul de bunuri și serviciile cu locul livrării în afara Moldovei (art. 111 Cod fiscal) sunt scutite cu drept de deducere: TVA 0%.",
+    vatPayerHint:
+      "Adaugă codul TVA și cota pe fiecare rând. Exportul de bunuri și serviciile cu locul livrării în afara Moldovei (art. 111 Cod fiscal) sunt scutite cu drept de deducere: TVA 0%.",
     supplierTitle: "Furnizor (datele tale)",
     clientTitle: "Cumpărător",
     name: "Denumire",
@@ -109,8 +110,7 @@ const COPY: Record<Locale, Copy> = {
     preview: "Previzualizare",
     download: "Descarcă PDF",
     privacy: "Datele rămân în browserul tău — nu le trimitem nicăieri.",
-    fiscalNote:
-      "La „Descarcă PDF” se deschide fereastra de printare: alege „Salvează ca PDF”.",
+    fiscalNote: "La „Descarcă PDF” se deschide fereastra de printare: alege „Salvează ca PDF”.",
     fileName: { invoice: "factura", proforma: "proforma" },
   },
   ru: {
@@ -275,7 +275,6 @@ function initialDraft(): InvoiceDraft {
     notes: "",
   };
 }
-
 
 interface Props {
   locale: Locale;
@@ -703,11 +702,7 @@ export function InvoiceGenerator({ locale }: Props) {
               <div className="text-xs font-bold tracking-widest uppercase text-text-secondary">
                 {t.preview}
               </div>
-              <button
-                type="button"
-                onClick={download}
-                className={styles.downloadButton}
-              >
+              <button type="button" onClick={download} className={styles.downloadButton}>
                 <Icon name="file-text" size={16} />
                 {t.download}
               </button>

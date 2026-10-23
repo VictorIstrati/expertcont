@@ -274,7 +274,10 @@ export function VatCalculator({ locale }: Props) {
             </fieldset>
           </div>
 
-          <div ref={resultRef} className="lg:sticky lg:top-24 p-6 sm:p-8 bg-[linear-gradient(135deg,rgba(223,183,65,0.15)_0%,rgba(70,99,171,0.1)_100%)] rounded-lg border border-[rgba(223,183,65,0.25)]">
+          <div
+            ref={resultRef}
+            className="lg:sticky lg:top-24 p-6 sm:p-8 bg-[linear-gradient(135deg,rgba(223,183,65,0.15)_0%,rgba(70,99,171,0.1)_100%)] rounded-lg border border-[rgba(223,183,65,0.25)]"
+          >
             <div className="text-xs font-bold tracking-widest text-[#DFB741] uppercase mb-4">
               {t.resultsTitle}
             </div>

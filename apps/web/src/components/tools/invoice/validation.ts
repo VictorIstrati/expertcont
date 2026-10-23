@@ -18,7 +18,9 @@ export function isValidIban(value: string): boolean {
 }
 
 export function formatIban(value: string): string {
-  return normalizeIban(value).replace(/(.{4})/g, "$1 ").trim();
+  return normalizeIban(value)
+    .replace(/(.{4})/g, "$1 ")
+    .trim();
 }
 
 export function isValidIdno(value: string): boolean {

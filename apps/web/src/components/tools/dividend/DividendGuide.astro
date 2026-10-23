@@ -73,14 +73,16 @@ const copy: Record<Locale, Copy> = {
     compareEyebrow: "Ce comparăm",
     compareTitle: "Două moduri de a scoate bani din SRL",
     dividendsTitle: "Dividende",
-    dividendsBody: "Banii trec întâi prin impozitul pe profit al firmei, apoi prin impozitul pe dividende:",
+    dividendsBody:
+      "Banii trec întâi prin impozitul pe profit al firmei, apoi prin impozitul pe dividende:",
     dividendsItems: [
       `impozit pe profit — ${profitTax}, plătit de firmă`,
       `impozit pe dividende — ${dividendTax}, reținut la sursă de firmă la plată`,
       "fără contribuții sociale și fără asigurare medicală obligatorie prin firmă",
     ],
     salaryTitle: "Salariu",
-    salaryBody: "Salariul este cheltuială deductibilă, deci nu se mai plătește impozit pe profit pe el. În schimb:",
+    salaryBody:
+      "Salariul este cheltuială deductibilă, deci nu se mai plătește impozit pe profit pe el. În schimb:",
     salaryItems: [
       `contribuții sociale ale angajatorului — ${employerSocial} peste salariul brut`,
       `asigurare medicală — ${health}, reținută din salariu`,
@@ -130,14 +132,16 @@ const copy: Record<Locale, Copy> = {
     compareEyebrow: "Что мы сравниваем",
     compareTitle: "Два способа вывести деньги из ООО",
     dividendsTitle: "Дивиденды",
-    dividendsBody: "Деньги сначала облагаются налогом на прибыль компании, затем налогом на дивиденды:",
+    dividendsBody:
+      "Деньги сначала облагаются налогом на прибыль компании, затем налогом на дивиденды:",
     dividendsItems: [
       `налог на прибыль — ${profitTax}, платит компания`,
       `налог на дивиденды — ${dividendTax}, удерживается компанией при выплате`,
       "без социальных взносов и без обязательного медицинского страхования через компанию",
     ],
     salaryTitle: "Зарплата",
-    salaryBody: "Зарплата — вычитаемый расход, поэтому налог на прибыль с неё не платится. Зато есть:",
+    salaryBody:
+      "Зарплата — вычитаемый расход, поэтому налог на прибыль с неё не платится. Зато есть:",
     salaryItems: [
       `социальные взносы работодателя — ${employerSocial} сверх зарплаты брутто`,
       `медицинское страхование — ${health}, удерживается из зарплаты`,
@@ -154,7 +158,10 @@ const copy: Record<Locale, Copy> = {
       { label: "Зарплата брутто за год (бюджет покрывает и взносы)", value: ex.gross },
       { label: "Взносы и налоги с зарплаты", value: ex.salaryTaxes },
       { label: "На руки с зарплаты", value: ex.salaryNet },
-      { label: `Минимальная зарплата (${minimumWage}/мес.) + остаток дивидендами`, value: ex.mixNet },
+      {
+        label: `Минимальная зарплата (${minimumWage}/мес.) + остаток дивидендами`,
+        value: ex.mixNet,
+      },
     ],
     exampleNote: `Эффективная ставка: ${ex.dividendRate} для дивидендов против ${ex.salaryRate} для зарплаты. Но за разницу вы платите отсутствием социальной защиты.`,
     rulesTitle: "Правила выплаты дивидендов",
@@ -187,7 +194,8 @@ const copy: Record<Locale, Copy> = {
     compareEyebrow: "What we compare",
     compareTitle: "Two ways to take money out of an LLC",
     dividendsTitle: "Dividends",
-    dividendsBody: "The money first goes through the company's profit tax, then through dividend tax:",
+    dividendsBody:
+      "The money first goes through the company's profit tax, then through dividend tax:",
     dividendsItems: [
       `profit tax — ${profitTax}, paid by the company`,
       `dividend tax — ${dividendTax}, withheld by the company when it pays out`,
@@ -254,7 +262,9 @@ const t = copy[locale];
     <div class="grid gap-5 md:grid-cols-2">
       <div class="card p-6 sm:p-7 border-accent">
         <div class="flex items-center gap-3 mb-4">
-          <div class="w-12 h-12 rounded-lg bg-accent-50 text-accent-dark flex items-center justify-center shrink-0">
+          <div
+            class="w-12 h-12 rounded-lg bg-accent-50 text-accent-dark flex items-center justify-center shrink-0"
+          >
             <Icon name="trending" size={24} />
           </div>
           <h3 class="text-lg mb-0">{t.dividendsTitle}</h3>
@@ -275,7 +285,9 @@ const t = copy[locale];
       </div>
       <div class="card p-6 sm:p-7">
         <div class="flex items-center gap-3 mb-4">
-          <div class="w-12 h-12 rounded-lg bg-primary-50 text-primary flex items-center justify-center shrink-0">
+          <div
+            class="w-12 h-12 rounded-lg bg-primary-50 text-primary flex items-center justify-center shrink-0"
+          >
             <Icon name="users" size={24} />
           </div>
           <h3 class="text-lg mb-0">{t.salaryTitle}</h3>
@@ -321,7 +333,9 @@ const t = copy[locale];
       </div>
       <div class="flex flex-col gap-5 lg:mt-[88px]">
         <div class="card p-6 sm:p-7">
-          <div class="w-12 h-12 rounded-lg bg-primary-50 text-primary flex items-center justify-center mb-4">
+          <div
+            class="w-12 h-12 rounded-lg bg-primary-50 text-primary flex items-center justify-center mb-4"
+          >
             <Icon name="scale" size={24} />
           </div>
           <h3 class="text-lg mb-3">{t.rulesTitle}</h3>
@@ -339,7 +353,9 @@ const t = copy[locale];
           </ul>
         </div>
         <div class="card p-6 sm:p-7">
-          <div class="w-12 h-12 rounded-lg bg-accent-50 text-accent-dark flex items-center justify-center mb-4">
+          <div
+            class="w-12 h-12 rounded-lg bg-accent-50 text-accent-dark flex items-center justify-center mb-4"
+          >
             <Icon name="lightbulb" size={24} />
           </div>
           <h3 class="text-lg mb-3">{t.whenTitle}</h3>

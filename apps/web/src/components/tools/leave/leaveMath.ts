@@ -169,7 +169,10 @@ export function averageDailySalary(months: LeaveMonthInput[]): AverageDailySalar
   };
 }
 
-export function annualLeavePay(months: LeaveMonthInput[], leaveDaysInput: number): AnnualLeaveResult {
+export function annualLeavePay(
+  months: LeaveMonthInput[],
+  leaveDaysInput: number,
+): AnnualLeaveResult {
   const average = averageDailySalary(months);
   const leaveDays = Math.floor(nonNegative(leaveDaysInput));
   return { ...average, leaveDays, gross: round2(average.perCalendarDay * leaveDays) };

@@ -413,7 +413,10 @@ export function SalaryCalculator({ locale, serviceHref }: Props) {
             </fieldset>
           </div>
 
-          <div ref={resultRef} className="lg:sticky lg:top-24 p-6 sm:p-8 bg-[linear-gradient(135deg,rgba(223,183,65,0.15)_0%,rgba(70,99,171,0.1)_100%)] rounded-lg border border-[rgba(223,183,65,0.25)]">
+          <div
+            ref={resultRef}
+            className="lg:sticky lg:top-24 p-6 sm:p-8 bg-[linear-gradient(135deg,rgba(223,183,65,0.15)_0%,rgba(70,99,171,0.1)_100%)] rounded-lg border border-[rgba(223,183,65,0.25)]"
+          >
             <div className="flex items-start justify-between gap-4 mb-2">
               <div className="text-xs font-bold tracking-widest text-[#DFB741] uppercase pt-1.5">
                 {mode === "gross" ? t.netLabel : t.grossLabel}
@@ -461,7 +464,9 @@ export function SalaryCalculator({ locale, serviceHref }: Props) {
                   {employeeRows.map((row) => (
                     <tr
                       key={row.label}
-                      className={row.strong ? "border-t border-white/20" : "border-t border-white/10"}
+                      className={
+                        row.strong ? "border-t border-white/20" : "border-t border-white/10"
+                      }
                     >
                       <th
                         scope="row"

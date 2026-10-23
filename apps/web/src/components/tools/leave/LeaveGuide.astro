@@ -116,7 +116,10 @@ const copy: Record<Locale, Copy> = {
         label: `Accident de muncă: primele ${R.workAccidentEmployerDays} zile angajatorul, apoi CNAS`,
         value: pct(R.workAccidentCnasPercent),
       },
-      { label: `Plafonul venitului asigurat pe o lună din ${year}`, value: `${nf.format(cap)} MDL` },
+      {
+        label: `Plafonul venitului asigurat pe o lună din ${year}`,
+        value: `${nf.format(cap)} MDL`,
+      },
     ],
     sickRules: [
       `Baza de calcul este venitul asigurat din ultimele ${R.sickBaseMonths} luni calendaristice dinaintea lunii îmbolnăvirii, împărțit la ${R.sickBaseMonths}. Lunile fără venit asigurat se înlocuiesc cu tot atâtea luni anterioare în care a existat venit, cel mult 36 de luni în urmă.`,
@@ -187,7 +190,10 @@ const copy: Record<Locale, Copy> = {
         label: `Несчастный случай на производстве: первые ${R.workAccidentEmployerDays} дней работодатель, затем CNAS`,
         value: pct(R.workAccidentCnasPercent),
       },
-      { label: `Предел застрахованного дохода за месяц ${year} года`, value: `${nf.format(cap)} MDL` },
+      {
+        label: `Предел застрахованного дохода за месяц ${year} года`,
+        value: `${nf.format(cap)} MDL`,
+      },
     ],
     sickRules: [
       `База расчёта — застрахованный доход за ${R.sickBaseMonths} календарных месяцев перед месяцем заболевания, делённый на ${R.sickBaseMonths}. Месяцы без застрахованного дохода заменяются таким же числом более ранних месяцев с доходом, не далее 36 месяцев назад.`,
@@ -396,7 +402,9 @@ const t = copy[locale];
             </div>
             <ol class="m-0 pl-5 flex flex-col gap-2 text-text-secondary leading-relaxed">
               {example.lines.map((line, i) => (
-                <li class={i === example.lines.length - 1 ? "font-bold text-text-primary" : ""}>{line}</li>
+                <li class={i === example.lines.length - 1 ? "font-bold text-text-primary" : ""}>
+                  {line}
+                </li>
               ))}
             </ol>
           </div>
@@ -425,12 +433,17 @@ const t = copy[locale];
         </ul>
       </div>
       <div class="card p-6 sm:p-7">
-        <div class="w-12 h-12 rounded-lg bg-primary-50 text-primary flex items-center justify-center mb-4">
+        <div
+          class="w-12 h-12 rounded-lg bg-primary-50 text-primary flex items-center justify-center mb-4"
+        >
           <Icon name="users" size={24} />
         </div>
         <h3 class="text-lg mb-2">{t.ctaTitle}</h3>
         <p class="text-text-secondary leading-relaxed">{t.ctaBody}</p>
-        <a href={hrHref} class="inline-flex items-center gap-1.5 font-semibold text-primary no-underline">
+        <a
+          href={hrHref}
+          class="inline-flex items-center gap-1.5 font-semibold text-primary no-underline"
+        >
           {t.ctaLink}
           <Icon name="arrow-right" size={16} />
         </a>
