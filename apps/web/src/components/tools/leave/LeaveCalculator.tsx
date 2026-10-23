@@ -32,8 +32,8 @@ interface Copy {
   inputsTitle: string;
   estimate: string;
   leaveStart: string;
-  monthPart: string;
-  yearPart: string;
+  startMonthLabel: string;
+  startYearLabel: string;
   fillLabel: string;
   fillHint: string;
   monthCol: string;
@@ -92,8 +92,8 @@ const COPY: Record<Locale, Copy> = {
     inputsTitle: "Datele salariatului",
     estimate: "Estimare",
     leaveStart: "Luna în care începe concediul",
-    monthPart: "Luna",
-    yearPart: "Anul",
+    startMonthLabel: "Luna",
+    startYearLabel: "Anul",
     fillLabel: "Salariu lunar brut",
     fillHint: "Completează toate lunile deodată, apoi ajustează lunile cu prime sau absențe.",
     monthCol: "Luna",
@@ -150,7 +150,8 @@ const COPY: Record<Locale, Copy> = {
     monthPart: "{month}: {days} zile × {daily} MDL",
     baseLabel: "Baza de calcul (venit mediu lunar)",
     baseNote: "venitul asigurat din {n} luni, împărțit la 12",
-    capNote: "plafonată la {cap} MDL ({multiplier} salarii medii lunare prognozate pentru anul fiecărei luni)",
+    capNote:
+      "plafonată la {cap} MDL ({multiplier} salarii medii lunare prognozate pentru anul fiecărei luni)",
     minimumNote: "{share} din salariul mediu pe economie, în lipsa venitului asigurat",
     sickTaxNote:
       "Din partea plătită de angajator se rețin prima de asigurare medicală de 9% și impozitul pe venit. Partea plătită de CNAS din bugetul asigurărilor sociale nu se include în venitul impozabil (art. 20 lit. a) din Codul fiscal), deci nici prima medicală nu se calculează (art. 1 din Legea nr. 1593/2002). Contribuții sociale nu se calculează la nicio parte (anexa nr. 3 la Legea nr. 489/1999).",
@@ -165,8 +166,8 @@ const COPY: Record<Locale, Copy> = {
     inputsTitle: "Данные работника",
     estimate: "Оценка",
     leaveStart: "Месяц начала отпуска",
-    monthPart: "Месяц",
-    yearPart: "Год",
+    startMonthLabel: "Месяц",
+    startYearLabel: "Год",
     fillLabel: "Месячная зарплата брутто",
     fillHint: "Заполните все месяцы сразу, затем поправьте месяцы с премиями или отсутствиями.",
     monthCol: "Месяц",
@@ -238,8 +239,8 @@ const COPY: Record<Locale, Copy> = {
     inputsTitle: "Employee details",
     estimate: "Estimate",
     leaveStart: "Month the leave starts",
-    monthPart: "Month",
-    yearPart: "Year",
+    startMonthLabel: "Month",
+    startYearLabel: "Year",
     fillLabel: "Monthly gross salary",
     fillHint: "Fill every month at once, then adjust months with bonuses or absences.",
     monthCol: "Month",
@@ -458,7 +459,7 @@ export function LeaveCalculator({ locale, hrHref }: Props) {
         <legend className={styles.label}>{t.leaveStart}</legend>
         <div className={styles.monthPicker}>
           <select
-            aria-label={t.monthPart}
+            aria-label={t.startMonthLabel}
             value={leaveRef.month}
             onChange={(e) =>
               changeLeaveMonth(monthKey({ year: leaveRef.year, month: Number(e.target.value) }))
@@ -474,7 +475,7 @@ export function LeaveCalculator({ locale, hrHref }: Props) {
           <input
             type="number"
             inputMode="numeric"
-            aria-label={t.yearPart}
+            aria-label={t.startYearLabel}
             min={MIN_YEAR}
             max={MAX_YEAR}
             value={yearDraft ?? leaveRef.year}
@@ -584,12 +585,18 @@ export function LeaveCalculator({ locale, hrHref }: Props) {
 
   const leaveResultPanel = (
     <>
-      <ResultHeader label={t.leaveResultLabel} badge={t.estimate} amount={money.format(leaveResult.gross)} />
+      <ResultHeader
+        label={t.leaveResultLabel}
+        badge={t.estimate}
+        amount={money.format(leaveResult.gross)}
+      />
       <div className="text-sm text-white/70 mt-2">
         {t.netLabel}: <span className="font-bold text-white">{mdl(leaveNet.net)}</span>
       </div>
       <ul className="list-none p-0 m-0 mt-6 pt-5 border-t border-white/15 flex flex-col gap-2 text-sm">
-        <Line label={fill(t.healthInsurance, { rate: pf.format(PAYROLL_RATES.healthInsuranceRate) })}>
+        <Line
+          label={fill(t.healthInsurance, { rate: pf.format(PAYROLL_RATES.healthInsuranceRate) })}
+        >
           −{mdl(leaveNet.healthInsurance)}
         </Line>
         <Line label={fill(t.incomeTax, { rate: pf.format(PAYROLL_RATES.incomeTaxRate) })}>
@@ -751,7 +758,11 @@ export function LeaveCalculator({ locale, hrHref }: Props) {
 
   const sickResultPanel = (
     <>
-      <ResultHeader label={t.sickResultLabel} badge={t.estimate} amount={money.format(sickResult.total)} />
+      <ResultHeader
+        label={t.sickResultLabel}
+        badge={t.estimate}
+        amount={money.format(sickResult.total)}
+      />
       <div className="text-sm text-white/70 mt-2">
         {t.netLabel}: <span className="font-bold text-white">{mdl(sickNet.net)}</span>
       </div>
@@ -769,7 +780,9 @@ export function LeaveCalculator({ locale, hrHref }: Props) {
             <div className="text-xs font-bold tracking-wider uppercase text-[#DFB741] mb-1">
               {t.employerPart}
             </div>
-            <div className="text-2xl font-extrabold text-white">{mdl(sickResult.employerAmount)}</div>
+            <div className="text-2xl font-extrabold text-white">
+              {mdl(sickResult.employerAmount)}
+            </div>
             <div className="text-sm text-white/70">
               {fill(t.dayCount, { n: sickResult.employerDays })}
             </div>
@@ -866,7 +879,10 @@ export function LeaveCalculator({ locale, hrHref }: Props) {
             {tab === "leave" ? leavePanel : sickPanel}
           </div>
 
-          <div ref={resultRef} className="lg:sticky lg:top-24 p-6 sm:p-8 bg-[linear-gradient(135deg,rgba(223,183,65,0.15)_0%,rgba(70,99,171,0.1)_100%)] rounded-lg border border-[rgba(223,183,65,0.25)]">
+          <div
+            ref={resultRef}
+            className="lg:sticky lg:top-24 p-6 sm:p-8 bg-[linear-gradient(135deg,rgba(223,183,65,0.15)_0%,rgba(70,99,171,0.1)_100%)] rounded-lg border border-[rgba(223,183,65,0.25)]"
+          >
             {tab === "leave" ? leaveResultPanel : sickResultPanel}
             <div className="mt-5 flex flex-col gap-3">
               <button

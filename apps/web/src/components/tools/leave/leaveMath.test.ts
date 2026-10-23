@@ -37,7 +37,19 @@ const RATES: LeaveRates = {
   minimumInsuranceMonthsIn24: 9,
   sickPaySubjectToHealthInsurance: true,
   cnasSickPayTaxable: false,
-  fixedHolidays: ["01-01", "01-07", "01-08", "03-08", "05-01", "05-09", "06-01", "08-27", "08-31", "12-25"],
+  cnasReviewDaysIncomplete: 45,
+  fixedHolidays: [
+    "01-01",
+    "01-07",
+    "01-08",
+    "03-08",
+    "05-01",
+    "05-09",
+    "06-01",
+    "08-27",
+    "08-31",
+    "12-25",
+  ],
   easterHolidayOffsets: [0, 1, 8],
 };
 
@@ -163,7 +175,10 @@ describe("sickPay", () => {
   });
 
   it("divides the insured income by 12 even with months without income", () => {
-    const incomes = [...Array.from({ length: 6 }, () => 0), ...Array.from({ length: 6 }, () => 18_000)];
+    const incomes = [
+      ...Array.from({ length: 6 }, () => 0),
+      ...Array.from({ length: 6 }, () => 18_000),
+    ];
     const result = sickPay({ ...base, incomes }, RATES);
     expect(result.monthsCounted).toBe(6);
     expect(result.base).toBe(9_000);
