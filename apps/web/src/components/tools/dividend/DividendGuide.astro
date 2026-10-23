@@ -1,0 +1,383 @@
+---
+import { Container, Icon, Section } from "@expertcont/ui";
+import { localeTag, type Locale } from "@expertcont/i18n";
+import { NO_EXEMPTIONS } from "../payroll/payrollMath";
+import { PAYROLL_RATES } from "../payroll/rates";
+import { comparePayouts } from "./dividendMath";
+import { DIVIDEND_RATES } from "./rates";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const nf = new Intl.NumberFormat(localeTag(locale), { maximumFractionDigits: 0 });
+const pct = (rate: number) => `${Math.round(rate * 1000) / 10}%`;
+const mdl = (n: number) => `${nf.format(Math.round(n))} MDL`;
+const year = DIVIDEND_RATES.year;
+const profitTax = pct(DIVIDEND_RATES.profitTaxRate);
+const dividendTax = pct(DIVIDEND_RATES.dividendTaxRate);
+const employerSocial = pct(PAYROLL_RATES.employerSocialRate);
+const health = pct(PAYROLL_RATES.healthInsuranceRate);
+const incomeTax = pct(PAYROLL_RATES.incomeTaxRate);
+const minimumWage = mdl(DIVIDEND_RATES.minimumWage);
+const upcomingTax = pct(DIVIDEND_RATES.upcomingDividendTaxRate);
+const upcomingYear = DIVIDEND_RATES.upcomingYear;
+
+const exampleBudget = 600_000;
+const example = comparePayouts(
+  { yearlyBudget: exampleBudget, mixGrossMonthly: DIVIDEND_RATES.minimumWage },
+  NO_EXEMPTIONS,
+  PAYROLL_RATES,
+  DIVIDEND_RATES,
+);
+const ex = {
+  budget: mdl(exampleBudget),
+  profitTax: mdl(example.dividends.profitTax),
+  dividend: mdl(example.dividends.dividend),
+  dividendTax: mdl(example.dividends.dividendTax),
+  dividendNet: mdl(example.dividends.net),
+  gross: mdl(example.salary.gross),
+  salaryTaxes: mdl(example.salary.taxes),
+  salaryNet: mdl(example.salary.net),
+  mixNet: mdl(example.mix.net),
+  dividendRate: pct(example.dividends.effectiveRate),
+  salaryRate: pct(example.salary.effectiveRate),
+};
+
+interface Copy {
+  compareEyebrow: string;
+  compareTitle: string;
+  dividendsTitle: string;
+  dividendsBody: string;
+  dividendsItems: string[];
+  salaryTitle: string;
+  salaryBody: string;
+  salaryItems: string[];
+  exampleEyebrow: string;
+  exampleTitle: string;
+  exampleIntro: string;
+  exampleRows: { label: string; value: string }[];
+  exampleNote: string;
+  rulesTitle: string;
+  rules: string[];
+  whenTitle: string;
+  when: string[];
+  ratesTitle: string;
+  rates: { label: string; value: string }[];
+  ratesNote: string;
+}
+
+const copy: Record<Locale, Copy> = {
+  ro: {
+    compareEyebrow: "Ce comparăm",
+    compareTitle: "Două moduri de a scoate bani din SRL",
+    dividendsTitle: "Dividende",
+    dividendsBody: "Banii trec întâi prin impozitul pe profit al firmei, apoi prin impozitul pe dividende:",
+    dividendsItems: [
+      `impozit pe profit — ${profitTax}, plătit de firmă`,
+      `impozit pe dividende — ${dividendTax}, reținut la sursă de firmă la plată`,
+      "fără contribuții sociale și fără asigurare medicală obligatorie prin firmă",
+    ],
+    salaryTitle: "Salariu",
+    salaryBody: "Salariul este cheltuială deductibilă, deci nu se mai plătește impozit pe profit pe el. În schimb:",
+    salaryItems: [
+      `contribuții sociale ale angajatorului — ${employerSocial} peste salariul brut`,
+      `asigurare medicală — ${health}, reținută din salariu`,
+      `impozit pe venit — ${incomeTax}, reținut din salariu`,
+    ],
+    exampleEyebrow: "Exemplu",
+    exampleTitle: `Firma are ${ex.budget} pe an pentru asociat`,
+    exampleIntro: "Același buget, trei moduri de plată:",
+    exampleRows: [
+      { label: `Impozit pe profit (${profitTax})`, value: ex.profitTax },
+      { label: "Dividende brute distribuite", value: ex.dividend },
+      { label: `Impozit pe dividende (${dividendTax})`, value: ex.dividendTax },
+      { label: "Net din dividende", value: ex.dividendNet },
+      { label: "Salariu brut anual (bugetul acoperă și contribuțiile)", value: ex.gross },
+      { label: "Contribuții și impozite pe salariu", value: ex.salaryTaxes },
+      { label: "Net din salariu", value: ex.salaryNet },
+      { label: `Salariu minim (${minimumWage}/lună) + restul dividende`, value: ex.mixNet },
+    ],
+    exampleNote: `Rata efectivă: ${ex.dividendRate} la dividende față de ${ex.salaryRate} la salariu. Diferența se plătește însă cu lipsa protecției sociale.`,
+    rulesTitle: "Regulile dividendelor",
+    rules: [
+      "Se plătesc doar din profitul net, după impozitare, prin hotărârea adunării generale a asociaților sau decizia asociatului unic.",
+      "Anual, după aprobarea situațiilor financiare, sau ca dividende intermediare (trimestriale sau semestriale), pe baza situațiilor financiare interimare (art. 39 din Legea nr. 135/2007). Dividendele se plătesc în bani, în 30 de zile de la hotărâre, dacă adunarea nu stabilește alt termen.",
+      "La dividendele intermediare, firma achită în avans 12% din profitul perioadei curente din care se plătesc dividendele, până la data de 25 a lunii următoare plății (art. 80¹ Cod fiscal).",
+      "Nu se distribuie dividende înainte de vărsarea integrală a aporturilor sau dacă, după distribuire, activele nete ar deveni mai mici decât capitalul social plus capitalul de rezervă, și nu se plătesc dacă firma este sau ar deveni insolvabilă (art. 40 din Legea nr. 135/2007).",
+      `Politica fiscală pentru ${upcomingYear}, votată de Parlament pe 22 octombrie 2026, prevede impozit de ${upcomingTax} pe dividendele din profitul obținut începând cu ${upcomingYear}. Dividendele din profitul anilor anteriori rămân la ${dividendTax}.`,
+    ],
+    whenTitle: "Când au sens dividendele",
+    when: [
+      "Ai deja stagiu de cotizare sau alt loc de muncă cu salariu și contribuții.",
+      "Firma are profit stabil și nu ai nevoie de bani lunar.",
+      "Vrei să plătești minimul la salariu pentru protecție socială, iar restul să-l iei ca dividende.",
+    ],
+    ratesTitle: `Cifrele folosite în calcul (${year})`,
+    rates: [
+      { label: "Impozit pe profit", value: profitTax },
+      { label: "Impozit pe dividende (persoane fizice rezidente)", value: dividendTax },
+      { label: "Contribuții sociale angajator", value: employerSocial },
+      { label: "Asigurare medicală", value: health },
+      { label: "Impozit pe venit din salariu", value: incomeTax },
+      { label: "Salariul minim pe țară", value: minimumWage },
+    ],
+    ratesNote:
+      "Calculul presupune regimul general de impozit pe profit și asociat persoană fizică rezidentă. Pentru regimul de 4%, rezidenții IT Park sau asociații nerezidenți, regulile diferă.",
+  },
+  ru: {
+    compareEyebrow: "Что мы сравниваем",
+    compareTitle: "Два способа вывести деньги из ООО",
+    dividendsTitle: "Дивиденды",
+    dividendsBody: "Деньги сначала облагаются налогом на прибыль компании, затем налогом на дивиденды:",
+    dividendsItems: [
+      `налог на прибыль — ${profitTax}, платит компания`,
+      `налог на дивиденды — ${dividendTax}, удерживается компанией при выплате`,
+      "без социальных взносов и без обязательного медицинского страхования через компанию",
+    ],
+    salaryTitle: "Зарплата",
+    salaryBody: "Зарплата — вычитаемый расход, поэтому налог на прибыль с неё не платится. Зато есть:",
+    salaryItems: [
+      `социальные взносы работодателя — ${employerSocial} сверх зарплаты брутто`,
+      `медицинское страхование — ${health}, удерживается из зарплаты`,
+      `подоходный налог — ${incomeTax}, удерживается из зарплаты`,
+    ],
+    exampleEyebrow: "Пример",
+    exampleTitle: `Компания может потратить на учредителя ${ex.budget} в год`,
+    exampleIntro: "Один и тот же бюджет, три способа выплаты:",
+    exampleRows: [
+      { label: `Налог на прибыль (${profitTax})`, value: ex.profitTax },
+      { label: "Начисленные дивиденды", value: ex.dividend },
+      { label: `Налог на дивиденды (${dividendTax})`, value: ex.dividendTax },
+      { label: "На руки с дивидендов", value: ex.dividendNet },
+      { label: "Зарплата брутто за год (бюджет покрывает и взносы)", value: ex.gross },
+      { label: "Взносы и налоги с зарплаты", value: ex.salaryTaxes },
+      { label: "На руки с зарплаты", value: ex.salaryNet },
+      { label: `Минимальная зарплата (${minimumWage}/мес.) + остаток дивидендами`, value: ex.mixNet },
+    ],
+    exampleNote: `Эффективная ставка: ${ex.dividendRate} для дивидендов против ${ex.salaryRate} для зарплаты. Но за разницу вы платите отсутствием социальной защиты.`,
+    rulesTitle: "Правила выплаты дивидендов",
+    rules: [
+      "Выплачиваются только из чистой прибыли после налогообложения, по решению общего собрания участников или единственного участника.",
+      "Ежегодно, после утверждения финансовой отчётности, или как промежуточные дивиденды (ежеквартальные или полугодовые) — на основании промежуточной финансовой отчётности (ст. 39 Закона № 135/2007). Дивиденды выплачиваются деньгами в течение 30 дней после решения, если собрание не установило иной срок.",
+      "При промежуточных дивидендах компания заранее уплачивает 12% прибыли текущего периода, из которой выплачиваются дивиденды, — до 25-го числа месяца, следующего за выплатой (ст. 80¹ Налогового кодекса).",
+      "Дивиденды не распределяются до полной оплаты вкладов или если после распределения чистые активы станут меньше уставного и резервного капитала, и не выплачиваются, если компания неплатёжеспособна или станет такой (ст. 40 Закона № 135/2007).",
+      `Налоговая политика на ${upcomingYear} год, принятая парламентом 22 октября 2026 года, вводит налог ${upcomingTax} на дивиденды из прибыли, полученной начиная с ${upcomingYear} года. Дивиденды из прибыли прошлых лет облагаются по ставке ${dividendTax}.`,
+    ],
+    whenTitle: "Когда дивиденды имеют смысл",
+    when: [
+      "У вас уже есть страховой стаж или другая работа с зарплатой и взносами.",
+      "У компании стабильная прибыль, и вам не нужны деньги каждый месяц.",
+      "Вы хотите получать минимальную зарплату ради социальной защиты, а остальное — дивидендами.",
+    ],
+    ratesTitle: `Цифры, используемые в расчёте (${year})`,
+    rates: [
+      { label: "Налог на прибыль", value: profitTax },
+      { label: "Налог на дивиденды (физлица-резиденты)", value: dividendTax },
+      { label: "Социальные взносы работодателя", value: employerSocial },
+      { label: "Медицинское страхование", value: health },
+      { label: "Подоходный налог с зарплаты", value: incomeTax },
+      { label: "Минимальная зарплата по стране", value: minimumWage },
+    ],
+    ratesNote:
+      "Расчёт предполагает общий режим налога на прибыль и участника — физическое лицо-резидента. Для режима 4%, резидентов IT Park или участников-нерезидентов правила другие.",
+  },
+  en: {
+    compareEyebrow: "What we compare",
+    compareTitle: "Two ways to take money out of an LLC",
+    dividendsTitle: "Dividends",
+    dividendsBody: "The money first goes through the company's profit tax, then through dividend tax:",
+    dividendsItems: [
+      `profit tax — ${profitTax}, paid by the company`,
+      `dividend tax — ${dividendTax}, withheld by the company when it pays out`,
+      "no social contributions and no mandatory health insurance through the company",
+    ],
+    salaryTitle: "Salary",
+    salaryBody: "Salary is a deductible expense, so no profit tax is due on it. Instead there are:",
+    salaryItems: [
+      `employer social contributions — ${employerSocial} on top of the gross salary`,
+      `health insurance — ${health}, withheld from the salary`,
+      `income tax — ${incomeTax}, withheld from the salary`,
+    ],
+    exampleEyebrow: "Example",
+    exampleTitle: `The company has ${ex.budget} a year for its owner`,
+    exampleIntro: "The same budget, three ways to pay it out:",
+    exampleRows: [
+      { label: `Profit tax (${profitTax})`, value: ex.profitTax },
+      { label: "Gross dividends distributed", value: ex.dividend },
+      { label: `Dividend tax (${dividendTax})`, value: ex.dividendTax },
+      { label: "Net from dividends", value: ex.dividendNet },
+      { label: "Annual gross salary (the budget also covers contributions)", value: ex.gross },
+      { label: "Contributions and taxes on salary", value: ex.salaryTaxes },
+      { label: "Net from salary", value: ex.salaryNet },
+      { label: `Minimum wage (${minimumWage}/month) + the rest as dividends`, value: ex.mixNet },
+    ],
+    exampleNote: `Effective rate: ${ex.dividendRate} for dividends versus ${ex.salaryRate} for salary. The difference is paid for with the lack of social protection.`,
+    rulesTitle: "Dividend rules",
+    rules: [
+      "Paid only out of net, after-tax profit, by a decision of the members' general meeting or of the sole member.",
+      "Yearly, after the financial statements are approved, or as interim (quarterly or half-yearly) dividends based on interim financial statements (Law 135/2007 art. 39). Dividends are paid in cash within 30 days of the decision unless the meeting sets another term.",
+      "For interim dividends, the company pays in advance 12% of the current-period profit the dividends come from, by the 25th of the month after the payout (Tax Code art. 80¹).",
+      "No dividends may be distributed before contributions are fully paid in, or if the payout would bring net assets below the share capital plus the reserve capital, and none may be paid while the company is or would become insolvent (Law 135/2007 art. 40).",
+      `The ${upcomingYear} tax policy, passed by Parliament on 22 October 2026, sets dividend tax at ${upcomingTax} on dividends paid out of profit earned from ${upcomingYear} onwards. Dividends out of earlier profit stay at ${dividendTax}.`,
+    ],
+    whenTitle: "When dividends make sense",
+    when: [
+      "You already have a contribution record or another job with salary and contributions.",
+      "The company has steady profit and you don't need money every month.",
+      "You want a minimum salary for social protection and the rest as dividends.",
+    ],
+    ratesTitle: `Figures used in the calculation (${year})`,
+    rates: [
+      { label: "Profit tax", value: profitTax },
+      { label: "Dividend tax (resident individuals)", value: dividendTax },
+      { label: "Employer social contributions", value: employerSocial },
+      { label: "Health insurance", value: health },
+      { label: "Income tax on salary", value: incomeTax },
+      { label: "National minimum wage", value: minimumWage },
+    ],
+    ratesNote:
+      "The calculation assumes the standard profit tax regime and a resident individual as the member. Different rules apply under the 4% regime, to IT Park residents or to non-resident members.",
+  },
+};
+
+const t = copy[locale];
+---
+
+<Section tone="default" id="ghid">
+  <Container>
+    <div class="text-center mb-10">
+      <div class="eyebrow mb-4 justify-center">{t.compareEyebrow}</div>
+      <h2 class="mb-0">{t.compareTitle}</h2>
+    </div>
+    <div class="grid gap-5 md:grid-cols-2">
+      <div class="card p-6 sm:p-7 border-accent">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-12 h-12 rounded-lg bg-accent-50 text-accent-dark flex items-center justify-center shrink-0">
+            <Icon name="trending" size={24} />
+          </div>
+          <h3 class="text-lg mb-0">{t.dividendsTitle}</h3>
+        </div>
+        <p class="text-text-secondary leading-relaxed mb-4">{t.dividendsBody}</p>
+        <ul class="list-none p-0 m-0 flex flex-col gap-2">
+          {
+            t.dividendsItems.map((item) => (
+              <li class="flex items-start gap-2 text-sm sm:text-base">
+                <span class="text-accent-dark shrink-0 mt-0.5">
+                  <Icon name="minus" size={18} />
+                </span>
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="card p-6 sm:p-7">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-12 h-12 rounded-lg bg-primary-50 text-primary flex items-center justify-center shrink-0">
+            <Icon name="users" size={24} />
+          </div>
+          <h3 class="text-lg mb-0">{t.salaryTitle}</h3>
+        </div>
+        <p class="text-text-secondary leading-relaxed mb-4">{t.salaryBody}</p>
+        <ul class="list-none p-0 m-0 flex flex-col gap-2">
+          {
+            t.salaryItems.map((item) => (
+              <li class="flex items-start gap-2 text-sm sm:text-base">
+                <span class="text-primary shrink-0 mt-0.5">
+                  <Icon name="minus" size={18} />
+                </span>
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </Container>
+</Section>
+
+<Section tone="alt">
+  <Container>
+    <div class="grid gap-8 lg:grid-cols-[1.2fr_1fr] items-start">
+      <div>
+        <div class="eyebrow mb-4">{t.exampleEyebrow}</div>
+        <h2 class="mb-3">{t.exampleTitle}</h2>
+        <p class="text-text-secondary leading-relaxed mb-6">{t.exampleIntro}</p>
+        <dl class="card p-0 m-0 overflow-hidden">
+          {
+            t.exampleRows.map((row, i) => (
+              <div
+                class={`flex justify-between gap-4 px-6 py-4 ${i > 0 ? "border-t border-border" : ""}`}
+              >
+                <dt class="text-text-secondary">{row.label}</dt>
+                <dd class="m-0 font-bold whitespace-nowrap">{row.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        <p class="text-sm text-text-secondary leading-relaxed mt-4 mb-0">{t.exampleNote}</p>
+      </div>
+      <div class="flex flex-col gap-5 lg:mt-[88px]">
+        <div class="card p-6 sm:p-7">
+          <div class="w-12 h-12 rounded-lg bg-primary-50 text-primary flex items-center justify-center mb-4">
+            <Icon name="scale" size={24} />
+          </div>
+          <h3 class="text-lg mb-3">{t.rulesTitle}</h3>
+          <ul class="list-none p-0 m-0 flex flex-col gap-2.5">
+            {
+              t.rules.map((rule) => (
+                <li class="flex items-start gap-2 text-sm leading-relaxed">
+                  <span class="text-primary shrink-0 mt-0.5">
+                    <Icon name="check" size={16} />
+                  </span>
+                  {rule}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div class="card p-6 sm:p-7">
+          <div class="w-12 h-12 rounded-lg bg-accent-50 text-accent-dark flex items-center justify-center mb-4">
+            <Icon name="lightbulb" size={24} />
+          </div>
+          <h3 class="text-lg mb-3">{t.whenTitle}</h3>
+          <ul class="list-none p-0 m-0 flex flex-col gap-2.5">
+            {
+              t.when.map((item) => (
+                <li class="flex items-start gap-2 text-sm leading-relaxed">
+                  <span class="text-accent-dark shrink-0 mt-0.5">
+                    <Icon name="check" size={16} />
+                  </span>
+                  {item}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </Container>
+</Section>
+
+<Section tone="default">
+  <Container>
+    <div class="max-w-[720px] mx-auto">
+      <h2 class="mb-6 text-center">{t.ratesTitle}</h2>
+      <dl class="card p-0 m-0 overflow-hidden">
+        {
+          t.rates.map((rate, i) => (
+            <div
+              class={`flex justify-between gap-4 px-6 py-4 ${i > 0 ? "border-t border-border" : ""}`}
+            >
+              <dt class="text-text-secondary">{rate.label}</dt>
+              <dd class="m-0 font-bold whitespace-nowrap">{rate.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+      <p class="text-sm text-text-secondary leading-relaxed mt-4 mb-0">{t.ratesNote}</p>
+    </div>
+  </Container>
+</Section>
