@@ -8,6 +8,7 @@ import {
   type SectionKey,
 } from "@expertcont/i18n";
 import { INDUSTRIES, industryDetailUrl } from "../components/industry/industries";
+import { TOOLS, toolUrl } from "../components/tools/tools";
 
 export interface SitemapLink {
   href: string;
@@ -23,6 +24,7 @@ const sectionLabels: Record<Exclude<SectionKey, "sitemap">, Record<Locale, strin
   solutions: { ro: "Soluții", ru: "Решения", en: "Solutions" },
   services: { ro: "Servicii", ru: "Услуги", en: "Services" },
   industries: { ro: "Domenii", ru: "Отрасли", en: "Industries" },
+  tools: { ro: "Instrumente gratuite", ru: "Бесплатные инструменты", en: "Free tools" },
   pricing: { ro: "Prețuri", ru: "Цены", en: "Pricing" },
   contact: { ro: "Contact", ru: "Контакты", en: "Contact" },
   about: { ro: "Despre noi", ru: "О нас", en: "About us" },
@@ -101,6 +103,11 @@ export async function buildSitemapGroups(locale: Locale): Promise<SitemapGroup[]
     label: industry.title[locale],
   }));
 
+  const toolLinks: SitemapLink[] = TOOLS.filter((tool) => tool.status === "live").map((tool) => ({
+    href: toolUrl(tool, locale),
+    label: tool.title[locale],
+  }));
+
   return [
     { heading: groupHeadings.main[locale], links: main },
     {
@@ -110,6 +117,10 @@ export async function buildSitemapGroups(locale: Locale): Promise<SitemapGroup[]
     {
       heading: sectionLabels.industries[locale],
       links: [sectionLink("industries", locale), ...industryLinks],
+    },
+    {
+      heading: sectionLabels.tools[locale],
+      links: [sectionLink("tools", locale), ...toolLinks],
     },
     {
       heading: groupHeadings.company[locale],

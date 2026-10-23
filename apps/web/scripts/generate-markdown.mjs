@@ -121,6 +121,7 @@ function categorize(path) {
   // Section-level pages (RO slugs + RU + EN equivalents).
   const sections = {
     Pricing: ["preturi", "tseny", "pricing"],
+    "Free tools": ["instrumente", "instrumenty", "tools"],
     Services: ["servicii", "uslugi", "services"],
     Blog: ["blog"],
     Guides: ["ghiduri", "rukovodstva", "guides"],
