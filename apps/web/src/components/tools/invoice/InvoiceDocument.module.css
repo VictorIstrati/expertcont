@@ -1,0 +1,212 @@
+.page {
+  box-sizing: border-box;
+  width: 210mm;
+  min-height: 297mm;
+  padding: 16mm 15mm;
+  background: #fff;
+  color: #1a1a2e;
+  font-size: 10pt;
+  line-height: 1.45;
+  display: flex;
+  flex-direction: column;
+  gap: 7mm;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 2px solid #1a1a2e;
+  padding-bottom: 5mm;
+}
+
+.title {
+  margin: 0 0 2mm;
+  font-size: 22pt;
+  line-height: 1.1;
+  color: #1a1a2e;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2mm 8mm;
+  color: #4a4a5e;
+}
+
+.meta strong {
+  color: #1a1a2e;
+}
+
+.parties {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 8mm;
+}
+
+.party {
+  border: 1px solid #d9dbe3;
+  border-radius: 2mm;
+  padding: 4mm;
+}
+
+.partyTitle {
+  font-size: 8pt;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b6b80;
+  margin-bottom: 1.5mm;
+}
+
+.partyName {
+  font-size: 11.5pt;
+  font-weight: 700;
+  margin-bottom: 2mm;
+}
+
+.partyRows {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8mm;
+  font-size: 9pt;
+}
+
+.partyRows div {
+  display: flex;
+  gap: 2mm;
+}
+
+.partyRows dt {
+  color: #6b6b80;
+  flex-shrink: 0;
+}
+
+.partyRows dd {
+  margin: 0;
+  word-break: break-word;
+}
+
+.items {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9.5pt;
+}
+
+.items th {
+  text-align: left;
+  font-size: 8pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #4a4a5e;
+  background: #f2f3f7;
+  padding: 2.5mm 2mm;
+  border-bottom: 1px solid #c9ccd8;
+}
+
+.items td {
+  padding: 2.5mm 2mm;
+  border-bottom: 1px solid #e6e8ef;
+  vertical-align: top;
+}
+
+.items tr,
+.party,
+.totals,
+.words,
+.signatures {
+  break-inside: avoid;
+}
+
+.items thead {
+  display: table-header-group;
+}
+
+.right {
+  text-align: right !important;
+  white-space: nowrap;
+}
+
+.num {
+  width: 8mm;
+  color: #6b6b80;
+}
+
+.totals {
+  align-self: flex-end;
+  min-width: 75mm;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5mm;
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 8mm;
+}
+
+.grand {
+  border-top: 2px solid #1a1a2e;
+  padding-top: 2mm;
+  font-size: 12pt;
+  font-weight: 800;
+}
+
+.words {
+  margin: 0;
+  padding: 3mm 4mm;
+  background: #f7f7fa;
+  border-radius: 2mm;
+}
+
+.words span {
+  color: #6b6b80;
+}
+
+.note {
+  margin: 0;
+  font-size: 9pt;
+  color: #4a4a5e;
+}
+
+.signatures {
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 15mm;
+  padding-top: 10mm;
+}
+
+.signLabel {
+  font-weight: 700;
+  margin-bottom: 12mm;
+}
+
+.signLine {
+  border-top: 1px solid #1a1a2e;
+  padding-top: 1mm;
+  font-size: 8pt;
+  color: #6b6b80;
+  text-align: center;
+}
+
+.branding {
+  text-align: center;
+  font-size: 7.5pt;
+  color: #9a9aaa;
+}
+
+@media print {
+  .page {
+    width: auto;
+    min-height: 0;
+    padding: 0;
+  }
+
+  .signatures {
+    margin-top: 6mm;
+  }
+}

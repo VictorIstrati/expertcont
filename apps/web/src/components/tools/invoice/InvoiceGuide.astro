@@ -1,0 +1,198 @@
+---
+import { Container, Icon, Section } from "@expertcont/ui";
+import { sectionUrl, type Locale } from "@expertcont/i18n";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+interface Copy {
+  eyebrow: string;
+  title: string;
+  canTitle: string;
+  canItems: string[];
+  eFacturaTitle: string;
+  eFacturaBody: string;
+  eFacturaItems: string[];
+  checklistEyebrow: string;
+  checklistTitle: string;
+  checklist: string[];
+}
+
+const copy: Record<Locale, Copy> = {
+  ro: {
+    eyebrow: "Când folosești generatorul",
+    title: "Ce documente poți emite aici",
+    canTitle: "Potrivit pentru",
+    canItems: [
+      "facturi pentru clienți din străinătate — pentru orice companie, plătitoare de TVA sau nu",
+      "facturi în EUR, USD sau MDL, cu TVA 0% la export (scutire cu drept de deducere, art. 104 Cod fiscal)",
+      "facturi proforma pentru avans sau ofertă de preț",
+      "documente în română, rusă sau engleză, cu suma în litere",
+    ],
+    eFacturaTitle: "Când ai nevoie de e-Factura",
+    eFacturaBody:
+      "Livrările pe piața internă se documentează cu factura fiscală (art. 117 Cod fiscal). e-Factura este obligatorie pentru contribuabilii incluși în lista Serviciului Fiscal de Stat și în achizițiile publice. Un PDF generat aici nu înlocuiește factura fiscală.",
+    eFacturaItems: [
+      "înregistrarea în sistemul e-Factura",
+      "emiterea și semnarea electronică a facturilor fiscale",
+      "evidența TVA și declarația lunară",
+    ],
+    checklistEyebrow: "Verificare rapidă",
+    checklistTitle: "Ce conține o factură completă",
+    checklist: [
+      "Numărul și data emiterii",
+      "Denumirea și adresa furnizorului și a cumpărătorului, cu IDNO sau numărul de înregistrare din țara clientului",
+      "Contul bancar (IBAN) pentru plată (recomandat)",
+      "Denumirea, cantitatea și prețul bunurilor sau serviciilor",
+      "Suma totală, în cifre (și în litere, recomandat)",
+      "Semnăturile persoanelor care eliberează și primesc",
+    ],
+  },
+  ru: {
+    eyebrow: "Когда использовать генератор",
+    title: "Какие документы можно выставить здесь",
+    canTitle: "Подходит для",
+    canItems: [
+      "инвойсов для зарубежных клиентов — для любой компании, плательщика НДС или нет",
+      "счетов в EUR, USD или MDL, с НДС 0% при экспорте (освобождение с правом на вычет, ст. 104 Налогового кодекса)",
+      "счетов-проформ на аванс или ценовое предложение",
+      "документов на румынском, русском или английском, с суммой прописью",
+    ],
+    eFacturaTitle: "Когда нужна e-Factura",
+    eFacturaBody:
+      "Поставки на внутреннем рынке оформляются налоговой накладной (ст. 117 Налогового кодекса). e-Factura обязательна для налогоплательщиков из списка Государственной налоговой службы и при государственных закупках. PDF, созданный здесь, налоговую накладную не заменяет.",
+    eFacturaItems: [
+      "регистрация в системе e-Factura",
+      "выставление и электронная подпись налоговых накладных",
+      "учёт НДС и ежемесячная декларация",
+    ],
+    checklistEyebrow: "Быстрая проверка",
+    checklistTitle: "Что содержит полный счёт",
+    checklist: [
+      "Номер и дата выставления",
+      "Наименование и адрес поставщика и покупателя, с IDNO или регистрационным номером в стране клиента",
+      "Банковский счёт (IBAN) для оплаты (рекомендуется)",
+      "Наименование, количество и цена товаров или услуг",
+      "Итоговая сумма цифрами (и прописью, рекомендуется)",
+      "Подписи лиц, выдавших и получивших документ",
+    ],
+  },
+  en: {
+    eyebrow: "When to use the generator",
+    title: "Which documents you can issue here",
+    canTitle: "Suitable for",
+    canItems: [
+      "invoices for foreign clients — for any company, VAT-registered or not",
+      "invoices in EUR, USD or MDL, with 0% VAT on exports (exempt with right of deduction, Tax Code art. 104)",
+      "proforma invoices for advance payments or price quotes",
+      "documents in Romanian, Russian or English, with the amount in words",
+    ],
+    eFacturaTitle: "When you need e-Factura",
+    eFacturaBody:
+      "Domestic supplies are documented with a fiscal invoice (Tax Code art. 117). e-Factura is mandatory for taxpayers on the State Tax Service list and in public procurement. A PDF generated here does not replace the fiscal invoice.",
+    eFacturaItems: [
+      "registering in the e-Factura system",
+      "issuing and e-signing fiscal invoices",
+      "VAT records and the monthly return",
+    ],
+    checklistEyebrow: "Quick check",
+    checklistTitle: "What a complete invoice includes",
+    checklist: [
+      "Invoice number and issue date",
+      "Name and address of the supplier and the customer, with the IDNO or the customer's registration number abroad",
+      "Bank account (IBAN) for payment (recommended)",
+      "Description, quantity and price of the goods or services",
+      "Total amount, in figures (and in words, recommended)",
+      "Signatures of the people issuing and receiving it",
+    ],
+  },
+};
+
+const t = copy[locale];
+const eFacturaCta = { ro: "Te ajutăm cu e-Factura", ru: "Поможем с e-Factura", en: "We can help with e-Factura" }[locale];
+---
+
+<Section tone="default">
+  <Container>
+    <div class="text-center mb-10">
+      <div class="eyebrow mb-4 justify-center">{t.eyebrow}</div>
+      <h2 class="mb-0">{t.title}</h2>
+    </div>
+    <div class="grid gap-5 md:grid-cols-2">
+      <div class="card p-6 sm:p-7">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-12 h-12 rounded-lg bg-primary-50 text-primary flex items-center justify-center shrink-0">
+            <Icon name="file-text" size={24} />
+          </div>
+          <h3 class="text-lg mb-0">{t.canTitle}</h3>
+        </div>
+        <ul class="list-none p-0 m-0 flex flex-col gap-2">
+          {
+            t.canItems.map((item) => (
+              <li class="flex items-start gap-2 text-sm sm:text-base">
+                <span class="text-primary shrink-0 mt-0.5">
+                  <Icon name="check" size={18} />
+                </span>
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="card p-6 sm:p-7 border-accent">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-12 h-12 rounded-lg bg-accent-50 text-accent-dark flex items-center justify-center shrink-0">
+            <Icon name="shield" size={24} />
+          </div>
+          <h3 class="text-lg mb-0">{t.eFacturaTitle}</h3>
+        </div>
+        <p class="text-text-secondary leading-relaxed mb-4">{t.eFacturaBody}</p>
+        <ul class="list-none p-0 m-0 flex flex-col gap-2 mb-5">
+          {
+            t.eFacturaItems.map((item) => (
+              <li class="flex items-start gap-2 text-sm sm:text-base">
+                <span class="text-accent-dark shrink-0 mt-0.5">
+                  <Icon name="check" size={18} />
+                </span>
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+        <a
+          href={sectionUrl("contact", locale)}
+          class="inline-flex items-center gap-1.5 font-semibold text-primary no-underline"
+        >
+          {eFacturaCta}
+          <Icon name="arrow-right" size={16} />
+        </a>
+      </div>
+    </div>
+  </Container>
+</Section>
+
+<Section tone="alt">
+  <Container>
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-8">
+        <div class="eyebrow mb-4 justify-center">{t.checklistEyebrow}</div>
+        <h2 class="mb-0">{t.checklistTitle}</h2>
+      </div>
+      <ol class="card p-0 m-0 list-none overflow-hidden">
+        {
+          t.checklist.map((item, i) => (
+            <li class={`flex items-center gap-4 px-6 py-4 ${i > 0 ? "border-t border-border" : ""}`}>
+              <span class="w-8 h-8 rounded-full bg-primary-50 text-primary font-bold text-sm flex items-center justify-center shrink-0">
+                {i + 1}
+              </span>
+              {item}
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </Container>
+</Section>
