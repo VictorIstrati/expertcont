@@ -8,7 +8,9 @@
     "build": "astro build && node ./scripts/generate-markdown.mjs",
     "preview": "astro preview",
     "typecheck": "astro check",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@astrojs/mdx": "^3.1.0",
@@ -40,6 +42,7 @@
     "cheerio": "^1.2.0",
     "fast-glob": "^3.3.3",
     "turndown": "^7.2.4",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "vitest": "^2.1.1"
   }
 }
