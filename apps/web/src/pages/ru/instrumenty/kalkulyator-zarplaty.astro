@@ -1,0 +1,75 @@
+---
+import { getEntry } from "astro:content";
+import Base from "../../../layouts/Base.astro";
+import PageShell from "../../../components/PageShell.astro";
+import { Container, PageHeader, Section } from "@expertcont/ui";
+import { detailUrl, homeUrl, sectionUrl, type ContentMeta, type Locale } from "@expertcont/i18n";
+import { SalaryCalculator } from "../../../components/tools/salary/SalaryCalculator";
+import SalaryGuide from "../../../components/tools/salary/SalaryGuide.astro";
+import { getTool, toolSiblings, toolUrl } from "../../../components/tools/tools";
+import { ServiceCTAStrip } from "../../../components/service/ServiceCTAStrip";
+import { breadcrumbListJsonLd } from "../../../lib/jsonLd";
+
+const locale: Locale = "ru";
+const tool = getTool("salary-calculator");
+const siblings = toolSiblings(tool);
+const path = toolUrl(tool, locale);
+const hubHref = sectionUrl("tools", locale);
+const contactHref = sectionUrl("contact", locale);
+const serviceMeta = await getEntry("services-meta", "hr");
+const serviceHref = serviceMeta
+  ? detailUrl("services", serviceMeta.data as ContentMeta, locale)
+  : sectionUrl("services", locale);
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: tool.title[locale],
+    description: tool.description[locale],
+    url: `${siteUrl}${path}`,
+    inLanguage: locale,
+    applicationCategory: "FinanceApplication",
+    operatingSystem: "Any",
+    offers: { "@type": "Offer", price: 0, priceCurrency: "MDL" },
+  },
+  breadcrumbListJsonLd([
+    { name: "Главная", url: homeUrl(locale) },
+    { name: "Бесплатные инструменты", url: hubHref },
+    { name: tool.title[locale], url: path },
+  ]),
+];
+---
+
+<Base
+  title="Калькулятор зарплаты брутто–нетто 2026 Молдова · бесплатно — ExpertCont"
+  description="Бесплатно рассчитайте зарплату на руки из брутто и обратно в Молдове в 2026 году: медстрахование 9%, подоходный налог 12%, личные освобождения и стоимость для работодателя."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+  jsonLd={jsonLd}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <PageHeader
+      eyebrow="Бесплатные инструменты"
+      title="Сколько вы получите на руки?"
+      subtitle="Введите зарплату брутто или желаемую сумму на руки, отметьте освобождения — и сразу увидите удержания, налог и полную стоимость для работодателя."
+      breadcrumbs={[
+        { label: "Главная", href: homeUrl(locale) },
+        { label: "Бесплатные инструменты", href: hubHref },
+        { label: tool.title[locale] },
+      ]}
+    />
+
+    <SalaryCalculator client:load locale={locale} serviceHref={serviceHref} />
+
+    <SalaryGuide locale={locale} serviceHref={serviceHref} />
+
+    <Section tone="default">
+      <Container>
+        <ServiceCTAStrip client:visible locale={locale} contactHref={contactHref} />
+      </Container>
+    </Section>
+  </PageShell>
+</Base>

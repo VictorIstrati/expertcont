@@ -1,0 +1,70 @@
+---
+import Base from "../../../layouts/Base.astro";
+import PageShell from "../../../components/PageShell.astro";
+import { Container, PageHeader, Section } from "@expertcont/ui";
+import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+import { DividendCalculator } from "../../../components/tools/dividend/DividendCalculator";
+import DividendGuide from "../../../components/tools/dividend/DividendGuide.astro";
+import { getTool, toolSiblings, toolUrl } from "../../../components/tools/tools";
+import { ServiceCTAStrip } from "../../../components/service/ServiceCTAStrip";
+import { breadcrumbListJsonLd } from "../../../lib/jsonLd";
+
+const locale: Locale = "en";
+const tool = getTool("dividend-calculator");
+const siblings = toolSiblings(tool);
+const path = toolUrl(tool, locale);
+const hubHref = sectionUrl("tools", locale);
+const contactHref = sectionUrl("contact", locale);
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: tool.title[locale],
+    description: tool.description[locale],
+    url: `${siteUrl}${path}`,
+    inLanguage: locale,
+    applicationCategory: "FinanceApplication",
+    operatingSystem: "Any",
+    offers: { "@type": "Offer", price: 0, priceCurrency: "MDL" },
+  },
+  breadcrumbListJsonLd([
+    { name: "Home", url: homeUrl(locale) },
+    { name: "Free tools", url: hubHref },
+    { name: tool.title[locale], url: path },
+  ]),
+];
+---
+
+<Base
+  title="Dividend vs salary calculator Moldova 2026 · free — ExpertCont"
+  description="Compare for free what you take home from a Moldovan LLC as dividends, as salary or mixed with the minimum wage — with 2026 profit tax, dividend tax and contributions."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+  jsonLd={jsonLd}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <PageHeader
+      eyebrow="Free tools"
+      title="Dividends or salary: how do you take more money out of your company?"
+      subtitle="Enter what the company can spend on you and instantly see your take-home pay as dividends, as salary or as a combination."
+      breadcrumbs={[
+        { label: "Home", href: homeUrl(locale) },
+        { label: "Free tools", href: hubHref },
+        { label: tool.title[locale] },
+      ]}
+    />
+
+    <DividendCalculator client:visible locale={locale} />
+
+    <DividendGuide locale={locale} />
+
+    <Section tone="default">
+      <Container>
+        <ServiceCTAStrip client:visible locale={locale} contactHref={contactHref} />
+      </Container>
+    </Section>
+  </PageShell>
+</Base>

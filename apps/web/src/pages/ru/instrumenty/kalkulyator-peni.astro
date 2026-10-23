@@ -1,0 +1,71 @@
+---
+import Base from "../../../layouts/Base.astro";
+import PageShell from "../../../components/PageShell.astro";
+import { Container, PageHeader, Section } from "@expertcont/ui";
+import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+import { LatePaymentCalculator } from "../../../components/tools/latePayment/LatePaymentCalculator";
+import LatePaymentGuide from "../../../components/tools/latePayment/LatePaymentGuide.astro";
+import { getTool, toolSiblings, toolUrl } from "../../../components/tools/tools";
+import { ServiceCTAStrip } from "../../../components/service/ServiceCTAStrip";
+import { breadcrumbListJsonLd } from "../../../lib/jsonLd";
+
+const locale: Locale = "ru";
+const tool = getTool("late-payment-calculator");
+const siblings = toolSiblings(tool);
+const path = toolUrl(tool, locale);
+const hubHref = sectionUrl("tools", locale);
+const contactHref = sectionUrl("contact", locale);
+const legalHref = sectionUrl("services", locale);
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: tool.title[locale],
+    description: tool.description[locale],
+    url: `${siteUrl}${path}`,
+    inLanguage: locale,
+    applicationCategory: "FinanceApplication",
+    operatingSystem: "Any",
+    offers: { "@type": "Offer", price: 0, priceCurrency: "MDL" },
+  },
+  breadcrumbListJsonLd([
+    { name: "Главная", url: homeUrl(locale) },
+    { name: "Бесплатные инструменты", url: hubHref },
+    { name: tool.title[locale], url: path },
+  ]),
+];
+---
+
+<Base
+  title="Калькулятор пени и процентов за просрочку 2026 · бесплатно — ExpertCont"
+  description="Бесплатно рассчитайте законные проценты за просрочку (ст. 942 ГК РМ, ставка НБМ + 9 п.п.) или договорную пеню — по периодам, с частичными оплатами и PDF для претензии."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+  jsonLd={jsonLd}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <PageHeader
+      eyebrow="Бесплатные инструменты"
+      title="Сколько должник должен вам за просрочку?"
+      subtitle="Укажите долг, срок оплаты и дату платежа — получите законные проценты или договорную пеню с разбивкой по периодам, готовые для претензии."
+      breadcrumbs={[
+        { label: "Главная", href: homeUrl(locale) },
+        { label: "Бесплатные инструменты", href: hubHref },
+        { label: tool.title[locale] },
+      ]}
+    />
+
+    <LatePaymentCalculator client:load locale={locale} legalHref={legalHref} />
+
+    <LatePaymentGuide locale={locale} legalHref={legalHref} />
+
+    <Section tone="default">
+      <Container>
+        <ServiceCTAStrip client:visible locale={locale} contactHref={contactHref} />
+      </Container>
+    </Section>
+  </PageShell>
+</Base>

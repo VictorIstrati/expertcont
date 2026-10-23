@@ -1,0 +1,72 @@
+---
+import Base from "../../../layouts/Base.astro";
+import PageShell from "../../../components/PageShell.astro";
+import { Container, PageHeader, Section } from "@expertcont/ui";
+import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+import { AccountingCalculatorIsland } from "../../../components/tools/AccountingCalculatorIsland";
+import { getTool, toolSiblings, toolUrl } from "../../../components/tools/tools";
+import AccountingToolGuide from "../../../components/tools/AccountingToolGuide.astro";
+import { ServiceCTAStrip } from "../../../components/service/ServiceCTAStrip";
+import { breadcrumbListJsonLd } from "../../../lib/jsonLd";
+import { buildPricingProps } from "../../../site";
+
+const locale: Locale = "ru";
+const tool = getTool("accounting-calculator");
+const siblings = toolSiblings(tool);
+const path = toolUrl(tool, locale);
+const hubHref = sectionUrl("tools", locale);
+const contactHref = sectionUrl("contact", locale);
+const { calc } = buildPricingProps(locale);
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: tool.title[locale],
+    description: tool.description[locale],
+    url: `${siteUrl}${path}`,
+    inLanguage: locale,
+    applicationCategory: "FinanceApplication",
+    operatingSystem: "Any",
+    offers: { "@type": "Offer", price: 0, priceCurrency: "MDL" },
+  },
+  breadcrumbListJsonLd([
+    { name: "Главная", url: homeUrl(locale) },
+    { name: "Бесплатные инструменты", url: hubHref },
+    { name: tool.title[locale], url: path },
+  ]),
+];
+---
+
+<Base
+  title="Калькулятор стоимости бухгалтерии в Молдове · бесплатно — ExpertCont"
+  description="Бесплатно рассчитайте, сколько стоит ежемесячная бухгалтерия вашей компании в Молдове: сфера, количество счетов, оборот, НДС, а также юридические, кадровые и IT-услуги."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+  jsonLd={jsonLd}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <PageHeader
+      eyebrow="Бесплатные инструменты"
+      title="Сколько стоит бухгалтерия вашей компании?"
+      subtitle="Выберите нужные услуги и сразу получите ежемесячную оценку — без регистрации и без контактных данных."
+      breadcrumbs={[
+        { label: "Главная", href: homeUrl(locale) },
+        { label: "Бесплатные инструменты", href: hubHref },
+        { label: tool.title[locale] },
+      ]}
+    />
+
+    <AccountingCalculatorIsland client:visible locale={locale} calc={calc} />
+
+    <AccountingToolGuide locale={locale} />
+
+    <Section tone="default">
+      <Container>
+        <ServiceCTAStrip client:visible locale={locale} contactHref={contactHref} />
+      </Container>
+    </Section>
+  </PageShell>
+</Base>

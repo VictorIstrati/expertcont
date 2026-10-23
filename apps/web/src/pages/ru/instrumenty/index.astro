@@ -1,0 +1,84 @@
+---
+import Base from "../../../layouts/Base.astro";
+import PageShell from "../../../components/PageShell.astro";
+import { Container, PageHeader, Section } from "@expertcont/ui";
+import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+import ToolGrid from "../../../components/tools/ToolGrid.astro";
+import { TOOLS, toolUrl, toolsHubSiblings } from "../../../components/tools/tools";
+import { ServiceCTAStrip } from "../../../components/service/ServiceCTAStrip";
+import { breadcrumbListJsonLd } from "../../../lib/jsonLd";
+
+const locale: Locale = "ru";
+const siblings = toolsHubSiblings();
+const path = sectionUrl("tools", locale);
+const contactHref = sectionUrl("contact", locale);
+const liveTools = TOOLS.filter((tool) => tool.status === "live");
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Бесплатные инструменты для бизнеса в Молдове — ExpertCont",
+    url: `${siteUrl}${path}`,
+    inLanguage: locale,
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: liveTools.length,
+      itemListElement: liveTools.map((tool, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: tool.title[locale],
+        url: `${siteUrl}${toolUrl(tool, locale)}`,
+      })),
+    },
+  },
+  breadcrumbListJsonLd([
+    { name: "Главная", url: homeUrl(locale) },
+    { name: "Бесплатные инструменты", url: path },
+  ]),
+];
+---
+
+<Base
+  title="Бесплатные инструменты для бизнеса в Молдове — ExpertCont"
+  description="Бесплатные калькуляторы и генераторы для предпринимателей в Молдове: стоимость бухгалтерии, IT Park или общий режим, счета, зарплаты, НДС. Без регистрации и оплаты."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+  jsonLd={jsonLd}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <PageHeader
+      eyebrow="Бесплатные инструменты"
+      title="Бесплатные инструменты для бухгалтерии и налогов"
+      subtitle="Калькуляторы и генераторы от бухгалтеров ExpertCont — для вопросов, которые предприниматели задают нам каждый день."
+      breadcrumbs={[{ label: "Главная", href: homeUrl(locale) }, { label: "Бесплатные инструменты" }]}
+    />
+
+    <Section tone="default">
+      <Container>
+        <div class="mx-auto max-w-3xl mb-12 text-center">
+          <p class="text-lg leading-relaxed text-text-secondary">
+            Мы создали эти инструменты на основе реальных вопросов наших клиентов: сколько стоит бухгалтерия, выгоден ли IT Park, как правильно выставить счёт. Они бесплатны, не требуют регистрации и работают прямо в браузере. Результаты — это оценки на основе действующего законодательства; перед окончательным решением сверьте их с бухгалтером.
+          </p>
+        </div>
+
+        <ToolGrid locale={locale} />
+
+        <div class="mx-auto max-w-2xl mt-12 text-center">
+          <p class="text-base text-text-secondary mb-0">
+            Нужен расчёт, которого здесь нет?
+            <a href={contactHref} class="text-primary underline">Напишите нам</a>.
+          </p>
+        </div>
+      </Container>
+    </Section>
+
+    <Section tone="default">
+      <Container>
+        <ServiceCTAStrip client:visible locale={locale} contactHref={contactHref} />
+      </Container>
+    </Section>
+  </PageShell>
+</Base>

@@ -1,0 +1,71 @@
+---
+import Base from "../../../layouts/Base.astro";
+import PageShell from "../../../components/PageShell.astro";
+import { Container, PageHeader, Section } from "@expertcont/ui";
+import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+import { LatePaymentCalculator } from "../../../components/tools/latePayment/LatePaymentCalculator";
+import LatePaymentGuide from "../../../components/tools/latePayment/LatePaymentGuide.astro";
+import { getTool, toolSiblings, toolUrl } from "../../../components/tools/tools";
+import { ServiceCTAStrip } from "../../../components/service/ServiceCTAStrip";
+import { breadcrumbListJsonLd } from "../../../lib/jsonLd";
+
+const locale: Locale = "en";
+const tool = getTool("late-payment-calculator");
+const siblings = toolSiblings(tool);
+const path = toolUrl(tool, locale);
+const hubHref = sectionUrl("tools", locale);
+const contactHref = sectionUrl("contact", locale);
+const legalHref = sectionUrl("services", locale);
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: tool.title[locale],
+    description: tool.description[locale],
+    url: `${siteUrl}${path}`,
+    inLanguage: locale,
+    applicationCategory: "FinanceApplication",
+    operatingSystem: "Any",
+    offers: { "@type": "Offer", price: 0, priceCurrency: "MDL" },
+  },
+  breadcrumbListJsonLd([
+    { name: "Home", url: homeUrl(locale) },
+    { name: "Free tools", url: hubHref },
+    { name: tool.title[locale], url: path },
+  ]),
+];
+---
+
+<Base
+  title="Late payment interest & penalty calculator Moldova 2026 · free — ExpertCont"
+  description="Free Moldova late-payment calculator: statutory interest (art. 942 Civil Code, NBM base rate + 9 pp) or a contractual penalty, by period, with partial payments and a PDF."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+  jsonLd={jsonLd}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <PageHeader
+      eyebrow="Free tools"
+      title="How much does your client owe for paying late?"
+      subtitle="Enter the debt, due date and payment date — get statutory interest or the contractual penalty broken down by period, ready to attach to a demand letter."
+      breadcrumbs={[
+        { label: "Home", href: homeUrl(locale) },
+        { label: "Free tools", href: hubHref },
+        { label: tool.title[locale] },
+      ]}
+    />
+
+    <LatePaymentCalculator client:load locale={locale} legalHref={legalHref} />
+
+    <LatePaymentGuide locale={locale} legalHref={legalHref} />
+
+    <Section tone="default">
+      <Container>
+        <ServiceCTAStrip client:visible locale={locale} contactHref={contactHref} />
+      </Container>
+    </Section>
+  </PageShell>
+</Base>

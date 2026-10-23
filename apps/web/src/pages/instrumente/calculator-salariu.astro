@@ -1,0 +1,75 @@
+---
+import { getEntry } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import PageShell from "../../components/PageShell.astro";
+import { Container, PageHeader, Section } from "@expertcont/ui";
+import { detailUrl, homeUrl, sectionUrl, type ContentMeta, type Locale } from "@expertcont/i18n";
+import { SalaryCalculator } from "../../components/tools/salary/SalaryCalculator";
+import SalaryGuide from "../../components/tools/salary/SalaryGuide.astro";
+import { getTool, toolSiblings, toolUrl } from "../../components/tools/tools";
+import { ServiceCTAStrip } from "../../components/service/ServiceCTAStrip";
+import { breadcrumbListJsonLd } from "../../lib/jsonLd";
+
+const locale: Locale = "ro";
+const tool = getTool("salary-calculator");
+const siblings = toolSiblings(tool);
+const path = toolUrl(tool, locale);
+const hubHref = sectionUrl("tools", locale);
+const contactHref = sectionUrl("contact", locale);
+const serviceMeta = await getEntry("services-meta", "hr");
+const serviceHref = serviceMeta
+  ? detailUrl("services", serviceMeta.data as ContentMeta, locale)
+  : sectionUrl("services", locale);
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: tool.title[locale],
+    description: tool.description[locale],
+    url: `${siteUrl}${path}`,
+    inLanguage: locale,
+    applicationCategory: "FinanceApplication",
+    operatingSystem: "Any",
+    offers: { "@type": "Offer", price: 0, priceCurrency: "MDL" },
+  },
+  breadcrumbListJsonLd([
+    { name: "Acasă", url: homeUrl(locale) },
+    { name: "Instrumente gratuite", url: hubHref },
+    { name: tool.title[locale], url: path },
+  ]),
+];
+---
+
+<Base
+  title="Calculator salariu brut–net 2026 Moldova · gratuit — ExpertCont"
+  description="Calculează gratuit salariul net din brut și invers în Moldova 2026: asigurare medicală 9%, impozit pe venit 12%, scutiri personale și costul total pentru angajator."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+  jsonLd={jsonLd}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <PageHeader
+      eyebrow="Instrumente gratuite"
+      title="Cât primești în mână din salariul brut?"
+      subtitle="Introdu salariul brut sau netul dorit, bifează scutirile — vezi pe loc reținerile, impozitul și costul total pentru angajator."
+      breadcrumbs={[
+        { label: "Acasă", href: homeUrl(locale) },
+        { label: "Instrumente gratuite", href: hubHref },
+        { label: tool.title[locale] },
+      ]}
+    />
+
+    <SalaryCalculator client:load locale={locale} serviceHref={serviceHref} />
+
+    <SalaryGuide locale={locale} serviceHref={serviceHref} />
+
+    <Section tone="default">
+      <Container>
+        <ServiceCTAStrip client:visible locale={locale} contactHref={contactHref} />
+      </Container>
+    </Section>
+  </PageShell>
+</Base>

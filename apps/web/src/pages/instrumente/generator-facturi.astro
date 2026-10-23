@@ -1,0 +1,70 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageShell from "../../components/PageShell.astro";
+import { Container, PageHeader, Section } from "@expertcont/ui";
+import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+import { InvoiceGenerator } from "../../components/tools/invoice/InvoiceGenerator";
+import InvoiceGuide from "../../components/tools/invoice/InvoiceGuide.astro";
+import { getTool, toolSiblings, toolUrl } from "../../components/tools/tools";
+import { ServiceCTAStrip } from "../../components/service/ServiceCTAStrip";
+import { breadcrumbListJsonLd } from "../../lib/jsonLd";
+
+const locale: Locale = "ro";
+const tool = getTool("invoice-generator");
+const siblings = toolSiblings(tool);
+const path = toolUrl(tool, locale);
+const hubHref = sectionUrl("tools", locale);
+const contactHref = sectionUrl("contact", locale);
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: tool.title[locale],
+    description: tool.description[locale],
+    url: `${siteUrl}${path}`,
+    inLanguage: locale,
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Any",
+    offers: { "@type": "Offer", price: 0, priceCurrency: "MDL" },
+  },
+  breadcrumbListJsonLd([
+    { name: "Acasă", url: homeUrl(locale) },
+    { name: "Instrumente gratuite", url: hubHref },
+    { name: tool.title[locale], url: path },
+  ]),
+];
+---
+
+<Base
+  title="Generator gratuit de facturi pentru clienți străini · PDF — ExpertCont"
+  description="Generator gratuit de facturi pentru clienți din străinătate și proforme, pentru orice companie din Moldova: engleză, română sau rusă, EUR, USD sau MDL, suma în litere, PDF fără cont."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+  jsonLd={jsonLd}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <PageHeader
+      eyebrow="Instrumente gratuite"
+      title="Generator gratuit de facturi pentru clienți străini"
+      subtitle="Pentru orice companie din Moldova, plătitoare de TVA sau nu. Completezi datele, vezi factura pe loc și o descarci în PDF — fără cont."
+      breadcrumbs={[
+        { label: "Acasă", href: homeUrl(locale) },
+        { label: "Instrumente gratuite", href: hubHref },
+        { label: tool.title[locale] },
+      ]}
+    />
+
+    <InvoiceGenerator client:load locale={locale} />
+
+    <InvoiceGuide locale={locale} />
+
+    <Section tone="default">
+      <Container>
+        <ServiceCTAStrip client:visible locale={locale} contactHref={contactHref} />
+      </Container>
+    </Section>
+  </PageShell>
+</Base>

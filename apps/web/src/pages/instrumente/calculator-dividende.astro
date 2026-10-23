@@ -1,0 +1,70 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageShell from "../../components/PageShell.astro";
+import { Container, PageHeader, Section } from "@expertcont/ui";
+import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+import { DividendCalculator } from "../../components/tools/dividend/DividendCalculator";
+import DividendGuide from "../../components/tools/dividend/DividendGuide.astro";
+import { getTool, toolSiblings, toolUrl } from "../../components/tools/tools";
+import { ServiceCTAStrip } from "../../components/service/ServiceCTAStrip";
+import { breadcrumbListJsonLd } from "../../lib/jsonLd";
+
+const locale: Locale = "ro";
+const tool = getTool("dividend-calculator");
+const siblings = toolSiblings(tool);
+const path = toolUrl(tool, locale);
+const hubHref = sectionUrl("tools", locale);
+const contactHref = sectionUrl("contact", locale);
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: tool.title[locale],
+    description: tool.description[locale],
+    url: `${siteUrl}${path}`,
+    inLanguage: locale,
+    applicationCategory: "FinanceApplication",
+    operatingSystem: "Any",
+    offers: { "@type": "Offer", price: 0, priceCurrency: "MDL" },
+  },
+  breadcrumbListJsonLd([
+    { name: "Acasă", url: homeUrl(locale) },
+    { name: "Instrumente gratuite", url: hubHref },
+    { name: tool.title[locale], url: path },
+  ]),
+];
+---
+
+<Base
+  title="Calculator dividende vs salariu 2026 · gratuit — ExpertCont"
+  description="Compară gratuit cât primești net din SRL ca dividende, ca salariu sau combinat cu salariul minim — cu impozitul pe profit, pe dividende și contribuțiile 2026."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+  jsonLd={jsonLd}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <PageHeader
+      eyebrow="Instrumente gratuite"
+      title="Dividende sau salariu: cum scoți mai mulți bani din firmă?"
+      subtitle="Introdu suma pe care firma o poate cheltui pe tine și vezi pe loc cât primești net ca dividende, ca salariu sau combinat."
+      breadcrumbs={[
+        { label: "Acasă", href: homeUrl(locale) },
+        { label: "Instrumente gratuite", href: hubHref },
+        { label: tool.title[locale] },
+      ]}
+    />
+
+    <DividendCalculator client:visible locale={locale} />
+
+    <DividendGuide locale={locale} />
+
+    <Section tone="default">
+      <Container>
+        <ServiceCTAStrip client:visible locale={locale} contactHref={contactHref} />
+      </Container>
+    </Section>
+  </PageShell>
+</Base>

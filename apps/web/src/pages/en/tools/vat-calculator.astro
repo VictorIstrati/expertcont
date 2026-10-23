@@ -1,0 +1,70 @@
+---
+import Base from "../../../layouts/Base.astro";
+import PageShell from "../../../components/PageShell.astro";
+import { Container, PageHeader, Section } from "@expertcont/ui";
+import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+import { VatCalculator } from "../../../components/tools/vat/VatCalculator";
+import VatGuide from "../../../components/tools/vat/VatGuide.astro";
+import { getTool, toolSiblings, toolUrl } from "../../../components/tools/tools";
+import { ServiceCTAStrip } from "../../../components/service/ServiceCTAStrip";
+import { breadcrumbListJsonLd } from "../../../lib/jsonLd";
+
+const locale: Locale = "en";
+const tool = getTool("vat-calculator");
+const siblings = toolSiblings(tool);
+const path = toolUrl(tool, locale);
+const hubHref = sectionUrl("tools", locale);
+const contactHref = sectionUrl("contact", locale);
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: tool.title[locale],
+    description: tool.description[locale],
+    url: `${siteUrl}${path}`,
+    inLanguage: locale,
+    applicationCategory: "FinanceApplication",
+    operatingSystem: "Any",
+    offers: { "@type": "Offer", price: 0, priceCurrency: "MDL" },
+  },
+  breadcrumbListJsonLd([
+    { name: "Home", url: homeUrl(locale) },
+    { name: "Free tools", url: hubHref },
+    { name: tool.title[locale], url: path },
+  ]),
+];
+---
+
+<Base
+  title="Moldova VAT calculator 2026: add or extract VAT · free — ExpertCont"
+  description="Calculate VAT at Moldova's rates (20%, 8%, 0%) for free: add VAT to or extract it from any amount in MDL, EUR or USD and copy the total in words for your invoice."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+  jsonLd={jsonLd}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <PageHeader
+      eyebrow="Free tools"
+      title="Online VAT calculator"
+      subtitle="Add VAT to an amount or extract it from a total at the right rate — with the amount in words, ready to paste into an invoice or contract."
+      breadcrumbs={[
+        { label: "Home", href: homeUrl(locale) },
+        { label: "Free tools", href: hubHref },
+        { label: tool.title[locale] },
+      ]}
+    />
+
+    <VatCalculator client:load locale={locale} />
+
+    <VatGuide locale={locale} />
+
+    <Section tone="default">
+      <Container>
+        <ServiceCTAStrip client:visible locale={locale} contactHref={contactHref} />
+      </Container>
+    </Section>
+  </PageShell>
+</Base>

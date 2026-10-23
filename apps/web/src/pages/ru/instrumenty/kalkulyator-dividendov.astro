@@ -1,0 +1,70 @@
+---
+import Base from "../../../layouts/Base.astro";
+import PageShell from "../../../components/PageShell.astro";
+import { Container, PageHeader, Section } from "@expertcont/ui";
+import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+import { DividendCalculator } from "../../../components/tools/dividend/DividendCalculator";
+import DividendGuide from "../../../components/tools/dividend/DividendGuide.astro";
+import { getTool, toolSiblings, toolUrl } from "../../../components/tools/tools";
+import { ServiceCTAStrip } from "../../../components/service/ServiceCTAStrip";
+import { breadcrumbListJsonLd } from "../../../lib/jsonLd";
+
+const locale: Locale = "ru";
+const tool = getTool("dividend-calculator");
+const siblings = toolSiblings(tool);
+const path = toolUrl(tool, locale);
+const hubHref = sectionUrl("tools", locale);
+const contactHref = sectionUrl("contact", locale);
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: tool.title[locale],
+    description: tool.description[locale],
+    url: `${siteUrl}${path}`,
+    inLanguage: locale,
+    applicationCategory: "FinanceApplication",
+    operatingSystem: "Any",
+    offers: { "@type": "Offer", price: 0, priceCurrency: "MDL" },
+  },
+  breadcrumbListJsonLd([
+    { name: "Главная", url: homeUrl(locale) },
+    { name: "Бесплатные инструменты", url: hubHref },
+    { name: tool.title[locale], url: path },
+  ]),
+];
+---
+
+<Base
+  title="Калькулятор: дивиденды или зарплата 2026 · бесплатно — ExpertCont"
+  description="Бесплатно сравните, сколько вы получите на руки из ООО дивидендами, зарплатой или в комбинации с минимальной зарплатой — с налогом на прибыль, на дивиденды и взносами 2026 года."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+  jsonLd={jsonLd}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <PageHeader
+      eyebrow="Бесплатные инструменты"
+      title="Дивиденды или зарплата: как выгоднее выводить деньги из компании?"
+      subtitle="Укажите сумму, которую компания может на вас потратить, и сразу увидите, сколько получите на руки дивидендами, зарплатой или в комбинации."
+      breadcrumbs={[
+        { label: "Главная", href: homeUrl(locale) },
+        { label: "Бесплатные инструменты", href: hubHref },
+        { label: tool.title[locale] },
+      ]}
+    />
+
+    <DividendCalculator client:visible locale={locale} />
+
+    <DividendGuide locale={locale} />
+
+    <Section tone="default">
+      <Container>
+        <ServiceCTAStrip client:visible locale={locale} contactHref={contactHref} />
+      </Container>
+    </Section>
+  </PageShell>
+</Base>

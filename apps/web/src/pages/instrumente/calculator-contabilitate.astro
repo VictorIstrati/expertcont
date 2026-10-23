@@ -1,0 +1,72 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageShell from "../../components/PageShell.astro";
+import { Container, PageHeader, Section } from "@expertcont/ui";
+import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+import { AccountingCalculatorIsland } from "../../components/tools/AccountingCalculatorIsland";
+import { getTool, toolSiblings, toolUrl } from "../../components/tools/tools";
+import AccountingToolGuide from "../../components/tools/AccountingToolGuide.astro";
+import { ServiceCTAStrip } from "../../components/service/ServiceCTAStrip";
+import { breadcrumbListJsonLd } from "../../lib/jsonLd";
+import { buildPricingProps } from "../../site";
+
+const locale: Locale = "ro";
+const tool = getTool("accounting-calculator");
+const siblings = toolSiblings(tool);
+const path = toolUrl(tool, locale);
+const hubHref = sectionUrl("tools", locale);
+const contactHref = sectionUrl("contact", locale);
+const { calc } = buildPricingProps(locale);
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: tool.title[locale],
+    description: tool.description[locale],
+    url: `${siteUrl}${path}`,
+    inLanguage: locale,
+    applicationCategory: "FinanceApplication",
+    operatingSystem: "Any",
+    offers: { "@type": "Offer", price: 0, priceCurrency: "MDL" },
+  },
+  breadcrumbListJsonLd([
+    { name: "Acasă", url: homeUrl(locale) },
+    { name: "Instrumente gratuite", url: hubHref },
+    { name: tool.title[locale], url: path },
+  ]),
+];
+---
+
+<Base
+  title="Calculator cost contabilitate în Moldova · gratuit — ExpertCont"
+  description="Calculează gratuit cât costă lunar contabilitatea firmei tale în Moldova: domeniu, număr de facturi, cifră de afaceri, TVA, plus servicii juridice, HR și IT."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+  jsonLd={jsonLd}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <PageHeader
+      eyebrow="Instrumente gratuite"
+      title="Cât costă contabilitatea firmei tale?"
+      subtitle="Alege serviciile de care ai nevoie și vezi estimarea lunară pe loc — fără cont și fără date de contact."
+      breadcrumbs={[
+        { label: "Acasă", href: homeUrl(locale) },
+        { label: "Instrumente gratuite", href: hubHref },
+        { label: tool.title[locale] },
+      ]}
+    />
+
+    <AccountingCalculatorIsland client:visible locale={locale} calc={calc} />
+
+    <AccountingToolGuide locale={locale} />
+
+    <Section tone="default">
+      <Container>
+        <ServiceCTAStrip client:visible locale={locale} contactHref={contactHref} />
+      </Container>
+    </Section>
+  </PageShell>
+</Base>

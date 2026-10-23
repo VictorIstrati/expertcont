@@ -1,0 +1,75 @@
+---
+import { getEntry } from "astro:content";
+import Base from "../../../layouts/Base.astro";
+import PageShell from "../../../components/PageShell.astro";
+import { Container, PageHeader, Section } from "@expertcont/ui";
+import { detailUrl, homeUrl, sectionUrl, type ContentMeta, type Locale } from "@expertcont/i18n";
+import { ItParkCalculator } from "../../../components/tools/itPark/ItParkCalculator";
+import ItParkGuide from "../../../components/tools/itPark/ItParkGuide.astro";
+import { getTool, toolSiblings, toolUrl } from "../../../components/tools/tools";
+import { ServiceCTAStrip } from "../../../components/service/ServiceCTAStrip";
+import { breadcrumbListJsonLd } from "../../../lib/jsonLd";
+
+const locale: Locale = "en";
+const tool = getTool("it-park-calculator");
+const siblings = toolSiblings(tool);
+const path = toolUrl(tool, locale);
+const hubHref = sectionUrl("tools", locale);
+const contactHref = sectionUrl("contact", locale);
+const guideMeta = await getEntry("guides-meta", "how-to-become-it-park-resident");
+const guideHref = guideMeta
+  ? detailUrl("guides", guideMeta.data as ContentMeta, locale)
+  : sectionUrl("guides", locale);
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: tool.title[locale],
+    description: tool.description[locale],
+    url: `${siteUrl}${path}`,
+    inLanguage: locale,
+    applicationCategory: "FinanceApplication",
+    operatingSystem: "Any",
+    offers: { "@type": "Offer", price: 0, priceCurrency: "MDL" },
+  },
+  breadcrumbListJsonLd([
+    { name: "Home", url: homeUrl(locale) },
+    { name: "Free tools", url: hubHref },
+    { name: tool.title[locale], url: path },
+  ]),
+];
+---
+
+<Base
+  title="IT Park calculator 2026: 7% vs standard regime · free — ExpertCont"
+  description="Compare the Moldova IT Park 7% single tax with the standard regime for free: total taxes, net profit and employees' take-home pay, based on your numbers."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+  jsonLd={jsonLd}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <PageHeader
+      eyebrow="Free tools"
+      title="How much do you save as an IT Park resident?"
+      subtitle="Enter your revenue, team and salaries — instantly see taxes, net profit and take-home pay under both regimes."
+      breadcrumbs={[
+        { label: "Home", href: homeUrl(locale) },
+        { label: "Free tools", href: hubHref },
+        { label: tool.title[locale] },
+      ]}
+    />
+
+    <ItParkCalculator client:visible locale={locale} guideHref={guideHref} />
+
+    <ItParkGuide locale={locale} guideHref={guideHref} />
+
+    <Section tone="default">
+      <Container>
+        <ServiceCTAStrip client:visible locale={locale} contactHref={contactHref} />
+      </Container>
+    </Section>
+  </PageShell>
+</Base>

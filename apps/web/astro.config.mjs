@@ -18,6 +18,7 @@ const routeSegments = {
   solutions: { ro: "solutii", ru: "resheniya", en: "solutions" },
   services: { ro: "servicii", ru: "uslugi", en: "services" },
   industries: { ro: "domenii", ru: "otrasli", en: "industries" },
+  tools: { ro: "instrumente", ru: "instrumenty", en: "tools" },
   pricing: { ro: "preturi", ru: "tseny", en: "pricing" },
   contact: { ro: "contact", ru: "kontakty", en: "contact" },
   faq: { ro: "intrebari-frecvente", ru: "voprosy", en: "faq" },
@@ -51,6 +52,19 @@ const INDUSTRY_SLUGS = [
   "sanatate",
   "agricultura",
   "imobiliare",
+];
+
+// Live tool pages under /instrumente. Mirrored from
+// src/components/tools/tools.ts for the same reason as INDUSTRY_SLUGS.
+const TOOL_SLUGS = [
+  { ro: "calculator-contabilitate", ru: "kalkulyator-bukhgalterii", en: "accounting-calculator" },
+  { ro: "calculator-it-park", ru: "kalkulyator-it-park", en: "it-park-calculator" },
+  { ro: "generator-facturi", ru: "generator-schetov", en: "invoice-generator" },
+  { ro: "calculator-tva", ru: "kalkulyator-nds", en: "vat-calculator" },
+  { ro: "calculator-salariu", ru: "kalkulyator-zarplaty", en: "salary-calculator" },
+  { ro: "calculator-dividende", ru: "kalkulyator-dividendov", en: "dividend-calculator" },
+  { ro: "calculator-penalitati", ru: "kalkulyator-peni", en: "late-payment-calculator" },
+  { ro: "calculator-concediu", ru: "kalkulyator-otpusknykh", en: "leave-pay-calculator" },
 ];
 
 function localePrefix(locale) {
@@ -123,6 +137,14 @@ function buildAlternateIndex() {
     const siblings = {};
     for (const locale of LOCALES) {
       siblings[locale] = `${localePrefix(locale)}/${routeSegments.industries[locale]}/${slug}`;
+    }
+    add(siblings);
+  }
+
+  for (const slugs of TOOL_SLUGS) {
+    const siblings = {};
+    for (const locale of LOCALES) {
+      siblings[locale] = `${localePrefix(locale)}/${routeSegments.tools[locale]}/${slugs[locale]}`;
     }
     add(siblings);
   }

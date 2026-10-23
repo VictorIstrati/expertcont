@@ -1,0 +1,70 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageShell from "../../components/PageShell.astro";
+import { Container, PageHeader, Section } from "@expertcont/ui";
+import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+import { VatCalculator } from "../../components/tools/vat/VatCalculator";
+import VatGuide from "../../components/tools/vat/VatGuide.astro";
+import { getTool, toolSiblings, toolUrl } from "../../components/tools/tools";
+import { ServiceCTAStrip } from "../../components/service/ServiceCTAStrip";
+import { breadcrumbListJsonLd } from "../../lib/jsonLd";
+
+const locale: Locale = "ro";
+const tool = getTool("vat-calculator");
+const siblings = toolSiblings(tool);
+const path = toolUrl(tool, locale);
+const hubHref = sectionUrl("tools", locale);
+const contactHref = sectionUrl("contact", locale);
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: tool.title[locale],
+    description: tool.description[locale],
+    url: `${siteUrl}${path}`,
+    inLanguage: locale,
+    applicationCategory: "FinanceApplication",
+    operatingSystem: "Any",
+    offers: { "@type": "Offer", price: 0, priceCurrency: "MDL" },
+  },
+  breadcrumbListJsonLd([
+    { name: "Acasă", url: homeUrl(locale) },
+    { name: "Instrumente gratuite", url: hubHref },
+    { name: tool.title[locale], url: path },
+  ]),
+];
+---
+
+<Base
+  title="Calculator TVA Moldova 2026: adaugă sau extrage TVA · gratuit — ExpertCont"
+  description="Calculează gratuit TVA la cotele din Moldova (20%, 8%, 0%): adaugă sau extrage TVA din orice sumă în MDL, EUR sau USD și copiază totalul în litere pentru factură."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+  jsonLd={jsonLd}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <PageHeader
+      eyebrow="Instrumente gratuite"
+      title="Calculator TVA online"
+      subtitle="Adaugă TVA la o sumă sau extrage-l dintr-un total, la cota corectă — cu suma în litere gata de copiat pe factură sau contract."
+      breadcrumbs={[
+        { label: "Acasă", href: homeUrl(locale) },
+        { label: "Instrumente gratuite", href: hubHref },
+        { label: tool.title[locale] },
+      ]}
+    />
+
+    <VatCalculator client:load locale={locale} />
+
+    <VatGuide locale={locale} />
+
+    <Section tone="default">
+      <Container>
+        <ServiceCTAStrip client:visible locale={locale} contactHref={contactHref} />
+      </Container>
+    </Section>
+  </PageShell>
+</Base>

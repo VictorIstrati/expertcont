@@ -1,0 +1,84 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageShell from "../../components/PageShell.astro";
+import { Container, PageHeader, Section } from "@expertcont/ui";
+import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+import ToolGrid from "../../components/tools/ToolGrid.astro";
+import { TOOLS, toolUrl, toolsHubSiblings } from "../../components/tools/tools";
+import { ServiceCTAStrip } from "../../components/service/ServiceCTAStrip";
+import { breadcrumbListJsonLd } from "../../lib/jsonLd";
+
+const locale: Locale = "ro";
+const siblings = toolsHubSiblings();
+const path = sectionUrl("tools", locale);
+const contactHref = sectionUrl("contact", locale);
+const liveTools = TOOLS.filter((tool) => tool.status === "live");
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Instrumente gratuite pentru afaceri din Moldova — ExpertCont",
+    url: `${siteUrl}${path}`,
+    inLanguage: locale,
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: liveTools.length,
+      itemListElement: liveTools.map((tool, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: tool.title[locale],
+        url: `${siteUrl}${toolUrl(tool, locale)}`,
+      })),
+    },
+  },
+  breadcrumbListJsonLd([
+    { name: "Acasă", url: homeUrl(locale) },
+    { name: "Instrumente gratuite", url: path },
+  ]),
+];
+---
+
+<Base
+  title="Instrumente gratuite pentru afaceri din Moldova — ExpertCont"
+  description="Calculatoare și generatoare gratuite pentru antreprenori din Moldova: costul contabilității, IT Park vs regim general, facturi, salarii, TVA. Fără cont, fără costuri."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+  jsonLd={jsonLd}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <PageHeader
+      eyebrow="Instrumente gratuite"
+      title="Instrumente gratuite pentru contabilitate și taxe"
+      subtitle="Calculatoare și generatoare făcute de contabilii ExpertCont pentru întrebările pe care ni le pun antreprenorii în fiecare zi."
+      breadcrumbs={[{ label: "Acasă", href: homeUrl(locale) }, { label: "Instrumente gratuite" }]}
+    />
+
+    <Section tone="default">
+      <Container>
+        <div class="mx-auto max-w-3xl mb-12 text-center">
+          <p class="text-lg leading-relaxed text-text-secondary">
+            Am construit aceste instrumente pornind de la întrebările reale ale clienților noștri: cât costă contabilitatea, merită IT Park, cum emit o factură corectă. Sunt gratuite, nu cer cont și funcționează direct în browser. Rezultatele sunt estimări pe baza legislației în vigoare — pentru o decizie finală, verifică-le cu un contabil.
+          </p>
+        </div>
+
+        <ToolGrid locale={locale} />
+
+        <div class="mx-auto max-w-2xl mt-12 text-center">
+          <p class="text-base text-text-secondary mb-0">
+            Ai nevoie de un calcul care nu e aici?
+            <a href={contactHref} class="text-primary underline">Scrie-ne</a>.
+          </p>
+        </div>
+      </Container>
+    </Section>
+
+    <Section tone="default">
+      <Container>
+        <ServiceCTAStrip client:visible locale={locale} contactHref={contactHref} />
+      </Container>
+    </Section>
+  </PageShell>
+</Base>

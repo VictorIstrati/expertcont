@@ -1,0 +1,58 @@
+---
+import type { Locale } from "@expertcont/i18n";
+import { Icon } from "@expertcont/ui";
+import { TOOLS, toolUrl } from "./tools";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const labels = {
+  ro: { open: "Deschide instrumentul", free: "Gratuit", soon: "În curând" },
+  ru: { open: "Открыть инструмент", free: "Бесплатно", soon: "Скоро" },
+  en: { open: "Open the tool", free: "Free", soon: "Coming soon" },
+}[locale];
+---
+
+<div class="grid gap-5 sm:grid-cols-2">
+  {
+    TOOLS.map((tool) =>
+      tool.status === "live" ? (
+        <a
+          href={toolUrl(tool, locale)}
+          class="card card-hover p-6 sm:p-7 flex flex-col gap-4 text-inherit no-underline"
+        >
+          <div class="flex items-center justify-between gap-3">
+            <div class="w-14 h-14 rounded-lg bg-primary-50 text-primary flex items-center justify-center shrink-0">
+              <Icon name={tool.icon} size={28} />
+            </div>
+            <span class="pill pill-accent">{labels.free}</span>
+          </div>
+          <h3 class="text-xl mb-0">{tool.title[locale]}</h3>
+          <p class="text-sm sm:text-base text-text-secondary leading-relaxed mb-0 grow">
+            {tool.description[locale]}
+          </p>
+          <span class="inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+            {labels.open}
+            <Icon name="arrow-right" size={16} />
+          </span>
+        </a>
+      ) : (
+        <div class="card card-flat p-6 sm:p-7 flex flex-col gap-4" aria-disabled="true">
+          <div class="flex items-center justify-between gap-3">
+            <div class="w-14 h-14 rounded-lg bg-surface-2 text-text-secondary flex items-center justify-center shrink-0">
+              <Icon name={tool.icon} size={28} />
+            </div>
+            <span class="pill pill-soft">{labels.soon}</span>
+          </div>
+          <h3 class="text-xl mb-0 text-text-secondary">{tool.title[locale]}</h3>
+          <p class="text-sm sm:text-base text-text-secondary leading-relaxed mb-0">
+            {tool.description[locale]}
+          </p>
+        </div>
+      ),
+    )
+  }
+</div>

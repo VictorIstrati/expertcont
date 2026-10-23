@@ -1,0 +1,84 @@
+---
+import Base from "../../../layouts/Base.astro";
+import PageShell from "../../../components/PageShell.astro";
+import { Container, PageHeader, Section } from "@expertcont/ui";
+import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+import ToolGrid from "../../../components/tools/ToolGrid.astro";
+import { TOOLS, toolUrl, toolsHubSiblings } from "../../../components/tools/tools";
+import { ServiceCTAStrip } from "../../../components/service/ServiceCTAStrip";
+import { breadcrumbListJsonLd } from "../../../lib/jsonLd";
+
+const locale: Locale = "en";
+const siblings = toolsHubSiblings();
+const path = sectionUrl("tools", locale);
+const contactHref = sectionUrl("contact", locale);
+const liveTools = TOOLS.filter((tool) => tool.status === "live");
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Free tools for businesses in Moldova — ExpertCont",
+    url: `${siteUrl}${path}`,
+    inLanguage: locale,
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: liveTools.length,
+      itemListElement: liveTools.map((tool, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: tool.title[locale],
+        url: `${siteUrl}${toolUrl(tool, locale)}`,
+      })),
+    },
+  },
+  breadcrumbListJsonLd([
+    { name: "Home", url: homeUrl(locale) },
+    { name: "Free tools", url: path },
+  ]),
+];
+---
+
+<Base
+  title="Free tools for businesses in Moldova — ExpertCont"
+  description="Free calculators and generators for entrepreneurs in Moldova: accounting costs, IT Park vs standard regime, invoices, salaries, VAT. No account, no cost."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+  jsonLd={jsonLd}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <PageHeader
+      eyebrow="Free tools"
+      title="Free accounting and tax tools"
+      subtitle="Calculators and generators built by ExpertCont accountants for the questions business owners ask us every day."
+      breadcrumbs={[{ label: "Home", href: homeUrl(locale) }, { label: "Free tools" }]}
+    />
+
+    <Section tone="default">
+      <Container>
+        <div class="mx-auto max-w-3xl mb-12 text-center">
+          <p class="text-lg leading-relaxed text-text-secondary">
+            We built these tools from our clients' real questions: what accounting costs, whether IT Park pays off, how to issue a correct invoice. They're free, need no account and run right in your browser. Results are estimates based on current legislation — check them with an accountant before making a final decision.
+          </p>
+        </div>
+
+        <ToolGrid locale={locale} />
+
+        <div class="mx-auto max-w-2xl mt-12 text-center">
+          <p class="text-base text-text-secondary mb-0">
+            Need a calculation that isn't here?
+            <a href={contactHref} class="text-primary underline">Write to us</a>.
+          </p>
+        </div>
+      </Container>
+    </Section>
+
+    <Section tone="default">
+      <Container>
+        <ServiceCTAStrip client:visible locale={locale} contactHref={contactHref} />
+      </Container>
+    </Section>
+  </PageShell>
+</Base>

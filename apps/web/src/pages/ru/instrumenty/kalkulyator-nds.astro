@@ -1,0 +1,70 @@
+---
+import Base from "../../../layouts/Base.astro";
+import PageShell from "../../../components/PageShell.astro";
+import { Container, PageHeader, Section } from "@expertcont/ui";
+import { homeUrl, sectionUrl, type Locale } from "@expertcont/i18n";
+import { VatCalculator } from "../../../components/tools/vat/VatCalculator";
+import VatGuide from "../../../components/tools/vat/VatGuide.astro";
+import { getTool, toolSiblings, toolUrl } from "../../../components/tools/tools";
+import { ServiceCTAStrip } from "../../../components/service/ServiceCTAStrip";
+import { breadcrumbListJsonLd } from "../../../lib/jsonLd";
+
+const locale: Locale = "ru";
+const tool = getTool("vat-calculator");
+const siblings = toolSiblings(tool);
+const path = toolUrl(tool, locale);
+const hubHref = sectionUrl("tools", locale);
+const contactHref = sectionUrl("contact", locale);
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? "https://expertcont.md";
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: tool.title[locale],
+    description: tool.description[locale],
+    url: `${siteUrl}${path}`,
+    inLanguage: locale,
+    applicationCategory: "FinanceApplication",
+    operatingSystem: "Any",
+    offers: { "@type": "Offer", price: 0, priceCurrency: "MDL" },
+  },
+  breadcrumbListJsonLd([
+    { name: "Главная", url: homeUrl(locale) },
+    { name: "Бесплатные инструменты", url: hubHref },
+    { name: tool.title[locale], url: path },
+  ]),
+];
+---
+
+<Base
+  title="Калькулятор НДС Молдова 2026: начислить или выделить НДС · бесплатно — ExpertCont"
+  description="Бесплатно рассчитайте НДС по ставкам Молдовы (20%, 8%, 0%): начислите или выделите НДС из любой суммы в MDL, EUR или USD и скопируйте итог прописью для счёта."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+  jsonLd={jsonLd}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <PageHeader
+      eyebrow="Бесплатные инструменты"
+      title="Калькулятор НДС онлайн"
+      subtitle="Начислите НДС на сумму или выделите его из итога по нужной ставке — с суммой прописью, готовой для счёта или договора."
+      breadcrumbs={[
+        { label: "Главная", href: homeUrl(locale) },
+        { label: "Бесплатные инструменты", href: hubHref },
+        { label: tool.title[locale] },
+      ]}
+    />
+
+    <VatCalculator client:load locale={locale} />
+
+    <VatGuide locale={locale} />
+
+    <Section tone="default">
+      <Container>
+        <ServiceCTAStrip client:visible locale={locale} contactHref={contactHref} />
+      </Container>
+    </Section>
+  </PageShell>
+</Base>
