@@ -1,0 +1,440 @@
+---
+import { Container, Icon, Section } from "@expertcont/ui";
+import { localeTag, type Locale } from "@expertcont/i18n";
+import { LEAVE_RATES } from "./rates";
+import {
+  annualLeavePay,
+  daysInMonth,
+  forecastSalary,
+  monthInfo,
+  previousMonths,
+  sickPay,
+} from "./leaveMath";
+
+interface Props {
+  locale: Locale;
+  hrHref: string;
+}
+
+const { locale, hrHref } = Astro.props;
+const tag = localeTag(locale);
+const nf = new Intl.NumberFormat(tag, { maximumFractionDigits: 0 });
+const money = new Intl.NumberFormat(tag, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const monthFmt = new Intl.DateTimeFormat(tag, { month: "long", year: "numeric", timeZone: "UTC" });
+const pct = (rate: number) => `${Math.round(rate * 100)}%`;
+const mdl = (n: number) => `${money.format(n)} MDL`;
+const R = LEAVE_RATES;
+const year = R.year;
+const cap = R.sickBaseCapMultiplier * R.averageMonthlySalary;
+const previousForecast = forecastSalary(year - 1, R);
+
+const exampleSalary = 15_000;
+const leaveStart = { year, month: 7 };
+const leaveMonths = previousMonths(leaveStart, R.leaveReferenceMonths).map((m) => monthInfo(m, R));
+const leaveExample = annualLeavePay(
+  leaveMonths.map((m) => ({
+    earnings: exampleSalary,
+    daysWorked: m.workingDays,
+    workingDays: m.workingDays,
+    calendarDays: m.calendarDays,
+  })),
+  14,
+);
+const leaveMonthNames = leaveMonths
+  .map((m) => monthFmt.format(new Date(Date.UTC(m.year, m.month - 1, 1))))
+  .join(", ");
+const leaveStartName = monthFmt.format(new Date(Date.UTC(year, leaveStart.month - 1, 1)));
+
+const sickStart = { year, month: 6, day: 8 };
+const sickMonthDays = daysInMonth(sickStart);
+const sickExample = sickPay(
+  {
+    start: sickStart,
+    days: 10,
+    incomes: Array.from({ length: R.sickBaseMonths }, () => exampleSalary),
+    insurance: "over8",
+    sickCase: "ordinary",
+    employerDaysUsed: 0,
+  },
+  R,
+);
+const sickCnasDaily = sickExample.cnasParts[0]?.daily ?? 0;
+
+interface Copy {
+  leaveEyebrow: string;
+  leaveTitle: string;
+  leaveSteps: string[];
+  leaveRules: string[];
+  sickEyebrow: string;
+  sickTitle: string;
+  sickRates: { label: string; value: string }[];
+  sickRules: string[];
+  docsTitle: string;
+  docs: string[];
+  examplesEyebrow: string;
+  examplesTitle: string;
+  leaveExampleTitle: string;
+  leaveExample: string[];
+  sickExampleTitle: string;
+  sickExample: string[];
+  ctaTitle: string;
+  ctaBody: string;
+  ctaLink: string;
+}
+
+const copy: Record<Locale, Copy> = {
+  ro: {
+    leaveEyebrow: "Concediul de odihnă",
+    leaveTitle: "Cum se calculează indemnizația de concediu",
+    leaveSteps: [
+      `Aduni salariul calculat în ultimele ${R.leaveReferenceMonths} luni calendaristice dinaintea concediului: salariul de bază, sporurile, primele lunare, orele suplimentare.`,
+      "Împarți suma la numărul de zile lucrate efectiv în aceste luni și obții salariul mediu pe o zi lucrată.",
+      "Înmulțești cu coeficientul: zilele lucrătoare după grafic împărțite la zilele calendaristice ale perioadei, fără sărbătorile nelucrătoare.",
+      "Înmulțești salariul mediu pe o zi calendaristică cu numărul de zile de concediu.",
+    ],
+    leaveRules: [
+      `Concediul anual minim este de ${R.annualLeaveMinDays} de zile calendaristice, fără sărbătorile nelucrătoare.`,
+      "Lunile fără salariu din perioada de referință nu se exclud și nu se înlocuiesc cu alte luni.",
+      `Indemnizația se plătește cu cel puțin ${R.leavePayAdvanceDays} zile calendaristice înainte de începerea concediului sau la o dată convenită, dar nu mai târziu de ziua de salariu a lunii respective (art. 117 alin. (3) Codul muncii).`,
+      "Indemnizația se impozitează ca salariul: impozit pe venit, asigurare medicală și contribuții sociale ale angajatorului.",
+    ],
+    sickEyebrow: "Concediul medical",
+    sickTitle: `Cine plătește și cât (${year})`,
+    sickRates: [
+      {
+        label: `Primele ${R.sickEmployerDays} zile, de angajator (max. ${R.sickEmployerDaysPerYear} zile pe an)`,
+        value: `${pct(R.sickEmployerShare)} din salariul mediu`,
+      },
+      { label: "De la ziua a 6-a, CNAS — stagiu până la 5 ani", value: pct(R.sickPercent.under5) },
+      { label: "Stagiu între 5 și 8 ani", value: pct(R.sickPercent.from5to8) },
+      { label: "Stagiu peste 8 ani", value: pct(R.sickPercent.over8) },
+      {
+        label: "Tuberculoză, SIDA, boli oncologice (CNAS din prima zi)",
+        value: pct(R.sickSevereCasePercent),
+      },
+      {
+        label: `Accident de muncă: primele ${R.workAccidentEmployerDays} zile angajatorul, apoi CNAS`,
+        value: pct(R.workAccidentCnasPercent),
+      },
+      { label: `Plafonul venitului asigurat pe o lună din ${year}`, value: `${nf.format(cap)} MDL` },
+    ],
+    sickRules: [
+      `Baza de calcul este venitul asigurat din ultimele ${R.sickBaseMonths} luni calendaristice dinaintea lunii îmbolnăvirii, împărțit la ${R.sickBaseMonths}. Lunile fără venit asigurat se înlocuiesc cu tot atâtea luni anterioare în care a existat venit, cel mult 36 de luni în urmă.`,
+      `Venitul fiecărei luni se plafonează la ${R.sickBaseCapMultiplier} salarii medii lunare prognozate pentru anul respectiv: ${R.sickBaseCapMultiplier} × ${nf.format(R.averageMonthlySalary)} MDL pentru lunile din ${year}, ${R.sickBaseCapMultiplier} × ${nf.format(previousForecast)} MDL pentru cele din ${year - 1}.`,
+      "Indemnizația CNAS pe o zi este suma lunară împărțită la numărul de zile calendaristice ale lunii respective.",
+      `Partea CNAS se acordă după un stagiu total de cel puțin ${R.minimumInsuranceYears} ani sau ${R.minimumInsuranceMonthsIn24} luni în ultimele 24 de luni. Zilele plătite de angajator, tuberculoza, SIDA, bolile oncologice și accidentele de muncă nu depind de stagiu.`,
+      `Durata maximă este de ${R.sickMaxDaysPerYear} de zile într-un an calendaristic.`,
+      "Din partea plătită de angajator se rețin prima medicală de 9% și impozitul pe venit; partea plătită de CNAS nu se impozitează și nu se calculează prima medicală. Contribuții sociale nu se calculează la indemnizație (anexa nr. 3 la Legea nr. 489/1999).",
+    ],
+    docsTitle: "Documente și termene",
+    docs: [
+      "Cererea de concediu și ordinul angajatorului; concediile pentru anul următor pot fi programate până la sfârșitul anului, de comun acord cu reprezentanții salariaților (art. 116 Codul muncii).",
+      "Certificatul de concediu medical se emite electronic de medic și ajunge automat la CNAS; angajatorul calculează în baza lui zilele pe care le plătește.",
+      "Dacă lucrezi la mai mulți angajatori, CNAS calculează indemnizația din venitul asigurat de la toate unitățile, iar dreptul există doar dacă nu primești venit la niciuna pe durata concediului medical.",
+      `CNAS examinează datele în cel mult ${R.cnasReviewDays} zile calendaristice de la primire (până la ${R.cnasReviewDaysIncomplete} de zile dacă datele sunt incomplete, pct. 17 din HG 108/2005) și virează banii direct salariatului.`,
+    ],
+    examplesEyebrow: "Exemple de calcul",
+    examplesTitle: "Cum arată cifrele în practică",
+    leaveExampleTitle: `Concediu de 14 zile din ${leaveStartName}`,
+    leaveExample: [
+      `Salariu de ${nf.format(exampleSalary)} MDL în ${leaveMonthNames}: ${mdl(leaveExample.totalEarnings)}.`,
+      `${leaveExample.totalWorked} zile lucrate → ${mdl(leaveExample.perWorkedDay)} pe zi lucrată.`,
+      `Coeficient ${leaveExample.totalWorking} / ${leaveExample.totalCalendar} → ${mdl(leaveExample.perCalendarDay)} pe zi calendaristică.`,
+      `Indemnizație brută: ${mdl(leaveExample.gross)}.`,
+    ],
+    sickExampleTitle: "Concediu medical de 10 zile, stagiu peste 8 ani",
+    sickExample: [
+      `Venit asigurat de ${nf.format(exampleSalary)} MDL lunar în ultimele ${R.sickBaseMonths} luni.`,
+      `Angajatorul: ${sickExample.employerDays} zile × ${mdl(sickExample.employerDaily)} = ${mdl(sickExample.employerAmount)}.`,
+      `CNAS: ${pct(R.sickPercent.over8)} × ${nf.format(exampleSalary)} MDL / ${sickMonthDays} zile = ${mdl(sickCnasDaily)} pe zi × ${sickExample.cnasDays} zile = ${mdl(sickExample.cnasAmount)}.`,
+      `Total brut: ${mdl(sickExample.total)}.`,
+    ],
+    ctaTitle: "Lasă salarizarea pe seama noastră",
+    ctaBody:
+      "Calculăm salariile, concediile și indemnizațiile medicale, întocmim ordinele și raportăm la CNAS și SFS la termen.",
+    ctaLink: "Servicii de resurse umane",
+  },
+  ru: {
+    leaveEyebrow: "Ежегодный отпуск",
+    leaveTitle: "Как рассчитываются отпускные",
+    leaveSteps: [
+      `Сложите зарплату, начисленную за ${R.leaveReferenceMonths} календарных месяца перед отпуском: оклад, надбавки, ежемесячные премии, сверхурочные.`,
+      "Разделите сумму на количество фактически отработанных дней — получится средняя зарплата за отработанный день.",
+      "Умножьте на коэффициент: рабочие дни по графику, делённые на календарные дни периода без нерабочих праздничных дней.",
+      "Умножьте среднюю зарплату за календарный день на количество дней отпуска.",
+    ],
+    leaveRules: [
+      `Минимальный ежегодный отпуск — ${R.annualLeaveMinDays} календарных дней, без нерабочих праздничных дней.`,
+      "Месяцы без зарплаты в расчётном периоде не исключаются и не заменяются другими месяцами.",
+      `Отпускные выплачиваются не позднее чем за ${R.leavePayAdvanceDays} календарных дня до начала отпуска или в согласованную дату, но не позже дня выплаты зарплаты за этот месяц (ч. (3) ст. 117 Трудового кодекса).`,
+      "Отпускные облагаются как зарплата: подоходный налог, медицинское страхование и социальные взносы работодателя.",
+    ],
+    sickEyebrow: "Больничный",
+    sickTitle: `Кто платит и сколько (${year})`,
+    sickRates: [
+      {
+        label: `Первые ${R.sickEmployerDays} дней — работодатель (не более ${R.sickEmployerDaysPerYear} дней в году)`,
+        value: `${pct(R.sickEmployerShare)} средней зарплаты`,
+      },
+      { label: "С 6-го дня — CNAS, стаж до 5 лет", value: pct(R.sickPercent.under5) },
+      { label: "Стаж от 5 до 8 лет", value: pct(R.sickPercent.from5to8) },
+      { label: "Стаж более 8 лет", value: pct(R.sickPercent.over8) },
+      {
+        label: "Туберкулёз, СПИД, онкология (CNAS с первого дня)",
+        value: pct(R.sickSevereCasePercent),
+      },
+      {
+        label: `Несчастный случай на производстве: первые ${R.workAccidentEmployerDays} дней работодатель, затем CNAS`,
+        value: pct(R.workAccidentCnasPercent),
+      },
+      { label: `Предел застрахованного дохода за месяц ${year} года`, value: `${nf.format(cap)} MDL` },
+    ],
+    sickRules: [
+      `База расчёта — застрахованный доход за ${R.sickBaseMonths} календарных месяцев перед месяцем заболевания, делённый на ${R.sickBaseMonths}. Месяцы без застрахованного дохода заменяются таким же числом более ранних месяцев с доходом, не далее 36 месяцев назад.`,
+      `Доход каждого месяца ограничивается ${R.sickBaseCapMultiplier} прогнозными средними зарплатами соответствующего года: ${R.sickBaseCapMultiplier} × ${nf.format(R.averageMonthlySalary)} MDL для месяцев ${year} года, ${R.sickBaseCapMultiplier} × ${nf.format(previousForecast)} MDL для месяцев ${year - 1} года.`,
+      "Пособие CNAS за день — месячная сумма, делённая на количество календарных дней соответствующего месяца.",
+      `Часть CNAS назначается при общем стаже не менее ${R.minimumInsuranceYears} лет или ${R.minimumInsuranceMonthsIn24} месяцев за последние 24 месяца. Дни за счёт работодателя, туберкулёз, СПИД, онкология и несчастные случаи на производстве от стажа не зависят.`,
+      `Максимальная длительность — ${R.sickMaxDaysPerYear} дней в календарном году.`,
+      "С части работодателя удерживаются медицинский взнос 9% и подоходный налог; часть CNAS налогом и медицинским взносом не облагается. Социальные взносы на пособие не начисляются (приложение 3 к Закону № 489/1999).",
+    ],
+    docsTitle: "Документы и сроки",
+    docs: [
+      "Заявление на отпуск и приказ работодателя; отпуска на следующий год могут быть запланированы до конца года по согласованию с представителями работников (ст. 116 Трудового кодекса).",
+      "Больничный лист выдаётся врачом в электронном виде и автоматически поступает в CNAS; на его основании работодатель рассчитывает оплачиваемые им дни.",
+      "Если вы работаете у нескольких работодателей, CNAS считает пособие из застрахованного дохода на всех предприятиях, а право на него есть, только если за время больничного вы не получаете доход ни на одном из них.",
+      `CNAS рассматривает данные не более ${R.cnasReviewDays} календарных дней с момента получения (до ${R.cnasReviewDaysIncomplete} дней, если данные неполные, п. 17 ПП 108/2005) и перечисляет деньги напрямую работнику.`,
+    ],
+    examplesEyebrow: "Примеры расчёта",
+    examplesTitle: "Как выглядят цифры на практике",
+    leaveExampleTitle: `Отпуск 14 дней с ${leaveStartName}`,
+    leaveExample: [
+      `Зарплата ${nf.format(exampleSalary)} MDL за ${leaveMonthNames}: ${mdl(leaveExample.totalEarnings)}.`,
+      `${leaveExample.totalWorked} отработанных дней → ${mdl(leaveExample.perWorkedDay)} за отработанный день.`,
+      `Коэффициент ${leaveExample.totalWorking} / ${leaveExample.totalCalendar} → ${mdl(leaveExample.perCalendarDay)} за календарный день.`,
+      `Отпускные брутто: ${mdl(leaveExample.gross)}.`,
+    ],
+    sickExampleTitle: "Больничный 10 дней, стаж более 8 лет",
+    sickExample: [
+      `Застрахованный доход ${nf.format(exampleSalary)} MDL в месяц за последние ${R.sickBaseMonths} месяцев.`,
+      `Работодатель: ${sickExample.employerDays} дн. × ${mdl(sickExample.employerDaily)} = ${mdl(sickExample.employerAmount)}.`,
+      `CNAS: ${pct(R.sickPercent.over8)} × ${nf.format(exampleSalary)} MDL / ${sickMonthDays} дней = ${mdl(sickCnasDaily)} в день × ${sickExample.cnasDays} дн. = ${mdl(sickExample.cnasAmount)}.`,
+      `Итого брутто: ${mdl(sickExample.total)}.`,
+    ],
+    ctaTitle: "Доверьте расчёт зарплаты нам",
+    ctaBody:
+      "Мы рассчитываем зарплаты, отпускные и больничные, готовим приказы и вовремя сдаём отчёты в CNAS и ГНС.",
+    ctaLink: "Кадровые услуги",
+  },
+  en: {
+    leaveEyebrow: "Annual leave",
+    leaveTitle: "How annual leave pay is calculated",
+    leaveSteps: [
+      `Add up the pay earned in the ${R.leaveReferenceMonths} calendar months before the leave: base salary, supplements, monthly bonuses and overtime.`,
+      "Divide the total by the days actually worked in those months to get the average pay per day worked.",
+      "Multiply by the coefficient: scheduled working days divided by the calendar days of the period, excluding public holidays.",
+      "Multiply the average pay per calendar day by the number of leave days.",
+    ],
+    leaveRules: [
+      `Minimum annual leave is ${R.annualLeaveMinDays} calendar days, excluding public holidays.`,
+      "Months without pay in the reference period are neither dropped nor replaced with other months.",
+      `Leave pay is due at least ${R.leavePayAdvanceDays} calendar days before the leave starts, or on an agreed date no later than that month's payday (Labour Code art. 117(3)).`,
+      "Leave pay is taxed like salary: income tax, health insurance and employer social contributions.",
+    ],
+    sickEyebrow: "Sick leave",
+    sickTitle: `Who pays and how much (${year})`,
+    sickRates: [
+      {
+        label: `First ${R.sickEmployerDays} days, employer (max ${R.sickEmployerDaysPerYear} days a year)`,
+        value: `${pct(R.sickEmployerShare)} of average pay`,
+      },
+      { label: "From day 6, CNAS — record up to 5 years", value: pct(R.sickPercent.under5) },
+      { label: "Record of 5 to 8 years", value: pct(R.sickPercent.from5to8) },
+      { label: "Record over 8 years", value: pct(R.sickPercent.over8) },
+      {
+        label: "Tuberculosis, AIDS, cancer (CNAS from day one)",
+        value: pct(R.sickSevereCasePercent),
+      },
+      {
+        label: `Work accident: employer for the first ${R.workAccidentEmployerDays} days, then CNAS`,
+        value: pct(R.workAccidentCnasPercent),
+      },
+      { label: `Insured income cap per month of ${year}`, value: `${nf.format(cap)} MDL` },
+    ],
+    sickRules: [
+      `The base is the insured income of the ${R.sickBaseMonths} calendar months before the month the illness began, divided by ${R.sickBaseMonths}. Months without insured income are replaced by the same number of earlier months with income, up to 36 months back.`,
+      `Each month's income is capped at ${R.sickBaseCapMultiplier} forecast average monthly salaries for that year: ${R.sickBaseCapMultiplier} × ${nf.format(R.averageMonthlySalary)} MDL for months of ${year}, ${R.sickBaseCapMultiplier} × ${nf.format(previousForecast)} MDL for months of ${year - 1}.`,
+      "CNAS pays per day the monthly amount divided by the number of calendar days in that month.",
+      `The CNAS part requires a total insurance record of at least ${R.minimumInsuranceYears} years, or ${R.minimumInsuranceMonthsIn24} months in the last 24. Employer-paid days, tuberculosis, AIDS, cancer and work accidents do not depend on the record.`,
+      `Sick pay runs for up to ${R.sickMaxDaysPerYear} days per calendar year.`,
+      "The 9% health premium and income tax are withheld from the employer-paid part; the CNAS part carries neither. No social contributions are due on sick pay (Law 489/1999 annex 3).",
+    ],
+    docsTitle: "Documents and deadlines",
+    docs: [
+      "A leave request and the employer's order; next year's leave may be scheduled until the end of the year, in agreement with employee representatives (Labour Code art. 116).",
+      "The sick leave certificate is issued electronically by the doctor and reaches CNAS automatically; the employer uses it to calculate the days it pays.",
+      "If you work for several employers, CNAS uses the insured income from all of them, and the benefit is due only if you receive no income from any of them during the sick leave.",
+      `CNAS reviews the data within ${R.cnasReviewDays} calendar days of receipt (up to ${R.cnasReviewDaysIncomplete} days if the data is incomplete, Government Decision 108/2005 pt. 17) and pays the employee directly.`,
+    ],
+    examplesEyebrow: "Worked examples",
+    examplesTitle: "What the numbers look like",
+    leaveExampleTitle: `14 days of leave from ${leaveStartName}`,
+    leaveExample: [
+      `Salary of ${nf.format(exampleSalary)} MDL in ${leaveMonthNames}: ${mdl(leaveExample.totalEarnings)}.`,
+      `${leaveExample.totalWorked} days worked → ${mdl(leaveExample.perWorkedDay)} per day worked.`,
+      `Coefficient ${leaveExample.totalWorking} / ${leaveExample.totalCalendar} → ${mdl(leaveExample.perCalendarDay)} per calendar day.`,
+      `Gross leave pay: ${mdl(leaveExample.gross)}.`,
+    ],
+    sickExampleTitle: "10 days of sick leave, record over 8 years",
+    sickExample: [
+      `Insured income of ${nf.format(exampleSalary)} MDL a month over the last ${R.sickBaseMonths} months.`,
+      `Employer: ${sickExample.employerDays} days × ${mdl(sickExample.employerDaily)} = ${mdl(sickExample.employerAmount)}.`,
+      `CNAS: ${pct(R.sickPercent.over8)} × ${nf.format(exampleSalary)} MDL / ${sickMonthDays} days = ${mdl(sickCnasDaily)} a day × ${sickExample.cnasDays} days = ${mdl(sickExample.cnasAmount)}.`,
+      `Gross total: ${mdl(sickExample.total)}.`,
+    ],
+    ctaTitle: "Leave payroll to us",
+    ctaBody:
+      "We calculate salaries, leave and sick pay, prepare the HR orders and file with CNAS and the State Tax Service on time.",
+    ctaLink: "HR services",
+  },
+};
+
+const t = copy[locale];
+---
+
+<Section tone="default">
+  <Container>
+    <div class="grid gap-8 lg:grid-cols-2 items-start">
+      <div>
+        <div class="eyebrow mb-4">{t.leaveEyebrow}</div>
+        <h2 class="mb-6">{t.leaveTitle}</h2>
+        <ol class="list-none p-0 m-0 flex flex-col gap-4">
+          {
+            t.leaveSteps.map((step, i) => (
+              <li class="flex items-start gap-3">
+                <span class="w-8 h-8 rounded-full bg-accent-50 text-accent-dark font-bold flex items-center justify-center shrink-0">
+                  {i + 1}
+                </span>
+                <span class="text-text-secondary leading-relaxed pt-1">{step}</span>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+      <div class="card p-6 sm:p-7">
+        <ul class="list-none p-0 m-0 flex flex-col gap-3">
+          {
+            t.leaveRules.map((rule) => (
+              <li class="flex items-start gap-2 text-sm sm:text-base">
+                <span class="text-accent-dark shrink-0 mt-0.5">
+                  <Icon name="check" size={18} />
+                </span>
+                {rule}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </Container>
+</Section>
+
+<Section tone="alt">
+  <Container>
+    <div class="grid gap-8 lg:grid-cols-[1.2fr_1fr] items-start">
+      <div>
+        <div class="eyebrow mb-4">{t.sickEyebrow}</div>
+        <h2 class="mb-6">{t.sickTitle}</h2>
+        <dl class="card p-0 m-0 overflow-hidden">
+          {
+            t.sickRates.map((rate, i) => (
+              <div
+                class={`flex justify-between gap-4 px-6 py-4 ${i > 0 ? "border-t border-border" : ""}`}
+              >
+                <dt class="text-text-secondary">{rate.label}</dt>
+                <dd class="m-0 font-bold text-right">{rate.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+      <div class="card p-6 sm:p-7 lg:mt-[88px]">
+        <ul class="list-none p-0 m-0 flex flex-col gap-3">
+          {
+            t.sickRules.map((rule) => (
+              <li class="flex items-start gap-2 text-sm sm:text-base">
+                <span class="text-primary shrink-0 mt-0.5">
+                  <Icon name="check" size={18} />
+                </span>
+                {rule}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </Container>
+</Section>
+
+<Section tone="default">
+  <Container>
+    <div class="text-center mb-10">
+      <div class="eyebrow mb-4 justify-center">{t.examplesEyebrow}</div>
+      <h2 class="mb-0">{t.examplesTitle}</h2>
+    </div>
+    <div class="grid gap-5 md:grid-cols-2">
+      {
+        [
+          { title: t.leaveExampleTitle, lines: t.leaveExample, icon: "calendar" as const },
+          { title: t.sickExampleTitle, lines: t.sickExample, icon: "clock" as const },
+        ].map((example) => (
+          <div class="card p-6 sm:p-7">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 rounded-lg bg-primary-50 text-primary flex items-center justify-center shrink-0">
+                <Icon name={example.icon} size={24} />
+              </div>
+              <h3 class="text-lg mb-0">{example.title}</h3>
+            </div>
+            <ol class="m-0 pl-5 flex flex-col gap-2 text-text-secondary leading-relaxed">
+              {example.lines.map((line, i) => (
+                <li class={i === example.lines.length - 1 ? "font-bold text-text-primary" : ""}>{line}</li>
+              ))}
+            </ol>
+          </div>
+        ))
+      }
+    </div>
+  </Container>
+</Section>
+
+<Section tone="alt">
+  <Container>
+    <div class="grid gap-8 lg:grid-cols-[1.2fr_1fr] items-start">
+      <div>
+        <h2 class="mb-6">{t.docsTitle}</h2>
+        <ul class="list-none p-0 m-0 flex flex-col gap-3">
+          {
+            t.docs.map((doc) => (
+              <li class="flex items-start gap-2 text-sm sm:text-base">
+                <span class="text-accent-dark shrink-0 mt-0.5">
+                  <Icon name="file-text" size={18} />
+                </span>
+                {doc}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="card p-6 sm:p-7">
+        <div class="w-12 h-12 rounded-lg bg-primary-50 text-primary flex items-center justify-center mb-4">
+          <Icon name="users" size={24} />
+        </div>
+        <h3 class="text-lg mb-2">{t.ctaTitle}</h3>
+        <p class="text-text-secondary leading-relaxed">{t.ctaBody}</p>
+        <a href={hrHref} class="inline-flex items-center gap-1.5 font-semibold text-primary no-underline">
+          {t.ctaLink}
+          <Icon name="arrow-right" size={16} />
+        </a>
+      </div>
+    </div>
+  </Container>
+</Section>

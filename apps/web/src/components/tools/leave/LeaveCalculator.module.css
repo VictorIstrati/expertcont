@@ -1,0 +1,225 @@
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.tabs {
+  display: inline-grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 0.25rem;
+  padding: 0.25rem;
+  margin-bottom: 1.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+@media (max-width: 520px) {
+  .tabs {
+    display: grid;
+  }
+}
+
+.tab {
+  padding: 0.6rem 1.25rem;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tab:focus-visible {
+  outline: 2px solid #dfb741;
+  outline-offset: 2px;
+}
+
+.tabActive {
+  background: #dfb741;
+  color: #1a1a2e;
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.hint {
+  margin: 0.4rem 0 0;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.input,
+.select {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  color-scheme: dark;
+}
+
+.fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.fieldset > .label {
+  padding: 0;
+}
+
+.monthPicker {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 7rem);
+  gap: 0.6rem;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.select option {
+  color: #1a1a2e;
+}
+
+.input:focus,
+.select:focus {
+  outline: none;
+  border-color: #dfb741;
+}
+
+.select:disabled {
+  opacity: 0.5;
+}
+
+.amount {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.monthTable {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: 0.6rem 0.75rem;
+  align-items: center;
+}
+
+
+.monthHead {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.monthName {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  text-transform: capitalize;
+}
+
+.monthMeta {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: none;
+}
+
+@media (max-width: 520px) {
+  .monthTable {
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    row-gap: 0.4rem;
+  }
+
+  .monthHead:first-child {
+    display: none;
+  }
+
+  .monthName {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 0.4rem;
+    grid-column: 1 / -1;
+    margin-top: 0.5rem;
+  }
+
+  .monthMeta {
+    white-space: nowrap;
+  }
+}
+
+.incomeGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+@media (max-width: 520px) {
+  .incomeGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.incomeCell label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: capitalize;
+}
+
+.incomeCell .input {
+  padding: 0.5rem 0.6rem;
+  font-size: 0.875rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border: 1px solid rgba(223, 183, 65, 0.5);
+  border-radius: 999px;
+  color: #dfb741;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.warning {
+  margin: 1rem 0 0;
+  padding: 0.75rem 1rem;
+  border-left: 3px solid #dfb741;
+  border-radius: 0.25rem;
+  background: rgba(223, 183, 65, 0.1);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #fff;
+}
