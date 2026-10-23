@@ -247,6 +247,27 @@ img {
 .section-dark p {
   color: rgba(255, 255, 255, 0.78);
 }
+.tool-dark {
+  --bg-card: rgba(255, 255, 255, 0.05);
+  --border: rgba(255, 255, 255, 0.18);
+  --border-strong: rgba(255, 255, 255, 0.3);
+  --color-border: rgba(255, 255, 255, 0.18);
+  --text-primary: #fff;
+  --color-text: #fff;
+  --text-secondary: rgba(255, 255, 255, 0.65);
+  --color-text-muted: rgba(255, 255, 255, 0.65);
+  --color-surface-2: rgba(255, 255, 255, 0.1);
+  --color-primary: #dfb741;
+  --color-primary-50: rgba(223, 183, 65, 0.14);
+  background: var(--bg-section-dark);
+  color: var(--text-primary);
+  color-scheme: dark;
+}
+.tool-dark .input,
+.tool-dark .select,
+.tool-dark .textarea {
+  background: rgba(255, 255, 255, 0.06);
+}
 
 /* ----- Eyebrow / labels ----- */
 .eyebrow {
@@ -604,6 +625,29 @@ img {
   flex-direction: column;
   gap: 6px;
 }
+.field-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 640px) {
+  .field-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .field-grid > .field,
+  .field-grid > .field-cell {
+    display: grid;
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+    align-content: start;
+  }
+  .field-grid > .field-cell {
+    row-gap: 0;
+  }
+  .field-grid > .field > :first-child,
+  .field-grid > .field-cell > :first-child {
+    align-self: end;
+  }
+}
 .field label {
   font-size: 13px;
   font-weight: 600;
@@ -618,6 +662,8 @@ img {
   border-radius: var(--r-sm);
   background: var(--bg-card);
   font-size: 14px;
+  line-height: 20px;
+  min-height: 47px;
   color: var(--text-primary);
   transition:
     border-color 0.18s ease,
