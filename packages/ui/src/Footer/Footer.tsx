@@ -232,8 +232,8 @@ export function Footer({
                 </a>
               </li>
               <li>
-                <a href={`${sectionUrl("pricing", locale)}#calculator`}>
-                  <Trans>Calculators</Trans>
+                <a href={sectionUrl("tools", locale)}>
+                  <Trans>Free tools</Trans>
                 </a>
               </li>
             </ul>

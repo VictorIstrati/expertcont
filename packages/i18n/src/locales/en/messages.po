@@ -117,10 +117,6 @@ msgid "Business consulting"
 msgstr "Business consulting"
 
 #: ../ui/src/Footer/Footer.tsx
-msgid "Calculators"
-msgstr "Calculators"
-
-#: ../ui/src/Footer/Footer.tsx
 msgid "Careers"
 msgstr "Careers"
 
@@ -261,6 +257,10 @@ msgstr "Financial audit"
 #: ../../apps/web/src/components/contact/ContactIsland.tsx
 msgid "Firma SRL"
 msgstr "Acme LLC"
+
+#: ../ui/src/Footer/Footer.tsx
+msgid "Free tools"
+msgstr "Free tools"
 
 #. Booking modal — label for the consultation format selector (online vs in-office).
 #: ../../apps/web/src/components/modals/booking/strings.ts
