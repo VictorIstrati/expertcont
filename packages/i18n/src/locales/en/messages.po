@@ -258,14 +258,14 @@ msgstr "Financial audit"
 msgid "Firma SRL"
 msgstr "Acme LLC"
 
-#: ../ui/src/Footer/Footer.tsx
-msgid "Free tools"
-msgstr "Free tools"
-
 #. Booking modal — label for the consultation format selector (online vs in-office).
 #: ../../apps/web/src/components/modals/booking/strings.ts
 msgid "Format"
 msgstr "Format"
+
+#: ../ui/src/Footer/Footer.tsx
+msgid "Free tools"
+msgstr "Free tools"
 
 #: ../../apps/web/src/components/faq/types.ts
 msgid "General"
