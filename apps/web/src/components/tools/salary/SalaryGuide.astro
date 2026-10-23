@@ -1,0 +1,426 @@
+---
+import { Container, Icon, Section } from "@expertcont/ui";
+import { localeTag, type Locale } from "@expertcont/i18n";
+import { PAYROLL_RATES } from "../payroll/rates";
+import { grossToNet } from "../payroll/payrollMath";
+
+interface Props {
+  locale: Locale;
+  serviceHref: string;
+}
+
+const { locale, serviceHref } = Astro.props;
+const nf = new Intl.NumberFormat(localeTag(locale), { maximumFractionDigits: 2 });
+const pct = (rate: number) => `${Math.round(rate * 100)}%`;
+const lei = (n: number) => `${nf.format(n)} MDL`;
+const R = PAYROLL_RATES;
+const year = R.year;
+const ceiling = lei(R.personalExemptionIncomeCeiling);
+const monthlyCeiling = lei(
+  Math.floor(R.personalExemptionIncomeCeiling / (12 * (1 - R.healthInsuranceRate - R.employeeSocialRate))),
+);
+const health = pct(R.healthInsuranceRate);
+const incomeTax = pct(R.incomeTaxRate);
+const employer = pct(R.employerSocialRate);
+const minimumBase = lei(R.employerSocialMinimumBase ?? 0);
+
+const exampleGross = 15_000;
+const ex = grossToNet(
+  exampleGross,
+  { personalExemption: true, spouseExemption: false, dependants: 1 },
+  R,
+);
+const exPersonal = lei(R.personalExemptionYearly / 12);
+const exDependant = lei(R.dependantExemptionYearly / 12);
+
+interface Copy {
+  howEyebrow: string;
+  howTitle: string;
+  steps: { title: string; body: string }[];
+  ratesEyebrow: string;
+  ratesTitle: string;
+  rates: { label: string; value: string }[];
+  ratesNote: string;
+  whoEyebrow: string;
+  whoTitle: string;
+  who: { title: string; body: string }[];
+  exampleEyebrow: string;
+  exampleTitle: string;
+  exampleIntro: string;
+  example: { label: string; value: string; strong?: boolean }[];
+  ctaTitle: string;
+  ctaBody: string;
+  ctaItems: string[];
+  ctaLink: string;
+}
+
+const copy: Record<Locale, Copy> = {
+  ro: {
+    howEyebrow: "Cum funcționează",
+    howTitle: `Cum se calculează salariul net în ${year}`,
+    steps: [
+      {
+        title: "Asigurarea medicală",
+        body: `Din salariul brut se reține prima de asigurare obligatorie de asistență medicală — ${health}. Din 2021, angajatul nu mai plătește contribuție socială individuală.`,
+      },
+      {
+        title: "Scutirile",
+        body: "Din brut se scad asigurarea medicală și scutirile la care are dreptul angajatul (anuale, aplicate lunar câte 1/12). Rezultatul este venitul impozabil.",
+      },
+      {
+        title: "Impozitul pe venit",
+        body: `Pe venitul impozabil se aplică cota unică de ${incomeTax}. Salariul net = brut − asigurare medicală − impozit pe venit.`,
+      },
+      {
+        title: "Contribuțiile angajatorului",
+        body: `Peste salariul brut, angajatorul privat plătește ${employer} contribuții de asigurări sociale. Acestea nu se rețin din salariu, dar intră în costul total. Pentru un salariat cu normă întreagă, contribuția se calculează la cel puțin salariul minim de ${minimumBase} (art. 22 din Legea nr. 489/1999).`,
+      },
+    ],
+    ratesEyebrow: "Transparență",
+    ratesTitle: `Cifrele folosite în calcul (${year})`,
+    rates: [
+      { label: "Contribuții sociale angajator", value: employer },
+      { label: "Contribuție socială individuală", value: pct(R.employeeSocialRate) },
+      { label: "Asigurare medicală (angajat)", value: health },
+      { label: "Impozit pe venit", value: incomeTax },
+      { label: "Scutire personală", value: `${lei(R.personalExemptionYearly)} / an` },
+      { label: "Scutire personală majoră", value: `${lei(R.increasedPersonalExemptionYearly)} / an` },
+      { label: "Scutire pentru soț/soție", value: `${lei(R.spouseExemptionYearly)} / an` },
+      { label: "Scutire per persoană întreținută", value: `${lei(R.dependantExemptionYearly)} / an` },
+      {
+        label: "Întreținut cu dizabilitate severă, accentuată sau din copilărie",
+        value: `${lei(R.disabledDependantExemptionYearly)} / an`,
+      },
+    ],
+    ratesNote: `Sumele scutirilor pentru ${year} au rămas la nivelul din ${year - 1}. Instituțiile bugetare plătesc o cotă diferită a contribuțiilor sociale; calculatorul folosește cota pentru sectorul privat.`,
+    whoEyebrow: "Cine are dreptul",
+    whoTitle: "Scutirile la impozitul pe venit",
+    who: [
+      {
+        title: "Scutirea personală",
+        body: `Orice persoană fizică rezidentă cu venitul anual impozabil sub ${ceiling}. Venitul impozabil este venitul brut minus asigurarea medicală și celelalte scutiri (art. 12 pct. 4 Cod fiscal), deci fără alte scutiri plafonul corespunde unui salariu brut de aproximativ ${monthlyCeiling} pe lună. Dacă venitul atinge sau depășește plafonul, scutirea personală se pierde pentru tot anul, iar scutirile pentru soț/soție și persoanele întreținute rămân. Se aplică integral la un singur loc de muncă (de bază sau prin cumul), pe baza cererii angajatului.`,
+      },
+      {
+        title: "Persoanele întreținute",
+        body: `Copiii și părinții angajatului sau ai soțului/soției (inclusiv adoptați), precum și frații și surorile cu dizabilitate congenitală sau din copilărie, cu venit propriu de cel mult ${lei(R.dependantIncomeLimitYearly)} pe an (fără alocațiile de stat pentru dizabilitate). Codul fiscal nu limitează numărul celor care pot cere scutirea pentru aceeași persoană, deci ambii părinți o pot solicita pentru același copil (art. 35).`,
+      },
+      {
+        title: "Scutirea personală majoră",
+        body: "Pentru categoriile din art. 33 alin. (2) din Codul fiscal: bolnavii de boală actinică și persoanele cu dizabilitate cauzată de avaria de la Cernobîl; părinții și soții celor căzuți sau dispăruți în acțiunile de luptă pentru apărarea Republicii Moldova sau în Afganistan; persoanele cu dizabilitate în urma acestor acțiuni de luptă sau de pe urma războiului; persoanele cu dizabilitate congenitală, din copilărie, severă sau accentuată; pensionarii victime ale represiunilor politice, reabilitați.",
+      },
+      {
+        title: "Scutirea pentru soț/soție",
+        body: "Se acordă doar dacă soțul sau soția face parte din categoriile art. 33 alin. (2) și nu își folosește propria scutire personală. Pentru ceilalți angajați, căsătoria în sine nu dă drept la scutire.",
+      },
+    ],
+    exampleEyebrow: "Exemplu",
+    exampleTitle: `Salariu brut de ${lei(exampleGross)}, cu un copil`,
+    exampleIntro: `Angajatul are dreptul la scutirea personală (${exPersonal} pe lună) și la scutirea pentru un copil (${exDependant} pe lună).`,
+    example: [
+      { label: "Salariu brut", value: lei(ex.gross) },
+      { label: `Asigurare medicală (${health})`, value: `− ${lei(ex.healthInsurance)}` },
+      { label: "Scutiri", value: `− ${lei(ex.exemptions)}` },
+      { label: "Venit impozabil", value: lei(ex.taxableIncome) },
+      { label: `Impozit pe venit (${incomeTax})`, value: `− ${lei(ex.incomeTax)}` },
+      { label: "Salariu net", value: lei(ex.net), strong: true },
+      { label: `Contribuții sociale angajator (${employer})`, value: lei(ex.employerSocial) },
+      { label: "Cost total pentru angajator", value: lei(ex.employerCost), strong: true },
+    ],
+    ctaTitle: "Lasă salarizarea pe seama noastră",
+    ctaBody:
+      "Calculăm salariile lunar, aplicăm corect scutirile și depunem rapoartele către SFS și CNAS, ca angajații să fie plătiți la timp și fără greșeli.",
+    ctaItems: [
+      "calculul salariilor, concediilor și indemnizațiilor",
+      "darea de seamă IPC21 și evidența scutirilor",
+      "contracte de muncă și dosare de personal",
+    ],
+    ctaLink: "Servicii HR și salarizare",
+  },
+  ru: {
+    howEyebrow: "Как это работает",
+    howTitle: `Как рассчитывается зарплата на руки в ${year} году`,
+    steps: [
+      {
+        title: "Медицинское страхование",
+        body: `Из зарплаты брутто удерживается взнос обязательного медицинского страхования — ${health}. С 2021 года работник не платит индивидуальный социальный взнос.`,
+      },
+      {
+        title: "Освобождения",
+        body: "Из брутто вычитаются медицинский взнос и освобождения, на которые имеет право работник (годовые, применяются ежемесячно по 1/12). Получается налогооблагаемый доход.",
+      },
+      {
+        title: "Подоходный налог",
+        body: `К налогооблагаемому доходу применяется единая ставка ${incomeTax}. Зарплата на руки = брутто − медицинский взнос − подоходный налог.`,
+      },
+      {
+        title: "Взносы работодателя",
+        body: `Сверх зарплаты брутто частный работодатель платит ${employer} социальных взносов. Они не удерживаются из зарплаты, но входят в полную стоимость сотрудника. Для работника на полную ставку взнос начисляется минимум с минимальной зарплаты ${minimumBase} (ст. 22 Закона № 489/1999).`,
+      },
+    ],
+    ratesEyebrow: "Прозрачность",
+    ratesTitle: `Цифры, используемые в расчёте (${year})`,
+    rates: [
+      { label: "Социальные взносы работодателя", value: employer },
+      { label: "Индивидуальный социальный взнос", value: pct(R.employeeSocialRate) },
+      { label: "Медицинское страхование (работник)", value: health },
+      { label: "Подоходный налог", value: incomeTax },
+      { label: "Личное освобождение", value: `${lei(R.personalExemptionYearly)} / год` },
+      {
+        label: "Повышенное личное освобождение",
+        value: `${lei(R.increasedPersonalExemptionYearly)} / год`,
+      },
+      { label: "Освобождение на супруга/супругу", value: `${lei(R.spouseExemptionYearly)} / год` },
+      { label: "Освобождение за иждивенца", value: `${lei(R.dependantExemptionYearly)} / год` },
+      {
+        label: "Иждивенец с тяжёлой, выраженной инвалидностью или инвалидностью с детства",
+        value: `${lei(R.disabledDependantExemptionYearly)} / год`,
+      },
+    ],
+    ratesNote: `Суммы освобождений на ${year} год сохранены на уровне ${year - 1} года. Бюджетные учреждения платят социальные взносы по другой ставке; калькулятор использует ставку для частного сектора.`,
+    whoEyebrow: "Кто имеет право",
+    whoTitle: "Освобождения по подоходному налогу",
+    who: [
+      {
+        title: "Личное освобождение",
+        body: `Любое физическое лицо-резидент с годовым налогооблагаемым доходом меньше ${ceiling}. Налогооблагаемый доход — это валовой доход за вычетом медицинского страхования и других освобождений (п. 4 ст. 12 Налогового кодекса), поэтому без других освобождений порог соответствует зарплате брутто около ${monthlyCeiling} в месяц. Если доход достигает порога или превышает его, личное освобождение теряется за весь год, а освобождения на супруга и иждивенцев сохраняются. Применяется полностью только на одном месте работы (основном или по совместительству), по заявлению работника.`,
+      },
+      {
+        title: "Иждивенцы",
+        body: `Дети и родители работника или его супруга (в том числе усыновлённые), а также братья и сёстры с врождённой инвалидностью или инвалидностью с детства, с собственным доходом не более ${lei(R.dependantIncomeLimitYearly)} в год (без государственных пособий по инвалидности). Налоговый кодекс не ограничивает число лиц, претендующих на освобождение за одного иждивенца, поэтому оба родителя могут заявить его на одного ребёнка (ст. 35).`,
+      },
+      {
+        title: "Повышенное личное освобождение",
+        body: "Для категорий из ч. (2) ст. 33 Налогового кодекса: больные лучевой болезнью и лица с инвалидностью, вызванной аварией на Чернобыльской АЭС; родители и супруги погибших или пропавших без вести в боевых действиях по защите Республики Молдова или в Афганистане; лица с инвалидностью вследствие этих боевых действий или войны; лица с врождённой, детской, тяжёлой или выраженной инвалидностью; реабилитированные пенсионеры — жертвы политических репрессий.",
+      },
+      {
+        title: "Освобождение на супруга/супругу",
+        body: "Предоставляется, только если супруг(а) относится к категориям ч. (2) ст. 33 и не пользуется собственным личным освобождением. Для остальных работников сам брак права на освобождение не даёт.",
+      },
+    ],
+    exampleEyebrow: "Пример",
+    exampleTitle: `Зарплата брутто ${lei(exampleGross)}, один ребёнок`,
+    exampleIntro: `Работник имеет право на личное освобождение (${exPersonal} в месяц) и освобождение на одного ребёнка (${exDependant} в месяц).`,
+    example: [
+      { label: "Зарплата брутто", value: lei(ex.gross) },
+      { label: `Медицинское страхование (${health})`, value: `− ${lei(ex.healthInsurance)}` },
+      { label: "Освобождения", value: `− ${lei(ex.exemptions)}` },
+      { label: "Налогооблагаемый доход", value: lei(ex.taxableIncome) },
+      { label: `Подоходный налог (${incomeTax})`, value: `− ${lei(ex.incomeTax)}` },
+      { label: "Зарплата на руки", value: lei(ex.net), strong: true },
+      { label: `Социальные взносы работодателя (${employer})`, value: lei(ex.employerSocial) },
+      { label: "Полная стоимость для работодателя", value: lei(ex.employerCost), strong: true },
+    ],
+    ctaTitle: "Доверьте расчёт зарплаты нам",
+    ctaBody:
+      "Мы ежемесячно рассчитываем зарплаты, правильно применяем освобождения и сдаём отчёты в ГНС и CNAS, чтобы сотрудники получали деньги вовремя и без ошибок.",
+    ctaItems: [
+      "расчёт зарплат, отпускных и пособий",
+      "отчёт IPC21 и учёт освобождений",
+      "трудовые договоры и кадровые дела",
+    ],
+    ctaLink: "Кадровые услуги и расчёт зарплаты",
+  },
+  en: {
+    howEyebrow: "How it works",
+    howTitle: `How net salary is calculated in ${year}`,
+    steps: [
+      {
+        title: "Health insurance",
+        body: `The mandatory health insurance premium — ${health} — is withheld from the gross salary. Since 2021, employees no longer pay an individual social contribution.`,
+      },
+      {
+        title: "Exemptions",
+        body: "Health insurance and the exemptions the employee is entitled to (yearly amounts, applied as 1/12 each month) are subtracted from gross pay. The result is taxable income.",
+      },
+      {
+        title: "Income tax",
+        body: `A flat ${incomeTax} rate applies to taxable income. Net salary = gross − health insurance − income tax.`,
+      },
+      {
+        title: "Employer contributions",
+        body: `On top of gross pay, a private employer pays ${employer} in social insurance contributions. They are not withheld from the salary but are part of the total cost. For a full-time employee the contribution is charged on at least the ${minimumBase} minimum wage (Law 489/1999 art. 22).`,
+      },
+    ],
+    ratesEyebrow: "Transparency",
+    ratesTitle: `Figures used in the calculation (${year})`,
+    rates: [
+      { label: "Employer social contributions", value: employer },
+      { label: "Employee social contribution", value: pct(R.employeeSocialRate) },
+      { label: "Health insurance (employee)", value: health },
+      { label: "Income tax", value: incomeTax },
+      { label: "Personal exemption", value: `${lei(R.personalExemptionYearly)} / year` },
+      {
+        label: "Increased personal exemption",
+        value: `${lei(R.increasedPersonalExemptionYearly)} / year`,
+      },
+      { label: "Spouse exemption", value: `${lei(R.spouseExemptionYearly)} / year` },
+      { label: "Exemption per dependant", value: `${lei(R.dependantExemptionYearly)} / year` },
+      {
+        label: "Dependant with a severe, marked or childhood disability",
+        value: `${lei(R.disabledDependantExemptionYearly)} / year`,
+      },
+    ],
+    ratesNote: `Exemption amounts for ${year} were kept at the ${year - 1} level. Public-sector institutions pay a different social contribution rate; the calculator uses the private-sector rate.`,
+    whoEyebrow: "Who qualifies",
+    whoTitle: "Income tax exemptions",
+    who: [
+      {
+        title: "Personal exemption",
+        body: `Any resident individual with yearly taxable income below ${ceiling}. Taxable income is gross income minus health insurance and the other exemptions (Tax Code art. 12 point 4), so with no other exemptions the ceiling equals a gross salary of about ${monthlyCeiling} a month. If income reaches or exceeds the ceiling, the personal exemption is lost for the whole year, while the spouse and dependant exemptions remain. It is applied in full at a single place of work (main job or a second job), on the employee's request.`,
+      },
+      {
+        title: "Dependants",
+        body: `Children and parents of the employee or their spouse (including adopted), and brothers and sisters with a congenital or childhood disability, whose own income does not exceed ${lei(R.dependantIncomeLimitYearly)} a year (state disability allowances excluded). The Tax Code does not limit how many taxpayers may claim the same dependant, so both parents can claim the exemption for the same child (art. 35).`,
+      },
+      {
+        title: "Increased personal exemption",
+        body: "For the categories in Art. 33(2) of the Tax Code: people with radiation sickness or a disability caused by the Chernobyl disaster; parents and spouses of those killed or missing in combat defending Moldova or in Afghanistan; people disabled as a result of that combat or of war; people with a congenital, childhood, severe or marked disability; and rehabilitated pensioners who were victims of political repression.",
+      },
+      {
+        title: "Spouse exemption",
+        body: "Granted only if the spouse falls under Art. 33(2) and does not use their own personal exemption. For other employees, being married does not by itself give a right to an exemption.",
+      },
+    ],
+    exampleEyebrow: "Example",
+    exampleTitle: `Gross salary of ${lei(exampleGross)}, one child`,
+    exampleIntro: `The employee is entitled to the personal exemption (${exPersonal} a month) and the exemption for one child (${exDependant} a month).`,
+    example: [
+      { label: "Gross salary", value: lei(ex.gross) },
+      { label: `Health insurance (${health})`, value: `− ${lei(ex.healthInsurance)}` },
+      { label: "Exemptions", value: `− ${lei(ex.exemptions)}` },
+      { label: "Taxable income", value: lei(ex.taxableIncome) },
+      { label: `Income tax (${incomeTax})`, value: `− ${lei(ex.incomeTax)}` },
+      { label: "Net salary", value: lei(ex.net), strong: true },
+      { label: `Employer social contributions (${employer})`, value: lei(ex.employerSocial) },
+      { label: "Total cost to the employer", value: lei(ex.employerCost), strong: true },
+    ],
+    ctaTitle: "Leave payroll to us",
+    ctaBody:
+      "We run payroll every month, apply exemptions correctly and file the reports with the State Tax Service and CNAS, so your team is paid on time and without errors.",
+    ctaItems: [
+      "salary, leave pay and benefit calculations",
+      "IPC21 returns and exemption records",
+      "employment contracts and personnel files",
+    ],
+    ctaLink: "HR and payroll services",
+  },
+};
+
+const t = copy[locale];
+---
+
+<Section tone="default">
+  <Container>
+    <div class="text-center mb-10">
+      <div class="eyebrow mb-4 justify-center">{t.howEyebrow}</div>
+      <h2 class="mb-0">{t.howTitle}</h2>
+    </div>
+    <ol class="list-none p-0 m-0 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        t.steps.map((s, i) => (
+          <li class="card p-6">
+            <div class="w-10 h-10 rounded-full bg-accent-50 text-accent-dark font-extrabold flex items-center justify-center mb-4">
+              {i + 1}
+            </div>
+            <h3 class="text-lg mb-2">{s.title}</h3>
+            <p class="text-text-secondary leading-relaxed mb-0">{s.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </Container>
+</Section>
+
+<Section tone="alt">
+  <Container>
+    <div class="grid gap-8 lg:grid-cols-2 items-start">
+      <div>
+        <div class="eyebrow mb-4">{t.ratesEyebrow}</div>
+        <h2 class="mb-6">{t.ratesTitle}</h2>
+        <dl class="card p-0 m-0 overflow-hidden">
+          {
+            t.rates.map((rate, i) => (
+              <div
+                class={`flex justify-between gap-4 px-6 py-4 ${i > 0 ? "border-t border-border" : ""}`}
+              >
+                <dt class="text-text-secondary">{rate.label}</dt>
+                <dd class="m-0 font-bold whitespace-nowrap">{rate.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        <p class="text-sm text-text-secondary leading-relaxed mt-4 mb-0">{t.ratesNote}</p>
+      </div>
+      <div>
+        <div class="eyebrow mb-4">{t.exampleEyebrow}</div>
+        <h2 class="mb-6">{t.exampleTitle}</h2>
+        <p class="text-text-secondary leading-relaxed mb-4">{t.exampleIntro}</p>
+        <dl class="card p-0 m-0 overflow-hidden">
+          {
+            t.example.map((row, i) => (
+              <div
+                class={`flex justify-between gap-4 px-6 py-3.5 ${i > 0 ? "border-t border-border" : ""} ${row.strong ? "bg-accent-50" : ""}`}
+              >
+                <dt class={row.strong ? "font-bold" : "text-text-secondary"}>{row.label}</dt>
+                <dd class="m-0 font-bold whitespace-nowrap">{row.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
+  </Container>
+</Section>
+
+<Section tone="default">
+  <Container>
+    <div class="text-center mb-10">
+      <div class="eyebrow mb-4 justify-center">{t.whoEyebrow}</div>
+      <h2 class="mb-0">{t.whoTitle}</h2>
+    </div>
+    <div class="grid gap-5 md:grid-cols-2">
+      {
+        t.who.map((w) => (
+          <div class="card p-6 sm:p-7">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 rounded-lg bg-primary-50 text-primary flex items-center justify-center shrink-0">
+                <Icon name="check-circle" size={20} />
+              </div>
+              <h3 class="text-lg mb-0">{w.title}</h3>
+            </div>
+            <p class="text-text-secondary leading-relaxed mb-0">{w.body}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="card p-6 sm:p-8 mt-8 border-accent grid gap-6 md:grid-cols-[1.3fr_1fr] items-center">
+      <div>
+        <div class="w-12 h-12 rounded-lg bg-accent-50 text-accent-dark flex items-center justify-center mb-4">
+          <Icon name="users" size={24} />
+        </div>
+        <h3 class="text-xl mb-2">{t.ctaTitle}</h3>
+        <p class="text-text-secondary leading-relaxed mb-4">{t.ctaBody}</p>
+        <a
+          href={serviceHref}
+          class="inline-flex items-center gap-1.5 font-semibold text-primary no-underline"
+        >
+          {t.ctaLink}
+          <Icon name="arrow-right" size={16} />
+        </a>
+      </div>
+      <ul class="list-none p-0 m-0 flex flex-col gap-2">
+        {
+          t.ctaItems.map((item) => (
+            <li class="flex items-start gap-2 text-sm sm:text-base">
+              <span class="text-accent-dark shrink-0 mt-0.5">
+                <Icon name="check" size={18} />
+              </span>
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Container>
+</Section>
