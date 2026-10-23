@@ -152,7 +152,17 @@ function categorize(path) {
     if (slugs.includes(first)) {
       const isDetail = rest2.length > 0;
       const order =
-        { Home: 0, Pricing: 1, Services: 2, Blog: 3, Guides: 4, About: 5, FAQ: 6, Reviews: 7 }[
+        {
+          Home: 0,
+          Pricing: 1,
+          "Free tools": 2,
+          Services: 3,
+          Blog: 4,
+          Guides: 5,
+          About: 6,
+          FAQ: 7,
+          Reviews: 8,
+        }[
           section
         ] ?? 9;
       return {
@@ -213,11 +223,11 @@ function buildLlmsTxt(entries) {
   lines.push("# ExpertCont");
   lines.push("");
   lines.push(
-    "> Servicii de contabilitate, evidență contabilă, consultanță juridică, HR și IT pentru companii din Republica Moldova. Pachete transparente de la 2499 MDL/lună (Start, Standard, Premium). Servicii consulare și juridice pentru cetățenii Ucrainei din Moldova. Site în română, rusă și engleză, cu pagini în ucraineană pentru cetățenii Ucrainei.",
+    "> Servicii de contabilitate, evidență contabilă, consultanță juridică, HR și IT pentru companii din Republica Moldova. Pachete transparente de la 2499 MDL/lună (Start, Standard, Premium). Instrumente gratuite: calculatoare de salariu, TVA, dividende, concediu, penalități de întârziere, IT Park și contabilitate, plus generator de facturi. Servicii consulare și juridice pentru cetățenii Ucrainei din Moldova. Site în română, rusă și engleză, cu pagini în ucraineană pentru cetățenii Ucrainei.",
   );
   lines.push("");
   lines.push(
-    "ExpertCont is an accounting firm based in Chișinău, Moldova, serving SRL, SA, ÎI and NGO clients across the country. It also helps Ukrainian citizens living in Moldova with consular documents, Diia, pensions, family cases before Ukrainian courts and residence in Moldova; those pages are also published in Ukrainian under `/ua/`. Every page on this site is also available as clean Markdown by appending `.md` to the URL (e.g. `/preturi` → `/preturi.md`). Links below point to those Markdown views.",
+    "ExpertCont is an accounting firm based in Chișinău, Moldova, serving SRL, SA, ÎI and NGO clients across the country. It also helps Ukrainian citizens living in Moldova with consular documents, Diia, pensions, family cases before Ukrainian courts and residence in Moldova; those pages are also published in Ukrainian under `/ua/`. The free tools section (`/instrumente`, `/ru/instrumenty`, `/en/tools`) offers calculators based on 2026 Moldovan tax and labour law: gross–net salary, VAT, dividend vs salary, annual leave and sick pay, late-payment interest (BNM base rate), IT Park savings and accounting fees, plus an invoice generator. Every page on this site is also available as clean Markdown by appending `.md` to the URL (e.g. `/preturi` → `/preturi.md`). Links below point to those Markdown views.",
   );
   lines.push("");
 
@@ -233,7 +243,7 @@ function buildLlmsTxt(entries) {
   }
 
   // Then main content sections in declared order.
-  const MAIN = ["Pricing", "Services", "Blog", "Guides", "About", "FAQ", "Reviews"];
+  const MAIN = ["Pricing", "Free tools", "Services", "Blog", "Guides", "About", "FAQ", "Reviews"];
   for (const sec of MAIN) {
     // Combine index + detail entries under one heading; index pages first.
     const index = bySection.get(sec) ?? [];
