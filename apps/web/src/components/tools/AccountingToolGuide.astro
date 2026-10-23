@@ -1,0 +1,233 @@
+---
+import { Container, Icon, Section } from "@expertcont/ui";
+import type { IconName } from "@expertcont/ui";
+import { sectionUrl, type Locale } from "@expertcont/i18n";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const pricingHref = sectionUrl("pricing", locale);
+
+interface Copy {
+  stepsEyebrow: string;
+  stepsTitle: string;
+  steps: { title: string; body: string }[];
+  factorsEyebrow: string;
+  factorsTitle: string;
+  factorsSubtitle: string;
+  factors: { icon: IconName; title: string; body: string }[];
+  packagesTitle: string;
+  packagesBody: string;
+  packagesLink: string;
+}
+
+const copy: Record<Locale, Copy> = {
+  ro: {
+    stepsEyebrow: "Cum funcționează",
+    stepsTitle: "Estimarea ta în trei pași",
+    steps: [
+      {
+        title: "Alege serviciile",
+        body: "Contabilitatea e activă implicit. Adaugă HR, juridic, audit sau IT doar dacă ai nevoie.",
+      },
+      {
+        title: "Ajustează parametrii",
+        body: "Domeniul, numărul de facturi și cifra de afaceri — totalul se recalculează pe loc.",
+      },
+      {
+        title: "Primește oferta",
+        body: "Apasă „Vreau oferta” și confirmăm prețul final după o discuție scurtă, fără obligații.",
+      },
+    ],
+    factorsEyebrow: "Ce influențează prețul",
+    factorsTitle: "Patru lucruri determină costul contabilității",
+    factorsSubtitle:
+      "Nu taxăm „la ochi”. Fiecare factor de mai jos se reflectă direct în estimarea din calculator.",
+    factors: [
+      {
+        icon: "briefcase",
+        title: "Domeniul de activitate",
+        body: "Comerțul cu stocuri, construcțiile sau HoReCa cer mai multă muncă decât serviciile simple — de aici prețul de bază.",
+      },
+      {
+        icon: "file-text",
+        title: "Volumul de documente",
+        body: "Primele facturi lunare sunt incluse; fiecare document peste prag adaugă un cost fix.",
+      },
+      {
+        icon: "trending",
+        title: "Cifra de afaceri",
+        body: "Un rulaj mai mare înseamnă mai multe tranzacții de verificat, deci un multiplicator mai mare.",
+      },
+      {
+        icon: "audit",
+        title: "Statutul de plătitor TVA",
+        body: "Plătitorii de TVA au evidență și declarații lunare suplimentare, incluse ca adaos fix.",
+      },
+    ],
+    packagesTitle: "Preferi un preț fix?",
+    packagesBody: "Pachetele Start, Standard și Premium acoperă cele mai frecvente situații.",
+    packagesLink: "Vezi pachetele",
+  },
+  ru: {
+    stepsEyebrow: "Как это работает",
+    stepsTitle: "Оценка в три шага",
+    steps: [
+      {
+        title: "Выберите услуги",
+        body: "Бухгалтерия включена по умолчанию. Добавьте кадры, юридические услуги, аудит или IT, только если они нужны.",
+      },
+      {
+        title: "Настройте параметры",
+        body: "Сфера деятельности, количество счетов и оборот — итог пересчитывается сразу.",
+      },
+      {
+        title: "Получите предложение",
+        body: "Нажмите «Хочу предложение», и мы подтвердим итоговую цену после короткого разговора, без обязательств.",
+      },
+    ],
+    factorsEyebrow: "Что влияет на цену",
+    factorsTitle: "Стоимость бухгалтерии зависит от четырёх факторов",
+    factorsSubtitle:
+      "Мы не считаем «на глаз». Каждый фактор ниже напрямую отражается в оценке калькулятора.",
+    factors: [
+      {
+        icon: "briefcase",
+        title: "Сфера деятельности",
+        body: "Торговля со складом, строительство или HoReCa требуют больше работы, чем простые услуги, — отсюда базовая цена.",
+      },
+      {
+        icon: "file-text",
+        title: "Объём документов",
+        body: "Первые счета месяца включены; каждый документ сверх порога добавляет фиксированную сумму.",
+      },
+      {
+        icon: "trending",
+        title: "Оборот",
+        body: "Больший оборот означает больше операций для проверки, поэтому применяется больший коэффициент.",
+      },
+      {
+        icon: "audit",
+        title: "Статус плательщика НДС",
+        body: "У плательщиков НДС есть дополнительный учёт и ежемесячные декларации — это фиксированная надбавка.",
+      },
+    ],
+    packagesTitle: "Предпочитаете фиксированную цену?",
+    packagesBody: "Пакеты Start, Standard и Premium покрывают самые частые ситуации.",
+    packagesLink: "Смотреть пакеты",
+  },
+  en: {
+    stepsEyebrow: "How it works",
+    stepsTitle: "Your estimate in three steps",
+    steps: [
+      {
+        title: "Pick your services",
+        body: "Accounting is on by default. Add HR, legal, audit or IT only if you need them.",
+      },
+      {
+        title: "Adjust the inputs",
+        body: "Industry, number of invoices and turnover — the total updates instantly.",
+      },
+      {
+        title: "Get your offer",
+        body: "Click “I want the offer” and we confirm the final price after a short call, with no obligation.",
+      },
+    ],
+    factorsEyebrow: "What drives the price",
+    factorsTitle: "Four things determine what accounting costs",
+    factorsSubtitle:
+      "No guesswork pricing. Each factor below feeds directly into the calculator's estimate.",
+    factors: [
+      {
+        icon: "briefcase",
+        title: "Your industry",
+        body: "Trade with inventory, construction or HoReCa takes more work than simple services — that sets the base price.",
+      },
+      {
+        icon: "file-text",
+        title: "Document volume",
+        body: "Your first invoices each month are included; each document above the threshold adds a fixed amount.",
+      },
+      {
+        icon: "trending",
+        title: "Turnover",
+        body: "Higher turnover means more transactions to check, so a higher multiplier applies.",
+      },
+      {
+        icon: "audit",
+        title: "VAT status",
+        body: "VAT payers have extra records and monthly returns, added as a fixed surcharge.",
+      },
+    ],
+    packagesTitle: "Prefer a fixed price?",
+    packagesBody: "The Start, Standard and Premium packages cover the most common situations.",
+    packagesLink: "See the packages",
+  },
+};
+
+const t = copy[locale];
+---
+
+<Section tone="default">
+  <Container>
+    <div class="text-center mb-10">
+      <div class="eyebrow mb-4 justify-center">{t.stepsEyebrow}</div>
+      <h2 class="mb-0">{t.stepsTitle}</h2>
+    </div>
+    <ol class="grid gap-5 md:grid-cols-3 list-none p-0 m-0">
+      {
+        t.steps.map((step, i) => (
+          <li class="card card-flat p-6 sm:p-7">
+            <div class="w-10 h-10 rounded-full bg-primary text-white font-bold flex items-center justify-center mb-4">
+              {i + 1}
+            </div>
+            <h3 class="text-lg mb-2">{step.title}</h3>
+            <p class="text-sm sm:text-base text-text-secondary leading-relaxed mb-0">{step.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </Container>
+</Section>
+
+<Section tone="alt">
+  <Container>
+    <div class="text-center max-w-2xl mx-auto mb-10">
+      <div class="eyebrow mb-4 justify-center">{t.factorsEyebrow}</div>
+      <h2 class="mb-4">{t.factorsTitle}</h2>
+      <p class="text-lg text-text-secondary leading-relaxed mb-0">{t.factorsSubtitle}</p>
+    </div>
+    <div class="grid gap-5 sm:grid-cols-2">
+      {
+        t.factors.map((factor) => (
+          <div class="card p-6 sm:p-7 flex items-start gap-5">
+            <div class="w-12 h-12 rounded-lg bg-primary-50 text-primary flex items-center justify-center shrink-0">
+              <Icon name={factor.icon} size={24} />
+            </div>
+            <div>
+              <h3 class="text-lg mb-2">{factor.title}</h3>
+              <p class="text-sm sm:text-base text-text-secondary leading-relaxed mb-0">
+                {factor.body}
+              </p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+    <div class="card mt-8 p-6 sm:p-7 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <h3 class="text-lg mb-1">{t.packagesTitle}</h3>
+        <p class="text-text-secondary mb-0">{t.packagesBody}</p>
+      </div>
+      <a
+        href={pricingHref}
+        class="inline-flex items-center gap-1.5 font-semibold text-primary no-underline"
+      >
+        {t.packagesLink}
+        <Icon name="arrow-right" size={16} />
+      </a>
+    </div>
+  </Container>
+</Section>

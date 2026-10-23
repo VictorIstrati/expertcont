@@ -1,8 +1,9 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Container, Icon } from "@expertcont/ui";
 import { localeTag, type Locale } from "@expertcont/i18n";
 import { openModal } from "../../lib/modalBus";
 import { track } from "../../lib/analytics";
+import { MobileResultBar } from "../tools/MobileResultBar";
 import type {
   AccountingState,
   CalcConfig,
@@ -23,13 +24,39 @@ import {
 interface Props {
   calc: CalcConfig;
   locale: Locale;
+  standalone?: boolean;
 }
+
+const STANDALONE_INDUSTRY = "consulting";
+
+const UNITS: Record<Locale, { month: string; months: string }> = {
+  ro: { month: "lună", months: "luni" },
+  ru: { month: "мес.", months: "мес." },
+  en: { month: "month", months: "months" },
+};
 
 const GROUP_ORDER: IndustryGroupId[] = ["noactivity", "services", "trade", "it", "specific"];
 
-export function PriceCalculator({ calc, locale }: Props) {
-  const [state, setState] = useState<CalculatorState>(initialCalculatorState);
+export function PriceCalculator({ calc, locale, standalone = false }: Props) {
+  const [state, setState] = useState<CalculatorState>(() =>
+    standalone
+      ? {
+          ...initialCalculatorState,
+          accounting: {
+            enabled: true,
+            industryId:
+              calc.industries.find((i) => i.id === STANDALONE_INDUSTRY)?.id ??
+              calc.industries[0]?.id ??
+              "",
+            invoices: DEFAULTS.accountingInvoices,
+            revenueMDL: DEFAULTS.accountingRevenueMDL,
+            vat: false,
+          },
+        }
+      : initialCalculatorState,
+  );
   const nf = useMemo(() => new Intl.NumberFormat(localeTag(locale)), [locale]);
+  const resultRef = useRef<HTMLDivElement>(null);
 
   const { items, total } = useMemo(() => computeBreakdown(state, calc), [state, calc]);
 
@@ -92,14 +119,19 @@ export function PriceCalculator({ calc, locale }: Props) {
     : undefined;
 
   return (
-    <section id="calculator" className="section section-dark relative overflow-hidden">
+    <section
+      id="calculator"
+      className={`${standalone ? "section-sm" : "section"} section-dark relative overflow-hidden`}
+    >
       <div className="absolute -top-32 -left-32 w-[400px] h-[400px] border border-[rgba(223,183,65,0.15)] rounded-full pointer-events-none" />
       <Container className="relative">
-        <div className="text-center mb-12">
-          <div className="eyebrow mb-4 justify-center">{calc.eyebrow}</div>
-          <h2 className="text-white mb-4">{calc.heading}</h2>
-          <p className="text-white/75 text-lg max-w-2xl mx-auto">{calc.subtitle}</p>
-        </div>
+        {!standalone && (
+          <div className="text-center mb-12">
+            <div className="eyebrow mb-4 justify-center">{calc.eyebrow}</div>
+            <h2 className="text-white mb-4">{calc.heading}</h2>
+            <p className="text-white/75 text-lg max-w-2xl mx-auto">{calc.subtitle}</p>
+          </div>
+        )}
 
         <div className="calc-layout grid grid-cols-[1.4fr_1fr] gap-8 items-start">
           {/* ----- Left column: service toggle cards ----- */}
@@ -154,11 +186,11 @@ export function PriceCalculator({ calc, locale }: Props) {
                               </span>
                             )}
                             <span className="text-[#DFB741] font-semibold">
-                              {nf.format(discounted)} MDL / lună
+                              {nf.format(discounted)} MDL / {UNITS[locale].month}
                             </span>
                             {sale > 0 && (
                               <span className="inline-flex items-center px-2 py-0.5 rounded-pill text-[10px] font-bold tracking-wider bg-accent text-[#1A1A2E] whitespace-nowrap">
-                                −{sale}% · {months} luni
+                                −{sale}% · {months} {UNITS[locale].months}
                               </span>
                             )}
                           </p>
@@ -273,7 +305,7 @@ export function PriceCalculator({ calc, locale }: Props) {
           </div>
 
           {/* ----- Right column: sticky breakdown panel ----- */}
-          <div className="calc-result-wrap">
+          <div ref={resultRef} className="calc-result-wrap">
             <div className="calc-result-panel sticky top-24 p-8 bg-[linear-gradient(135deg,rgba(223,183,65,0.15)_0%,rgba(70,99,171,0.1)_100%)] rounded-lg border border-[rgba(223,183,65,0.25)]">
               <div className="text-xs font-bold tracking-widest text-[#DFB741] uppercase mb-2">
                 {calc.result.heading}
@@ -319,7 +351,7 @@ export function PriceCalculator({ calc, locale }: Props) {
                                 {it.detail}
                                 {it.saleMonths !== undefined && (
                                   <span className="ml-1 text-accent-dark">
-                                    · {it.saleMonths} luni
+                                    · {it.saleMonths} {UNITS[locale].months}
                                   </span>
                                 )}
                               </span>
@@ -359,6 +391,14 @@ export function PriceCalculator({ calc, locale }: Props) {
             </div>
           </div>
         </div>
+        {items.length > 0 && (
+          <MobileResultBar
+            locale={locale}
+            target={resultRef}
+            label={calc.result.heading}
+            value={`${nf.format(total)} ${calc.result.perMonth}`}
+          />
+        )}
       </Container>
 
       <style>{`
@@ -366,7 +406,7 @@ export function PriceCalculator({ calc, locale }: Props) {
         .calc-select optgroup { color: #DFB741; font-weight: 700; }
         .calc-select option { color: #1A1A2E; background: #fff; }
         @media (max-width: 900px) {
-          .calc-layout { grid-template-columns: 1fr !important; }
+          .calc-layout { grid-template-columns: minmax(0, 1fr) !important; }
           .calc-result-panel { position: static !important; }
         }
         @media (max-width: 600px) {
