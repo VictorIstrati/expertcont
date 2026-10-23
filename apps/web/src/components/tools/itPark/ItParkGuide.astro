@@ -1,0 +1,238 @@
+---
+import { Container, Icon, Section } from "@expertcont/ui";
+import { localeTag, type Locale } from "@expertcont/i18n";
+import { IT_PARK_RATES } from "./rates";
+
+interface Props {
+  locale: Locale;
+  guideHref: string;
+}
+
+const { locale, guideHref } = Astro.props;
+const nf = new Intl.NumberFormat(localeTag(locale));
+const pct = (rate: number) => `${Math.round(rate * 100)}%`;
+const year = IT_PARK_RATES.year;
+const minimum = nf.format(IT_PARK_RATES.minimumPerEmployee);
+
+interface Copy {
+  compareEyebrow: string;
+  compareTitle: string;
+  itParkTitle: string;
+  itParkBody: string;
+  itParkItems: string[];
+  standardTitle: string;
+  standardBody: string;
+  standardItems: string[];
+  ratesEyebrow: string;
+  ratesTitle: string;
+  rates: { label: string; value: string }[];
+  ratesNote: string;
+  eligibilityTitle: string;
+  eligibilityBody: string;
+  guideLink: string;
+}
+
+const copy: Record<Locale, Copy> = {
+  ro: {
+    compareEyebrow: "Ce comparăm",
+    compareTitle: "Două regimuri, aceeași companie",
+    itParkTitle: "Rezident Moldova IT Park",
+    itParkBody: `Plătești lunar un singur impozit: ${pct(IT_PARK_RATES.singleTaxRate)} din vânzări, dar nu mai puțin de ${minimum} MDL pentru fiecare angajat. Acesta înlocuiește:`,
+    itParkItems: [
+      "impozitul pe profit",
+      "contribuțiile sociale și asigurarea medicală",
+      "impozitul pe venit reținut din salarii",
+      "taxele locale, impozitul pe imobil și taxa de drum",
+    ],
+    standardTitle: "Regim fiscal general",
+    standardBody: "Fiecare obligație se calculează separat, pe salarii și pe profit:",
+    standardItems: [
+      `contribuții sociale ale angajatorului — ${pct(IT_PARK_RATES.employerSocialRate)} din salariile brute`,
+      `asigurare medicală — ${pct(IT_PARK_RATES.healthInsuranceRate)}, reținută din salariu`,
+      `impozit pe venit — ${pct(IT_PARK_RATES.incomeTaxRate)}, reținut din salariu`,
+      `impozit pe profit — ${pct(IT_PARK_RATES.profitTaxRate)} din profitul impozabil`,
+    ],
+    ratesEyebrow: "Transparență",
+    ratesTitle: `Cifrele folosite în calcul (${year})`,
+    rates: [
+      { label: "Impozit unic IT Park", value: pct(IT_PARK_RATES.singleTaxRate) },
+      { label: "Minim lunar per angajat", value: `${minimum} MDL` },
+      { label: "Contribuții sociale angajator", value: pct(IT_PARK_RATES.employerSocialRate) },
+      { label: "Asigurare medicală", value: pct(IT_PARK_RATES.healthInsuranceRate) },
+      { label: "Impozit pe venit", value: pct(IT_PARK_RATES.incomeTaxRate) },
+      { label: "Impozit pe profit", value: pct(IT_PARK_RATES.profitTaxRate) },
+    ],
+    ratesNote:
+      "TVA-ul nu e inclus: se aplică separat în ambele regimuri, iar serviciile IT prestate nerezidenților, cu locul livrării în afara Moldovei, sunt scutite de TVA cu drept de deducere (art. 104 lit. a) Cod fiscal). Calculul nu include scutirile personale (pe care angajații rezidenților nu le pot folosi) și impozitul pe dividende.",
+    eligibilityTitle: "Te califici pentru IT Park?",
+    eligibilityBody:
+      "Persoane juridice sau fizice înregistrate ca întreprinzători în Moldova, la care cel puțin 70% din venitul din vânzări provine din activitățile eligibile prevăzute de Legea nr. 77/2016. Ghidul nostru explică pas cu pas eligibilitatea, aplicarea și obligațiile.",
+    guideLink: "Citește ghidul complet",
+  },
+  ru: {
+    compareEyebrow: "Что мы сравниваем",
+    compareTitle: "Два режима, одна компания",
+    itParkTitle: "Резидент Moldova IT Park",
+    itParkBody: `Вы ежемесячно платите один налог: ${pct(IT_PARK_RATES.singleTaxRate)} от выручки, но не меньше ${minimum} MDL за каждого сотрудника. Он заменяет:`,
+    itParkItems: [
+      "налог на прибыль",
+      "социальные взносы и медицинское страхование",
+      "подоходный налог, удерживаемый с зарплат",
+      "местные сборы, налог на недвижимость и дорожный сбор",
+    ],
+    standardTitle: "Общий налоговый режим",
+    standardBody: "Каждое обязательство рассчитывается отдельно — с зарплат и с прибыли:",
+    standardItems: [
+      `социальные взносы работодателя — ${pct(IT_PARK_RATES.employerSocialRate)} от зарплат брутто`,
+      `медицинское страхование — ${pct(IT_PARK_RATES.healthInsuranceRate)}, удерживается из зарплаты`,
+      `подоходный налог — ${pct(IT_PARK_RATES.incomeTaxRate)}, удерживается из зарплаты`,
+      `налог на прибыль — ${pct(IT_PARK_RATES.profitTaxRate)} от налогооблагаемой прибыли`,
+    ],
+    ratesEyebrow: "Прозрачность",
+    ratesTitle: `Цифры, используемые в расчёте (${year})`,
+    rates: [
+      { label: "Единый налог IT Park", value: pct(IT_PARK_RATES.singleTaxRate) },
+      { label: "Минимум в месяц на сотрудника", value: `${minimum} MDL` },
+      { label: "Социальные взносы работодателя", value: pct(IT_PARK_RATES.employerSocialRate) },
+      { label: "Медицинское страхование", value: pct(IT_PARK_RATES.healthInsuranceRate) },
+      { label: "Подоходный налог", value: pct(IT_PARK_RATES.incomeTaxRate) },
+      { label: "Налог на прибыль", value: pct(IT_PARK_RATES.profitTaxRate) },
+    ],
+    ratesNote:
+      "НДС не учитывается: он применяется отдельно в обоих режимах, а IT-услуги, оказанные нерезидентам с местом поставки за пределами Молдовы, освобождены от НДС с правом на вычет (п. a) ст. 104 Налогового кодекса). Расчёт не учитывает личные освобождения (которыми сотрудники резидентов не могут пользоваться) и налог на дивиденды.",
+    eligibilityTitle: "Подходите ли вы для IT Park?",
+    eligibilityBody:
+      "Юридические или физические лица, зарегистрированные в Молдове как субъекты предпринимательской деятельности, у которых не менее 70% выручки от продаж приходится на разрешённые виды деятельности по Закону № 77/2016. Наше руководство пошагово объясняет условия, подачу и обязательства.",
+    guideLink: "Читать полное руководство",
+  },
+  en: {
+    compareEyebrow: "What we compare",
+    compareTitle: "Two regimes, the same company",
+    itParkTitle: "Moldova IT Park resident",
+    itParkBody: `You pay a single monthly tax: ${pct(IT_PARK_RATES.singleTaxRate)} of sales, but no less than ${minimum} MDL per employee. It replaces:`,
+    itParkItems: [
+      "profit tax",
+      "social contributions and health insurance",
+      "income tax withheld from salaries",
+      "local fees, property tax and road tax",
+    ],
+    standardTitle: "Standard tax regime",
+    standardBody: "Each obligation is calculated separately, on salaries and on profit:",
+    standardItems: [
+      `employer social contributions — ${pct(IT_PARK_RATES.employerSocialRate)} of gross salaries`,
+      `health insurance — ${pct(IT_PARK_RATES.healthInsuranceRate)}, withheld from salary`,
+      `income tax — ${pct(IT_PARK_RATES.incomeTaxRate)}, withheld from salary`,
+      `profit tax — ${pct(IT_PARK_RATES.profitTaxRate)} of taxable profit`,
+    ],
+    ratesEyebrow: "Transparency",
+    ratesTitle: `Figures used in the calculation (${year})`,
+    rates: [
+      { label: "IT Park single tax", value: pct(IT_PARK_RATES.singleTaxRate) },
+      { label: "Monthly minimum per employee", value: `${minimum} MDL` },
+      { label: "Employer social contributions", value: pct(IT_PARK_RATES.employerSocialRate) },
+      { label: "Health insurance", value: pct(IT_PARK_RATES.healthInsuranceRate) },
+      { label: "Income tax", value: pct(IT_PARK_RATES.incomeTaxRate) },
+      { label: "Profit tax", value: pct(IT_PARK_RATES.profitTaxRate) },
+    ],
+    ratesNote:
+      "VAT is excluded: it applies separately under both regimes, and IT services supplied to non-residents with the place of supply outside Moldova are exempt with the right of deduction (Tax Code art. 104(a)). The calculation does not include personal exemptions (which residents' employees cannot use) or dividend tax.",
+    eligibilityTitle: "Do you qualify for IT Park?",
+    eligibilityBody:
+      "Legal entities or individuals registered as businesses in Moldova, with at least 70% of sales revenue from the eligible activities listed in Law No. 77/2016. Our guide explains eligibility, the application and ongoing obligations step by step.",
+    guideLink: "Read the full guide",
+  },
+};
+
+const t = copy[locale];
+---
+
+<Section tone="default">
+  <Container>
+    <div class="text-center mb-10">
+      <div class="eyebrow mb-4 justify-center">{t.compareEyebrow}</div>
+      <h2 class="mb-0">{t.compareTitle}</h2>
+    </div>
+    <div class="grid gap-5 md:grid-cols-2">
+      <div class="card p-6 sm:p-7 border-accent">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-12 h-12 rounded-lg bg-accent-50 text-accent-dark flex items-center justify-center shrink-0">
+            <Icon name="code" size={24} />
+          </div>
+          <h3 class="text-lg mb-0">{t.itParkTitle}</h3>
+        </div>
+        <p class="text-text-secondary leading-relaxed mb-4">{t.itParkBody}</p>
+        <ul class="list-none p-0 m-0 flex flex-col gap-2">
+          {
+            t.itParkItems.map((item) => (
+              <li class="flex items-start gap-2 text-sm sm:text-base">
+                <span class="text-accent-dark shrink-0 mt-0.5">
+                  <Icon name="check" size={18} />
+                </span>
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="card p-6 sm:p-7">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-12 h-12 rounded-lg bg-primary-50 text-primary flex items-center justify-center shrink-0">
+            <Icon name="briefcase" size={24} />
+          </div>
+          <h3 class="text-lg mb-0">{t.standardTitle}</h3>
+        </div>
+        <p class="text-text-secondary leading-relaxed mb-4">{t.standardBody}</p>
+        <ul class="list-none p-0 m-0 flex flex-col gap-2">
+          {
+            t.standardItems.map((item) => (
+              <li class="flex items-start gap-2 text-sm sm:text-base">
+                <span class="text-primary shrink-0 mt-0.5">
+                  <Icon name="minus" size={18} />
+                </span>
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </Container>
+</Section>
+
+<Section tone="alt">
+  <Container>
+    <div class="grid gap-8 lg:grid-cols-[1.2fr_1fr] items-start">
+      <div>
+        <div class="eyebrow mb-4">{t.ratesEyebrow}</div>
+        <h2 class="mb-6">{t.ratesTitle}</h2>
+        <dl class="card p-0 m-0 overflow-hidden">
+          {
+            t.rates.map((rate, i) => (
+              <div
+                class={`flex justify-between gap-4 px-6 py-4 ${i > 0 ? "border-t border-border" : ""}`}
+              >
+                <dt class="text-text-secondary">{rate.label}</dt>
+                <dd class="m-0 font-bold whitespace-nowrap">{rate.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        <p class="text-sm text-text-secondary leading-relaxed mt-4 mb-0">{t.ratesNote}</p>
+      </div>
+      <div class="card p-6 sm:p-7 lg:mt-[88px]">
+        <div class="w-12 h-12 rounded-lg bg-primary-50 text-primary flex items-center justify-center mb-4">
+          <Icon name="shield" size={24} />
+        </div>
+        <h3 class="text-lg mb-2">{t.eligibilityTitle}</h3>
+        <p class="text-text-secondary leading-relaxed">{t.eligibilityBody}</p>
+        <a
+          href={guideHref}
+          class="inline-flex items-center gap-1.5 font-semibold text-primary no-underline"
+        >
+          {t.guideLink}
+          <Icon name="arrow-right" size={16} />
+        </a>
+      </div>
+    </div>
+  </Container>
+</Section>
