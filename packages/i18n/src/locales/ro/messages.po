@@ -195,6 +195,11 @@ msgstr "Cookies"
 msgid "Data & Ora"
 msgstr "Data & Ora"
 
+#. Footer link to the company-wide personal data processing policy (not the website privacy notice).
+#: ../ui/src/Footer/Footer.tsx
+msgid "Data protection"
+msgstr "Protecția datelor"
+
 #: ../../apps/web/src/components/modals/booking/strings.ts
 msgid "Date contact"
 msgstr "Date contact"

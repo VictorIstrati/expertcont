@@ -1,16 +1,18 @@
 import { Icon, PageHeader } from "@expertcont/ui";
-import { I18nRoot, homeUrl } from "@expertcont/i18n";
+import { I18nRoot, homeUrl, sectionUrl } from "@expertcont/i18n";
 import type { Locale } from "@expertcont/i18n";
-import { site } from "../../site";
 import { openCookieSettings } from "../../lib/analytics";
-
-const EMAIL = site.business.email;
-const PHONE = site.business.phone;
-const DPO_EMAIL = "dpo@expertcont.md";
-const LEGAL_NAME = site.business.name;
-const ADDR_RO = `${site.business.address.street.ro}, ${site.business.address.city.ro}, ${site.business.address.postalCode}`;
-const ADDR_RU = `${site.business.address.street.ru}, ${site.business.address.city.ru}, ${site.business.address.postalCode}`;
-const ADDR_EN = `${site.business.address.street.en}, ${site.business.address.city.en}, ${site.business.address.postalCode}`;
+import { dataProtectionContent } from "./dataProtection";
+import {
+  ADDR_EN,
+  ADDR_RO,
+  ADDR_RU,
+  DPO_EMAIL,
+  EMAIL,
+  LEGAL_NAME,
+  PHONE,
+  type LegalData,
+} from "./shared";
 
 const breadcrumbLabels: Record<Locale, { home: string; legal: string }> = {
   ro: { home: "Acasă", legal: "Legal" },
@@ -36,7 +38,7 @@ const cookieSettingsLabels: Record<Locale, { title: string; body: string; button
   },
 };
 
-export type LegalKind = "privacy" | "terms" | "cookies";
+export type LegalKind = "privacy" | "dataProtection" | "terms" | "cookies";
 
 export interface LegalIslandProps {
   locale: Locale;
@@ -44,23 +46,7 @@ export interface LegalIslandProps {
   contactHref: string;
 }
 
-interface LegalSection {
-  h: string;
-  t: string;
-}
-
-interface LegalData {
-  title: string;
-  lastUpdated: string;
-  updated: string;
-  sections: LegalSection[];
-  questionsTitle: string;
-  questionsBody: string;
-  questionsEmail: string;
-  questionsBtn: string;
-}
-
-type ContentMap = Record<Locale, Record<LegalKind, LegalData>>;
+type ContentMap = Record<Locale, Record<Exclude<LegalKind, "dataProtection">, LegalData>>;
 
 const content: ContentMap = {
   ro: {
@@ -95,11 +81,11 @@ const content: ContentMap = {
         },
         {
           h: "7. Cât timp păstrăm datele",
-          t: "Solicitările trimise prin site care nu devin contract: 12 luni de la ultimul contact. Datele clienților și documentele contabile: pe durata contractului și 10 ani după încheierea lui, conform legislației contabile și fiscale din Republica Moldova. Recenziile nepublicate: 12 luni; recenziile publicate: până când ne ceri să le retragem. Ștergerea solicitărilor expirate se face automat, zilnic. Datele de analiză: cel mult 14 luni în Google Analytics. La expirarea termenului, datele sunt șterse în siguranță.",
+          t: "Solicitările trimise prin site: 12 luni de la trimitere; dacă devii client, datele necesare trec în dosarul tău de client. Datele clienților și documentele contabile: pe durata contractului și 10 ani după încheierea lui, conform legislației contabile și fiscale din Republica Moldova. Recenziile nepublicate: 12 luni; recenziile publicate: până când ne ceri să le retragem. Ștergerea solicitărilor expirate se face automat, zilnic. Datele de analiză: cel mult 14 luni în Google Analytics. La expirarea termenului, datele sunt șterse în siguranță.",
         },
         {
           h: "8. Drepturile tale",
-          t: `Ai dreptul de acces, rectificare, ștergere, restricționare a prelucrării, portabilitate și opoziție, precum și dreptul de a-ți retrage oricând consimțământul, fără a afecta prelucrarea anterioară. Ai și dreptul de a nu face obiectul unei decizii bazate exclusiv pe prelucrare automată și de a cere intervenția unui specialist. Pentru a le exercita, scrie-ne la ${DPO_EMAIL}; răspundem în cel mult o lună, termen care poate fi prelungit cu încă două luni în cazurile complexe, cu informarea ta. Poți depune o plângere la Centrul Național pentru Protecția Datelor cu Caracter Personal al Republicii Moldova sau, dacă locuiești în Uniunea Europeană, la autoritatea de protecție a datelor din țara ta.`,
+          t: `Ai dreptul de acces, rectificare, ștergere, restricționare a prelucrării, portabilitate și opoziție, precum și dreptul de a-ți retrage oricând consimțământul, fără a afecta prelucrarea anterioară. Ai și dreptul de a nu face obiectul unei decizii bazate exclusiv pe prelucrare automată și de a cere intervenția unui specialist. Pentru a le exercita, scrie-ne la ${DPO_EMAIL}; răspundem în cel mult o lună, termen care poate fi prelungit cu încă două luni în cazurile complexe, cu informarea ta. Îți putem cere doar informațiile strict necesare pentru a-ți verifica identitatea. Poți depune o plângere la Centrul Național pentru Protecția Datelor cu Caracter Personal al Republicii Moldova sau, dacă locuiești în Uniunea Europeană, la autoritatea de protecție a datelor din țara ta.`,
         },
         {
           h: "9. Calculul estimativ al prețului",
@@ -108,6 +94,11 @@ const content: ContentMap = {
         {
           h: "10. Cadrul legal",
           t: "Prelucrăm datele conform Legii nr. 195/2024 privind protecția datelor cu caracter personal a Republicii Moldova și, pentru persoanele din Uniunea Europeană, conform Regulamentului (UE) 2016/679 (GDPR).",
+        },
+        {
+          h: "11. Politica generală privind datele personale",
+          t: "Această pagină acoperă site-ul. Cum prelucrăm datele clienților, ale persoanelor din dosare, ale candidaților și ale partenerilor, inclusiv verificările obligatorii de prevenire a spălării banilor, găsești în politica noastră generală.",
+          link: { section: "dataProtection", label: "Politica privind prelucrarea datelor cu caracter personal" },
         },
       ],
       questionsTitle: "Ai întrebări?",
@@ -218,11 +209,11 @@ const content: ContentMap = {
         },
         {
           h: "7. Сколько мы храним данные",
-          t: "Заявки с сайта, которые не привели к договору: 12 месяцев с момента последнего контакта. Данные клиентов и бухгалтерские документы: в течение срока договора и 10 лет после его окончания, как требует бухгалтерское и налоговое законодательство Республики Молдова. Неопубликованные отзывы: 12 месяцев; опубликованные отзывы: пока вы не попросите их снять. Удаление просроченных заявок происходит автоматически, ежедневно. Данные аналитики: не более 14 месяцев в Google Analytics. По истечении срока данные надёжно удаляются.",
+          t: "Заявки с сайта: 12 месяцев с момента отправки; если вы станете клиентом, нужные данные перейдут в ваше клиентское дело. Данные клиентов и бухгалтерские документы: в течение срока договора и 10 лет после его окончания, как требует бухгалтерское и налоговое законодательство Республики Молдова. Неопубликованные отзывы: 12 месяцев; опубликованные отзывы: пока вы не попросите их снять. Удаление просроченных заявок происходит автоматически, ежедневно. Данные аналитики: не более 14 месяцев в Google Analytics. По истечении срока данные надёжно удаляются.",
         },
         {
           h: "8. Ваши права",
-          t: `Вы имеете право на доступ, исправление, удаление, ограничение обработки, переносимость данных и возражение, а также право в любой момент отозвать согласие, что не влияет на законность обработки до отзыва. Вы также имеете право не подвергаться решению, основанному исключительно на автоматизированной обработке, и потребовать участия специалиста. Чтобы воспользоваться этими правами, напишите на ${DPO_EMAIL}; мы отвечаем не позднее чем через месяц, а в сложных случаях срок может быть продлён ещё на два месяца с уведомлением вас. Вы можете подать жалобу в Национальный центр по защите персональных данных Республики Молдова или, если вы живёте в Европейском союзе, в орган по защите данных вашей страны.`,
+          t: `Вы имеете право на доступ, исправление, удаление, ограничение обработки, переносимость данных и возражение, а также право в любой момент отозвать согласие, что не влияет на законность обработки до отзыва. Вы также имеете право не подвергаться решению, основанному исключительно на автоматизированной обработке, и потребовать участия специалиста. Чтобы воспользоваться этими правами, напишите на ${DPO_EMAIL}; мы отвечаем не позднее чем через месяц, а в сложных случаях срок может быть продлён ещё на два месяца с уведомлением вас. Мы можем запросить только сведения, строго необходимые для подтверждения вашей личности. Вы можете подать жалобу в Национальный центр по защите персональных данных Республики Молдова или, если вы живёте в Европейском союзе, в орган по защите данных вашей страны.`,
         },
         {
           h: "9. Предварительный расчёт стоимости",
@@ -231,6 +222,11 @@ const content: ContentMap = {
         {
           h: "10. Правовая основа",
           t: "Мы обрабатываем данные в соответствии с Законом Республики Молдова № 195/2024 о защите персональных данных, а для лиц из Европейского союза — в соответствии с Регламентом (ЕС) 2016/679 (GDPR).",
+        },
+        {
+          h: "11. Общая политика обработки персональных данных",
+          t: "Эта страница касается сайта. Как мы обрабатываем данные клиентов, участников дел, кандидатов и партнёров, включая обязательные проверки по предотвращению отмывания денег, описано в нашей общей политике.",
+          link: { section: "dataProtection", label: "Политика обработки персональных данных" },
         },
       ],
       questionsTitle: "Есть вопросы?",
@@ -341,11 +337,11 @@ const content: ContentMap = {
         },
         {
           h: "7. How long we keep data",
-          t: "Requests sent through the site that don't lead to a contract: 12 months from the last contact. Client data and accounting documents: for the duration of the contract and 10 years after it ends, as Moldovan accounting and tax law requires. Unpublished reviews: 12 months; published reviews: until you ask us to remove them. Expired requests are deleted automatically every day. Analytics data: at most 14 months in Google Analytics. When the period ends, data is securely deleted.",
+          t: "Requests sent through the site: 12 months from submission; if you become a client, the data we need moves into your client file. Client data and accounting documents: for the duration of the contract and 10 years after it ends, as Moldovan accounting and tax law requires. Unpublished reviews: 12 months; published reviews: until you ask us to remove them. Expired requests are deleted automatically every day. Analytics data: at most 14 months in Google Analytics. When the period ends, data is securely deleted.",
         },
         {
           h: "8. Your rights",
-          t: `You have the right to access, rectify and erase your data, to restrict its processing, to data portability and to object, and the right to withdraw your consent at any time without affecting earlier processing. You also have the right not to be subject to a decision based solely on automated processing and to ask for a specialist to step in. To exercise these rights, email ${DPO_EMAIL}; we reply within one month, which may be extended by two more months for complex requests, in which case we'll tell you. You can lodge a complaint with the National Center for Personal Data Protection of the Republic of Moldova or, if you live in the European Union, with the data protection authority in your country.`,
+          t: `You have the right to access, rectify and erase your data, to restrict its processing, to data portability and to object, and the right to withdraw your consent at any time without affecting earlier processing. You also have the right not to be subject to a decision based solely on automated processing and to ask for a specialist to step in. To exercise these rights, email ${DPO_EMAIL}; we reply within one month, which may be extended by two more months for complex requests, in which case we'll tell you. We may ask only for the information strictly needed to verify your identity. You can lodge a complaint with the National Center for Personal Data Protection of the Republic of Moldova or, if you live in the European Union, with the data protection authority in your country.`,
         },
         {
           h: "9. Price estimates",
@@ -354,6 +350,11 @@ const content: ContentMap = {
         {
           h: "10. Legal framework",
           t: "We process data under the Republic of Moldova's Law No. 195/2024 on personal data protection and, for people in the European Union, under Regulation (EU) 2016/679 (GDPR).",
+        },
+        {
+          h: "11. General data protection policy",
+          t: "This page covers the website. How we process the data of clients, people involved in client files, job candidates and partners, including mandatory anti-money laundering checks, is set out in our general policy.",
+          link: { section: "dataProtection", label: "Data Protection Policy" },
         },
       ],
       questionsTitle: "Have Questions?",
@@ -435,7 +436,7 @@ const content: ContentMap = {
 };
 
 export default function LegalIsland({ locale, kind, contactHref }: LegalIslandProps) {
-  const data = content[locale][kind];
+  const data = kind === "dataProtection" ? dataProtectionContent[locale] : content[locale][kind];
   const labels = breadcrumbLabels[locale];
 
   return (
@@ -465,6 +466,15 @@ export default function LegalIsland({ locale, kind, contactHref }: LegalIslandPr
                 <div key={i}>
                   <h3 className="mb-3 text-xl font-bold text-text-primary">{s.h}</h3>
                   <p className="text-base leading-relaxed text-text-secondary">{s.t}</p>
+                  {s.link && (
+                    <a
+                      href={sectionUrl(s.link.section, locale)}
+                      className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-primary"
+                    >
+                      {s.link.label}
+                      <Icon name="arrow-right" size={14} />
+                    </a>
+                  )}
                 </div>
               ))}
             </div>

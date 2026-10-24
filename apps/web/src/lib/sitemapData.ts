@@ -33,6 +33,11 @@ const sectionLabels: Record<Exclude<SectionKey, "sitemap">, Record<Locale, strin
   blog: { ro: "Blog", ru: "Блог", en: "Blog" },
   guides: { ro: "Ghiduri", ru: "Руководства", en: "Guides" },
   privacy: { ro: "Confidențialitate", ru: "Конфиденциальность", en: "Privacy" },
+  dataProtection: {
+    ro: "Politica privind datele personale",
+    ru: "Политика обработки персональных данных",
+    en: "Data protection policy",
+  },
   terms: { ro: "Termeni și condiții", ru: "Условия", en: "Terms" },
   cookies: { ro: "Politica cookies", ru: "Политика cookies", en: "Cookies" },
   partners: { ro: "Parteneri", ru: "Партнёры", en: "Partners" },
@@ -61,7 +66,7 @@ const mainSections: LinkableSection[] = [
   "contact",
 ];
 const companySections: LinkableSection[] = ["about", "faq", "reviews", "partners", "careers"];
-const legalSections: LinkableSection[] = ["privacy", "terms", "cookies"];
+const legalSections: LinkableSection[] = ["privacy", "dataProtection", "terms", "cookies"];
 
 function sectionLink(section: Exclude<SectionKey, "sitemap">, locale: Locale): SitemapLink {
   return { href: sectionUrl(section, locale), label: sectionLabels[section][locale] };

@@ -59,4 +59,10 @@ describe("Footer", () => {
       .filter((link) => link.getAttribute("href") === "/ru/tseny");
     expect(links.length).toBeGreaterThan(0);
   });
+
+  it("links the data protection policy in the Legal column", () => {
+    renderWithI18n(footer({ locale: "en" }));
+    const link = screen.getByRole("link", { name: "Data protection" });
+    expect(link).toHaveAttribute("href", "/en/data-protection");
+  });
 });

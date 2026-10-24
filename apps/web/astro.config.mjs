@@ -27,6 +27,7 @@ const routeSegments = {
   guides: { ro: "ghiduri", ru: "rukovodstva", en: "guides" },
   about: { ro: "despre-noi", ru: "o-nas", en: "about" },
   privacy: { ro: "confidentialitate", ru: "konfidentsialnost", en: "privacy" },
+  dataProtection: { ro: "protectia-datelor", ru: "zashchita-dannykh", en: "data-protection" },
   terms: { ro: "termeni", ru: "usloviya", en: "terms" },
   cookies: { ro: "cookies", ru: "cookies", en: "cookies" },
   partners: { ro: "parteneri", ru: "partnery", en: "partners" },

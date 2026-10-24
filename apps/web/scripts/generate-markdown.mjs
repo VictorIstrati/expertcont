@@ -135,11 +135,14 @@ function categorize(path) {
     "HTML Sitemap": ["harta-site", "karta-sayta", "sitemap"],
     Legal: [
       "confidentialitate",
+      "protectia-datelor",
       "termeni",
       "cookies",
       "konfidentsialnost",
+      "zashchita-dannykh",
       "usloviya",
       "privacy",
+      "data-protection",
       "terms",
     ],
   };

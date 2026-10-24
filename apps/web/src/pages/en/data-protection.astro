@@ -1,0 +1,32 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageShell from "../../components/PageShell.astro";
+import LegalIsland from "../../components/legal/LegalIsland";
+import { sectionUrl, type Locale } from "@expertcont/i18n";
+
+const locale: Locale = "en";
+const kind = "dataProtection" as const;
+const path = sectionUrl("dataProtection", locale);
+const siblings: Record<Locale, string> = {
+  ro: sectionUrl("dataProtection", "ro"),
+  ru: sectionUrl("dataProtection", "ru"),
+  en: sectionUrl("dataProtection", "en"),
+};
+---
+
+<Base
+  title="Data Protection Policy — ExpertCont"
+  description="How S.R.L. Right Consult Company (ExpertCont) processes the personal data of clients, candidates and partners: purposes, legal bases, recipients, retention and your rights under Law No. 195/2024."
+  locale={locale}
+  path={path}
+  siblings={siblings}
+>
+  <PageShell locale={locale} siblings={siblings}>
+    <LegalIsland
+      client:visible
+      locale={locale}
+      kind={kind}
+      contactHref={sectionUrl("contact", locale)}
+    />
+  </PageShell>
+</Base>

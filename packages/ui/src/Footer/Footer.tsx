@@ -180,6 +180,13 @@ export function Footer({
                 </a>
               </li>
               <li>
+                <a href={sectionUrl("dataProtection", locale)}>
+                  <Trans comment="Footer link to the company-wide personal data processing policy (not the website privacy notice).">
+                    Data protection
+                  </Trans>
+                </a>
+              </li>
+              <li>
                 <a href={sectionUrl("terms", locale)}>
                   <Trans>Terms</Trans>
                 </a>
