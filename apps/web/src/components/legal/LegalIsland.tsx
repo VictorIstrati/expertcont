@@ -67,7 +67,7 @@ const content: ContentMap = {
     privacy: {
       title: "Politica de confidențialitate",
       lastUpdated: "Ultima actualizare",
-      updated: "11 octombrie 2026",
+      updated: "24 octombrie 2026",
       sections: [
         {
           h: "1. Cine suntem",
@@ -79,15 +79,15 @@ const content: ContentMap = {
         },
         {
           h: "3. Scopuri și temei legal",
-          t: "(a) Să răspundem la solicitări și să pregătim o ofertă, la cererea ta, înainte de încheierea unui contract. (b) Executarea contractului de servicii contabile, juridice și de consultanță. (c) Îndeplinirea obligațiilor legale: evidență contabilă, raportare fiscală, audit. (d) Trimiterea newsletterului, doar cu consimțământul tău, pe care îl poți retrage oricând. (e) Analiza utilizării site-ului și înregistrarea sesiunilor, doar cu consimțământul dat în bannerul de cookie-uri. (f) Securitatea site-ului și prevenirea abuzurilor, în baza interesului nostru legitim.",
+          t: "(a) Să răspundem la solicitări și să pregătim o ofertă, la cererea ta, înainte de încheierea unui contract. (b) Executarea contractului de servicii contabile, juridice și de consultanță. (c) Îndeplinirea obligațiilor legale: evidență contabilă, raportare fiscală, audit. (d) Trimiterea newsletterului, doar cu consimțământul tău, pe care îl poți retrage oricând. (e) Analiza utilizării site-ului, doar cu consimțământul dat în bannerul de cookie-uri. (f) Securitatea site-ului și prevenirea abuzurilor, în baza interesului nostru legitim.",
         },
         {
           h: "4. Cui transmitem datele",
-          t: "Lucrăm cu furnizori care prelucrează datele în numele nostru, doar pentru scopurile de mai sus: Supabase (baza de date și formularele site-ului), Cloudflare (găzduirea site-ului), Zoho Cliq (notificări interne către echipă despre solicitările noi), Google (Google Analytics și Google Tag Manager, doar cu acordul tău), Microsoft (Clarity, doar cu acordul tău) și CARTO (harta de pe pagina de contact, care primește adresa IP a vizitatorului pentru a afișa harta). Microsoft primește datele din Clarity ca operator independent: le folosește și în scopuri proprii, inclusiv pentru Microsoft Advertising. Detalii în declarația de confidențialitate Microsoft: privacy.microsoft.com/privacystatement. Nu vindem datele și nu le transmitem în scopuri comerciale. Le putem transmite autorităților doar atunci când legea o cere.",
+          t: "Lucrăm cu furnizori care prelucrează datele în numele nostru, doar pentru scopurile de mai sus: Supabase (baza de date și formularele site-ului), Cloudflare (găzduirea site-ului), Zoho Cliq (notificări interne către echipă despre solicitările noi), Google (Google Analytics și Google Tag Manager, doar cu acordul tău) și CARTO (harta de pe pagina de contact, care primește adresa IP a vizitatorului pentru a afișa harta). Nu vindem datele și nu le transmitem în scopuri comerciale. Le putem transmite autorităților doar atunci când legea o cere.",
         },
         {
           h: "5. Transferuri în afara Republicii Moldova și a UE",
-          t: "Unii furnizori (Google, Microsoft, Cloudflare) pot prelucra date în afara Republicii Moldova și a Uniunii Europene, inclusiv în SUA. În aceste cazuri ne bazăm pe garanțiile oferite de furnizori, precum clauzele contractuale standard aprobate de Comisia Europeană sau certificarea EU-U.S. Data Privacy Framework. Pentru Microsoft Clarity, transferul în SUA are loc doar cu acordul tău explicit din bannerul de cookie-uri, dat după ce ai fost informat că în SUA datele pot fi mai puțin protejate decât în UE, inclusiv față de accesul autorităților (art. 49 alin. (1) lit. a) din Legea nr. 195/2024 și din GDPR). Baza de date Supabase este găzduită în Frankfurt, Germania (Uniunea Europeană), iar notificările Zoho Cliq sunt găzduite în centrele de date Zoho din Uniunea Europeană.",
+          t: "Unii furnizori (Google, Cloudflare) pot prelucra date în afara Republicii Moldova și a Uniunii Europene, inclusiv în SUA. În aceste cazuri ne bazăm pe garanțiile oferite de furnizori, precum clauzele contractuale standard aprobate de Comisia Europeană sau certificarea EU-U.S. Data Privacy Framework. Baza de date Supabase este găzduită în Frankfurt, Germania (Uniunea Europeană), iar notificările Zoho Cliq sunt găzduite în centrele de date Zoho din Uniunea Europeană.",
         },
         {
           h: "6. Stocare și securitate",
@@ -95,7 +95,7 @@ const content: ContentMap = {
         },
         {
           h: "7. Cât timp păstrăm datele",
-          t: "Solicitările trimise prin site care nu devin contract: 12 luni de la ultimul contact. Datele clienților și documentele contabile: pe durata contractului și 10 ani după încheierea lui, conform legislației contabile și fiscale din Republica Moldova. Recenziile nepublicate: 12 luni; recenziile publicate: până când ne ceri să le retragem. Abonații la newsletter: până la dezabonare, iar adresele dezabonate se șterg după 30 de zile. Ștergerea solicitărilor expirate se face automat, zilnic. Datele de analiză: cel mult 14 luni în Google Analytics și 13 luni în Microsoft Clarity. La expirarea termenului, datele sunt șterse în siguranță.",
+          t: "Solicitările trimise prin site care nu devin contract: 12 luni de la ultimul contact. Datele clienților și documentele contabile: pe durata contractului și 10 ani după încheierea lui, conform legislației contabile și fiscale din Republica Moldova. Recenziile nepublicate: 12 luni; recenziile publicate: până când ne ceri să le retragem. Abonații la newsletter: până la dezabonare, iar adresele dezabonate se șterg după 30 de zile. Ștergerea solicitărilor expirate se face automat, zilnic. Datele de analiză: cel mult 14 luni în Google Analytics. La expirarea termenului, datele sunt șterse în siguranță.",
         },
         {
           h: "8. Drepturile tale",
@@ -118,7 +118,7 @@ const content: ContentMap = {
     cookies: {
       title: "Politica de cookie-uri",
       lastUpdated: "Ultima actualizare",
-      updated: "11 octombrie 2026",
+      updated: "24 octombrie 2026",
       sections: [
         {
           h: "1. Ce sunt cookie-urile",
@@ -133,20 +133,16 @@ const content: ContentMap = {
           t: "Google Analytics 4, furnizat de Google, numără vizitele și paginile vizualizate. Cookie-uri: _ga și _ga_<ID>, fiecare valabil până la 2 ani. Se activează doar dacă accepți categoria „Analiză”.",
         },
         {
-          h: "4. Înregistrarea sesiunii (doar cu acordul tău)",
-          t: "Microsoft Clarity arată cum este folosit site-ul (clicuri, derulare, hărți termice) prin înregistrări ale sesiunii. Nu rulează pe paginile cu formulare (contact și întrebări frecvente), iar textul introdus în toate formularele din ferestrele pop-up este mascat. Microsoft primește datele ca operator independent, le transferă în SUA, unde protecția poate fi mai slabă decât în UE, și le folosește și pentru Microsoft Advertising; detalii la privacy.microsoft.com/privacystatement. Cookie-uri: _clck (1 an) și _clsk (1 zi). Se activează doar dacă accepți categoria „Înregistrarea sesiunii”.",
-        },
-        {
-          h: "5. Marketing (doar cu acordul tău)",
+          h: "4. Marketing (doar cu acordul tău)",
           t: "Google Tag Manager, furnizat de Google, încarcă instrumente de marketing. Momentan nu afișăm reclame și nu folosim cookie-uri de publicitate. Dacă vom adăuga astfel de instrumente, vom actualiza această politică și îți vom cere din nou acordul. Se activează doar dacă accepți categoria „Marketing”.",
         },
         {
-          h: "6. Conținut de la terți",
+          h: "5. Conținut de la terți",
           t: "Harta de pe pagina de contact folosește imagini de hartă de la CARTO, pe baza datelor OpenStreetMap. Harta se încarcă doar după ce apeși „Afișează harta”; abia atunci browserul tău trimite adresa IP către CARTO.",
         },
         {
-          h: "7. Cum îți gestionezi alegerea",
-          t: "La prima vizită îți cerem acordul prin banner, unde poți accepta tot, refuza tot sau alege pe categorii. Îți poți schimba alegerea oricând cu butonul „Schimbă setările cookie” de mai jos; același panou se deschide și din butonul „Setări cookie-uri” din subsolul fiecărei pagini. Dacă îți retragi acordul, ștergem cookie-urile de analiză și de înregistrare setate de site. Îți cerem din nou acordul după 12 luni sau atunci când schimbăm instrumentele folosite. Retragerea acordului nu afectează legalitatea prelucrării anterioare.",
+          h: "6. Cum îți gestionezi alegerea",
+          t: "La prima vizită îți cerem acordul prin banner, unde poți accepta tot, refuza tot sau alege pe categorii. Îți poți schimba alegerea oricând cu butonul „Schimbă setările cookie” de mai jos; același panou se deschide și din butonul „Setări cookie-uri” din subsolul fiecărei pagini. Dacă îți retragi acordul, ștergem cookie-urile de analiză setate de site. Îți cerem din nou acordul după 12 luni sau atunci când schimbăm instrumentele folosite. Retragerea acordului nu afectează legalitatea prelucrării anterioare.",
         },
       ],
       questionsTitle: "Ai întrebări despre cookie-uri?",
@@ -194,7 +190,7 @@ const content: ContentMap = {
     privacy: {
       title: "Политика конфиденциальности",
       lastUpdated: "Последнее обновление",
-      updated: "11 октября 2026",
+      updated: "24 октября 2026",
       sections: [
         {
           h: "1. Кто мы",
@@ -206,15 +202,15 @@ const content: ContentMap = {
         },
         {
           h: "3. Цели и правовые основания",
-          t: "(а) Ответ на ваш запрос и подготовка предложения — по вашей просьбе, до заключения договора. (б) Исполнение договора на бухгалтерские, юридические и консалтинговые услуги. (в) Выполнение требований закона: бухгалтерский учёт, налоговая отчётность, аудит. (г) Рассылка — только с вашего согласия, которое можно отозвать в любой момент. (д) Аналитика использования сайта и запись сессий — только с согласия, данного в баннере cookie. (е) Безопасность сайта и защита от злоупотреблений — на основании нашего законного интереса.",
+          t: "(а) Ответ на ваш запрос и подготовка предложения — по вашей просьбе, до заключения договора. (б) Исполнение договора на бухгалтерские, юридические и консалтинговые услуги. (в) Выполнение требований закона: бухгалтерский учёт, налоговая отчётность, аудит. (г) Рассылка — только с вашего согласия, которое можно отозвать в любой момент. (д) Аналитика использования сайта — только с согласия, данного в баннере cookie. (е) Безопасность сайта и защита от злоупотреблений — на основании нашего законного интереса.",
         },
         {
           h: "4. Кому мы передаём данные",
-          t: "Мы работаем с поставщиками, которые обрабатывают данные от нашего имени и только для указанных целей: Supabase (база данных и формы сайта), Cloudflare (хостинг сайта), Zoho Cliq (внутренние уведомления команде о новых заявках), Google (Google Analytics и Google Tag Manager, только с вашего согласия), Microsoft (Clarity, только с вашего согласия) и CARTO (карта на странице контактов, которая получает IP-адрес посетителя, чтобы показать карту). Microsoft получает данные из Clarity как самостоятельный оператор: использует их и в собственных целях, в том числе для Microsoft Advertising. Подробнее — в заявлении о конфиденциальности Microsoft: privacy.microsoft.com/privacystatement. Мы не продаём данные и не передаём их в коммерческих целях. Мы можем передать их государственным органам только тогда, когда этого требует закон.",
+          t: "Мы работаем с поставщиками, которые обрабатывают данные от нашего имени и только для указанных целей: Supabase (база данных и формы сайта), Cloudflare (хостинг сайта), Zoho Cliq (внутренние уведомления команде о новых заявках), Google (Google Analytics и Google Tag Manager, только с вашего согласия) и CARTO (карта на странице контактов, которая получает IP-адрес посетителя, чтобы показать карту). Мы не продаём данные и не передаём их в коммерческих целях. Мы можем передать их государственным органам только тогда, когда этого требует закон.",
         },
         {
           h: "5. Передача за пределы Республики Молдова и ЕС",
-          t: "Некоторые поставщики (Google, Microsoft, Cloudflare) могут обрабатывать данные за пределами Республики Молдова и Европейского союза, в том числе в США. В таких случаях мы опираемся на гарантии поставщиков, например стандартные договорные положения, утверждённые Европейской комиссией, или сертификацию EU-U.S. Data Privacy Framework. Для Microsoft Clarity передача в США происходит только с вашего явного согласия в баннере cookie, данного после того, как вы узнали, что в США данные могут быть защищены хуже, чем в ЕС, в том числе от доступа государственных органов (ст. 49 ч. (1) п. a) Закона № 195/2024 и GDPR). База данных Supabase размещена во Франкфурте, Германия (Европейский союз), а уведомления Zoho Cliq хранятся в центрах обработки данных Zoho в Европейском союзе.",
+          t: "Некоторые поставщики (Google, Cloudflare) могут обрабатывать данные за пределами Республики Молдова и Европейского союза, в том числе в США. В таких случаях мы опираемся на гарантии поставщиков, например стандартные договорные положения, утверждённые Европейской комиссией, или сертификацию EU-U.S. Data Privacy Framework. База данных Supabase размещена во Франкфурте, Германия (Европейский союз), а уведомления Zoho Cliq хранятся в центрах обработки данных Zoho в Европейском союзе.",
         },
         {
           h: "6. Хранение и безопасность",
@@ -222,7 +218,7 @@ const content: ContentMap = {
         },
         {
           h: "7. Сколько мы храним данные",
-          t: "Заявки с сайта, которые не привели к договору: 12 месяцев с момента последнего контакта. Данные клиентов и бухгалтерские документы: в течение срока договора и 10 лет после его окончания, как требует бухгалтерское и налоговое законодательство Республики Молдова. Неопубликованные отзывы: 12 месяцев; опубликованные отзывы: пока вы не попросите их снять. Подписчики рассылки: до отписки, а адреса отписавшихся удаляются через 30 дней. Удаление просроченных заявок происходит автоматически, ежедневно. Данные аналитики: не более 14 месяцев в Google Analytics и 13 месяцев в Microsoft Clarity. По истечении срока данные надёжно удаляются.",
+          t: "Заявки с сайта, которые не привели к договору: 12 месяцев с момента последнего контакта. Данные клиентов и бухгалтерские документы: в течение срока договора и 10 лет после его окончания, как требует бухгалтерское и налоговое законодательство Республики Молдова. Неопубликованные отзывы: 12 месяцев; опубликованные отзывы: пока вы не попросите их снять. Подписчики рассылки: до отписки, а адреса отписавшихся удаляются через 30 дней. Удаление просроченных заявок происходит автоматически, ежедневно. Данные аналитики: не более 14 месяцев в Google Analytics. По истечении срока данные надёжно удаляются.",
         },
         {
           h: "8. Ваши права",
@@ -245,7 +241,7 @@ const content: ContentMap = {
     cookies: {
       title: "Политика использования cookie",
       lastUpdated: "Последнее обновление",
-      updated: "11 октября 2026",
+      updated: "24 октября 2026",
       sections: [
         {
           h: "1. Что такое cookie",
@@ -260,20 +256,16 @@ const content: ContentMap = {
           t: "Google Analytics 4 от Google считает посещения и просмотренные страницы. Cookie: _ga и _ga_<ID>, каждый действует до 2 лет. Включается, только если вы разрешили категорию «Аналитика».",
         },
         {
-          h: "4. Запись сессий (только с вашего согласия)",
-          t: "Microsoft Clarity показывает, как используется сайт (клики, прокрутка, тепловые карты), с помощью записи сессий. Он не работает на страницах с формами (контакты и частые вопросы), а текст, введённый в формах во всплывающих окнах, скрыт. Microsoft получает данные как самостоятельный оператор, передаёт их в США, где защита может быть слабее, чем в ЕС, и использует их также для Microsoft Advertising; подробнее — privacy.microsoft.com/privacystatement. Cookie: _clck (1 год) и _clsk (1 день). Включается, только если вы разрешили категорию «Запись сессий».",
-        },
-        {
-          h: "5. Маркетинг (только с вашего согласия)",
+          h: "4. Маркетинг (только с вашего согласия)",
           t: "Google Tag Manager от Google загружает маркетинговые инструменты. Сейчас мы не показываем рекламу и не используем рекламные cookie. Если мы добавим такие инструменты, мы обновим эту политику и снова попросим вашего согласия. Включается, только если вы разрешили категорию «Маркетинг».",
         },
         {
-          h: "6. Содержимое третьих сторон",
+          h: "5. Содержимое третьих сторон",
           t: "Карта на странице контактов использует изображения карт от CARTO на основе данных OpenStreetMap. Карта загружается только после нажатия «Показать карту»; только тогда ваш браузер передаёт CARTO свой IP-адрес.",
         },
         {
-          h: "7. Как управлять своим выбором",
-          t: "При первом посещении мы спрашиваем согласие в баннере: можно принять всё, отказаться от всего или выбрать по категориям. Изменить выбор можно в любой момент кнопкой «Изменить настройки cookie» ниже; те же настройки открывает кнопка «Настройки cookie» внизу каждой страницы. Если вы отзываете согласие, мы удаляем cookie аналитики и записи сессий, установленные сайтом. Мы снова спросим согласие через 12 месяцев или когда изменим используемые инструменты. Отзыв согласия не влияет на законность обработки до отзыва.",
+          h: "6. Как управлять своим выбором",
+          t: "При первом посещении мы спрашиваем согласие в баннере: можно принять всё, отказаться от всего или выбрать по категориям. Изменить выбор можно в любой момент кнопкой «Изменить настройки cookie» ниже; те же настройки открывает кнопка «Настройки cookie» внизу каждой страницы. Если вы отзываете согласие, мы удаляем cookie аналитики, установленные сайтом. Мы снова спросим согласие через 12 месяцев или когда изменим используемые инструменты. Отзыв согласия не влияет на законность обработки до отзыва.",
         },
       ],
       questionsTitle: "Вопросы о cookie-файлах?",
@@ -321,7 +313,7 @@ const content: ContentMap = {
     privacy: {
       title: "Privacy Policy",
       lastUpdated: "Last updated",
-      updated: "October 11, 2026",
+      updated: "October 24, 2026",
       sections: [
         {
           h: "1. Who we are",
@@ -333,15 +325,15 @@ const content: ContentMap = {
         },
         {
           h: "3. Purposes and legal basis",
-          t: "(a) Replying to your request and preparing an offer, at your request, before any contract. (b) Performing our contract for accounting, legal and consulting services. (c) Meeting legal obligations: bookkeeping, tax reporting, audit. (d) Sending the newsletter, only with your consent, which you can withdraw at any time. (e) Analysing how the site is used and recording sessions, only with the consent you give in the cookie banner. (f) Keeping the site secure and preventing abuse, based on our legitimate interest.",
+          t: "(a) Replying to your request and preparing an offer, at your request, before any contract. (b) Performing our contract for accounting, legal and consulting services. (c) Meeting legal obligations: bookkeeping, tax reporting, audit. (d) Sending the newsletter, only with your consent, which you can withdraw at any time. (e) Analysing how the site is used, only with the consent you give in the cookie banner. (f) Keeping the site secure and preventing abuse, based on our legitimate interest.",
         },
         {
           h: "4. Who we share data with",
-          t: "We work with providers who process data on our behalf, only for the purposes above: Supabase (database and site forms), Cloudflare (site hosting), Zoho Cliq (internal notifications to our team about new requests), Google (Google Analytics and Google Tag Manager, only with your consent), Microsoft (Clarity, only with your consent) and CARTO (the map on the contact page, which receives the visitor's IP address to show the map). Microsoft receives Clarity data as an independent controller: it also uses it for its own purposes, including Microsoft Advertising. See the Microsoft Privacy Statement: privacy.microsoft.com/privacystatement. We don't sell data or share it for commercial purposes. We may share it with authorities only when the law requires it.",
+          t: "We work with providers who process data on our behalf, only for the purposes above: Supabase (database and site forms), Cloudflare (site hosting), Zoho Cliq (internal notifications to our team about new requests), Google (Google Analytics and Google Tag Manager, only with your consent) and CARTO (the map on the contact page, which receives the visitor's IP address to show the map). We don't sell data or share it for commercial purposes. We may share it with authorities only when the law requires it.",
         },
         {
           h: "5. Transfers outside Moldova and the EU",
-          t: "Some providers (Google, Microsoft, Cloudflare) may process data outside the Republic of Moldova and the European Union, including in the United States. In these cases we rely on the providers' safeguards, such as the European Commission's standard contractual clauses or EU-U.S. Data Privacy Framework certification. For Microsoft Clarity, the transfer to the US happens only with your explicit consent in the cookie banner, given after being told that data in the US may be less protected than in the EU, including against access by authorities (Art. 49(1)(a) of Law No. 195/2024 and of the GDPR). The Supabase database is hosted in Frankfurt, Germany (European Union), and Zoho Cliq notifications are hosted in Zoho's European Union data centres.",
+          t: "Some providers (Google, Cloudflare) may process data outside the Republic of Moldova and the European Union, including in the United States. In these cases we rely on the providers' safeguards, such as the European Commission's standard contractual clauses or EU-U.S. Data Privacy Framework certification. The Supabase database is hosted in Frankfurt, Germany (European Union), and Zoho Cliq notifications are hosted in Zoho's European Union data centres.",
         },
         {
           h: "6. Storage and security",
@@ -349,7 +341,7 @@ const content: ContentMap = {
         },
         {
           h: "7. How long we keep data",
-          t: "Requests sent through the site that don't lead to a contract: 12 months from the last contact. Client data and accounting documents: for the duration of the contract and 10 years after it ends, as Moldovan accounting and tax law requires. Unpublished reviews: 12 months; published reviews: until you ask us to remove them. Newsletter subscribers: until they unsubscribe, and unsubscribed addresses are deleted after 30 days. Expired requests are deleted automatically every day. Analytics data: at most 14 months in Google Analytics and 13 months in Microsoft Clarity. When the period ends, data is securely deleted.",
+          t: "Requests sent through the site that don't lead to a contract: 12 months from the last contact. Client data and accounting documents: for the duration of the contract and 10 years after it ends, as Moldovan accounting and tax law requires. Unpublished reviews: 12 months; published reviews: until you ask us to remove them. Newsletter subscribers: until they unsubscribe, and unsubscribed addresses are deleted after 30 days. Expired requests are deleted automatically every day. Analytics data: at most 14 months in Google Analytics. When the period ends, data is securely deleted.",
         },
         {
           h: "8. Your rights",
@@ -372,7 +364,7 @@ const content: ContentMap = {
     cookies: {
       title: "Cookie Policy",
       lastUpdated: "Last updated",
-      updated: "October 11, 2026",
+      updated: "October 24, 2026",
       sections: [
         {
           h: "1. What cookies are",
@@ -387,20 +379,16 @@ const content: ContentMap = {
           t: "Google Analytics 4, provided by Google, counts visits and pages viewed. Cookies: _ga and _ga_<ID>, each valid for up to 2 years. Turned on only if you allow the “Analytics” category.",
         },
         {
-          h: "4. Session recording (only with your consent)",
-          t: "Microsoft Clarity shows how the site is used (clicks, scrolling, heatmaps) through session recordings. It doesn't run on pages with forms (contact and FAQ), and text typed into any pop-up form is masked. Microsoft receives the data as an independent controller, transfers it to the US, where protection may be weaker than in the EU, and also uses it for Microsoft Advertising; see privacy.microsoft.com/privacystatement. Cookies: _clck (1 year) and _clsk (1 day). Turned on only if you allow the “Session recording” category.",
-        },
-        {
-          h: "5. Marketing (only with your consent)",
+          h: "4. Marketing (only with your consent)",
           t: "Google Tag Manager, provided by Google, loads marketing tools. We don't currently show ads or use advertising cookies. If we add such tools, we'll update this policy and ask for your consent again. Turned on only if you allow the “Marketing” category.",
         },
         {
-          h: "6. Third-party content",
+          h: "5. Third-party content",
           t: "The map on the contact page uses map images from CARTO, based on OpenStreetMap data. The map loads only after you press “Show map”; only then does your browser send its IP address to CARTO.",
         },
         {
-          h: "7. Managing your choice",
-          t: "On your first visit we ask for consent in the banner, where you can accept everything, refuse everything or choose by category. You can change your choice at any time with the “Change cookie settings” button below; the “Cookie settings” button at the bottom of every page opens the same panel. If you withdraw consent, we delete the analytics and session-recording cookies the site set. We ask again after 12 months or when we change the tools we use. Withdrawing consent doesn't affect the lawfulness of earlier processing.",
+          h: "6. Managing your choice",
+          t: "On your first visit we ask for consent in the banner, where you can accept everything, refuse everything or choose by category. You can change your choice at any time with the “Change cookie settings” button below; the “Cookie settings” button at the bottom of every page opens the same panel. If you withdraw consent, we delete the analytics cookies the site set. We ask again after 12 months or when we change the tools we use. Withdrawing consent doesn't affect the lawfulness of earlier processing.",
         },
       ],
       questionsTitle: "Questions About Cookies?",

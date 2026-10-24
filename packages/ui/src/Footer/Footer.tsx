@@ -75,7 +75,6 @@ export function Footer({
             <form
               className={styles.newsletterForm}
               onSubmit={handleSubmit}
-              data-clarity-mask="true"
             >
               <input
                 type="email"

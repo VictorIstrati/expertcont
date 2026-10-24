@@ -8,7 +8,6 @@ import {
   FULL_CONSENT,
   NO_CONSENT,
   clearTrackingCookies,
-  initClarity,
   loadAnalytics,
   readConsent,
   storeConsent,
@@ -37,7 +36,7 @@ interface PreferenceCopy {
 const PREFERENCES: Record<Locale, PreferenceCopy> = {
   ro: {
     intro:
-      "Folosim cookie-uri necesare pentru funcționarea site-ului și, doar cu acordul tău, Google Analytics (statistici de vizitare), Microsoft Clarity (înregistrarea sesiunii) și Google Tag Manager (marketing). Dacă accepți Clarity, Microsoft primește datele ca operator independent, le transferă în SUA, unde protecția poate fi mai slabă decât în UE, și le folosește și pentru Microsoft Advertising. Poți alege pe categorii în preferințe.",
+      "Folosim cookie-uri necesare pentru funcționarea site-ului și, doar cu acordul tău, Google Analytics (statistici de vizitare) și Google Tag Manager (marketing). Poți alege pe categorii în preferințe.",
     title: "Preferințe cookie",
     necessary: "Necesare",
     necessaryText:
@@ -48,10 +47,6 @@ const PREFERENCES: Record<Locale, PreferenceCopy> = {
         label: "Analiză",
         text: "Google Analytics: câte persoane vizitează site-ul și ce pagini sunt citite.",
       },
-      recording: {
-        label: "Înregistrarea sesiunii",
-        text: "Microsoft Clarity: cum este folosit site-ul (clicuri, derulare), fără paginile cu formulare. Microsoft primește datele ca operator independent, le transferă în SUA, unde protecția poate fi mai slabă decât în UE, și le folosește și pentru Microsoft Advertising. Bifând, îți dai acordul explicit pentru acest transfer.",
-      },
       marketing: {
         label: "Marketing",
         text: "Google Tag Manager, pentru instrumente de marketing. Momentan nu afișăm reclame.",
@@ -61,7 +56,7 @@ const PREFERENCES: Record<Locale, PreferenceCopy> = {
   },
   ru: {
     intro:
-      "Мы используем необходимые cookie для работы сайта и, только с вашего согласия, Google Analytics (статистика посещений), Microsoft Clarity (запись сессий) и Google Tag Manager (маркетинг). Если вы разрешите Clarity, Microsoft получит данные как самостоятельный оператор, передаст их в США, где защита может быть слабее, чем в ЕС, и будет использовать их также для Microsoft Advertising. Выбрать по категориям можно в настройках.",
+      "Мы используем необходимые cookie для работы сайта и, только с вашего согласия, Google Analytics (статистика посещений) и Google Tag Manager (маркетинг). Выбрать по категориям можно в настройках.",
     title: "Настройки cookie",
     necessary: "Необходимые",
     necessaryText:
@@ -72,10 +67,6 @@ const PREFERENCES: Record<Locale, PreferenceCopy> = {
         label: "Аналитика",
         text: "Google Analytics: сколько людей посещают сайт и какие страницы читают.",
       },
-      recording: {
-        label: "Запись сессий",
-        text: "Microsoft Clarity: как используется сайт (клики, прокрутка), кроме страниц с формами. Microsoft получает данные как самостоятельный оператор, передаёт их в США, где защита может быть слабее, чем в ЕС, и использует их также для Microsoft Advertising. Отмечая этот пункт, вы даёте явное согласие на такую передачу.",
-      },
       marketing: {
         label: "Маркетинг",
         text: "Google Tag Manager для маркетинговых инструментов. Сейчас мы не показываем рекламу.",
@@ -85,7 +76,7 @@ const PREFERENCES: Record<Locale, PreferenceCopy> = {
   },
   en: {
     intro:
-      "We use necessary cookies to run the site and, only with your consent, Google Analytics (visit statistics), Microsoft Clarity (session recording) and Google Tag Manager (marketing). If you allow Clarity, Microsoft receives the data as an independent controller, transfers it to the US, where protection may be weaker than in the EU, and also uses it for Microsoft Advertising. You can choose by category under preferences.",
+      "We use necessary cookies to run the site and, only with your consent, Google Analytics (visit statistics) and Google Tag Manager (marketing). You can choose by category under preferences.",
     title: "Cookie preferences",
     necessary: "Necessary",
     necessaryText:
@@ -96,10 +87,6 @@ const PREFERENCES: Record<Locale, PreferenceCopy> = {
         label: "Analytics",
         text: "Google Analytics: how many people visit the site and which pages they read.",
       },
-      recording: {
-        label: "Session recording",
-        text: "Microsoft Clarity: how the site is used (clicks, scrolling), excluding pages with forms. Microsoft receives the data as an independent controller, transfers it to the US, where protection may be weaker than in the EU, and also uses it for Microsoft Advertising. Ticking this gives your explicit consent to that transfer.",
-      },
       marketing: {
         label: "Marketing",
         text: "Google Tag Manager, for marketing tools. We don't currently show ads.",
@@ -109,7 +96,7 @@ const PREFERENCES: Record<Locale, PreferenceCopy> = {
   },
 };
 
-const PURPOSES: Purpose[] = ["analytics", "recording", "marketing"];
+const PURPOSES: Purpose[] = ["analytics", "marketing"];
 
 interface PreferenceRowProps {
   id: string;
@@ -156,7 +143,6 @@ function BannerContent({ locale, policyHref }: Props) {
     const stored = readConsent();
     if (stored) {
       setChoices(stored);
-      if (stored.recording) void initClarity();
     }
     const requested = window.expertcontCookieSettingsRequested === true;
     setShowPreferences(requested);
@@ -186,7 +172,6 @@ function BannerContent({ locale, policyHref }: Props) {
       return;
     }
     loadAnalytics(next);
-    if (next.recording) void initClarity();
     setChoices(next);
     setShowPreferences(false);
     setOpen(false);

@@ -6,7 +6,7 @@
  * inline bootstrap in Base.astro before GTM loads.
  */
 
-import { sectionUrl, type Locale } from "@expertcont/i18n";
+import type { Locale } from "@expertcont/i18n";
 
 declare global {
   interface Window {
@@ -90,7 +90,6 @@ export interface AnalyticsConfig {
 
 export interface ConsentChoices {
   analytics: boolean;
-  recording: boolean;
   marketing: boolean;
 }
 
@@ -99,8 +98,8 @@ export interface ConsentRecord extends ConsentChoices {
   date: string;
 }
 
-export const NO_CONSENT: ConsentChoices = { analytics: false, recording: false, marketing: false };
-export const FULL_CONSENT: ConsentChoices = { analytics: true, recording: true, marketing: true };
+export const NO_CONSENT: ConsentChoices = { analytics: false, marketing: false };
+export const FULL_CONSENT: ConsentChoices = { analytics: true, marketing: true };
 
 export function readConsent(): ConsentRecord | null {
   if (typeof window === "undefined") return null;
@@ -115,7 +114,6 @@ export function readConsent(): ConsentRecord | null {
       version: record.version,
       date: record.date,
       analytics: record.analytics === true,
-      recording: record.recording === true,
       marketing: record.marketing === true,
     };
   } catch {
@@ -159,7 +157,7 @@ export function openCookieSettings(): void {
   window.dispatchEvent(new Event(COOKIE_SETTINGS_EVENT));
 }
 
-const TRACKING_COOKIE = /^(_ga|_gid|_gat|_gcl|_clck|_clsk)/;
+const TRACKING_COOKIE = /^(_ga|_gid|_gat|_gcl)/;
 
 export function clearTrackingCookies(): void {
   if (typeof document === "undefined") return;
@@ -172,33 +170,4 @@ export function clearTrackingCookies(): void {
       document.cookie = `${name}=; Max-Age=0; path=/${domain ? `; domain=${domain}` : ""}`;
     }
   }
-}
-
-// ---- Microsoft Clarity --------------------------------------------------------
-
-/**
- * Lazily initialize Microsoft Clarity. Safe to call multiple times — Clarity's
- * own init() is idempotent. No-ops when:
- *   - running server-side
- *   - PUBLIC_CLARITY_PROJECT_ID is not configured
- *
- * Should only be invoked once consent has been granted.
- */
-const CLARITY_EXCLUDED_SECTIONS = ["contact", "faq"] as const;
-
-function isClarityExcludedPage(pathname: string): boolean {
-  const path = pathname.replace(/\.html$/, "").replace(/\/$/, "") || "/";
-  return CLARITY_EXCLUDED_SECTIONS.some((section) =>
-    (["ro", "ru", "en"] as const).some((locale) => path === sectionUrl(section, locale)),
-  );
-}
-
-export async function initClarity(): Promise<void> {
-  if (typeof window === "undefined") return;
-  if (isClarityExcludedPage(window.location.pathname)) return;
-  const projectId = import.meta.env.PUBLIC_CLARITY_PROJECT_ID as string | undefined;
-  if (!projectId) return;
-  const Clarity = (await import("@microsoft/clarity")).default;
-  Clarity.init(projectId);
-  Clarity.consent(true);
 }
