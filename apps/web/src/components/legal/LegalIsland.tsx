@@ -98,7 +98,10 @@ const content: ContentMap = {
         {
           h: "11. Politica generală privind datele personale",
           t: "Această pagină acoperă site-ul. Cum prelucrăm datele clienților, ale persoanelor din dosare, ale candidaților și ale partenerilor, inclusiv verificările obligatorii de prevenire a spălării banilor, găsești în politica noastră generală.",
-          link: { section: "dataProtection", label: "Politica privind prelucrarea datelor cu caracter personal" },
+          link: {
+            section: "dataProtection",
+            label: "Politica privind prelucrarea datelor cu caracter personal",
+          },
         },
       ],
       questionsTitle: "Ai întrebări?",

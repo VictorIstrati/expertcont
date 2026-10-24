@@ -16,13 +16,7 @@ export interface FooterProps {
   onCookieSettings?: () => void;
 }
 
-export function Footer({
-  locale,
-  address,
-  phone,
-  email,
-  onCookieSettings,
-}: FooterProps) {
+export function Footer({ locale, address, phone, email, onCookieSettings }: FooterProps) {
   const year = new Date().getFullYear();
 
   return (
