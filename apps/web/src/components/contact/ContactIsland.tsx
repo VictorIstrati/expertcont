@@ -6,7 +6,6 @@ import type { Locale } from "@expertcont/i18n";
 import { openModal } from "../../lib/modalBus";
 import { backendClient, detectLanguage } from "../../lib/backend";
 import { track } from "../../lib/analytics";
-import { OfficeMap } from "./OfficeMap";
 import { PrivacyNotice } from "../PrivacyNotice";
 
 export interface ContactIslandProps {
@@ -333,19 +332,6 @@ function ContactInner({ locale, address, phone, email, hours, geo }: ContactIsla
                   <Trans>Disponibil acum</Trans>
                 </div>
               </div>
-
-              <OfficeMap
-                latitude={geo.latitude}
-                longitude={geo.longitude}
-                address={address}
-                label={t`Biroul ExpertCont`}
-                loadLabel={t`Afișează harta`}
-                loadNote={t({
-                  message: `Harta este furnizată de CARTO, care primește adresa ta IP la încărcare.`,
-                  comment:
-                    "Note under the 'Show map' button on the contact page. Explains that loading the map sends the visitor's IP address to the map provider CARTO.",
-                })}
-              />
 
               <div className="card p-8 bg-primary dark:bg-primary-deep text-white relative overflow-hidden">
                 <div className="absolute -top-8 -right-8 w-32 h-32 border border-[rgba(223,183,65,0.3)] rounded-full" />

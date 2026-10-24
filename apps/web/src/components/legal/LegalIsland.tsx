@@ -69,7 +69,7 @@ const content: ContentMap = {
         },
         {
           h: "4. Cui transmitem datele",
-          t: "Lucrăm cu furnizori care prelucrează datele în numele nostru, doar pentru scopurile de mai sus: Supabase (baza de date și formularele site-ului), Cloudflare (găzduirea site-ului), Zoho Cliq (notificări interne către echipă despre solicitările noi), Google (Google Analytics și Google Tag Manager, doar cu acordul tău) și CARTO (harta de pe pagina de contact, care primește adresa IP a vizitatorului pentru a afișa harta). Nu vindem datele și nu le transmitem în scopuri comerciale. Le putem transmite autorităților doar atunci când legea o cere.",
+          t: "Lucrăm cu furnizori care prelucrează datele în numele nostru, doar pentru scopurile de mai sus: Supabase (baza de date și formularele site-ului), Cloudflare (găzduirea site-ului), Zoho Cliq (notificări interne către echipă despre solicitările noi) și Google (Google Analytics și Google Tag Manager, doar cu acordul tău). Nu vindem datele și nu le transmitem în scopuri comerciale. Le putem transmite autorităților doar atunci când legea o cere.",
         },
         {
           h: "5. Transferuri în afara Republicii Moldova și a UE",
@@ -131,11 +131,7 @@ const content: ContentMap = {
           t: "Google Tag Manager, furnizat de Google, încarcă instrumente de marketing. Momentan nu afișăm reclame și nu folosim cookie-uri de publicitate. Dacă vom adăuga astfel de instrumente, vom actualiza această politică și îți vom cere din nou acordul. Se activează doar dacă accepți categoria „Marketing”.",
         },
         {
-          h: "5. Conținut de la terți",
-          t: "Harta de pe pagina de contact folosește imagini de hartă de la CARTO, pe baza datelor OpenStreetMap. Harta se încarcă doar după ce apeși „Afișează harta”; abia atunci browserul tău trimite adresa IP către CARTO.",
-        },
-        {
-          h: "6. Cum îți gestionezi alegerea",
+          h: "5. Cum îți gestionezi alegerea",
           t: "La prima vizită îți cerem acordul prin banner, unde poți accepta tot, refuza tot sau alege pe categorii. Îți poți schimba alegerea oricând cu butonul „Schimbă setările cookie” de mai jos; același panou se deschide și din butonul „Setări cookie-uri” din subsolul fiecărei pagini. Dacă îți retragi acordul, ștergem cookie-urile de analiză setate de site. Îți cerem din nou acordul după 12 luni sau atunci când schimbăm instrumentele folosite. Retragerea acordului nu afectează legalitatea prelucrării anterioare.",
         },
       ],
@@ -200,7 +196,7 @@ const content: ContentMap = {
         },
         {
           h: "4. Кому мы передаём данные",
-          t: "Мы работаем с поставщиками, которые обрабатывают данные от нашего имени и только для указанных целей: Supabase (база данных и формы сайта), Cloudflare (хостинг сайта), Zoho Cliq (внутренние уведомления команде о новых заявках), Google (Google Analytics и Google Tag Manager, только с вашего согласия) и CARTO (карта на странице контактов, которая получает IP-адрес посетителя, чтобы показать карту). Мы не продаём данные и не передаём их в коммерческих целях. Мы можем передать их государственным органам только тогда, когда этого требует закон.",
+          t: "Мы работаем с поставщиками, которые обрабатывают данные от нашего имени и только для указанных целей: Supabase (база данных и формы сайта), Cloudflare (хостинг сайта), Zoho Cliq (внутренние уведомления команде о новых заявках) и Google (Google Analytics и Google Tag Manager, только с вашего согласия). Мы не продаём данные и не передаём их в коммерческих целях. Мы можем передать их государственным органам только тогда, когда этого требует закон.",
         },
         {
           h: "5. Передача за пределы Республики Молдова и ЕС",
@@ -259,11 +255,7 @@ const content: ContentMap = {
           t: "Google Tag Manager от Google загружает маркетинговые инструменты. Сейчас мы не показываем рекламу и не используем рекламные cookie. Если мы добавим такие инструменты, мы обновим эту политику и снова попросим вашего согласия. Включается, только если вы разрешили категорию «Маркетинг».",
         },
         {
-          h: "5. Содержимое третьих сторон",
-          t: "Карта на странице контактов использует изображения карт от CARTO на основе данных OpenStreetMap. Карта загружается только после нажатия «Показать карту»; только тогда ваш браузер передаёт CARTO свой IP-адрес.",
-        },
-        {
-          h: "6. Как управлять своим выбором",
+          h: "5. Как управлять своим выбором",
           t: "При первом посещении мы спрашиваем согласие в баннере: можно принять всё, отказаться от всего или выбрать по категориям. Изменить выбор можно в любой момент кнопкой «Изменить настройки cookie» ниже; те же настройки открывает кнопка «Настройки cookie» внизу каждой страницы. Если вы отзываете согласие, мы удаляем cookie аналитики, установленные сайтом. Мы снова спросим согласие через 12 месяцев или когда изменим используемые инструменты. Отзыв согласия не влияет на законность обработки до отзыва.",
         },
       ],
@@ -328,7 +320,7 @@ const content: ContentMap = {
         },
         {
           h: "4. Who we share data with",
-          t: "We work with providers who process data on our behalf, only for the purposes above: Supabase (database and site forms), Cloudflare (site hosting), Zoho Cliq (internal notifications to our team about new requests), Google (Google Analytics and Google Tag Manager, only with your consent) and CARTO (the map on the contact page, which receives the visitor's IP address to show the map). We don't sell data or share it for commercial purposes. We may share it with authorities only when the law requires it.",
+          t: "We work with providers who process data on our behalf, only for the purposes above: Supabase (database and site forms), Cloudflare (site hosting), Zoho Cliq (internal notifications to our team about new requests) and Google (Google Analytics and Google Tag Manager, only with your consent). We don't sell data or share it for commercial purposes. We may share it with authorities only when the law requires it.",
         },
         {
           h: "5. Transfers outside Moldova and the EU",
@@ -387,11 +379,7 @@ const content: ContentMap = {
           t: "Google Tag Manager, provided by Google, loads marketing tools. We don't currently show ads or use advertising cookies. If we add such tools, we'll update this policy and ask for your consent again. Turned on only if you allow the “Marketing” category.",
         },
         {
-          h: "5. Third-party content",
-          t: "The map on the contact page uses map images from CARTO, based on OpenStreetMap data. The map loads only after you press “Show map”; only then does your browser send its IP address to CARTO.",
-        },
-        {
-          h: "6. Managing your choice",
+          h: "5. Managing your choice",
           t: "On your first visit we ask for consent in the banner, where you can accept everything, refuse everything or choose by category. You can change your choice at any time with the “Change cookie settings” button below; the “Cookie settings” button at the bottom of every page opens the same panel. If you withdraw consent, we delete the analytics cookies the site set. We ask again after 12 months or when we change the tools we use. Withdrawing consent doesn't affect the lawfulness of earlier processing.",
         },
       ],

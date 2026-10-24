@@ -50,8 +50,8 @@ business:
       ro: "Republica Moldova"
       ru: "Республика Молдова"
       en: "Republic of Moldova"
-    # Office GPS coordinates — used by the Leaflet map on the contact page
-    # and by Google Maps / Waze "Get directions" links. Approximate; verify
+    # Office GPS coordinates — used by the Google Maps / Waze "Get directions"
+    # links on the contact page. Approximate; verify
     # by right-clicking the office on https://www.google.com/maps and pasting
     # the "lat, lon" from the context menu.
     geo:
