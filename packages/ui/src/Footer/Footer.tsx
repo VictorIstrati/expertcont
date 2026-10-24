@@ -1,5 +1,4 @@
-import { useState, type FormEvent, type ReactNode } from "react";
-import { Trans, useLingui } from "@lingui/react/macro";
+import { Trans } from "@lingui/react/macro";
 import type { Locale } from "@expertcont/i18n";
 import { sectionUrl, serviceDetailUrl } from "@expertcont/i18n";
 import { Container } from "../Container";
@@ -14,14 +13,6 @@ export interface FooterProps {
   /** Display phone number with spaces, e.g. "+373 22 22 33 44". */
   phone: string;
   email: string;
-  /**
-   * Called when the user submits the newsletter form. Resolve `true` to flip
-   * the button into the success state; resolve `false` (or reject) to leave it
-   * available for another submission attempt. If omitted, the form optimistically
-   * flips to success on submit.
-   */
-  onNewsletterSubscribe?: (email: string) => boolean | Promise<boolean>;
-  newsletterNote?: ReactNode;
   onCookieSettings?: () => void;
 }
 
@@ -30,75 +21,12 @@ export function Footer({
   address,
   phone,
   email,
-  onNewsletterSubscribe,
-  newsletterNote,
   onCookieSettings,
 }: FooterProps) {
-  const { t } = useLingui();
-  const [newsletterEmail, setNewsletterEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    if (!newsletterEmail) return;
-    if (!onNewsletterSubscribe) {
-      setSubscribed(true);
-      return;
-    }
-    const ok = await onNewsletterSubscribe(newsletterEmail);
-    if (ok) setSubscribed(true);
-  };
-
   const year = new Date().getFullYear();
-
-  const newsletterPlaceholder = t({
-    message: `email@exemplu.md`,
-    comment:
-      "Placeholder shown inside the footer newsletter email input. Use a locale-appropriate example domain.",
-  });
 
   return (
     <footer className={styles.footer}>
-      {/* Newsletter strip */}
-      <div className={styles.newsletterWrap}>
-        <Container>
-          <div className={styles.newsletterRow}>
-            <div className={styles.newsletterLeft}>
-              <div className={styles.newsletterTitle}>
-                <Trans>Subscribe to our newsletter</Trans>
-              </div>
-              <div className={styles.newsletterSub}>
-                <Trans>Monthly newsletter — no spam, unsubscribe any time.</Trans>
-              </div>
-              {newsletterNote && <div className={styles.newsletterNote}>{newsletterNote}</div>}
-            </div>
-            <form
-              className={styles.newsletterForm}
-              onSubmit={handleSubmit}
-            >
-              <input
-                type="email"
-                required
-                placeholder={newsletterPlaceholder}
-                value={newsletterEmail}
-                onChange={(e) => setNewsletterEmail(e.target.value)}
-                className={styles.newsletterInput}
-                aria-label="Email"
-              />
-              <button type="submit" className={`btn btn-primary ${styles.newsletterBtn}`}>
-                {subscribed ? (
-                  <Trans>✓ Subscribed</Trans>
-                ) : (
-                  <Trans comment="Footer newsletter form submit button. Imperative verb.">
-                    Subscribe
-                  </Trans>
-                )}
-              </button>
-            </form>
-          </div>
-        </Container>
-      </div>
-
       {/* Main grid */}
       <Container>
         <div className={styles.mainGrid}>

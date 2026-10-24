@@ -25,11 +25,6 @@ export type NotifyPayload =
       summary: { id: string; name: string; rating: number; title: string; content?: string };
     }
   | {
-      kind: "newsletter";
-      language: string;
-      summary: { id: string; email: string };
-    }
-  | {
       kind: "book_a_call";
       language: string;
       summary: {
@@ -79,7 +74,6 @@ export type NotifyPayload =
 const HEADINGS: Record<NotifyPayload["kind"], string> = {
   contact: "📨 New contact message",
   review: "⭐ New review",
-  newsletter: "📰 New newsletter subscriber",
   book_a_call: "📞 New booking request",
   faq_question: "❓ New FAQ question",
   quote: "💰 New price quote",
@@ -115,8 +109,6 @@ function renderMessage(payload: NotifyPayload): string {
         (s.content ? `\n${s.content.slice(0, 3500)}` : "")
       );
     }
-    case "newsletter":
-      return head + row("Email", payload.summary.email);
     case "book_a_call": {
       const s = payload.summary;
       return (

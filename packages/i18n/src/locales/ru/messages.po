@@ -18,10 +18,6 @@ msgstr ""
 msgid "+373 ..."
 msgstr "+373 ..."
 
-#: ../ui/src/Footer/Footer.tsx
-msgid "✓ Subscribed"
-msgstr "✓ Подписаны"
-
 #: ../ui/src/Nav/Nav.tsx
 msgid "About"
 msgstr "О нас"
@@ -232,11 +228,6 @@ msgstr "Доступны сейчас"
 msgid "Email"
 msgstr "Email"
 
-#. Placeholder shown inside the footer newsletter email input. Use a locale-appropriate example domain.
-#: ../ui/src/Footer/Footer.tsx
-msgid "email@exemplu.md"
-msgstr "email@example.com"
-
 #: ../ui/src/Footer/Footer.tsx
 msgid "Experience · Efficiency · Results"
 msgstr "Опыт · Эффективность · Результат"
@@ -394,10 +385,6 @@ msgstr "Сообщение"
 #: ../../apps/web/src/components/contact/ContactIsland.tsx
 msgid "Mesaj trimis cu succes!"
 msgstr "Сообщение успешно отправлено!"
-
-#: ../ui/src/Footer/Footer.tsx
-msgid "Monthly newsletter — no spam, unsubscribe any time."
-msgstr "Ежемесячная рассылка — без спама, отписка в любое время."
 
 #: ../../apps/web/src/components/faq/FaqPageIsland.tsx
 msgid "Nu ai găsit răspunsul?"
@@ -585,15 +572,6 @@ msgstr "Тема"
 #: ../../apps/web/src/components/contact/ContactIsland.tsx
 msgid "Subiect / Serviciu"
 msgstr "Тема / Услуга"
-
-#. Footer newsletter form submit button. Imperative verb.
-#: ../ui/src/Footer/Footer.tsx
-msgid "Subscribe"
-msgstr "Подписаться"
-
-#: ../ui/src/Footer/Footer.tsx
-msgid "Subscribe to our newsletter"
-msgstr "Подпишитесь на нашу рассылку"
 
 #: ../../apps/web/src/components/faq/FaqPageIsland.tsx
 msgid "Sunt de acord cu prelucrarea datelor conform"

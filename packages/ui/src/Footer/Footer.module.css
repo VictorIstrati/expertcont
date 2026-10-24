@@ -4,67 +4,6 @@
   margin-top: 0;
 }
 
-.newsletterWrap {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.newsletterRow {
-  padding: 40px 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
-  align-items: center;
-}
-
-.newsletterTitle {
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: #fff;
-}
-
-.newsletterSub {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.65);
-  margin-top: 6px;
-}
-
-.newsletterNote {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.55);
-  margin-top: 6px;
-}
-
-.newsletterNote a {
-  color: rgba(255, 255, 255, 0.85);
-  text-decoration: underline;
-}
-
-.newsletterForm {
-  display: flex;
-  gap: 8px;
-}
-
-.newsletterInput {
-  flex: 1;
-  min-width: 0;
-  padding: 14px 16px;
-  border-radius: var(--r-pill);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.06);
-  color: #fff;
-  font-size: 14px;
-}
-
-.newsletterInput::placeholder {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.newsletterBtn {
-  flex-shrink: 0;
-  white-space: nowrap;
-}
-
 .mainGrid {
   padding: 64px 0 32px;
   display: grid;
@@ -172,23 +111,10 @@
   .brandCol {
     grid-column: 1 / -1;
   }
-
-  .newsletterRow {
-    grid-template-columns: 1fr;
-  }
 }
 
 @media (max-width: 540px) {
   .mainGrid {
     grid-template-columns: 1fr;
-  }
-
-  .newsletterForm {
-    flex-direction: column;
-  }
-
-  .newsletterBtn {
-    width: 100%;
-    justify-content: center;
   }
 }

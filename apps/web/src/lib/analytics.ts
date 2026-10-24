@@ -24,8 +24,7 @@ type FormType =
   | "booking"
   | "tier_booking"
   | "review"
-  | "faq_question"
-  | "newsletter";
+  | "faq_question";
 
 type EventMap = {
   form_submitted: {

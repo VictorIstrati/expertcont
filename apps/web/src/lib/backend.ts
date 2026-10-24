@@ -23,7 +23,6 @@ export type {
   ContactInput,
   ReviewInput,
   BookACallInput,
-  NewsletterInput,
   FaqQuestionInput,
   QuoteInput,
   QuoteItem,

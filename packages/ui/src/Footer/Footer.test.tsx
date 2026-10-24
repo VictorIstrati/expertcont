@@ -1,5 +1,5 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
+import { render, screen } from "@testing-library/react";
+import { describe, it, expect } from "vitest";
 import { I18nProvider } from "@lingui/react";
 import { i18n, type Locale } from "@expertcont/i18n";
 import { Footer, type FooterProps } from "./Footer";
@@ -41,32 +41,6 @@ describe("Footer", () => {
     expect(screen.getByText(/Mitropolit Varlaam/i)).toBeInTheDocument();
     expect(screen.getByText(/\+373/)).toBeInTheDocument();
     expect(screen.getByText(/contact@expertcont\.md/i)).toBeInTheDocument();
-  });
-
-  it("newsletter form: typing email + submit calls onNewsletterSubscribe and shows subscribed state on success", async () => {
-    const handler = vi.fn().mockResolvedValue(true);
-    renderWithI18n(footer({ locale: "ro", onNewsletterSubscribe: handler }));
-
-    const input = screen.getByRole("textbox", { name: /email/i });
-    fireEvent.change(input, { target: { value: "test@example.com" } });
-
-    const btn = screen.getByRole("button", { name: /subscribe/i });
-    fireEvent.click(btn);
-
-    expect(handler).toHaveBeenCalledWith("test@example.com");
-    expect(await screen.findByText(/subscribed/i)).toBeInTheDocument();
-  });
-
-  it("newsletter form: does not flip to subscribed when handler resolves false", async () => {
-    const handler = vi.fn().mockResolvedValue(false);
-    renderWithI18n(footer({ locale: "ro", onNewsletterSubscribe: handler }));
-
-    const input = screen.getByRole("textbox", { name: /email/i });
-    fireEvent.change(input, { target: { value: "test@example.com" } });
-    fireEvent.click(screen.getByRole("button", { name: /subscribe/i }));
-
-    await handler.mock.results[0]?.value;
-    expect(screen.queryByText(/subscribed/i)).not.toBeInTheDocument();
   });
 
   it("shows current year in the bottom bar", () => {

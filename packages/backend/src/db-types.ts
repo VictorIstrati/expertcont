@@ -327,48 +327,6 @@ export type Database = {
           },
         ];
       };
-      newsletter_subscribers: {
-        Row: {
-          confirmation_token: string | null;
-          confirmed_at: string | null;
-          created_at: string;
-          email: string;
-          id: string;
-          ip_hash: string | null;
-          language: Database["public"]["Enums"]["language"];
-          source_url: string | null;
-          status: Database["public"]["Enums"]["newsletter_status"];
-          unsubscribed_at: string | null;
-          user_agent: string | null;
-        };
-        Insert: {
-          confirmation_token?: string | null;
-          confirmed_at?: string | null;
-          created_at?: string;
-          email: string;
-          id?: string;
-          ip_hash?: string | null;
-          language: Database["public"]["Enums"]["language"];
-          source_url?: string | null;
-          status?: Database["public"]["Enums"]["newsletter_status"];
-          unsubscribed_at?: string | null;
-          user_agent?: string | null;
-        };
-        Update: {
-          confirmation_token?: string | null;
-          confirmed_at?: string | null;
-          created_at?: string;
-          email?: string;
-          id?: string;
-          ip_hash?: string | null;
-          language?: Database["public"]["Enums"]["language"];
-          source_url?: string | null;
-          status?: Database["public"]["Enums"]["newsletter_status"];
-          unsubscribed_at?: string | null;
-          user_agent?: string | null;
-        };
-        Relationships: [];
-      };
       quote_translations: {
         Row: {
           language: Database["public"]["Enums"]["language"];
@@ -523,7 +481,6 @@ export type Database = {
     };
     Enums: {
       language: "ro" | "ru" | "en";
-      newsletter_status: "pending" | "confirmed" | "unsubscribed" | "bounced";
       submission_status: "new" | "in_progress" | "done" | "spam";
     };
     CompositeTypes: {
@@ -651,7 +608,6 @@ export const Constants = {
   public: {
     Enums: {
       language: ["ro", "ru", "en"],
-      newsletter_status: ["pending", "confirmed", "unsubscribed", "bounced"],
       submission_status: ["new", "in_progress", "done", "spam"],
     },
   },

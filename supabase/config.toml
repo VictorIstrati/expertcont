@@ -373,8 +373,6 @@ deno_version = 2
 verify_jwt = false
 [functions.submit-review]
 verify_jwt = false
-[functions.submit-newsletter]
-verify_jwt = false
 [functions.submit-book-a-call]
 verify_jwt = false
 [functions.submit-faq-question]

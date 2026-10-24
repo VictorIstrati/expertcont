@@ -2,7 +2,6 @@ import type {
   BookACallInput,
   ContactInput,
   FaqQuestionInput,
-  NewsletterInput,
   QuoteInput,
   ReviewInput,
   SubmitResult,
@@ -30,10 +29,6 @@ export class BackendClient {
 
   submitBookACall(input: BookACallInput): Promise<SubmitResult> {
     return this.call("submit-book-a-call", input);
-  }
-
-  submitNewsletter(input: NewsletterInput): Promise<SubmitResult> {
-    return this.call("submit-newsletter", input);
   }
 
   submitFaqQuestion(input: FaqQuestionInput): Promise<SubmitResult> {

@@ -7,7 +7,6 @@ export {
   type ContactInput,
   type ReviewInput,
   type BookACallInput,
-  type NewsletterInput,
   type FaqQuestionInput,
   type QuoteInput,
   type QuoteItem,

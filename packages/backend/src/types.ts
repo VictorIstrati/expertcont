@@ -34,12 +34,6 @@ export type BookACallInput = {
   source_url?: string;
 };
 
-export type NewsletterInput = {
-  language?: Language;
-  email: string;
-  source_url?: string;
-};
-
 export type FaqQuestionInput = {
   language?: Language;
   name: string;
