@@ -61,19 +61,26 @@ const content: ContentMap = {
         },
         {
           h: "2. Ce date colectăm",
-          t: "Prin formularele site-ului (contact, programare, ofertă, întrebări și recenzii) colectăm numele, adresa de e-mail, telefonul și mesajul pe care ni-l trimiți. Pentru fiecare trimitere păstrăm și pagina de pe care a fost trimisă, tipul de browser și o amprentă pseudonimizată a adresei IP, calculată cu o cheie secretă (HMAC), pe care o păstrăm doar pentru a putea identifica trimiterile abuzive; adresa IP propriu-zisă nu o stocăm. Pentru clienții cu contract prelucrăm datele companiei și documentele financiare și juridice transmise, inclusiv datele salariale ale angajaților lor. Nu cerem date sensibile prin site. Câmpurile marcate cu * sunt obligatorii: în formularele de contact, programare și ofertă avem nevoie de nume și telefon ca să te putem suna înapoi, iar adresa de e-mail este opțională; pentru întrebările din secțiunea de întrebări frecvente avem nevoie de e-mail, pentru că răspunsul se trimite pe e-mail. Fără datele obligatorii nu putem da curs solicitării; datele opționale ne ajută doar să te contactăm pe canalul preferat.",
+          t: "Prin formularele site-ului (contact, programare, ofertă, întrebări și recenzii) colectăm numele, adresa de e-mail, telefonul și mesajul pe care ni-l trimiți. Pentru fiecare trimitere păstrăm și pagina de pe care a fost trimisă, tipul de browser și o valoare pseudonimizată a adresei IP, calculată cu o cheie secretă (HMAC) și utilizată exclusiv pentru identificarea trimiterilor abuzive; adresa IP nu este stocată. Pentru clienții cu contract prelucrăm datele companiei și documentele financiare și juridice transmise, inclusiv datele salariale ale angajaților lor. Nu cerem date sensibile prin site. Câmpurile marcate cu * sunt obligatorii: în formularele de contact, programare și ofertă avem nevoie de nume și telefon ca să te putem suna înapoi, iar adresa de e-mail este opțională; pentru întrebările din secțiunea de întrebări frecvente avem nevoie de e-mail, pentru că răspunsul se trimite pe e-mail. Fără datele obligatorii nu putem da curs solicitării; datele opționale ne ajută doar să te contactăm pe canalul preferat.",
         },
         {
           h: "3. Scopuri și temei legal",
           t: "(a) Să răspundem la solicitări și să pregătim o ofertă, la cererea ta, înainte de încheierea unui contract. (b) Executarea contractului de servicii contabile, juridice și de consultanță. (c) Îndeplinirea obligațiilor legale: evidență contabilă, raportare fiscală, audit. (d) Analiza utilizării site-ului, doar cu consimțământul dat în bannerul de cookie-uri, pe care îl poți retrage oricând. (e) Securitatea site-ului și prevenirea abuzurilor, în baza interesului nostru legitim.",
         },
         {
-          h: "4. Cui transmitem datele",
-          t: "Lucrăm cu furnizori care prelucrează datele în numele nostru, doar pentru scopurile de mai sus: Supabase (baza de date și formularele site-ului), Cloudflare (găzduirea site-ului), Zoho Cliq (notificări interne către echipă despre solicitările noi) și Google (Google Analytics și Google Tag Manager, doar cu acordul tău). Nu vindem datele și nu le transmitem în scopuri comerciale. Le putem transmite autorităților doar atunci când legea o cere.",
+          h: "4. Destinatarii datelor",
+          t: "Datele sunt transmise numai în măsura necesară scopurilor de mai sus, către următoarele categorii de destinatari:",
+          items: [
+            "furnizori de servicii de găzduire și infrastructură (Cloudflare, Supabase), care asigură funcționarea site-ului și stocarea datelor transmise prin formulare;",
+            "furnizori de servicii de e-mail și comunicare internă (Zoho), prin intermediul cărora echipa este notificată despre solicitările noi și se transmit răspunsurile;",
+            "furnizori de servicii de analiză a traficului (Google), numai cu consimțământul exprimat prin bannerul de cookie-uri;",
+            "autorități publice, numai atunci când transmiterea este impusă de lege.",
+          ],
+          note: "Furnizorii care prelucrează date în numele operatorului acționează în baza unui contract și a instrucțiunilor acestuia. Datele cu caracter personal nu sunt comercializate și nu sunt transmise terților în scopuri de marketing.",
         },
         {
           h: "5. Transferuri în afara Republicii Moldova și a UE",
-          t: "Unii furnizori (Google, Cloudflare) pot prelucra date în afara Republicii Moldova și a Uniunii Europene, inclusiv în SUA. În aceste cazuri ne bazăm pe garanțiile oferite de furnizori, precum clauzele contractuale standard aprobate de Comisia Europeană sau certificarea EU-U.S. Data Privacy Framework. Baza de date Supabase este găzduită în Frankfurt, Germania (Uniunea Europeană), iar notificările Zoho Cliq sunt găzduite în centrele de date Zoho din Uniunea Europeană.",
+          t: "Unii furnizori (Google, Cloudflare) pot prelucra date în afara Republicii Moldova și a Uniunii Europene, inclusiv în SUA. În aceste cazuri ne bazăm pe garanțiile oferite de furnizori, precum clauzele contractuale standard aprobate de Comisia Europeană sau certificarea EU-U.S. Data Privacy Framework. Baza de date Supabase este găzduită în Frankfurt, Germania (Uniunea Europeană), iar serviciile Zoho utilizate sunt găzduite în centre de date din Uniunea Europeană.",
         },
         {
           h: "6. Stocare și securitate",
@@ -81,11 +88,11 @@ const content: ContentMap = {
         },
         {
           h: "7. Cât timp păstrăm datele",
-          t: "Solicitările trimise prin site: 12 luni de la trimitere; dacă devii client, datele necesare trec în dosarul tău de client. Datele clienților și documentele contabile: pe durata contractului și 10 ani după încheierea lui, conform legislației contabile și fiscale din Republica Moldova. Recenziile nepublicate: 12 luni; recenziile publicate: până când ne ceri să le retragem. Ștergerea solicitărilor expirate se face automat, zilnic. Datele de analiză: cel mult 14 luni în Google Analytics. La expirarea termenului, datele sunt șterse în siguranță.",
+          t: "Solicitările transmise prin site: 12 luni de la data transmiterii; în cazul încheierii unui contract, datele necesare se transferă în dosarul clientului. Datele clienților și documentele contabile: pe durata contractului și 10 ani după încheierea lui, conform legislației contabile și fiscale din Republica Moldova. Recenziile nepublicate: 12 luni; recenziile publicate: până când ne ceri să le retragem. Ștergerea solicitărilor expirate se face automat, zilnic. Datele de analiză: cel mult 14 luni în Google Analytics. La expirarea termenului, datele sunt șterse în siguranță.",
         },
         {
           h: "8. Drepturile tale",
-          t: `Ai dreptul de acces, rectificare, ștergere, restricționare a prelucrării, portabilitate și opoziție, precum și dreptul de a-ți retrage oricând consimțământul, fără a afecta prelucrarea anterioară. Ai și dreptul de a nu face obiectul unei decizii bazate exclusiv pe prelucrare automată și de a cere intervenția unui specialist. Pentru a le exercita, scrie-ne la ${DPO_EMAIL}; răspundem în cel mult o lună, termen care poate fi prelungit cu încă două luni în cazurile complexe, cu informarea ta. Îți putem cere doar informațiile strict necesare pentru a-ți verifica identitatea. Poți depune o plângere la Centrul Național pentru Protecția Datelor cu Caracter Personal al Republicii Moldova sau, dacă locuiești în Uniunea Europeană, la autoritatea de protecție a datelor din țara ta.`,
+          t: `Ai dreptul de acces, rectificare, ștergere, restricționare a prelucrării, portabilitate și opoziție, precum și dreptul de a-ți retrage oricând consimțământul, fără a afecta prelucrarea anterioară. Ai și dreptul de a nu face obiectul unei decizii bazate exclusiv pe prelucrare automată și de a cere intervenția unui specialist. Pentru a le exercita, scrie-ne la ${DPO_EMAIL}; răspundem în cel mult o lună, termen care poate fi prelungit cu încă două luni în cazurile complexe, cu informarea ta. Pentru verificarea identității pot fi solicitate numai informațiile strict necesare. Poți depune o plângere la Centrul Național pentru Protecția Datelor cu Caracter Personal al Republicii Moldova sau, dacă locuiești în Uniunea Europeană, la autoritatea de protecție a datelor din țara ta.`,
         },
         {
           h: "9. Calculul estimativ al prețului",
@@ -96,8 +103,8 @@ const content: ContentMap = {
           t: "Prelucrăm datele conform Legii nr. 195/2024 privind protecția datelor cu caracter personal a Republicii Moldova și, pentru persoanele din Uniunea Europeană, conform Regulamentului (UE) 2016/679 (GDPR).",
         },
         {
-          h: "11. Politica generală privind datele personale",
-          t: "Această pagină acoperă site-ul. Cum prelucrăm datele clienților, ale persoanelor din dosare, ale candidaților și ale partenerilor, inclusiv verificările obligatorii de prevenire a spălării banilor, găsești în politica noastră generală.",
+          h: "11. Politica privind prelucrarea datelor cu caracter personal",
+          t: "Prezenta politică se referă la prelucrările efectuate prin intermediul site-ului. Prelucrarea datelor clienților, ale persoanelor implicate în dosare, ale candidaților și ale partenerilor, inclusiv verificările efectuate în temeiul legislației privind prevenirea spălării banilor, este reglementată de Politica privind prelucrarea datelor cu caracter personal.",
           link: {
             section: "dataProtection",
             label: "Politica privind prelucrarea datelor cu caracter personal",
@@ -188,19 +195,26 @@ const content: ContentMap = {
         },
         {
           h: "2. Какие данные мы собираем",
-          t: "Через формы на сайте (контакт, запись, расчёт стоимости, вопросы и отзывы) мы получаем имя, адрес электронной почты, телефон и ваше сообщение. Для каждой отправки мы также сохраняем страницу, с которой она отправлена, тип браузера и псевдонимизированный отпечаток IP-адреса, вычисленный с секретным ключом (HMAC), который мы храним только для выявления злоупотреблений; сам IP-адрес мы не храним. Для клиентов по договору мы обрабатываем данные компании и переданные финансовые и юридические документы, в том числе данные о зарплатах их сотрудников. Через сайт мы не запрашиваем чувствительные данные. Поля, отмеченные *, обязательны: в формах контакта, записи и расчёта стоимости нам нужны имя и телефон, чтобы перезвонить вам, а адрес электронной почты необязателен; для вопросов в разделе частых вопросов нужен e-mail, потому что ответ приходит по почте. Без обязательных данных мы не сможем обработать запрос; необязательные данные лишь помогают связаться с вами удобным способом.",
+          t: "Через формы на сайте (контакт, запись, расчёт стоимости, вопросы и отзывы) мы получаем имя, адрес электронной почты, телефон и ваше сообщение. Для каждой отправки мы также сохраняем страницу, с которой она отправлена, тип браузера и псевдонимизированное значение IP-адреса, вычисленное с использованием секретного ключа (HMAC) и используемое исключительно для выявления злоупотреблений; IP-адрес не сохраняется. Для клиентов по договору мы обрабатываем данные компании и переданные финансовые и юридические документы, в том числе данные о зарплатах их сотрудников. Через сайт мы не запрашиваем чувствительные данные. Поля, отмеченные *, обязательны: в формах контакта, записи и расчёта стоимости нам нужны имя и телефон, чтобы перезвонить вам, а адрес электронной почты необязателен; для вопросов в разделе частых вопросов нужен e-mail, потому что ответ приходит по почте. Без обязательных данных мы не сможем обработать запрос; необязательные данные лишь помогают связаться с вами удобным способом.",
         },
         {
           h: "3. Цели и правовые основания",
           t: "(а) Ответ на ваш запрос и подготовка предложения — по вашей просьбе, до заключения договора. (б) Исполнение договора на бухгалтерские, юридические и консалтинговые услуги. (в) Выполнение требований закона: бухгалтерский учёт, налоговая отчётность, аудит. (г) Аналитика использования сайта — только с согласия, данного в баннере cookie, которое можно отозвать в любой момент. (д) Безопасность сайта и защита от злоупотреблений — на основании нашего законного интереса.",
         },
         {
-          h: "4. Кому мы передаём данные",
-          t: "Мы работаем с поставщиками, которые обрабатывают данные от нашего имени и только для указанных целей: Supabase (база данных и формы сайта), Cloudflare (хостинг сайта), Zoho Cliq (внутренние уведомления команде о новых заявках) и Google (Google Analytics и Google Tag Manager, только с вашего согласия). Мы не продаём данные и не передаём их в коммерческих целях. Мы можем передать их государственным органам только тогда, когда этого требует закон.",
+          h: "4. Получатели данных",
+          t: "Данные передаются только в объёме, необходимом для указанных выше целей, следующим категориям получателей:",
+          items: [
+            "поставщикам услуг хостинга и инфраструктуры (Cloudflare, Supabase), обеспечивающим работу сайта и хранение данных, переданных через формы;",
+            "поставщикам услуг электронной почты и внутренней связи (Zoho), посредством которых команда получает уведомления о новых обращениях и направляются ответы;",
+            "поставщикам услуг аналитики посещаемости (Google) — только при наличии согласия, выраженного в баннере cookie;",
+            "органам публичной власти — только в случаях, когда передача требуется по закону.",
+          ],
+          note: "Поставщики, обрабатывающие данные от имени оператора, действуют на основании договора и его инструкций. Персональные данные не продаются и не передаются третьим лицам в маркетинговых целях.",
         },
         {
           h: "5. Передача за пределы Республики Молдова и ЕС",
-          t: "Некоторые поставщики (Google, Cloudflare) могут обрабатывать данные за пределами Республики Молдова и Европейского союза, в том числе в США. В таких случаях мы опираемся на гарантии поставщиков, например стандартные договорные положения, утверждённые Европейской комиссией, или сертификацию EU-U.S. Data Privacy Framework. База данных Supabase размещена во Франкфурте, Германия (Европейский союз), а уведомления Zoho Cliq хранятся в центрах обработки данных Zoho в Европейском союзе.",
+          t: "Некоторые поставщики (Google, Cloudflare) могут обрабатывать данные за пределами Республики Молдова и Европейского союза, в том числе в США. В таких случаях мы опираемся на гарантии поставщиков, например стандартные договорные положения, утверждённые Европейской комиссией, или сертификацию EU-U.S. Data Privacy Framework. База данных Supabase размещена во Франкфурте, Германия (Европейский союз), а используемые сервисы Zoho размещены в центрах обработки данных в Европейском союзе.",
         },
         {
           h: "6. Хранение и безопасность",
@@ -208,11 +222,11 @@ const content: ContentMap = {
         },
         {
           h: "7. Сколько мы храним данные",
-          t: "Заявки с сайта: 12 месяцев с момента отправки; если вы станете клиентом, нужные данные перейдут в ваше клиентское дело. Данные клиентов и бухгалтерские документы: в течение срока договора и 10 лет после его окончания, как требует бухгалтерское и налоговое законодательство Республики Молдова. Неопубликованные отзывы: 12 месяцев; опубликованные отзывы: пока вы не попросите их снять. Удаление просроченных заявок происходит автоматически, ежедневно. Данные аналитики: не более 14 месяцев в Google Analytics. По истечении срока данные надёжно удаляются.",
+          t: "Обращения, направленные через сайт: 12 месяцев с даты направления; в случае заключения договора необходимые данные переносятся в дело клиента. Данные клиентов и бухгалтерские документы: в течение срока договора и 10 лет после его окончания, как требует бухгалтерское и налоговое законодательство Республики Молдова. Неопубликованные отзывы: 12 месяцев; опубликованные отзывы: пока вы не попросите их снять. Удаление просроченных заявок происходит автоматически, ежедневно. Данные аналитики: не более 14 месяцев в Google Analytics. По истечении срока данные надёжно удаляются.",
         },
         {
           h: "8. Ваши права",
-          t: `Вы имеете право на доступ, исправление, удаление, ограничение обработки, переносимость данных и возражение, а также право в любой момент отозвать согласие, что не влияет на законность обработки до отзыва. Вы также имеете право не подвергаться решению, основанному исключительно на автоматизированной обработке, и потребовать участия специалиста. Чтобы воспользоваться этими правами, напишите на ${DPO_EMAIL}; мы отвечаем не позднее чем через месяц, а в сложных случаях срок может быть продлён ещё на два месяца с уведомлением вас. Мы можем запросить только сведения, строго необходимые для подтверждения вашей личности. Вы можете подать жалобу в Национальный центр по защите персональных данных Республики Молдова или, если вы живёте в Европейском союзе, в орган по защите данных вашей страны.`,
+          t: `Вы имеете право на доступ, исправление, удаление, ограничение обработки, переносимость данных и возражение, а также право в любой момент отозвать согласие, что не влияет на законность обработки до отзыва. Вы также имеете право не подвергаться решению, основанному исключительно на автоматизированной обработке, и потребовать участия специалиста. Чтобы воспользоваться этими правами, напишите на ${DPO_EMAIL}; мы отвечаем не позднее чем через месяц, а в сложных случаях срок может быть продлён ещё на два месяца с уведомлением вас. Для подтверждения личности могут запрашиваться только строго необходимые сведения. Вы можете подать жалобу в Национальный центр по защите персональных данных Республики Молдова или, если вы живёте в Европейском союзе, в орган по защите данных вашей страны.`,
         },
         {
           h: "9. Предварительный расчёт стоимости",
@@ -223,8 +237,8 @@ const content: ContentMap = {
           t: "Мы обрабатываем данные в соответствии с Законом Республики Молдова № 195/2024 о защите персональных данных, а для лиц из Европейского союза — в соответствии с Регламентом (ЕС) 2016/679 (GDPR).",
         },
         {
-          h: "11. Общая политика обработки персональных данных",
-          t: "Эта страница касается сайта. Как мы обрабатываем данные клиентов, участников дел, кандидатов и партнёров, включая обязательные проверки по предотвращению отмывания денег, описано в нашей общей политике.",
+          h: "11. Политика обработки персональных данных",
+          t: "Настоящая политика распространяется на обработку данных посредством сайта. Обработка данных клиентов, лиц, участвующих в делах, кандидатов и партнёров, включая проверки в соответствии с законодательством о предупреждении отмывания денег, регулируется Политикой обработки персональных данных.",
           link: { section: "dataProtection", label: "Политика обработки персональных данных" },
         },
       ],
@@ -312,19 +326,26 @@ const content: ContentMap = {
         },
         {
           h: "2. What data we collect",
-          t: "Through the forms on this site (contact, booking, quote, questions and reviews) we collect your name, email address, phone number and the message you send. For each submission we also keep the page it was sent from, your browser type and a pseudonymised fingerprint of your IP address, computed with a secret key (HMAC), which we keep only to identify abusive submissions; we don't store the IP address itself. For clients under contract we process company data and the financial and legal documents they send, including their employees' payroll data. We don't ask for sensitive data through the site. Fields marked * are required: in the contact, booking and quote forms we need your name and phone number so we can call you back, and your email address is optional; for FAQ questions we need your email, because the answer is sent by email. Without the required data we can't handle your request; optional data only helps us reach you on your preferred channel.",
+          t: "Through the forms on this site (contact, booking, quote, questions and reviews) we collect your name, email address, phone number and the message you send. For each submission we also keep the page it was sent from, your browser type and a pseudonymised value of your IP address, computed with a secret key (HMAC) and used solely to identify abusive submissions; the IP address itself is not stored. For clients under contract we process company data and the financial and legal documents they send, including their employees' payroll data. We don't ask for sensitive data through the site. Fields marked * are required: in the contact, booking and quote forms we need your name and phone number so we can call you back, and your email address is optional; for FAQ questions we need your email, because the answer is sent by email. Without the required data we can't handle your request; optional data only helps us reach you on your preferred channel.",
         },
         {
           h: "3. Purposes and legal basis",
           t: "(a) Replying to your request and preparing an offer, at your request, before any contract. (b) Performing our contract for accounting, legal and consulting services. (c) Meeting legal obligations: bookkeeping, tax reporting, audit. (d) Analysing how the site is used, only with the consent you give in the cookie banner, which you can withdraw at any time. (e) Keeping the site secure and preventing abuse, based on our legitimate interest.",
         },
         {
-          h: "4. Who we share data with",
-          t: "We work with providers who process data on our behalf, only for the purposes above: Supabase (database and site forms), Cloudflare (site hosting), Zoho Cliq (internal notifications to our team about new requests) and Google (Google Analytics and Google Tag Manager, only with your consent). We don't sell data or share it for commercial purposes. We may share it with authorities only when the law requires it.",
+          h: "4. Recipients of personal data",
+          t: "Personal data is disclosed only to the extent necessary for the purposes set out above, to the following categories of recipients:",
+          items: [
+            "hosting and infrastructure providers (Cloudflare, Supabase), which operate the website and store the data submitted through its forms;",
+            "email and internal communication providers (Zoho), through which the team is notified of new requests and replies are sent;",
+            "web analytics providers (Google), only with the consent given in the cookie banner;",
+            "public authorities, only where disclosure is required by law.",
+          ],
+          note: "Providers that process data on the controller's behalf act under a contract and in accordance with its instructions. Personal data is not sold and is not disclosed to third parties for marketing purposes.",
         },
         {
           h: "5. Transfers outside Moldova and the EU",
-          t: "Some providers (Google, Cloudflare) may process data outside the Republic of Moldova and the European Union, including in the United States. In these cases we rely on the providers' safeguards, such as the European Commission's standard contractual clauses or EU-U.S. Data Privacy Framework certification. The Supabase database is hosted in Frankfurt, Germany (European Union), and Zoho Cliq notifications are hosted in Zoho's European Union data centres.",
+          t: "Some providers (Google, Cloudflare) may process data outside the Republic of Moldova and the European Union, including in the United States. In these cases we rely on the providers' safeguards, such as the European Commission's standard contractual clauses or EU-U.S. Data Privacy Framework certification. The Supabase database is hosted in Frankfurt, Germany (European Union), and the Zoho services used are hosted in European Union data centres.",
         },
         {
           h: "6. Storage and security",
@@ -332,11 +353,11 @@ const content: ContentMap = {
         },
         {
           h: "7. How long we keep data",
-          t: "Requests sent through the site: 12 months from submission; if you become a client, the data we need moves into your client file. Client data and accounting documents: for the duration of the contract and 10 years after it ends, as Moldovan accounting and tax law requires. Unpublished reviews: 12 months; published reviews: until you ask us to remove them. Expired requests are deleted automatically every day. Analytics data: at most 14 months in Google Analytics. When the period ends, data is securely deleted.",
+          t: "Requests submitted through the website: 12 months from the date of submission; where a contract is concluded, the necessary data is transferred to the client file. Client data and accounting documents: for the duration of the contract and 10 years after it ends, as Moldovan accounting and tax law requires. Unpublished reviews: 12 months; published reviews: until you ask us to remove them. Expired requests are deleted automatically every day. Analytics data: at most 14 months in Google Analytics. When the period ends, data is securely deleted.",
         },
         {
           h: "8. Your rights",
-          t: `You have the right to access, rectify and erase your data, to restrict its processing, to data portability and to object, and the right to withdraw your consent at any time without affecting earlier processing. You also have the right not to be subject to a decision based solely on automated processing and to ask for a specialist to step in. To exercise these rights, email ${DPO_EMAIL}; we reply within one month, which may be extended by two more months for complex requests, in which case we'll tell you. We may ask only for the information strictly needed to verify your identity. You can lodge a complaint with the National Center for Personal Data Protection of the Republic of Moldova or, if you live in the European Union, with the data protection authority in your country.`,
+          t: `You have the right to access, rectify and erase your data, to restrict its processing, to data portability and to object, and the right to withdraw your consent at any time without affecting earlier processing. You also have the right not to be subject to a decision based solely on automated processing and to ask for a specialist to step in. To exercise these rights, email ${DPO_EMAIL}; we reply within one month, which may be extended by two more months for complex requests, in which case we'll tell you. Only the information strictly necessary to verify the requester's identity may be requested. You can lodge a complaint with the National Center for Personal Data Protection of the Republic of Moldova or, if you live in the European Union, with the data protection authority in your country.`,
         },
         {
           h: "9. Price estimates",
@@ -347,9 +368,9 @@ const content: ContentMap = {
           t: "We process data under the Republic of Moldova's Law No. 195/2024 on personal data protection and, for people in the European Union, under Regulation (EU) 2016/679 (GDPR).",
         },
         {
-          h: "11. General data protection policy",
-          t: "This page covers the website. How we process the data of clients, people involved in client files, job candidates and partners, including mandatory anti-money laundering checks, is set out in our general policy.",
-          link: { section: "dataProtection", label: "Data Protection Policy" },
+          h: "11. Personal Data Processing Policy",
+          t: "This policy covers processing carried out through the website. The processing of the data of clients, persons involved in client files, job applicants and partners, including checks carried out under anti-money laundering legislation, is governed by the Personal Data Processing Policy.",
+          link: { section: "dataProtection", label: "Personal Data Processing Policy" },
         },
       ],
       questionsTitle: "Have Questions?",
@@ -457,6 +478,16 @@ export default function LegalIsland({ locale, kind, contactHref }: LegalIslandPr
                 <div key={i}>
                   <h3 className="mb-3 text-xl font-bold text-text-primary">{s.h}</h3>
                   <p className="text-base leading-relaxed text-text-secondary">{s.t}</p>
+                  {s.items && (
+                    <ol className="mt-3 flex list-[lower-alpha] flex-col gap-1.5 pl-6 text-base leading-relaxed text-text-secondary">
+                      {s.items.map((item, j) => (
+                        <li key={j}>{item}</li>
+                      ))}
+                    </ol>
+                  )}
+                  {s.note && (
+                    <p className="mt-3 text-base leading-relaxed text-text-secondary">{s.note}</p>
+                  )}
                   {s.link && (
                     <a
                       href={sectionUrl(s.link.section, locale)}

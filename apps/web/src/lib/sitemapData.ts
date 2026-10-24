@@ -36,7 +36,7 @@ const sectionLabels: Record<Exclude<SectionKey, "sitemap">, Record<Locale, strin
   dataProtection: {
     ro: "Politica privind datele personale",
     ru: "Политика обработки персональных данных",
-    en: "Data protection policy",
+    en: "Personal data processing policy",
   },
   terms: { ro: "Termeni și condiții", ru: "Условия", en: "Terms" },
   cookies: { ro: "Politica cookies", ru: "Политика cookies", en: "Cookies" },

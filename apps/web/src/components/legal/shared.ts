@@ -12,6 +12,8 @@ export const ADDR_EN = `${site.business.address.street.en}, ${site.business.addr
 export interface LegalSection {
   h: string;
   t: string;
+  items?: string[];
+  note?: string;
   link?: { section: SectionKey; label: string };
 }
 
